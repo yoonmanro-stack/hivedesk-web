@@ -300,3 +300,57 @@ CREATE POLICY "members_select_own_tasks"
       WHERE user_id = (SELECT id FROM users WHERE telegram_id = (auth.uid())::bigint)
     )
   );
+
+-- ============================================================
+-- ⑧ hired_skills (v2 — SkillsMuse 34카테고리 + quality_grade 연동)
+-- HiveDesk 임원이 채용한 AI 팀원(스킬) 이력 관리
+-- SkillsMuse의 quality_grade(A/B/C/D) 연동으로 인재 품질 추적
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS hired_skills (
+  id              UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          TEXT         NOT NULL,
+  hired_by        TEXT         NOT NULL,
+  assigned_exec   VARCHAR(16)  NOT NULL DEFAULT 'cto'
+                    CHECK (assigned_exec IN ('ceo','cto','cmo','cpo','cfo','cs','cdo','coo')),
+  skill_id        TEXT,
+  skill_name      VARCHAR(200) NOT NULL,
+  skill_category  VARCHAR(100) NOT NULL,
+  difficulty      VARCHAR(16)  NOT NULL DEFAULT 'intermediate'
+                    CHECK (difficulty IN ('beginner','intermediate','advanced')),
+  quality_score   SMALLINT     NOT NULL DEFAULT 0
+                    CHECK (quality_score BETWEEN 0 AND 100),
+  -- SkillsMuse v3.1 grade 시스템 (A=최우선, B=중요, C=일반, D=저우선)
+  quality_grade   CHAR(1)      NOT NULL DEFAULT 'C'
+                    CHECK (quality_grade IN ('A','B','C','D')),
+  status          VARCHAR(16)  NOT NULL DEFAULT 'active'
+                    CHECK (status IN ('active','inactive','fired')),
+  hired_at        TIMESTAMPTZ  NOT NULL DEFAULT now(),
+  updated_at      TIMESTAMPTZ  NOT NULL DEFAULT now(),
+
+  CONSTRAINT hired_skills_name_not_empty CHECK (trim(skill_name) <> ),
+  CONSTRAINT hired_skills_category_not_empty CHECK (trim(skill_category) <> )
+);
+
+CREATE INDEX IF NOT EXISTS idx_hired_skills_org_exec   ON hired_skills (org_id, assigned_exec, status);
+CREATE INDEX IF NOT EXISTS idx_hired_skills_org_id     ON hired_skills (org_id);
+CREATE INDEX IF NOT EXISTS idx_hired_skills_grade      ON hired_skills (quality_grade);
+CREATE INDEX IF NOT EXISTS idx_hired_skills_hired_at   ON hired_skills (hired_at DESC);
+
+CREATE TRIGGER trg_hired_skills_updated_at
+  BEFORE UPDATE ON hired_skills
+  FOR EACH ROW EXECUTE FUNCTION trigger_set_updated_at();
+
+ALTER TABLE hired_skills ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "service_role_all_hired_skills"
+  ON hired_skills FOR ALL TO service_role
+  USING (true) WITH CHECK (true);
+
+CREATE POLICY "members_select_own_hired_skills"
+  ON hired_skills FOR SELECT TO authenticated
+  USING (org_id IN (
+    SELECT om.org_id::text FROM organization_members om
+    JOIN users u ON u.id = om.user_id
+    WHERE u.telegram_id = (auth.uid())::bigint
+  ));
