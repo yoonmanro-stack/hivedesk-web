@@ -1,0 +1,83 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="55%" r="60%">
+      <stop offset="0%" stop-color="#64748B" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <circle cx="200" cy="200" r="200" fill="#0F0F0F"/>
+  <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
+
+  <!-- Three-piece suit body -->
+  <path d="M50 400 Q65 288 148 266 Q172 257 200 255 Q228 257 252 266 Q335 288 350 400Z" fill="#0F1A2A"/>
+  <!-- Suit jacket (darker) -->
+  <path d="M148 266 Q120 278 95 308 Q80 332 78 368" fill="none"/>
+  <!-- Jacket lapels -->
+  <path d="M180 268 Q164 282 156 312 Q172 296 190 294 L186 268Z" fill="#162236"/>
+  <path d="M220 268 Q236 282 244 312 Q228 296 210 294 L214 268Z" fill="#162236"/>
+  <!-- SUIT VEST - key identifier -->
+  <path d="M186 270 Q200 262 214 270 L216 328 Q200 335 184 328Z" fill="#1E3050"/>
+  <!-- Vest buttons - prominent -->
+  <circle cx="200" cy="282" r="3.5" fill="#94A3B8"/>
+  <circle cx="200" cy="296" r="3.5" fill="#94A3B8"/>
+  <circle cx="200" cy="310" r="3.5" fill="#94A3B8"/>
+  <circle cx="200" cy="324" r="3.5" fill="#94A3B8"/>
+  <!-- Vest lapels -->
+  <path d="M186 270 Q192 278 196 282 Q198 285 200 286" stroke="#2A4060" stroke-width="1.5" fill="none"/>
+  <path d="M214 270 Q208 278 204 282 Q202 285 200 286" stroke="#2A4060" stroke-width="1.5" fill="none"/>
+  <!-- White shirt collar -->
+  <path d="M188 270 Q200 263 212 270 Q207 278 200 280 Q193 278 188 270Z" fill="#F5F5F8"/>
+  <!-- POCKET SQUARE -->
+  <path d="M152 275 Q157 268 163 270 Q162 278 158 282Z" fill="#94A3B8"/>
+
+  <!-- Neck -->
+  <path d="M184 254 Q200 248 216 254 L214 268 Q200 262 186 268Z" fill="#E8C49A"/>
+
+  <!-- Head -->
+  <ellipse cx="200" cy="190" rx="71" ry="75" fill="#E8C49A"/>
+
+  <!-- Ears -->
+  <ellipse cx="129" cy="197" rx="10" ry="14" fill="#DDB07A"/>
+  <ellipse cx="271" cy="197" rx="10" ry="14" fill="#DDB07A"/>
+
+  <!-- Hair - perfectly neat, impeccably groomed -->
+  <path d="M129 168 Q133 120 200 117 Q267 120 271 168 Q260 134 233 128 Q213 124 200 125 Q182 126 163 132 Q140 141 129 168Z" fill="#1A1212"/>
+  <!-- Perfect side part - razor sharp -->
+  <path d="M175 125 Q178 118 182 122 L184 135" stroke="#111" stroke-width="3" fill="none"/>
+  <!-- Neat combed lines -->
+  <path d="M182 125 Q200 120 220 125" stroke="#2A1A1A" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Eyebrows - precise, formal -->
+  <path d="M161 182 Q174 177 187 181" stroke="#1A1212" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+  <path d="M213 181 Q226 177 239 182" stroke="#1A1212" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes - precise, formal -->
+  <ellipse cx="174" cy="194" rx="12" ry="10" fill="#fff"/>
+  <ellipse cx="174" cy="194" rx="7" ry="6.5" fill="#1A1A2E"/>
+  <circle cx="176.5" cy="191.5" r="2.3" fill="#fff"/>
+
+  <ellipse cx="226" cy="194" rx="12" ry="10" fill="#fff"/>
+  <ellipse cx="226" cy="194" rx="7" ry="6.5" fill="#1A1A2E"/>
+  <circle cx="228.5" cy="191.5" r="2.3" fill="#fff"/>
+
+  <!-- Nose -->
+  <path d="M196 210 Q200 220 204 210" stroke="#C9906A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Formal neutral expression -->
+  <path d="M184 231 Q200 237 216 231" stroke="#A07050" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- FOUNTAIN PEN - key identifier, held prominently -->
+  <g transform="translate(248 215) rotate(35)">
+    <!-- Pen body -->
+    <rect x="0" y="0" width="12" height="72" rx="6" fill="#1E3050"/>
+    <rect x="1" y="1" width="10" height="70" rx="5" fill="#243658"/>
+    <!-- Pen clip -->
+    <path d="M10 5 L12 8 L12 65 L10 65" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+    <!-- Pen band -->
+    <rect x="0" y="22" width="12" height="5" rx="0" fill="#94A3B8"/>
+    <!-- Pen nib tip -->
+    <path d="M2 72 Q6 80 10 72 L8 68 Q6 72 4 68Z" fill="#C0C8D8"/>
+    <!-- Gold nib detail -->
+    <path d="M4 72 Q6 76 8 72" stroke="#F59E0B" stroke-width="1.5" fill="none" opacity="0.8"/>
+  </g>
+</svg>

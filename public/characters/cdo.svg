@@ -1,0 +1,72 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#F472B6" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <circle cx="200" cy="200" r="200" fill="#0F0F0F"/>
+  <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
+
+  <!-- Oversized shirt body -->
+  <path d="M50 400 Q65 285 145 265 Q168 256 200 254 Q232 256 255 265 Q335 285 350 400Z" fill="#1F2937"/>
+  <!-- Shirt collar - oversized, relaxed -->
+  <path d="M160 268 Q200 255 240 268 Q230 290 215 298 Q200 302 185 298 Q170 290 160 268Z" fill="#374151"/>
+  <!-- Collar open detail -->
+  <path d="M185 268 Q200 258 215 268" fill="none" stroke="#4B5563" stroke-width="2"/>
+
+  <!-- Neck -->
+  <path d="M183 252 Q200 246 217 252 L215 268 Q200 262 185 268Z" fill="#F0C8A8"/>
+
+  <!-- Head -->
+  <ellipse cx="200" cy="190" rx="70" ry="74" fill="#F0C8A8"/>
+
+  <!-- Ears -->
+  <ellipse cx="130" cy="197" rx="10" ry="13" fill="#DEB898"/>
+  <ellipse cx="270" cy="197" rx="10" ry="13" fill="#DEB898"/>
+
+  <!-- Hair - medium, with beret on top -->
+  <path d="M130 172 Q134 130 200 128 Q266 130 270 172 Q252 145 228 140 Q213 137 200 138 Q182 139 165 143 Q143 150 130 172Z" fill="#2D1B12"/>
+
+  <!-- BERET - key identifier -->
+  <!-- Beret base circle -->
+  <ellipse cx="200" cy="128" rx="78" ry="28" fill="#EC4899"/>
+  <!-- Beret dome -->
+  <path d="M122 128 Q128 75 200 70 Q272 75 278 128 Q250 108 200 105 Q150 108 122 128Z" fill="#F472B6"/>
+  <!-- Beret band -->
+  <path d="M122 128 Q160 140 200 141 Q240 140 278 128 Q278 135 200 138 Q122 135 122 128Z" fill="#DB2777"/>
+  <!-- Beret top knot -->
+  <circle cx="200" cy="70" r="8" fill="#DB2777"/>
+  <circle cx="200" cy="68" r="5" fill="#F9A8D4"/>
+
+  <!-- Eyebrows - stylish arched -->
+  <path d="M163 181 Q175 175 187 179" stroke="#2D1B12" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M213 179 Q225 175 237 181" stroke="#2D1B12" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes - creative, slightly wider set -->
+  <ellipse cx="174" cy="193" rx="12.5" ry="10.5" fill="#fff"/>
+  <ellipse cx="174" cy="193" rx="7.5" ry="7.5" fill="#3D1A4A"/>
+  <circle cx="176.5" cy="190.5" r="2.5" fill="#fff"/>
+
+  <ellipse cx="226" cy="193" rx="12.5" ry="10.5" fill="#fff"/>
+  <ellipse cx="226" cy="193" rx="7.5" ry="7.5" fill="#3D1A4A"/>
+  <circle cx="228.5" cy="190.5" r="2.5" fill="#fff"/>
+
+  <!-- Lashes hint -->
+  <path d="M162 188 Q174 183 186 188" stroke="#2D1B12" stroke-width="2" fill="none"/>
+  <path d="M214 188 Q226 183 238 188" stroke="#2D1B12" stroke-width="2" fill="none"/>
+
+  <!-- Nose -->
+  <path d="M196 208 Q200 217 204 208" stroke="#D4956A" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Smile - creative, confident -->
+  <path d="M181 228 Q200 238 219 228" stroke="#A0604A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- HEADSET/EARPHONES - design tool prop -->
+  <!-- Left ear cup -->
+  <path d="M128 190 Q122 195 122 205 Q122 215 128 218" stroke="#F472B6" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- Right ear cup -->
+  <path d="M272 190 Q278 195 278 205 Q278 215 272 218" stroke="#F472B6" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- Headband arc over beret -->
+  <path d="M122 192 Q135 150 200 148 Q265 150 278 192" stroke="#EC4899" stroke-width="4" fill="none"/>
+</svg>
