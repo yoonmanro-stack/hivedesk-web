@@ -41,21 +41,35 @@ export default function LandingPage() {
         </h1>
 
         {/* Sub-headline */}
-        <p className="fade-in-up fade-in-up-delay-3 max-w-xl text-base md:text-lg text-[#F5F0E8]/50 leading-relaxed mb-10">
+        <p className="fade-in-up fade-in-up-delay-3 max-w-xl text-base md:text-lg text-[#F5F0E8]/50 leading-relaxed mb-2">
           지시만 내리고 밥 먹으러 가세요. AI들이 밤새 일하고
           <br className="hidden md:block" />
           결과만 텔레그램으로 보고합니다.
         </p>
+        <p className="fade-in-up fade-in-up-delay-3 max-w-xl text-sm text-amber-400/50 leading-relaxed mb-8">
+          직원 관리는 단톡방에서, 서버 관리는 AI가.
+        </p>
 
         {/* Telegram CTA — 실제 Login Widget */}
         <div className="fade-in-up fade-in-up-delay-4 flex flex-col items-center gap-3 mb-4">
+          <a
+            href="https://t.me/HiveDeskBot"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="cta-pulse flex items-center gap-3 bg-amber-400 hover:bg-amber-300 text-[#0D0D0D] font-bold text-sm px-8 py-4 rounded-xl transition-colors duration-200"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.99l-2.93-.916c-.637-.204-.65-.637.136-.943l11.435-4.41c.53-.194.993.131.083.5z" />
+            </svg>
+            🐝 텔레그램으로 시작하기
+          </a>
+          <p className="text-xs text-[#F5F0E8]/25 tracking-wide">
+            No email. No password. No BS.
+          </p>
           <TelegramLoginButton
             botName="hivedesk_bot"
             authUrl={`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/auth/telegram/callback`}
           />
-          <p className="text-xs text-[#F5F0E8]/25 tracking-wide">
-            No email. No password. No BS.
-          </p>
         </div>
 
         {/* Social proof hint */}
@@ -149,7 +163,10 @@ export default function LandingPage() {
         <p className="text-2xl md:text-3xl font-bold text-shimmer mb-10">
           서버 관리는 AI가.
         </p>
-        <button
+        <a
+          href="https://t.me/HiveDeskBot"
+          target="_blank"
+          rel="noopener noreferrer"
           className="cta-pulse flex items-center gap-3 mx-auto bg-amber-400 hover:bg-amber-300 text-[#0D0D0D] font-bold text-sm px-8 py-4 rounded-xl transition-colors duration-200 cursor-pointer"
         >
           <svg
@@ -160,8 +177,8 @@ export default function LandingPage() {
           >
             <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.99l-2.93-.916c-.637-.204-.65-.637.136-.943l11.435-4.41c.53-.194.993.131.083.5z" />
           </svg>
-          지금 무료로 시작하기 · 7일 트라이얼
-        </button>
+          🐝 지금 무료로 시작하기 · 7일 트라이얼
+        </a>
       </section>
 
       {/* ── FOOTER ── */}

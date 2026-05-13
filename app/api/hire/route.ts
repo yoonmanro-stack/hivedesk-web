@@ -3,9 +3,10 @@ import { createServiceClient } from '@/lib/supabase'
 
 // ── 요금제별 채용 제한 ──────────────────────────────
 const PLAN_LIMITS: Record<string, number> = {
-  free: 0,        // 채용 불가
-  pro: 5,         // 임원당 5명
-  premium: 9999,  // 사실상 무제한
+  free:    0,     // 채용 불가
+  starter: 5,     // 임원당 5명
+  pro:     5,     // 임원당 5명
+  vvip:    9999,  // 사실상 무제한
 }
 
 // ── GET: 채용 가능 여부 확인 ─────────────────────────
@@ -90,9 +91,18 @@ export async function POST(req: NextRequest) {
 
     const supabase = createServiceClient()
 
-    // MVP: 기본 pro 플랜 (추후 organization 연동)
-    const plan = 'pro'
-    const limit = PLAN_LIMITS[plan] ?? 5
+    const { data: org } = await supabase
+      .from('organizations')
+      .select('plan')
+      .eq('id', org_id)
+      .single()
+
+    const plan = (org?.plan as string) ?? 'free'
+    const limit = PLAN_LIMITS[plan] ?? 0
+
+    if (limit === 0) {
+      return NextResponse.json({ success: false, message: 'Pro 요금제로 업그레이드하면 팀원을 채용할 수 있습니다.' }, { status: 403 })
+    }
 
     const { count } = await supabase
       .from('hired_skills')

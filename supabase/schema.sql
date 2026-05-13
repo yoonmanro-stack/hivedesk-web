@@ -309,8 +309,8 @@ CREATE POLICY "members_select_own_tasks"
 
 CREATE TABLE IF NOT EXISTS hired_skills (
   id              UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
-  org_id          TEXT         NOT NULL,
-  hired_by        TEXT         NOT NULL,
+  org_id          UUID         NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  hired_by        UUID         NOT NULL REFERENCES users(id),
   assigned_exec   VARCHAR(16)  NOT NULL DEFAULT 'cto'
                     CHECK (assigned_exec IN ('ceo','cto','cmo','cpo','cfo','cs','cdo','coo')),
   skill_id        TEXT,
@@ -321,15 +321,15 @@ CREATE TABLE IF NOT EXISTS hired_skills (
   quality_score   SMALLINT     NOT NULL DEFAULT 0
                     CHECK (quality_score BETWEEN 0 AND 100),
   -- SkillsMuse v3.1 grade 시스템 (A=최우선, B=중요, C=일반, D=저우선)
-  quality_grade   CHAR(1)      NOT NULL DEFAULT 'C'
+  quality_grade   VARCHAR(2)   NOT NULL DEFAULT 'C'
                     CHECK (quality_grade IN ('A','B','C','D')),
   status          VARCHAR(16)  NOT NULL DEFAULT 'active'
-                    CHECK (status IN ('active','inactive','fired')),
+                    CHECK (status IN ('active','suspended','dismissed')),
   hired_at        TIMESTAMPTZ  NOT NULL DEFAULT now(),
   updated_at      TIMESTAMPTZ  NOT NULL DEFAULT now(),
 
-  CONSTRAINT hired_skills_name_not_empty CHECK (trim(skill_name) <> ),
-  CONSTRAINT hired_skills_category_not_empty CHECK (trim(skill_category) <> )
+  CONSTRAINT hired_skills_name_not_empty     CHECK (trim(skill_name) <> ''),
+  CONSTRAINT hired_skills_category_not_empty CHECK (trim(skill_category) <> '')
 );
 
 CREATE INDEX IF NOT EXISTS idx_hired_skills_org_exec   ON hired_skills (org_id, assigned_exec, status);

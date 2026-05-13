@@ -131,3 +131,19 @@ body {
 .fade-in-up-delay-3 { animation-delay: 0.4s; opacity: 0; }
 .fade-in-up-delay-4 { animation-delay: 0.55s; opacity: 0; }
 .fade-in-up-delay-5 { animation-delay: 0.7s; opacity: 0; }
+
+/* Safe-area bottom padding for iPhone home indicator (viewport-fit=cover) */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pb-safe-5 {
+  padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+}
+.pb-safe-6 {
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Removes 300ms tap delay on mobile */
+.tap-fast {
+  touch-action: manipulation;
+}

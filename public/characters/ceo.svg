@@ -1,0 +1,56 @@
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="55%" r="60%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    </radialGradient>
+  </defs>
+  <circle cx="200" cy="200" r="200" fill="#0F0F0F"/>
+  <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
+
+  <!-- Turtleneck body -->
+  <path d="M60 400 Q80 300 150 282 Q175 274 200 272 Q225 274 250 282 Q320 300 340 400Z" fill="#1A1A1A"/>
+  <!-- Turtleneck collar -->
+  <path d="M158 284 Q200 268 242 284 L238 318 Q200 302 162 318Z" fill="#252525"/>
+  <path d="M158 284 Q200 272 242 284 Q242 291 200 294 Q158 291 158 284Z" fill="#333"/>
+
+  <!-- Neck -->
+  <path d="M183 258 Q200 252 217 258 L215 284 Q200 278 185 284Z" fill="#E0B88A"/>
+
+  <!-- Head -->
+  <ellipse cx="200" cy="195" rx="73" ry="78" fill="#E8C49A"/>
+
+  <!-- Ears -->
+  <ellipse cx="127" cy="202" rx="11" ry="15" fill="#DDB07A"/>
+  <ellipse cx="273" cy="202" rx="11" ry="15" fill="#DDB07A"/>
+
+  <!-- Hair - dark, sleek side-part -->
+  <path d="M127 168 Q130 115 200 112 Q268 115 273 168 Q260 140 230 138 Q210 135 190 136 Q160 138 127 168Z" fill="#1A1212"/>
+  <path d="M127 168 Q140 150 170 148 Q190 147 200 149" stroke="#2A1A1A" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Eyebrows - sharp, strong -->
+  <path d="M160 183 Q172 177 186 181" stroke="#1A1212" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M214 181 Q228 177 240 183" stroke="#1A1212" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes - sharp, confident -->
+  <ellipse cx="173" cy="197" rx="12" ry="9.5" fill="#fff"/>
+  <ellipse cx="173" cy="197" rx="7.5" ry="7" fill="#2C1A0E"/>
+  <circle cx="175" cy="194" r="2.5" fill="#fff"/>
+  <path d="M161 191 Q173 186 185 191" stroke="#1A1212" stroke-width="2" fill="none"/>
+
+  <ellipse cx="227" cy="197" rx="12" ry="9.5" fill="#fff"/>
+  <ellipse cx="227" cy="197" rx="7.5" ry="7" fill="#2C1A0E"/>
+  <circle cx="229" cy="194" r="2.5" fill="#fff"/>
+  <path d="M215 191 Q227 186 239 191" stroke="#1A1212" stroke-width="2" fill="none"/>
+
+  <!-- Nose -->
+  <path d="M196 213 Q200 224 204 213" stroke="#C9906A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Smirk - confident -->
+  <path d="M181 234 Q195 242 210 234" stroke="#A0704A" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M205 234 Q212 231 215 235" stroke="#A0704A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- CEO gold accent dot on collar -->
+  <circle cx="200" cy="296" r="5" fill="#F59E0B" opacity="0.9"/>
+  <circle cx="200" cy="296" r="3" fill="#FCD34D"/>
+</svg>

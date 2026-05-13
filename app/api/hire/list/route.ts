@@ -1,15 +1,20 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase'
 
-// GET: 조직의 채용된 팀원 목록 (임원별)
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const orgId = req.nextUrl.searchParams.get('org_id')
+
+  if (!orgId) {
+    return NextResponse.json({ skills: [], error: 'org_id 필요' }, { status: 400 })
+  }
+
   try {
     const supabase = createServiceClient()
 
-    // 모든 활성 hired_skills 가져오기 (추후 org_id 필터 추가)
     const { data, error } = await supabase
       .from('hired_skills')
       .select('id, assigned_exec, skill_id, skill_name, skill_category, difficulty, quality_score, status, created_at')
+      .eq('org_id', orgId)
       .eq('status', 'active')
       .order('created_at', { ascending: false })
 

@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { createHmac, createHash } from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase'
