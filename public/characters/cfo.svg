@@ -1,80 +1,53 @@
-<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="55%" r="60%">
-      <stop offset="0%" stop-color="#10B981" stop-opacity="0.28"/>
-      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    <clipPath id="bc">
+      <ellipse cx="50" cy="68" rx="22" ry="26"/>
+    </clipPath>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <circle cx="200" cy="200" r="200" fill="#0F0F0F"/>
-  <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
-
-  <!-- Suit jacket - arms crossed posture -->
-  <path d="M48 400 Q62 290 145 268 Q170 259 200 257 Q230 259 255 268 Q338 290 352 400Z" fill="#0F2318"/>
-  <!-- Left arm crossed -->
-  <path d="M145 268 Q120 280 100 305 Q88 325 85 355 Q110 340 130 315 Q150 290 165 275Z" fill="#0F2318"/>
-  <!-- Right arm on top (crossed) -->
-  <path d="M255 268 Q285 278 305 300 Q320 325 318 360 Q295 342 275 318 Q255 294 240 278Z" fill="#163420"/>
-  <!-- Arms crossing detail -->
-  <path d="M145 290 Q175 295 210 290 Q240 286 265 290 Q270 300 265 308 Q235 304 200 308 Q168 312 135 308 Q130 300 145 290Z" fill="#163420"/>
-
-  <!-- White shirt and TIE -->
-  <path d="M178 268 Q200 260 222 268 L218 295 Q200 288 182 295Z" fill="#F0F8F0"/>
-  <!-- Tie - key identifier -->
-  <path d="M195 268 Q200 262 205 268 L210 295 Q205 300 200 302 Q195 300 190 295Z" fill="#10B981"/>
-  <!-- Tie knot -->
-  <path d="M194 268 Q200 264 206 268 Q203 274 200 276 Q197 274 194 268Z" fill="#059669"/>
-  <!-- Tie stripe detail -->
-  <line x1="197" y1="278" x2="203" y2="278" stroke="#34D399" stroke-width="1.5" opacity="0.6"/>
-  <line x1="196" y1="285" x2="204" y2="285" stroke="#34D399" stroke-width="1" opacity="0.4"/>
-
-  <!-- Suit lapels -->
-  <path d="M178 268 Q162 280 152 308 Q168 292 185 290 L182 268Z" fill="#163420"/>
-  <path d="M222 268 Q238 280 248 308 Q232 292 215 290 L218 268Z" fill="#163420"/>
-
-  <!-- Neck -->
-  <path d="M183 254 Q200 248 217 254 L215 268 Q200 262 185 268Z" fill="#E8C49A"/>
-
+  <!-- Glow bg -->
+  <circle cx="50" cy="55" r="44" fill="url(#glow)"/>
+  <!-- Wings -->
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(22,74,53)"/>
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(22,74,53)"/>
+  <!-- Body -->
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="#F5A623"/>
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Stripes -->
+  <rect x="28" y="62" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <rect x="28" y="74" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <!-- Stinger -->
+  <ellipse cx="50" cy="93" rx="4" ry="2.5" fill="#1A1208"/>
   <!-- Head -->
-  <ellipse cx="200" cy="190" rx="71" ry="75" fill="#E8C49A"/>
-
-  <!-- Ears -->
-  <ellipse cx="129" cy="197" rx="10" ry="14" fill="#DDB07A"/>
-  <ellipse cx="271" cy="197" rx="10" ry="14" fill="#DDB07A"/>
-
-  <!-- Hair - neat, short, professional -->
-  <path d="M129 168 Q133 122 200 119 Q267 122 271 168 Q258 136 230 130 Q212 126 200 127 Q182 128 163 133 Q140 142 129 168Z" fill="#1A1212"/>
-  <!-- Clean hairline -->
-  <path d="M180 127 Q200 122 220 128" stroke="#2A1A1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-  <!-- THIN METAL GLASSES - key identifier -->
-  <!-- Left lens - rectangular thin frames -->
-  <rect x="152" y="186" width="44" height="28" rx="4" stroke="#A0A0A0" stroke-width="2.5" fill="none"/>
-  <rect x="152" y="186" width="44" height="28" rx="4" fill="#10B981" fill-opacity="0.05"/>
-  <!-- Right lens -->
-  <rect x="204" y="186" width="44" height="28" rx="4" stroke="#A0A0A0" stroke-width="2.5" fill="none"/>
-  <rect x="204" y="186" width="44" height="28" rx="4" fill="#10B981" fill-opacity="0.05"/>
-  <!-- Bridge - thin metal -->
-  <line x1="196" y1="200" x2="204" y2="200" stroke="#A0A0A0" stroke-width="2" stroke-linecap="round"/>
-  <!-- Temple arms -->
-  <line x1="152" y1="200" x2="129" y2="200" stroke="#A0A0A0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="248" y1="200" x2="271" y2="200" stroke="#A0A0A0" stroke-width="2" stroke-linecap="round"/>
-
-  <!-- Eyes behind glasses - cold, analytical -->
-  <ellipse cx="174" cy="200" rx="9" ry="7" fill="#fff"/>
-  <ellipse cx="174" cy="200" rx="5.5" ry="5.5" fill="#1A1A2E"/>
-  <circle cx="176" cy="198" r="1.8" fill="#fff"/>
-
-  <ellipse cx="226" cy="200" rx="9" ry="7" fill="#fff"/>
-  <ellipse cx="226" cy="200" rx="5.5" ry="5.5" fill="#1A1A2E"/>
-  <circle cx="228" cy="198" r="1.8" fill="#fff"/>
-
-  <!-- Eyebrows - flat, analytical, barely visible above glasses -->
-  <path d="M155 183 Q174 178 193 181" stroke="#1A1212" stroke-width="3" stroke-linecap="round" fill="none"/>
-  <path d="M207 181 Q226 178 245 183" stroke="#1A1212" stroke-width="3" stroke-linecap="round" fill="none"/>
-
-  <!-- Nose -->
-  <path d="M196 215 Q200 224 204 215" stroke="#C9906A" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-  <!-- Cold, straight expression -->
-  <path d="M183 234 Q200 237 217 234" stroke="#A07050" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <circle cx="50" cy="42" r="18" fill="#F5A623"/>
+  <circle cx="50" cy="42" r="18" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Antennae -->
+  <line x1="44" y1="26" x2="39" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="38" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <line x1="56" y1="26" x2="61" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="62" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <!-- Eyes -->
+  <ellipse cx="43" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <ellipse cx="57" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <circle cx="44.5" cy="39.2" r="1.6" fill="white"/>
+  <circle cx="58.5" cy="39.2" r="1.6" fill="white"/>
+  <!-- Smile -->
+  <path d="M44 49 Q50 56 56 49" stroke="#1A1208" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Cheeks -->
+  <circle cx="37" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  <circle cx="63" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  
+  <!-- Money bag -->
+  <g transform="translate(73,79)">
+    <ellipse cx="0" cy="3" rx="10" ry="10" fill="#10B981" stroke="#1A1208" stroke-width="1.2"/>
+    <path d="M-4,-7 C-4,-12 4,-12 4,-7 C6,-7 6,-5 4,-5 L-4,-5 C-6,-5 -6,-7 -4,-7 Z" fill="#10B981" stroke="#1A1208" stroke-width="1.2"/>
+    <line x1="0" y1="-2" x2="0" y2="8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-3" y1="1" x2="3" y2="1" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-3" y1="5" x2="3" y2="5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  </g>
 </svg>

@@ -1,88 +1,52 @@
-<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="55%" r="60%">
-      <stop offset="0%" stop-color="#F97316" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    <clipPath id="bc">
+      <ellipse cx="50" cy="68" rx="22" ry="26"/>
+    </clipPath>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F97316" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#F97316" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <circle cx="200" cy="200" r="200" fill="#0F0F0F"/>
-  <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
-
-  <!-- Button-up shirt body -->
-  <path d="M58 400 Q75 292 150 272 Q172 263 200 261 Q228 263 250 272 Q325 292 342 400Z" fill="#1A2035"/>
-  <!-- Shirt front placket -->
-  <rect x="193" y="272" width="14" height="90" fill="#1E2845"/>
-  <!-- Shirt buttons -->
-  <circle cx="200" cy="288" r="3" fill="#374151"/>
-  <circle cx="200" cy="306" r="3" fill="#374151"/>
-  <circle cx="200" cy="324" r="3" fill="#374151"/>
-  <!-- Collar -->
-  <path d="M165 272 Q185 262 200 260 Q215 262 235 272 Q225 288 215 292 Q200 296 185 292 Q175 288 165 272Z" fill="#F8F8FF"/>
-  <path d="M165 272 L185 280 Q193 284 200 286 Q207 284 215 280 L235 272" fill="none" stroke="#E8E8F0" stroke-width="1.5"/>
-
-  <!-- Neck -->
-  <path d="M184 254 Q200 248 216 254 L214 272 Q200 266 186 272Z" fill="#F0C8A8"/>
-
+  <!-- Glow bg -->
+  <circle cx="50" cy="55" r="44" fill="url(#glow)"/>
+  <!-- Wings -->
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(22,74,53)"/>
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(22,74,53)"/>
+  <!-- Body -->
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="#F5A623"/>
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Stripes -->
+  <rect x="28" y="62" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <rect x="28" y="74" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <!-- Stinger -->
+  <ellipse cx="50" cy="93" rx="4" ry="2.5" fill="#1A1208"/>
   <!-- Head -->
-  <ellipse cx="200" cy="190" rx="70" ry="74" fill="#F0C8A8"/>
-
-  <!-- Ears -->
-  <ellipse cx="130" cy="197" rx="10" ry="13" fill="#DEB898"/>
-  <ellipse cx="270" cy="197" rx="10" ry="13" fill="#DEB898"/>
-
-  <!-- Hair - pulled back, neat bun/ponytail at back -->
-  <path d="M130 168 Q134 125 200 122 Q266 125 270 168 Q255 140 228 135 Q212 131 200 132 Q183 133 165 138 Q143 146 130 168Z" fill="#2D1810"/>
-  <!-- Hair pulled back sides smooth -->
-  <path d="M130 168 Q135 145 148 140 Q138 158 133 174Z" fill="#2D1810"/>
-  <path d="M270 168 Q265 145 252 140 Q262 158 267 174Z" fill="#2D1810"/>
-  <!-- Subtle highlights -->
-  <path d="M175 132 Q200 127 222 134" stroke="#4A2820" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-  <!-- Eyebrows - organized, neat -->
-  <path d="M162 181 Q174 176 186 179" stroke="#2A1808" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-  <path d="M214 179 Q226 176 238 181" stroke="#2A1808" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-
-  <!-- Eyes - focused, organized -->
-  <ellipse cx="174" cy="193" rx="12" ry="10" fill="#fff"/>
-  <ellipse cx="174" cy="193" rx="7" ry="6.5" fill="#2C1A0E"/>
-  <circle cx="176.5" cy="190.5" r="2.3" fill="#fff"/>
-
-  <ellipse cx="226" cy="193" rx="12" ry="10" fill="#fff"/>
-  <ellipse cx="226" cy="193" rx="7" ry="6.5" fill="#2C1A0E"/>
-  <circle cx="228.5" cy="190.5" r="2.3" fill="#fff"/>
-
-  <!-- Nose -->
-  <path d="M196 209 Q200 219 204 209" stroke="#D4956A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-  <!-- Confident focused expression -->
-  <path d="M183 230 Q200 238 217 230" stroke="#A07050" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-  <!-- LANYARD/BADGE - key identifier -->
-  <!-- Lanyard string left side -->
-  <path d="M178 282 Q162 310 158 340" stroke="#F97316" stroke-width="3.5" fill="none"/>
-  <!-- Lanyard string right side -->
-  <path d="M178 282 Q188 312 186 340" stroke="#F97316" stroke-width="3.5" fill="none"/>
-  <!-- ID Badge -->
-  <rect x="152" y="340" width="40" height="30" rx="4" fill="#1E2845" stroke="#F97316" stroke-width="2"/>
-  <!-- Badge photo placeholder -->
-  <rect x="156" y="344" width="12" height="14" rx="2" fill="#F97316" fill-opacity="0.4"/>
-  <!-- Badge lines -->
-  <line x1="172" y1="347" x2="188" y2="347" stroke="#F97316" stroke-width="1.5" opacity="0.6"/>
-  <line x1="172" y1="353" x2="186" y2="353" stroke="#F97316" stroke-width="1" opacity="0.4"/>
-  <line x1="172" y1="358" x2="184" y2="358" stroke="#F97316" stroke-width="1" opacity="0.3"/>
-
-  <!-- SMALL DIARY/NOTEBOOK - additional prop hint -->
-  <g transform="translate(235 290)">
-    <rect x="0" y="0" width="38" height="48" rx="3" fill="#2D3B55" stroke="#F97316" stroke-width="1.5"/>
-    <!-- Spiral binding -->
-    <circle cx="4" cy="8" r="3" fill="none" stroke="#F97316" stroke-width="1.5"/>
-    <circle cx="4" cy="18" r="3" fill="none" stroke="#F97316" stroke-width="1.5"/>
-    <circle cx="4" cy="28" r="3" fill="none" stroke="#F97316" stroke-width="1.5"/>
-    <circle cx="4" cy="38" r="3" fill="none" stroke="#F97316" stroke-width="1.5"/>
-    <!-- Page lines -->
-    <line x1="10" y1="12" x2="32" y2="12" stroke="#F97316" stroke-width="1" opacity="0.5"/>
-    <line x1="10" y1="20" x2="32" y2="20" stroke="#F97316" stroke-width="1" opacity="0.5"/>
-    <line x1="10" y1="28" x2="32" y2="28" stroke="#F97316" stroke-width="1" opacity="0.5"/>
-    <line x1="10" y1="36" x2="28" y2="36" stroke="#F97316" stroke-width="1" opacity="0.5"/>
+  <circle cx="50" cy="42" r="18" fill="#F5A623"/>
+  <circle cx="50" cy="42" r="18" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Antennae -->
+  <line x1="44" y1="26" x2="39" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="38" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <line x1="56" y1="26" x2="61" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="62" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <!-- Eyes -->
+  <ellipse cx="43" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <ellipse cx="57" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <circle cx="44.5" cy="39.2" r="1.6" fill="white"/>
+  <circle cx="58.5" cy="39.2" r="1.6" fill="white"/>
+  <!-- Smile -->
+  <path d="M44 49 Q50 56 56 49" stroke="#1A1208" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Cheeks -->
+  <circle cx="37" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  <circle cx="63" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  
+  <!-- Handshake badge -->
+  <g transform="translate(73,79)">
+    <circle cx="0" cy="0" r="11" fill="#F97316" stroke="#1A1208" stroke-width="1.2"/>
+    <path d="M-6,-2 C-3,-5 3,-5 6,-2 L5,3 C2,0 -2,0 -5,3 Z" fill="white"/>
+    <circle cx="-2" cy="3" r="2" fill="white" opacity="0.8"/>
+    <circle cx="2" cy="3" r="2" fill="white" opacity="0.8"/>
   </g>
 </svg>

@@ -1,79 +1,52 @@
-<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="55%" r="60%">
-      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    <clipPath id="bc">
+      <ellipse cx="50" cy="68" rx="22" ry="26"/>
+    </clipPath>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <circle cx="200" cy="200" r="200" fill="#0F0F0F"/>
-  <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
-
-  <!-- Black hoodie body -->
-  <path d="M50 400 Q70 290 140 270 Q168 260 200 258 Q232 260 260 270 Q330 290 350 400Z" fill="#111"/>
-  <!-- Hoodie front pocket -->
-  <path d="M150 320 Q200 312 250 320 L250 370 Q200 365 150 370Z" fill="#1A1A1A"/>
-  <!-- Hoodie drawstrings -->
-  <line x1="188" y1="268" x2="175" y2="310" stroke="#222" stroke-width="3"/>
-  <line x1="212" y1="268" x2="225" y2="310" stroke="#222" stroke-width="3"/>
-  <!-- Drawstring knot circles -->
-  <circle cx="174" cy="312" r="4" fill="#333"/>
-  <circle cx="226" cy="312" r="4" fill="#333"/>
-  <!-- Hood -->
-  <path d="M140 270 Q150 220 200 218 Q250 220 260 270 Q230 255 200 252 Q170 255 140 270Z" fill="#161616"/>
-
-  <!-- Neck -->
-  <path d="M183 254 Q200 248 217 254 L215 270 Q200 265 185 270Z" fill="#E0B88A"/>
-
+  <!-- Glow bg -->
+  <circle cx="50" cy="55" r="44" fill="url(#glow)"/>
+  <!-- Wings -->
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(22,74,53)"/>
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(22,74,53)"/>
+  <!-- Body -->
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="#F5A623"/>
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Stripes -->
+  <rect x="28" y="62" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <rect x="28" y="74" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <!-- Stinger -->
+  <ellipse cx="50" cy="93" rx="4" ry="2.5" fill="#1A1208"/>
   <!-- Head -->
-  <ellipse cx="200" cy="193" rx="72" ry="75" fill="#E8C49A"/>
-
-  <!-- Ears -->
-  <ellipse cx="128" cy="200" rx="10" ry="14" fill="#DDB07A"/>
-  <ellipse cx="272" cy="200" rx="10" ry="14" fill="#DDB07A"/>
-
-  <!-- Messy hair - dark -->
-  <path d="M128 170 Q132 118 200 115 Q268 118 272 170 Q255 138 235 132 Q215 128 200 130 Q175 130 155 136 Q135 143 128 170Z" fill="#111"/>
-  <!-- Hair tufts (messy) -->
-  <path d="M155 136 Q160 125 168 130 Q162 135 158 142Z" fill="#111"/>
-  <path d="M225 132 Q232 122 240 128 Q236 134 230 140Z" fill="#111"/>
-  <path d="M195 130 Q200 120 207 127 Q202 132 198 138Z" fill="#111"/>
-
-  <!-- THICK ROUND GLASSES - key identifier -->
-  <!-- Left glass frame -->
-  <circle cx="170" cy="198" r="22" stroke="#1A1A1A" stroke-width="7" fill="none"/>
-  <circle cx="170" cy="198" r="22" stroke="#333" stroke-width="2" fill="#0D1117" fill-opacity="0.7"/>
-  <!-- Right glass frame -->
-  <circle cx="230" cy="198" r="22" stroke="#1A1A1A" stroke-width="7" fill="none"/>
-  <circle cx="230" cy="198" r="22" stroke="#333" stroke-width="2" fill="#0D1117" fill-opacity="0.7"/>
-  <!-- Bridge -->
-  <path d="M192 198 L208 198" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
-  <!-- Temple arms -->
-  <line x1="148" y1="198" x2="128" y2="200" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
-  <line x1="252" y1="198" x2="272" y2="200" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
-
-  <!-- Eyes behind glasses - tired but sharp -->
-  <ellipse cx="170" cy="198" rx="9" ry="7.5" fill="#fff"/>
-  <ellipse cx="170" cy="199" rx="5.5" ry="5" fill="#2C1A0E"/>
-  <circle cx="172" cy="197" r="1.8" fill="#fff"/>
-  <!-- Tired lower lid line -->
-  <path d="M161 203 Q170 207 179 203" stroke="#C9906A" stroke-width="1.5" fill="none"/>
-
-  <ellipse cx="230" cy="198" rx="9" ry="7.5" fill="#fff"/>
-  <ellipse cx="230" cy="199" rx="5.5" ry="5" fill="#2C1A0E"/>
-  <circle cx="232" cy="197" r="1.8" fill="#fff"/>
-  <path d="M221 203 Q230 207 239 203" stroke="#C9906A" stroke-width="1.5" fill="none"/>
-
-  <!-- Eyebrows above glasses - tired, slightly furrowed -->
-  <path d="M157 175 Q170 171 183 175" stroke="#1A1212" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-  <path d="M217 175 Q230 171 243 175" stroke="#1A1212" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-
-  <!-- Nose -->
-  <path d="M196 215 Q200 225 204 215" stroke="#C9906A" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-  <!-- Slight tired expression mouth -->
-  <path d="M183 233 Q200 240 217 233" stroke="#A07050" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-  <!-- Blue glow accent on glasses -->
-  <circle cx="170" cy="198" r="22" stroke="#3B82F6" stroke-width="1" fill="none" opacity="0.4"/>
-  <circle cx="230" cy="198" r="22" stroke="#3B82F6" stroke-width="1" fill="none" opacity="0.4"/>
+  <circle cx="50" cy="42" r="18" fill="#F5A623"/>
+  <circle cx="50" cy="42" r="18" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Antennae -->
+  <line x1="44" y1="26" x2="39" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="38" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <line x1="56" y1="26" x2="61" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="62" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <!-- Eyes -->
+  <ellipse cx="43" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <ellipse cx="57" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <circle cx="44.5" cy="39.2" r="1.6" fill="white"/>
+  <circle cx="58.5" cy="39.2" r="1.6" fill="white"/>
+  <!-- Smile -->
+  <path d="M44 49 Q50 56 56 49" stroke="#1A1208" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Cheeks -->
+  <circle cx="37" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  <circle cx="63" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  
+  <!-- Laptop -->
+  <g transform="translate(72,80)">
+    <rect x="-11" y="-9" width="22" height="14" rx="2" fill="#1A1208" stroke="#3B82F6" stroke-width="1.5"/>
+    <rect x="-8" y="-7" width="16" height="10" rx="1" fill="#1E3A5F"/>
+    <rect x="-12" y="5" width="24" height="3" rx="1.5" fill="#1A1208" stroke="#3B82F6" stroke-width="1"/>
+    <text x="-4" y="1" font-size="7" font-family="monospace" fill="#3B82F6" font-weight="bold">&lt;/&gt;</text>
+  </g>
 </svg>

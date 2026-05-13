@@ -1,83 +1,53 @@
-<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="bg" cx="50%" cy="55%" r="60%">
-      <stop offset="0%" stop-color="#64748B" stop-opacity="0.35"/>
-      <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+    <clipPath id="bc">
+      <ellipse cx="50" cy="68" rx="22" ry="26"/>
+    </clipPath>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#EAB308" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#EAB308" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <circle cx="200" cy="200" r="200" fill="#0F0F0F"/>
-  <circle cx="200" cy="200" r="200" fill="url(#bg)"/>
-
-  <!-- Three-piece suit body -->
-  <path d="M50 400 Q65 288 148 266 Q172 257 200 255 Q228 257 252 266 Q335 288 350 400Z" fill="#0F1A2A"/>
-  <!-- Suit jacket (darker) -->
-  <path d="M148 266 Q120 278 95 308 Q80 332 78 368" fill="none"/>
-  <!-- Jacket lapels -->
-  <path d="M180 268 Q164 282 156 312 Q172 296 190 294 L186 268Z" fill="#162236"/>
-  <path d="M220 268 Q236 282 244 312 Q228 296 210 294 L214 268Z" fill="#162236"/>
-  <!-- SUIT VEST - key identifier -->
-  <path d="M186 270 Q200 262 214 270 L216 328 Q200 335 184 328Z" fill="#1E3050"/>
-  <!-- Vest buttons - prominent -->
-  <circle cx="200" cy="282" r="3.5" fill="#94A3B8"/>
-  <circle cx="200" cy="296" r="3.5" fill="#94A3B8"/>
-  <circle cx="200" cy="310" r="3.5" fill="#94A3B8"/>
-  <circle cx="200" cy="324" r="3.5" fill="#94A3B8"/>
-  <!-- Vest lapels -->
-  <path d="M186 270 Q192 278 196 282 Q198 285 200 286" stroke="#2A4060" stroke-width="1.5" fill="none"/>
-  <path d="M214 270 Q208 278 204 282 Q202 285 200 286" stroke="#2A4060" stroke-width="1.5" fill="none"/>
-  <!-- White shirt collar -->
-  <path d="M188 270 Q200 263 212 270 Q207 278 200 280 Q193 278 188 270Z" fill="#F5F5F8"/>
-  <!-- POCKET SQUARE -->
-  <path d="M152 275 Q157 268 163 270 Q162 278 158 282Z" fill="#94A3B8"/>
-
-  <!-- Neck -->
-  <path d="M184 254 Q200 248 216 254 L214 268 Q200 262 186 268Z" fill="#E8C49A"/>
-
+  <!-- Glow bg -->
+  <circle cx="50" cy="55" r="44" fill="url(#glow)"/>
+  <!-- Wings -->
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="rgba(255,255,255,0.7)" transform="rotate(22,74,53)"/>
+  <ellipse cx="26" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(-22,26,53)"/>
+  <ellipse cx="74" cy="53" rx="17" ry="9" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="0.5" transform="rotate(22,74,53)"/>
+  <!-- Body -->
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="#F5A623"/>
+  <ellipse cx="50" cy="68" rx="22" ry="26" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Stripes -->
+  <rect x="28" y="62" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <rect x="28" y="74" width="44" height="7" fill="#1A1208" clip-path="url(#bc)"/>
+  <!-- Stinger -->
+  <ellipse cx="50" cy="93" rx="4" ry="2.5" fill="#1A1208"/>
   <!-- Head -->
-  <ellipse cx="200" cy="190" rx="71" ry="75" fill="#E8C49A"/>
-
-  <!-- Ears -->
-  <ellipse cx="129" cy="197" rx="10" ry="14" fill="#DDB07A"/>
-  <ellipse cx="271" cy="197" rx="10" ry="14" fill="#DDB07A"/>
-
-  <!-- Hair - perfectly neat, impeccably groomed -->
-  <path d="M129 168 Q133 120 200 117 Q267 120 271 168 Q260 134 233 128 Q213 124 200 125 Q182 126 163 132 Q140 141 129 168Z" fill="#1A1212"/>
-  <!-- Perfect side part - razor sharp -->
-  <path d="M175 125 Q178 118 182 122 L184 135" stroke="#111" stroke-width="3" fill="none"/>
-  <!-- Neat combed lines -->
-  <path d="M182 125 Q200 120 220 125" stroke="#2A1A1A" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-  <!-- Eyebrows - precise, formal -->
-  <path d="M161 182 Q174 177 187 181" stroke="#1A1212" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-  <path d="M213 181 Q226 177 239 182" stroke="#1A1212" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-
-  <!-- Eyes - precise, formal -->
-  <ellipse cx="174" cy="194" rx="12" ry="10" fill="#fff"/>
-  <ellipse cx="174" cy="194" rx="7" ry="6.5" fill="#1A1A2E"/>
-  <circle cx="176.5" cy="191.5" r="2.3" fill="#fff"/>
-
-  <ellipse cx="226" cy="194" rx="12" ry="10" fill="#fff"/>
-  <ellipse cx="226" cy="194" rx="7" ry="6.5" fill="#1A1A2E"/>
-  <circle cx="228.5" cy="191.5" r="2.3" fill="#fff"/>
-
-  <!-- Nose -->
-  <path d="M196 210 Q200 220 204 210" stroke="#C9906A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-  <!-- Formal neutral expression -->
-  <path d="M184 231 Q200 237 216 231" stroke="#A07050" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-
-  <!-- FOUNTAIN PEN - key identifier, held prominently -->
-  <g transform="translate(248 215) rotate(35)">
-    <!-- Pen body -->
-    <rect x="0" y="0" width="12" height="72" rx="6" fill="#1E3050"/>
-    <rect x="1" y="1" width="10" height="70" rx="5" fill="#243658"/>
-    <!-- Pen clip -->
-    <path d="M10 5 L12 8 L12 65 L10 65" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
-    <!-- Pen band -->
-    <rect x="0" y="22" width="12" height="5" rx="0" fill="#94A3B8"/>
-    <!-- Pen nib tip -->
-    <path d="M2 72 Q6 80 10 72 L8 68 Q6 72 4 68Z" fill="#C0C8D8"/>
-    <!-- Gold nib detail -->
-    <path d="M4 72 Q6 76 8 72" stroke="#F59E0B" stroke-width="1.5" fill="none" opacity="0.8"/>
+  <circle cx="50" cy="42" r="18" fill="#F5A623"/>
+  <circle cx="50" cy="42" r="18" fill="none" stroke="#1A1208" stroke-width="1.2"/>
+  <!-- Antennae -->
+  <line x1="44" y1="26" x2="39" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="38" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <line x1="56" y1="26" x2="61" y2="16" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="62" cy="14" r="3.2" fill="#F5A623" stroke="#1A1208" stroke-width="1.5"/>
+  <!-- Eyes -->
+  <ellipse cx="43" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <ellipse cx="57" cy="41" rx="4" ry="4.5" fill="#1A1208"/>
+  <circle cx="44.5" cy="39.2" r="1.6" fill="white"/>
+  <circle cx="58.5" cy="39.2" r="1.6" fill="white"/>
+  <!-- Smile -->
+  <path d="M44 49 Q50 56 56 49" stroke="#1A1208" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Cheeks -->
+  <circle cx="37" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  <circle cx="63" cy="47" r="4" fill="#FF8C69" opacity="0.4"/>
+  
+  <!-- Scales of justice -->
+  <g transform="translate(72,79)">
+    <line x1="0" y1="-12" x2="0" y2="8" stroke="#1A1208" stroke-width="2" stroke-linecap="round"/>
+    <line x1="-10" y1="-6" x2="10" y2="-6" stroke="#1A1208" stroke-width="1.5"/>
+    <path d="M-10,-6 L-14,0 L-6,0 Z" fill="none" stroke="#EAB308" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M10,-6 L6,0 L14,0 Z" fill="none" stroke="#EAB308" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="-4" y="8" width="8" height="2.5" rx="1" fill="#1A1208"/>
   </g>
 </svg>
