@@ -21,7 +21,7 @@ const CEO_EXEC = EXECUTIVES[0]
 const REST_EXECS = EXECUTIVES.slice(1)
 
 function execImgSrc(id: string) {
-  return `/characters/${id}.svg`
+  return `/characters/${id}.png`
 }
 
 declare global {
@@ -97,7 +97,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="min-h-screen hero-bg honeycomb-bg relative overflow-hidden">
+    <main className="min-h-screen hero-bg honeycomb-bg relative">
       {/* Header */}
       <header className="border-b border-amber-500/10 backdrop-blur-md bg-[#0D0D0D]/80 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex items-center justify-between">
