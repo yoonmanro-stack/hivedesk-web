@@ -118,8 +118,8 @@ export default function DashboardPage() {
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2">
         {/* Title */}
         <section className={`mb-2 ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
-          <h2 className="text-lg sm:text-2xl font-bold mb-1">🏢 9인 임원 AI</h2>
-          <p className="text-[11px] sm:text-sm text-[#F5F0E8]/70">임원 카드를 터치하면 대화하고 작업을 지시할 수 있습니다</p>
+          <h2 className="text-lg sm:text-2xl font-bold mb-1">🏢 Nine Agent</h2>
+          <p className="text-[11px] sm:text-sm text-[#F5F0E8]/70">9인 임원 AI에게 직접 대화하고 작업을 지시하세요</p>
         </section>
 
         {/* Version Badge */}
