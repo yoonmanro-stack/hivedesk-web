@@ -133,7 +133,7 @@ export default function DashboardPage() {
             onClick={() => handleExecClick(CEO_EXEC)}
             className="tap-fast group glass amber-glow rounded-2xl px-6 py-4 text-center border-amber-500/30 flex flex-col items-center w-full max-w-[220px] sm:max-w-[260px] hover:scale-[1.02] transition-transform active:scale-95"
           >
-            <div className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] rounded-2xl overflow-hidden mb-3 shadow-[0_0_30px_rgba(245,158,11,0.3)]" style={{ background: CEO_EXEC.bgGlow }}>
+            <div className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] rounded-2xl overflow-hidden mb-3 shadow-[0_0_30px_rgba(245,158,11,0.3)]" style={{ background: `linear-gradient(135deg, #111111 60%, ${CEO_EXEC.color}30)` }}>
               <img src={execImgSrc('ceo')} alt="CEO" className="absolute inset-0 w-full h-full object-contain p-2" loading="eager" onError={(e) => imgFallback(e, CEO_EXEC.color)} />
             </div>
             <p className="text-amber-400 font-bold text-sm sm:text-base">👑 CEO</p>
@@ -160,9 +160,9 @@ export default function DashboardPage() {
             >
               <div
                 className="w-full rounded-2xl p-2 sm:p-3 transition-all duration-200 hover:scale-[1.04] active:scale-95 group-hover:shadow-lg border border-white/5"
-                style={{ background: `radial-gradient(ellipse at 50% 0%, ${exec.bgGlow}, rgba(13,13,13,0.9) 70%)`, borderColor: `${exec.color}20` }}
+                style={{ background: `radial-gradient(ellipse at 50% 0%, ${exec.color}20, #0d0d0d 65%)`, borderColor: `${exec.color}20` }}
               >
-                <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-2" style={{ background: exec.bgGlow }}>
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-2" style={{ background: `linear-gradient(135deg, #111111 60%, ${exec.color}25)` }}>
                   <img src={execImgSrc(exec.id)} alt={exec.title} className="absolute inset-0 w-full h-full object-contain p-1" loading="lazy" onError={(e) => imgFallback(e, exec.color)} />
                   <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_4px_rgba(52,211,153,0.8)]"></span>
                 </div>
@@ -189,7 +189,7 @@ export default function DashboardPage() {
               return (
                 <div>
                   <div className="flex items-start gap-4 mb-5">
-                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: `${exec.color}40`, background: exec.bgGlow }}>
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: `${exec.color}40`, background: `linear-gradient(135deg, #111111, ${exec.color}25)` }}>
                       <img src={execImgSrc(exec.id)} alt={exec.title} className="absolute inset-0 w-full h-full object-contain p-1.5" onError={(e) => imgFallback(e, exec.color)} />
                     </div>
                     <div className="flex-1 min-w-0">
