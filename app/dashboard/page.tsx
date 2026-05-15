@@ -133,8 +133,8 @@ export default function DashboardPage() {
             onClick={() => handleExecClick(CEO_EXEC)}
             className="tap-fast group glass amber-glow rounded-2xl px-6 py-4 text-center border-amber-500/30 flex flex-col items-center w-full max-w-[220px] sm:max-w-[260px] hover:scale-[1.02] transition-transform active:scale-95"
           >
-            <div className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] rounded-2xl overflow-hidden mb-3 shadow-[0_0_30px_rgba(245,158,11,0.3)]" style={{ background: `linear-gradient(135deg, #111111 60%, ${CEO_EXEC.color}30)` }}>
-              <img src={execImgSrc('ceo')} alt="CEO" className="absolute inset-0 w-full h-full object-contain p-2" loading="eager" onError={(e) => imgFallback(e, CEO_EXEC.color)} />
+            <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-3 shadow-[0_0_30px_rgba(245,158,11,0.3)]" style={{ background: `linear-gradient(135deg, #111111 60%, ${CEO_EXEC.color}30)` }}>
+              <img src={execImgSrc('ceo')} alt="CEO" className="absolute inset-0 w-full h-full object-contain p-1" loading="eager" onError={(e) => imgFallback(e, CEO_EXEC.color)} />
             </div>
             <p className="text-amber-400 font-bold text-sm sm:text-base">👑 CEO</p>
             <p className="text-[10px] text-[#F5F0E8]/60">경영 총괄 AI</p>
