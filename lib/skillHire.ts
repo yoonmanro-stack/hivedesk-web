@@ -9,7 +9,8 @@
 // ── 설정 ────────────────────────────────────────────────────
 const HIRE_SKILL_URL = 'https://popklip.app.n8n.cloud/webhook/hire-skill';
 const SKILLSMUSE_SUPABASE_URL = 'https://xlenqdkwojuponwhhlmo.supabase.co';
-const SKILLSMUSE_ANON_KEY = 'REDACTED_SKILLSMUSE_ANON_KEY';
+// ⚠️ .env.local에 NEXT_PUBLIC_SKILLSMUSE_ANON_KEY=sb_publishable_... 필요
+const SKILLSMUSE_ANON_KEY = process.env.NEXT_PUBLIC_SKILLSMUSE_ANON_KEY || '';
 
 // ── 사용 가능한 카테고리 (34개 | 3-Tier) ────────────────────
 // 🥇 TIER 1 (14개): 기술+비즈니스 핵심
