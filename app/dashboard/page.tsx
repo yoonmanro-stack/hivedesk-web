@@ -150,13 +150,13 @@ export default function DashboardPage() {
           <div className="w-full max-w-5xl h-px bg-gradient-to-r from-transparent via-amber-500/25 to-transparent"></div>
         </div>
 
-        {/* 8 Executives — 3×3 Grid */}
-        <section className={`grid grid-cols-3 max-w-4xl mx-auto gap-2 sm:gap-4 mb-5 ${mounted ? 'fade-in-up fade-in-up-delay-3' : 'opacity-0'}`}>
+        {/* Executive Character Grid (4×2 Layout) */}
+        <section className={`grid grid-cols-2 sm:grid-cols-4 max-w-5xl mx-auto gap-2 sm:gap-4 mb-5 ${mounted ? 'fade-in-up fade-in-up-delay-3' : 'opacity-0'}`}>
           {REST_EXECS.map((exec, index) => (
             <button
               key={exec.id}
               onClick={() => handleExecClick(exec)}
-              className={`tap-fast group relative flex flex-col items-center text-center focus:outline-none ${index >= 6 ? (index === 6 ? 'col-start-1' : '') : ''}`}
+              className={`tap-fast group relative flex flex-col items-center text-center focus:outline-none`}
             >
               <div
                 className="w-full rounded-2xl p-2 sm:p-3 transition-all duration-200 hover:scale-[1.04] active:scale-95 group-hover:shadow-lg border border-white/5"
