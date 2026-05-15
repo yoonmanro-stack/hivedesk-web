@@ -21,7 +21,7 @@ const CEO_EXEC = EXECUTIVES[0]
 const REST_EXECS = EXECUTIVES.slice(1)
 
 function execImgSrc(id: string) {
-  return `/characters/${id}.png`
+  return `/characters/${id}.png?v=2`
 }
 
 declare global {
