@@ -156,27 +156,39 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
         '온보딩 처리 중... 🚀',
       ]
       let mi = 0
-      const iv = setInterval(() => { if (mi < messages.length - 1) setStatusMsg(messages[++mi]) }, 8000)
+      const iv = setInterval(() => { if (mi < messages.length - 1) setStatusMsg(messages[++mi]) }, 6000)
 
-      const res = await hireTeamMember({
-        category: category as SkillCategory,
-        role,
-        requirements,
-        difficulty: 'intermediate',
-        orgId,
-        assignedExec: parentExec?.id,
-        hiredBy: undefined,
-        memberName: memberName || undefined,
+      const res = await fetch('/api/agents/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          role,
+          category,
+          requirements,
+          assigned_exec: parentExec?.id || 'cto',
+          org_id: orgId,
+          member_name: memberName || undefined,
+        }),
       })
       clearInterval(iv)
-      setResult(res)
-      setStep(res.success ? 'success' : 'error')
-      if (!res.success) setErrMsg(res.message)
-      if (res.success) onHired?.()
+      const data = await res.json()
+
+      if (!data.success) throw new Error(data.message)
+
+      setResult({
+        success: true,
+        message: data.message,
+        skillName: data.agent_name,
+        qualityScore: 0,
+        category,
+      } as any)
+      setStep('success')
+      onHired?.()
     } catch (e: any) {
       setErrMsg(e.message); setStep('error')
     }
   }
+
 
   // ══════════════════════════════════════════════════════════
   // RENDER
