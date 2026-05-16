@@ -194,18 +194,21 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
   // RENDER
   // ══════════════════════════════════════════════════════════
   return (
-    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center">
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={handleClose} />
-      <div className="relative w-full max-w-lg panel-bg rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 max-h-[90vh] overflow-y-auto shadow-2xl"
-        style={{ borderTop: `2px solid ${execColor}30` }}>
+    <div className="fixed inset-0 z-[60] flex items-end justify-center">
+      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.75)' }} onClick={handleClose} />
+      <div className="relative w-full max-w-lg flex flex-col rounded-t-3xl shadow-2xl"
+        style={{
+          background: '#1a1a1a',
+          borderTop: `2px solid ${execColor}40`,
+          height: '82vh',
+          maxHeight: '82vh',
+        }}>
 
-        {/* 핸들 + 닫기 */}
-        <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-4 sm:hidden" />
-        <button onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm hover:bg-white/20 transition-colors" aria-label="닫기">✕</button>
-
-        {/* 헤더 */}
-        <div className="mb-5">
-          <div className="flex items-center gap-2 mb-1">
+        {/* ── 고정 헤더 (스크롤 안됨) ── */}
+        <div className="shrink-0 px-5 pt-4 pb-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+          <div className="w-10 h-1 rounded-full mx-auto mb-3" style={{ background: 'rgba(255,255,255,0.25)' }} />
+          <button onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-colors" style={{ background: 'rgba(255,255,255,0.12)', color: '#F5F0E8' }} aria-label="닫기">✕</button>
+          <div className="flex items-center gap-2">
             <span className="text-xl">👥</span>
             <h2 className="text-lg font-black" style={{ color: execColor }}>인재 채용</h2>
             {parentExec && (
@@ -215,8 +218,11 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
               </span>
             )}
           </div>
-          <p className="text-[11px] text-[#F5F0E8]/60">최고의 에이전트를 팀에 합류시킵니다</p>
+          <p className="text-[11px] mt-0.5" style={{ color: 'rgba(245,240,232,0.55)' }}>최고의 에이전트를 팀에 합류시킵니다</p>
         </div>
+
+        {/* ── 스크롤 바디 ── */}
+        <div className="flex-1 min-h-0 px-5 py-4" style={{ overflowY: 'scroll', WebkitOverflowScrolling: 'touch' }}>
 
         {/* ── Step: input / pool ──────────────────────────── */}
         {(step === 'input' || step === 'pool') && (
@@ -436,7 +442,8 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
             </div>
           </div>
         )}
-      </div>
+      </div>{/* 스크롤 바디 끝 */}
+      </div>{/* 패널 끝 */}
     </div>
   )
 }
