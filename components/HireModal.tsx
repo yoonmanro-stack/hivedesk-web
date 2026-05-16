@@ -1,10 +1,24 @@
 'use client'
 
-import { useState } from 'react'
-import { hireTeamMember, SKILL_CATEGORIES, type SkillCategory, type Difficulty, type HireResult } from '@/lib/skillHire'
+import { useState, useEffect, useRef } from 'react'
+import { hireTeamMember, SKILL_CATEGORIES, type SkillCategory, type HireResult } from '@/lib/skillHire'
 
-// ── 채용 단계 ───────────────────────────────────────────────
-type HireStep = 'form' | 'searching' | 'generating' | 'success' | 'error'
+// ── 타입 ──────────────────────────────────────────────────────
+type HireStep = 'input' | 'pool' | 'create' | 'generating' | 'success' | 'error'
+
+interface AgentCard {
+  id: string
+  agent_name: string
+  agent_role: string
+  skill_slugs: string[]
+  skill_count: number
+  primary_category: string
+  avg_quality_score: number
+  quality_grade: 'A' | 'B' | 'C' | 'D'
+  agent_type: 'type_a' | 'type_b' | 'type_c'
+  hired_count: number
+  recommended_exec: string | null
+}
 
 interface HireModalProps {
   isOpen: boolean
@@ -15,414 +29,402 @@ interface HireModalProps {
   orgId?: string
 }
 
+// ── 유틸 ──────────────────────────────────────────────────────
+const GRADE_COLOR: Record<string, string> = { A: '#34D399', B: '#60A5FA', C: '#FBBF24', D: '#F87171' }
+const GRADE_BG: Record<string, string>    = { A: 'rgba(52,211,153,0.12)', B: 'rgba(96,165,250,0.12)', C: 'rgba(251,191,36,0.12)', D: 'rgba(248,113,113,0.12)' }
+
+const TYPE_LABEL: Record<string, string> = {
+  type_a: '🏭 팩토리',
+  type_b: '✨ 큐레이션',
+  type_c: '🎨 커스텀',
+}
+
+function GradeBadge({ grade }: { grade: string }) {
+  return (
+    <span className="text-[10px] font-black px-2 py-0.5 rounded-full"
+      style={{ color: GRADE_COLOR[grade] || '#fff', background: GRADE_BG[grade] || 'rgba(255,255,255,0.08)' }}>
+      Grade {grade}
+    </span>
+  )
+}
+
+// ══════════════════════════════════════════════════════════════
 export default function HireModal({ isOpen, onClose, onHired, defaultCategory, parentExec, orgId }: HireModalProps) {
-  const [step, setStep] = useState<HireStep>('form')
-  const [category, setCategory] = useState<string>(defaultCategory || '')
-  const [role, setRole] = useState('')
+  const execColor = parentExec?.color || '#F59E0B'
+
+  // ── 공통 상태 ──────────────────────────────────────────────
+  const [step, setStep]       = useState<HireStep>('input')
+  const [role, setRole]       = useState('')
+  const [poolAgents, setPool] = useState<AgentCard[]>([])
+  const [searching, setSearching] = useState(false)
+  const [result, setResult]   = useState<HireResult | null>(null)
+  const [errMsg, setErrMsg]   = useState('')
+
+  // ── Method 2 (생성) 상태 ───────────────────────────────────
+  const [category, setCategory]     = useState<string>(defaultCategory || '')
   const [memberName, setMemberName] = useState('')
   const [requirements, setRequirements] = useState('')
-  const [statusMsg, setStatusMsg] = useState('')
-  const [result, setResult] = useState<HireResult | null>(null)
-  // AI 카테고리 추천
   const [suggesting, setSuggesting] = useState(false)
   const [suggestReason, setSuggestReason] = useState('')
+  const [statusMsg, setStatusMsg]   = useState('')
+
+  // ── 디바운스 풀 검색 ────────────────────────────────────────
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+    if (role.trim().length < 2) { setPool([]); return }
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(async () => {
+      setSearching(true)
+      try {
+        const exec = parentExec?.id || ''
+        const res  = await fetch(`/api/agents/search?role=${encodeURIComponent(role)}&exec=${exec}&limit=3`)
+        const data = await res.json()
+        setPool(data.agents || [])
+      } catch { setPool([]) }
+      finally { setSearching(false) }
+    }, 600)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [role, isOpen, parentExec?.id])
 
   if (!isOpen) return null
 
+  const reset = () => {
+    setStep('input'); setRole(''); setPool([]); setCategory(defaultCategory || '')
+    setMemberName(''); setRequirements(''); setResult(null); setErrMsg(''); setStatusMsg(''); setSuggestReason('')
+  }
   const handleClose = () => {
-    // 로딩 중에는 닫기 방지
-    if (step === 'searching' || step === 'generating') return
-    setStep('form')
-    setRole('')
-    setMemberName('')
-    setRequirements('')
-    setResult(null)
-    onClose()
+    if (step === 'generating') return
+    reset(); onClose()
   }
 
-  const handleSuggest = async () => {
-    if (!role.trim()) return
-    setSuggesting(true)
-    setSuggestReason('')
+  // ── Method 1: 풀에서 1클릭 채용 ────────────────────────────
+  const hireFromPool = async (agent: AgentCard) => {
+    setStep('generating')
+    setStatusMsg(`${agent.agent_name} 채용 처리 중...`)
     try {
-      const res = await fetch('/api/hire/suggest', {
+      const res = await fetch('/api/agents/hire', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ role: role.trim(), requirements: requirements.trim() }),
+        body: JSON.stringify({
+          agent_id: agent.id,
+          agent_name: agent.agent_name,
+          agent_role: agent.agent_role,
+          skill_slugs: agent.skill_slugs,
+          skill_count: agent.skill_count,
+          primary_category: agent.primary_category,
+          avg_quality_score: agent.avg_quality_score,
+          quality_grade: agent.quality_grade,
+          agent_type: agent.agent_type,
+          assigned_exec: parentExec?.id || 'cto',
+          org_id: orgId,
+        }),
       })
       const data = await res.json()
-      if (data.category) {
-        setCategory(data.category)
-        setSuggestReason(`✅ ${data.reason}`)
-      } else {
-        setSuggestReason(`⚠️ ${data.reason || '추천 실패'}`)
-      }
-    } catch {
-      setSuggestReason('⚠️ 네트워크 오류')
+      if (!data.success) throw new Error(data.message)
+      setResult({ success: true, message: data.message, skillName: agent.agent_name, qualityScore: agent.avg_quality_score, category: agent.primary_category } as any)
+      setStep('success')
+      onHired?.()
+    } catch (e: any) {
+      setErrMsg(e.message); setStep('error')
     }
-    setSuggesting(false)
   }
 
-  const handleHire = async () => {
+  // ── AI 카테고리 추천 ────────────────────────────────────────
+  const handleSuggest = async () => {
     if (!role.trim()) return
+    setSuggesting(true); setSuggestReason('')
+    try {
+      const res  = await fetch('/api/hire/suggest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ role }) })
+      const data = await res.json()
+      if (data.category) { setCategory(data.category); setSuggestReason(data.reason || '') }
+    } catch {}
+    finally { setSuggesting(false) }
+  }
 
-    setStep('searching')
-    setStatusMsg('기존 AI 팀원을 검색 중...')
+  // ── Method 2: n8n 생성 채용 ─────────────────────────────────
+  const handleGenerate = async () => {
+    if (!category || !role.trim()) return
+    setStep('generating')
+    setStatusMsg('SkillsMuse 팩토리에 에이전트 생성 요청 중...')
+    try {
+      const messages = [
+        '스킬 분석 중... 🔍',
+        '에이전트 번들 구성 중... 🧩',
+        '품질 검증 중 (70점+ 통과 필요)... ✅',
+        '온보딩 처리 중... 🚀',
+      ]
+      let mi = 0
+      const iv = setInterval(() => { if (mi < messages.length - 1) setStatusMsg(messages[++mi]) }, 8000)
 
-    const res = await hireTeamMember(
-      { category: category as SkillCategory, role: role.trim(), requirements: requirements.trim() || undefined, difficulty: 'advanced' as Difficulty, orgId: orgId || 'default', hiredBy: parentExec?.id || 'cto', assignedExec: parentExec?.id || 'cto', memberName: memberName.trim() || undefined },
-      {
-        onSearching: (msg) => { setStep('searching'); setStatusMsg(msg) },
-        onGenerating: (msg) => { setStep('generating'); setStatusMsg(msg) },
-        onSuccess: (data) => { setResult(data); setStep('success'); onHired?.() },
-        onError: (data) => { setResult(data); setStep('error') },
-      }
-    )
-
-    if (!res.success && step !== 'error') {
+      const res = await hireTeamMember({
+        category: category as SkillCategory,
+        role,
+        requirements,
+        difficulty: 'intermediate',
+        orgId,
+        assignedExec: parentExec?.id,
+        hiredBy: undefined,
+        memberName: memberName || undefined,
+      })
+      clearInterval(iv)
       setResult(res)
-      setStep('error')
+      setStep(res.success ? 'success' : 'error')
+      if (!res.success) setErrMsg(res.message)
+      if (res.success) onHired?.()
+    } catch (e: any) {
+      setErrMsg(e.message); setStep('error')
     }
   }
 
-
-
+  // ══════════════════════════════════════════════════════════
+  // RENDER
+  // ══════════════════════════════════════════════════════════
   return (
-    <>
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[70]"
-        onClick={handleClose}
-      />
+    <div className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center">
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={handleClose} />
+      <div className="relative w-full max-w-lg panel-bg rounded-t-3xl sm:rounded-2xl p-5 sm:p-6 max-h-[90vh] overflow-y-auto shadow-2xl"
+        style={{ borderTop: `2px solid ${execColor}30` }}>
 
-      {/* Modal */}
-      <div className="fixed inset-x-0 bottom-0 sm:inset-0 z-[70] flex items-end sm:items-center justify-center sm:p-4">
-        <div
-          className={`w-full sm:max-w-md bg-[#0F0F0F] sm:rounded-2xl rounded-t-3xl border overflow-hidden shadow-[0_0_60px_${parentExec ? parentExec.color : 'rgba(6,182,212,0.15)'}]`}
-          style={{ borderColor: parentExec ? `${parentExec.color}30` : 'rgba(6,182,212,0.2)' }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Header */}
-          <div className="px-5 pt-5 pb-4 border-b border-white/5 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <span className="text-2xl">🔍</span>
-              <div>
-                <h2 className="font-bold text-base text-[#F5F0E8] flex items-center gap-1.5">
-                  {parentExec ? (
-                    <>
-                      <span style={{ color: parentExec.color }}>{parentExec.title}</span>
-                      <span className="text-[#F5F0E8]/30">→</span>
-                      <span>팀원 채용</span>
-                    </>
-                  ) : (
-                    '팀원 채용'
-                  )}
-                </h2>
-                <p className="text-xs text-[#F5F0E8]/50">
-                  {parentExec ? `${parentExec.titleKo} 산하 배속 · CHRO via SkillsMuse` : 'CHRO via SkillsMuse'}
-                </p>
+        {/* 핸들 + 닫기 */}
+        <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-4 sm:hidden" />
+        <button onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm hover:bg-white/20 transition-colors" aria-label="닫기">✕</button>
+
+        {/* 헤더 */}
+        <div className="mb-5">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-xl">👥</span>
+            <h2 className="text-lg font-black" style={{ color: execColor }}>인재 채용</h2>
+            {parentExec && (
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full ml-auto"
+                style={{ color: execColor, background: `${execColor}18`, border: `1px solid ${execColor}25` }}>
+                {parentExec.title} 산하
+              </span>
+            )}
+          </div>
+          <p className="text-[11px] text-[#F5F0E8]/60">최고의 에이전트를 팀에 합류시킵니다</p>
+        </div>
+
+        {/* ── Step: input / pool ──────────────────────────── */}
+        {(step === 'input' || step === 'pool') && (
+          <div>
+            {/* 역할 입력 */}
+            <div className="mb-4">
+              <label className="text-xs font-bold text-[#F5F0E8]/80 block mb-1.5">어떤 전문가가 필요하신가요?</label>
+              <div className="relative">
+                <input
+                  className="w-full px-4 py-3 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 outline-none transition-all"
+                  style={{ background: 'rgba(255,255,255,0.07)', border: `1px solid ${role.length > 1 ? execColor + '50' : 'rgba(255,255,255,0.12)'}` }}
+                  placeholder="예: React 개발자, SNS 마케터, 법률 전문가..."
+                  value={role}
+                  onChange={e => setRole(e.target.value)}
+                  autoFocus
+                />
+                {searching && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <div className="w-4 h-4 rounded-full border-2 border-t-transparent animate-spin" style={{ borderColor: `${execColor}60`, borderTopColor: 'transparent' }} />
+                  </div>
+                )}
               </div>
             </div>
-            {step !== 'searching' && step !== 'generating' && (
-              <button
-                onClick={handleClose}
-                className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-[#F5F0E8]/50 hover:text-[#F5F0E8] hover:bg-white/20 transition-all text-xs"
-              >
-                ✕
-              </button>
+
+            {/* 인재풀 결과 */}
+            {poolAgents.length > 0 && (
+              <div className="mb-4">
+                <div className="flex items-center gap-2 mb-2.5">
+                  <span className="text-xs font-black text-[#F5F0E8]/85">🏆 인재풀 매칭</span>
+                  <span className="text-[10px] text-[#F5F0E8]/50">{poolAgents.length}명 발견</span>
+                  <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full"
+                    style={{ color: '#34D399', background: 'rgba(52,211,153,0.10)' }}>즉시 채용 가능</span>
+                </div>
+                <div className="space-y-2.5">
+                  {poolAgents.map(agent => (
+                    <div key={agent.id} className="panel-card p-4 transition-all hover:border-white/20">
+                      {/* 에이전트 카드 헤더 */}
+                      <div className="flex items-start justify-between gap-2 mb-2.5">
+                        <div>
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <p className="text-sm font-black text-[#F5F0E8]">{agent.agent_name}</p>
+                            <GradeBadge grade={agent.quality_grade} />
+                          </div>
+                          <p className="text-[11px] text-[#F5F0E8]/70">{agent.agent_role}</p>
+                        </div>
+                        <button
+                          onClick={() => hireFromPool(agent)}
+                          className="shrink-0 text-xs font-black px-3 py-1.5 rounded-xl transition-all hover:brightness-125 active:scale-95"
+                          style={{ backgroundColor: `${execColor}20`, color: execColor, border: `1px solid ${execColor}35` }}>
+                          바로 채용
+                        </button>
+                      </div>
+                      {/* 스킬 목록 */}
+                      <div className="flex flex-wrap gap-1.5 mb-2">
+                        {agent.skill_slugs.slice(0, 5).map(slug => (
+                          <span key={slug} className="text-[9px] font-medium px-2 py-0.5 rounded-full"
+                            style={{ color: '#F5F0E8', opacity: 0.6, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.10)' }}>
+                            {slug.replace(/-/g, ' ')}
+                          </span>
+                        ))}
+                        {agent.skill_count > 5 && (
+                          <span className="text-[9px] text-[#F5F0E8]/40">+{agent.skill_count - 5}개</span>
+                        )}
+                      </div>
+                      {/* 풋터 */}
+                      <div className="flex items-center gap-3 text-[10px] text-[#F5F0E8]/50">
+                        <span>⭐ {agent.avg_quality_score}점</span>
+                        <span>👥 {agent.hired_count}개 조직 채용</span>
+                        <span>{TYPE_LABEL[agent.agent_type]}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
-          </div>
 
-          <div className="px-5 py-4 max-h-[75dvh] overflow-y-auto">
-
-            {/* ── FORM ── */}
-            {step === 'form' && (
-              <div className="space-y-4">
-                {/* Category */}
-                <div>
-                  <label className="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wider">
-                    직군 카테고리
-                  </label>
-                  <div className="relative">
-                    <select
-                      value={category}
-                      onChange={(e) => setCategory(e.target.value as SkillCategory)}
-                      className={`w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-500/50 transition-colors appearance-none pr-10 ${category ? 'text-[#F5F0E8]' : 'text-[#F5F0E8]/40'}`}
-                    >
-                      <option value="" disabled className="bg-[#1a1a1a]">-- 카테고리를 선택하세요 --</option>
-                      {SKILL_CATEGORIES.map((cat) => (
-                        <option key={cat} value={cat} className="bg-[#1a1a1a]">{cat}</option>
-                      ))}
-                    </select>
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[#F5F0E8]/40 pointer-events-none text-sm">▼</span>
-                  </div>
-                </div>
-
-                {/* Role */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs font-bold text-cyan-400 uppercase tracking-wider">
-                      역할 / 포지션 <span className="text-red-400">*</span>
-                    </label>
-                    <button
-                      onClick={() => {
-                        if (!role.trim()) {
-                          setSuggestReason('⚠️ 먼저 역할/포지션을 입력해주세요')
-                          return
-                        }
-                        handleSuggest()
-                      }}
-                      disabled={suggesting}
-                      className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-md transition-all hover:brightness-125 disabled:opacity-50"
-                      style={{ backgroundColor: 'rgba(139,92,246,0.12)', color: '#A78BFA', border: '1px solid rgba(139,92,246,0.2)' }}
-                    >
-                      {suggesting ? (
-                        <><span className="animate-spin">⚡</span> 분석중</>
-                      ) : (
-                        <>🤖 AI 카테고리 추천</>
-                      )}
-                    </button>
-                  </div>
-                  <input
-                    type="text"
-                    value={role}
-                    onChange={(e) => { setRole(e.target.value); setSuggestReason('') }}
-                    placeholder="예: Kubernetes Expert, 보안 전문가, SNS 마케터..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 focus:outline-none focus:border-cyan-500/50 transition-colors"
-                  />
-                  {suggestReason && (
-                    <p className="mt-1.5 text-[10px] text-violet-300/70">{suggestReason}</p>
-                  )}
-                </div>
-
-                {/* Member Name */}
-                <div>
-                  <label className="block text-xs font-bold text-cyan-400 mb-2 uppercase tracking-wider">
-                    팀원 이름 <span className="text-[#F5F0E8]/30">(선택)</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={memberName}
-                    onChange={(e) => setMemberName(e.target.value)}
-                    placeholder="예: Alex, Luna... (미입력 시 자동 생성)"
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 focus:outline-none focus:border-cyan-500/50 transition-colors"
-                  />
-                </div>
-
-                {/* Requirements */}
-                <div>
-                  <label className="block text-xs font-bold text-[#F5F0E8]/50 mb-2 uppercase tracking-wider">
-                    추가 요청사항 <span className="text-[#F5F0E8]/30">(선택)</span>
-                  </label>
-                  <input
-                    type="text"
-                    value={requirements}
-                    onChange={(e) => setRequirements(e.target.value)}
-                    placeholder="예: SNS 마케팅 경험, 한국 시장 전문, React..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 focus:outline-none focus:border-cyan-500/50 transition-colors"
-                  />
-                </div>
-
-
-
-                {/* Notice */}
-                <div className="bg-amber-500/5 border border-amber-500/15 rounded-xl px-4 py-3 flex gap-2.5">
-                  <span className="text-base shrink-0">⏱️</span>
-                  <p className="text-xs text-[#F5F0E8]/50 leading-relaxed">
-                    기존 인재풀 우선 검색 후, 없으면 AI가 신규 팀원을 생성합니다. <strong className="text-amber-400/70">최대 45초</strong> 소요될 수 있습니다.
+            {/* 풀 없을 때 + 항상 노출하는 "새 인재 생성" */}
+            {role.length >= 2 && !searching && (
+              <div className="mt-3">
+                {poolAgents.length === 0 && (
+                  <p className="text-center text-[11px] text-[#F5F0E8]/45 mb-3">
+                    인재풀에 딱 맞는 에이전트가 없어요. 맞춤 생성해드릴게요 🏭
                   </p>
-                </div>
-
-                {/* CTA */}
+                )}
                 <button
-                  onClick={handleHire}
-                  disabled={!category || !role.trim()}
-                  className="w-full py-3.5 rounded-xl text-sm font-bold transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                  style={{
-                    background: (category && role.trim()) ? 'linear-gradient(135deg, rgba(6,182,212,0.3), rgba(139,92,246,0.3))' : undefined,
-                    backgroundColor: (!category || !role.trim()) ? 'rgba(255,255,255,0.05)' : undefined,
-                    color: (category && role.trim()) ? '#06B6D4' : 'rgba(245,240,232,0.3)',
-                    border: `1px solid ${(category && role.trim()) ? 'rgba(6,182,212,0.35)' : 'rgba(255,255,255,0.08)'}`,
-                  }}
-                >
-                  🔍 채용 시작
+                  onClick={() => setStep('create')}
+                  className="w-full py-3 rounded-xl text-sm font-bold border border-dashed transition-all hover:brightness-110 active:scale-95"
+                  style={{ color: `${execColor}90`, borderColor: `${execColor}35` }}>
+                  {poolAgents.length > 0 ? '+ 새 인재 직접 생성하기' : '🏭 맞춤 인재 생성하기'}
                 </button>
               </div>
             )}
 
-            {/* ── LOADING (Searching / Generating) ── */}
-            {(step === 'searching' || step === 'generating') && (
-              <div className="py-8 flex flex-col items-center text-center gap-4">
-                {/* Animated spinner */}
-                <div className="relative w-16 h-16">
-                  <div className="absolute inset-0 rounded-full border-2 border-cyan-500/20" />
-                  <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-cyan-400 animate-spin" />
-                  <span className="absolute inset-0 flex items-center justify-center text-2xl">
-                    {step === 'searching' ? '🔍' : '⚡'}
-                  </span>
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-cyan-400 mb-1">
-                    {step === 'searching' ? 'SkillsMuse 인재풀 검색 중...' : 'AI 팀원 생성 중...'}
-                  </p>
-                  <p className="text-[10px] text-[#F5F0E8]/40">{statusMsg}</p>
-                </div>
-                {step === 'generating' && (
-                  <div className="w-full bg-white/5 rounded-full h-1 overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-cyan-500 to-violet-500 animate-pulse rounded-full" style={{ width: '60%' }} />
-                  </div>
-                )}
-              </div>
+            {role.length < 2 && (
+              <p className="text-center text-[11px] text-[#F5F0E8]/35 mt-4">
+                역할을 2글자 이상 입력하면 인재풀에서 자동 검색합니다
+              </p>
             )}
+          </div>
+        )}
 
-            {/* ── SUCCESS ── */}
-            {step === 'success' && result && (
-              <div className="py-4 flex flex-col items-center text-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-3xl shadow-[0_0_30px_rgba(52,211,153,0.2)]">
-                  ✅
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-emerald-400 mb-1">채용 완료!</p>
-                  <p className="text-xs text-[#F5F0E8]/60">{result.message}</p>
-                </div>
+        {/* ── Step: create (Method 2) ─────────────────────── */}
+        {step === 'create' && (
+          <div>
+            <button onClick={() => setStep('input')} className="flex items-center gap-1 text-[11px] text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 mb-4 transition-colors">
+              ← 인재풀로 돌아가기
+            </button>
 
-                {/* Skill Card */}
-                <div className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-left space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#F5F0E8]">{result.skillName || role}</span>
-                    {result.isExisting && (
-                      <span className="text-[9px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/20">
-                        기존 인재
-                      </span>
-                    )}
-                    {!result.isExisting && (
-                      <span className="text-[9px] px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-400 border border-violet-500/20">
-                        신규 생성
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-[10px] text-[#F5F0E8]/50">{result.category}</p>
-                  {result.qualityScore && result.qualityScore > 0 && (
-                    <>
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 bg-white/10 rounded-full h-1">
-                        <div
-                          className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 transition-all"
-                          style={{ width: `${result.qualityScore}%` }}
-                        />
-                      </div>
-                      <span className="text-[10px] text-emerald-400 font-bold">{result.qualityScore}점</span>
-                    </div>
-                    {result.qualityGrade && (
-                      <span style={{
-                        display: "inline-block",
-                        fontSize: "9px",
-                        padding: "2px 8px",
-                        borderRadius: "9999px",
-                        fontWeight: "bold",
-                        border: "1px solid",
-                        color: result.qualityGrade === "A" ? "#fbbf24" : result.qualityGrade === "B" ? "#34d399" : result.qualityGrade === "C" ? "#22d3ee" : "rgba(255,255,255,0.4)",
-                        borderColor: result.qualityGrade === "A" ? "rgba(251,191,36,0.3)" : result.qualityGrade === "B" ? "rgba(52,211,153,0.3)" : result.qualityGrade === "C" ? "rgba(34,211,238,0.3)" : "rgba(255,255,255,0.2)",
-                        background: result.qualityGrade === "A" ? "rgba(251,191,36,0.1)" : result.qualityGrade === "B" ? "rgba(52,211,153,0.1)" : result.qualityGrade === "C" ? "rgba(34,211,238,0.1)" : "rgba(255,255,255,0.05)"
-                      }}>
-                        Grade {result.qualityGrade}
-                      </span>
-                    )}
-                    </>
-                  )}
-                </div>
+            {/* 요청 역할 (readonly 표시) */}
+            <div className="panel-card p-3 mb-4 flex items-center gap-3">
+              <span className="text-lg">🎯</span>
+              <div>
+                <p className="text-[10px] text-[#F5F0E8]/50">요청 역할</p>
+                <p className="text-sm font-bold text-[#F5F0E8]">{role}</p>
+              </div>
+              <button onClick={() => setStep('input')} className="ml-auto text-[10px] text-[#F5F0E8]/40 hover:text-[#F5F0E8]/70">수정</button>
+            </div>
 
-                <button
-                  onClick={handleClose}
-                  className="w-full py-2.5 rounded-xl text-xs font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:brightness-110 transition-all"
-                >
-                  닫기
+            {/* 이름 (선택) */}
+            <div className="mb-3">
+              <label className="text-xs font-bold text-[#F5F0E8]/80 block mb-1.5">팀원 이름 <span className="text-[#F5F0E8]/40 font-normal">(선택)</span></label>
+              <input
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 outline-none"
+                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                placeholder="예: Alex, Luna, 김지수..."
+                value={memberName}
+                onChange={e => setMemberName(e.target.value)}
+              />
+            </div>
+
+            {/* 카테고리 */}
+            <div className="mb-3">
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-bold text-[#F5F0E8]/80">스킬 카테고리</label>
+                <button onClick={handleSuggest} disabled={suggesting || !role.trim()}
+                  className="text-[10px] font-bold px-2.5 py-1 rounded-lg transition-all hover:brightness-110 disabled:opacity-40"
+                  style={{ color: execColor, background: `${execColor}15`, border: `1px solid ${execColor}25` }}>
+                  {suggesting ? '분석 중...' : '🤖 AI 추천'}
                 </button>
               </div>
-            )}
+              {suggestReason && <p className="text-[10px] text-[#F5F0E8]/55 mb-1.5 px-1">💡 {suggestReason}</p>}
+              <select
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] outline-none appearance-none"
+                style={{ background: 'rgba(30,30,30,0.95)', border: `1px solid ${category ? execColor + '40' : 'rgba(255,255,255,0.12)'}` }}
+                value={category}
+                onChange={e => setCategory(e.target.value)}>
+                <option value="">카테고리 선택...</option>
+                {SKILL_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
 
-            {/* ── ERROR ── */}
-            {step === 'error' && result && (
-              <div className="py-4 flex flex-col items-center text-center gap-4">
-                {/* 업그레이드 유도 (Free 유저) */}
-                {result.limitInfo?.reason === 'upgrade_required' ? (
-                  <>
-                    <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl">
-                      🔒
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-amber-400 mb-1">Pro 요금제 필요</p>
-                      <p className="text-xs text-[#F5F0E8]/50">팀원 채용은 Pro 이상 요금제에서 이용 가능합니다.</p>
-                    </div>
-                    <div className="w-full bg-gradient-to-r from-cyan-500/10 to-violet-500/10 border border-cyan-500/20 rounded-2xl p-4 text-left space-y-2">
-                      <p className="text-xs font-bold text-cyan-400">🚀 Pro 요금제</p>
-                      <p className="text-xs text-[#F5F0E8]/50">임원당 5명의 전문 AI 팀원 배속</p>
-                      <p className="text-xs font-bold text-[#F5F0E8]/40 mt-2">💎 Premium 요금제</p>
-                      <p className="text-xs text-[#F5F0E8]/50">무제한 팀원 채용</p>
-                    </div>
-                    <button
-                      onClick={handleClose}
-                      className="w-full py-2.5 rounded-xl text-sm font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:brightness-110 transition-all"
-                    >
-                      닫기
-                    </button>
-                  </>
-                ) : result.limitInfo?.reason === 'limit_reached' ? (
-                  <>
-                    <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-3xl">
-                      📊
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-amber-400 mb-1">채용 한도 도달</p>
-                      <p className="text-xs text-[#F5F0E8]/50">{result.message}</p>
-                    </div>
-                    <div className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-left">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-[#F5F0E8]/50">현재 인원</span>
-                        <span className="text-xs font-bold text-amber-400">{result.limitInfo.current}/{result.limitInfo.limit}명</span>
-                      </div>
-                      <div className="w-full bg-white/10 rounded-full h-1.5">
-                        <div className="h-full rounded-full bg-amber-400" style={{ width: '100%' }} />
-                      </div>
-                    </div>
-                    <button
-                      onClick={handleClose}
-                      className="w-full py-2.5 rounded-xl text-sm font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:brightness-110 transition-all"
-                    >
-                      닫기
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center text-3xl">
-                      ❌
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-red-400 mb-1">채용 실패</p>
-                      <p className="text-xs text-[#F5F0E8]/50">{result.message}</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 w-full">
-                      <button
-                        onClick={() => setStep('form')}
-                        className="py-2.5 rounded-xl text-sm font-bold bg-white/5 text-[#F5F0E8]/60 border border-white/10 hover:brightness-110 transition-all"
-                      >
-                        다시 시도
-                      </button>
-                      <button
-                        onClick={handleClose}
-                        className="py-2.5 rounded-xl text-sm font-bold bg-red-500/10 text-red-400 border border-red-500/20 hover:brightness-110 transition-all"
-                      >
-                        닫기
-                      </button>
-                    </div>
-                  </>
-                )}
+            {/* 추가 요청사항 */}
+            <div className="mb-5">
+              <label className="text-xs font-bold text-[#F5F0E8]/80 block mb-1.5">추가 요청사항 <span className="text-[#F5F0E8]/40 font-normal">(선택)</span></label>
+              <textarea
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 outline-none resize-none"
+                style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                rows={3}
+                placeholder="원하는 특화 스킬이나 경험을 적어주세요..."
+                value={requirements}
+                onChange={e => setRequirements(e.target.value)}
+              />
+            </div>
+
+            <button
+              onClick={handleGenerate}
+              disabled={!category || !role.trim()}
+              className="w-full py-3.5 rounded-xl text-sm font-black transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-40"
+              style={{ background: `linear-gradient(135deg, ${execColor}CC, ${execColor}88)`, color: '#0D0D0D' }}>
+              🏭 인재 생성 시작
+            </button>
+            <p className="text-center text-[10px] text-[#F5F0E8]/40 mt-2">생성 후 자동으로 인재풀에 기여됩니다</p>
+          </div>
+        )}
+
+        {/* ── Step: generating ────────────────────────────── */}
+        {step === 'generating' && (
+          <div className="flex flex-col items-center justify-center py-10 text-center">
+            <div className="relative mb-6">
+              <div className="w-16 h-16 rounded-full border-4 border-t-transparent animate-spin" style={{ borderColor: `${execColor}40`, borderTopColor: execColor }} />
+              <span className="absolute inset-0 flex items-center justify-center text-2xl">🐝</span>
+            </div>
+            <p className="text-sm font-bold text-[#F5F0E8]/90 mb-2">{statusMsg || '처리 중...'}</p>
+            <p className="text-[11px] text-[#F5F0E8]/45">잠시만 기다려 주세요</p>
+          </div>
+        )}
+
+        {/* ── Step: success ───────────────────────────────── */}
+        {step === 'success' && result && (
+          <div className="flex flex-col items-center justify-center py-8 text-center">
+            <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4" style={{ background: `${execColor}18`, border: `2px solid ${execColor}35` }}>🎉</div>
+            <h3 className="text-lg font-black mb-1" style={{ color: execColor }}>채용 완료!</h3>
+            <p className="text-sm font-bold text-[#F5F0E8]/90 mb-1">{result.skillName || '에이전트'}</p>
+            <p className="text-[11px] text-[#F5F0E8]/55 mb-4">{parentExec?.title} 팀에 합류했습니다 🚀</p>
+            {result.qualityScore && result.qualityScore > 0 && (
+              <div className="panel-card px-4 py-2 flex items-center gap-4 mb-5">
+                <div><p className="text-xs font-black" style={{ color: result.qualityScore >= 80 ? '#34D399' : '#FBBF24' }}>{result.qualityScore}점</p><p className="text-[9px] text-[#F5F0E8]/50">품질</p></div>
+                <div><p className="text-xs font-black text-[#F5F0E8]/80">{result.category}</p><p className="text-[9px] text-[#F5F0E8]/50">카테고리</p></div>
               </div>
             )}
-
+            <button onClick={() => { reset(); onClose() }} className="w-full py-3 rounded-xl text-sm font-black transition-all hover:brightness-110"
+              style={{ background: `${execColor}20`, color: execColor, border: `1px solid ${execColor}30` }}>
+              확인
+            </button>
           </div>
-        </div>
+        )}
+
+        {/* ── Step: error ─────────────────────────────────── */}
+        {step === 'error' && (
+          <div className="flex flex-col items-center justify-center py-8 text-center">
+            <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4 bg-red-500/10 border border-red-500/25">⚠️</div>
+            <h3 className="text-base font-black text-red-400 mb-2">채용 실패</h3>
+            <p className="text-[11px] text-[#F5F0E8]/60 mb-5">{errMsg || '알 수 없는 오류가 발생했습니다.'}</p>
+            <div className="grid grid-cols-2 gap-2.5 w-full">
+              <button onClick={() => setStep('create')} className="py-2.5 rounded-xl text-xs font-bold border border-white/15 text-[#F5F0E8]/70 hover:bg-white/5 transition-all">다시 시도</button>
+              <button onClick={() => { reset(); onClose() }} className="py-2.5 rounded-xl text-xs font-bold border border-white/15 text-[#F5F0E8]/70 hover:bg-white/5 transition-all">닫기</button>
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   )
 }

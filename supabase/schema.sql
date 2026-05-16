@@ -354,3 +354,79 @@ CREATE POLICY "members_select_own_hired_skills"
     JOIN users u ON u.id = om.user_id
     WHERE u.telegram_id = (auth.uid())::bigint
   ));
+
+-- ============================================================
+-- ⑨ hired_agents (v1 — HiveDesk × SkillsMuse 에이전트 팀원 시스템)
+-- "에이전트 = 팀원 1명" 개념: 스킬 3~5개를 번들한 완성형 AI 팀원
+--
+-- 설계 원칙:
+--   • Pro 요금제: 임원당 최대 5명의 에이전트(팀원) 채용 가능
+--   • 각 에이전트는 skill_ids[] 배열로 3~5개 스킬을 묶음
+--   • SkillsMuse Type C (Custom Builder) 연동으로 커스텀 에이전트 생성 가능
+--   • hired_skills는 스킬 원자 단위 기록용 (레거시 유지)
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS hired_agents (
+  id              UUID         PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          UUID         NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  hired_by        UUID         NOT NULL REFERENCES users(id),
+  assigned_exec   VARCHAR(16)  NOT NULL DEFAULT 'cto'
+                    -- 채용 임원: CHRO(chro)는 채용 관리자이므로 제외
+                    CHECK (assigned_exec IN ('ceo','cto','cmo','cpo','cfo','cdo','coo','clo')),
+  -- 에이전트 기본 정보
+  agent_name      VARCHAR(100) NOT NULL,             -- 팀원 이름 (예: Alex, Luna)
+  agent_role      VARCHAR(200) NOT NULL,             -- 역할/포지션 (예: React Developer)
+  agent_persona   TEXT,                              -- 페르소나 설명 (SkillsMuse Type C 연동)
+  -- 스킬 번들 (3~5개)
+  skill_ids       TEXT[]       NOT NULL DEFAULT '{}', -- hired_skills.id 참조 배열
+  skill_slugs     TEXT[]       NOT NULL DEFAULT '{}', -- SkillsMuse slug 배열 (참조용)
+  skill_count     SMALLINT     NOT NULL DEFAULT 0
+                    CHECK (skill_count BETWEEN 0 AND 10),
+  -- 주 카테고리 (가장 핵심 스킬 기준)
+  primary_category VARCHAR(100) NOT NULL DEFAULT '',
+  -- 품질 집계 (번들 스킬들의 평균)
+  avg_quality_score SMALLINT   NOT NULL DEFAULT 0
+                    CHECK (avg_quality_score BETWEEN 0 AND 100),
+  quality_grade   VARCHAR(2)   NOT NULL DEFAULT 'C'
+                    CHECK (quality_grade IN ('A','B','C','D')),
+  -- 에이전트 타입
+  agent_type      VARCHAR(16)  NOT NULL DEFAULT 'type_a'
+                    CHECK (agent_type IN (
+                      'type_a',   -- n8n Factory 자동 생성 스킬 번들
+                      'type_b',   -- 큐레이션/검수 스킬 번들
+                      'type_c'    -- SkillsMuse Custom Builder 커스텀 에이전트
+                    )),
+  -- 상태 관리
+  status          VARCHAR(16)  NOT NULL DEFAULT 'active'
+                    CHECK (status IN ('active','suspended','dismissed')),
+  -- 메타
+  hired_at        TIMESTAMPTZ  NOT NULL DEFAULT now(),
+  updated_at      TIMESTAMPTZ  NOT NULL DEFAULT now(),
+
+  CONSTRAINT hired_agents_name_not_empty CHECK (trim(agent_name) <> ''),
+  CONSTRAINT hired_agents_role_not_empty CHECK (trim(agent_role) <> '')
+);
+
+-- 임원별 에이전트 목록 조회 (대시보드 핵심 쿼리)
+CREATE INDEX IF NOT EXISTS idx_hired_agents_org_exec   ON hired_agents (org_id, assigned_exec, status);
+CREATE INDEX IF NOT EXISTS idx_hired_agents_org_id     ON hired_agents (org_id);
+CREATE INDEX IF NOT EXISTS idx_hired_agents_grade      ON hired_agents (quality_grade);
+CREATE INDEX IF NOT EXISTS idx_hired_agents_hired_at   ON hired_agents (hired_at DESC);
+
+CREATE TRIGGER trg_hired_agents_updated_at
+  BEFORE UPDATE ON hired_agents
+  FOR EACH ROW EXECUTE FUNCTION trigger_set_updated_at();
+
+ALTER TABLE hired_agents ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "service_role_all_hired_agents"
+  ON hired_agents FOR ALL TO service_role
+  USING (true) WITH CHECK (true);
+
+CREATE POLICY "members_select_own_hired_agents"
+  ON hired_agents FOR SELECT TO authenticated
+  USING (org_id IN (
+    SELECT om.org_id FROM organization_members om
+    JOIN users u ON u.id = om.user_id
+    WHERE u.telegram_id = (auth.uid())::bigint
+  ));

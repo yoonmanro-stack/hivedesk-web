@@ -55,18 +55,40 @@ export default function DashboardPage() {
 
   const fetchHiredSkills = useCallback(async () => {
     try {
-      const res = await fetch('/api/hire/list')
-      if (res.ok) {
-        const data = await res.json()
-        const grouped: Record<string, any[]> = {}
+      // 기존 hired_skills + 신규 hired_agents 병합
+      const [skillsRes, agentsRes] = await Promise.allSettled([
+        fetch('/api/hire/list'),
+        fetch('/api/agents/list'),
+      ])
+      const grouped: Record<string, any[]> = {}
+
+      if (skillsRes.status === 'fulfilled' && skillsRes.value.ok) {
+        const data = await skillsRes.value.json()
         for (const skill of (data.skills || [])) {
           const exec = skill.assigned_exec || 'cto'
           if (!grouped[exec]) grouped[exec] = []
-          grouped[exec].push(skill)
+          grouped[exec].push({ ...skill, _source: 'skill' })
         }
-        setHiredSkills(grouped)
       }
-    } catch (e) { console.warn('hired skills fetch failed:', e) }
+      if (agentsRes.status === 'fulfilled' && agentsRes.value.ok) {
+        const data = await agentsRes.value.json()
+        for (const agent of (data.agents || [])) {
+          const exec = agent.assigned_exec || 'cto'
+          if (!grouped[exec]) grouped[exec] = []
+          grouped[exec].push({
+            id: agent.id,
+            skill_name: agent.agent_name,
+            skill_category: agent.primary_category,
+            difficulty: 'intermediate',
+            quality_score: agent.avg_quality_score,
+            quality_grade: agent.quality_grade,
+            _source: 'agent',
+            _agent: agent,
+          })
+        }
+      }
+      setHiredSkills(grouped)
+    } catch (e) { console.warn('hired fetch failed:', e) }
   }, [])
 
   useEffect(() => {
@@ -180,7 +202,7 @@ export default function DashboardPage() {
       {selectedExec && (
         <div className={`fixed inset-0 z-50 flex items-end justify-center transition-opacity duration-300 ${panelOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closePanel} />
-          <div className={`relative w-full max-w-lg glass rounded-t-3xl p-4 sm:p-6 transition-transform duration-300 max-h-[85vh] overflow-y-auto ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`}>
+          <div className={`relative w-full max-w-lg panel-bg rounded-t-3xl p-4 sm:p-6 transition-transform duration-300 max-h-[85vh] overflow-y-auto ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`}>
             <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-4" />
             <button onClick={closePanel} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm hover:bg-white/20 transition-colors">✕</button>
 
@@ -197,9 +219,9 @@ export default function DashboardPage() {
                         <h3 className="text-xl sm:text-2xl font-bold truncate" style={{ color: exec.color }}>{exec.title}</h3>
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] shrink-0"></span>
                       </div>
-                      <p className="text-sm text-[#F5F0E8]/70 mb-1 font-semibold">{exec.titleKo}</p>
-                      <p className="text-[11px] text-[#F5F0E8]/60 leading-relaxed">{exec.desc}</p>
-                      {exec.detail && <p className="mt-2 text-[11px] text-[#F5F0E8]/45 leading-relaxed border-t border-white/10 pt-2">{exec.detail}</p>}
+                      <p className="text-sm text-[#F5F0E8]/80 mb-1 font-semibold">{exec.titleKo}</p>
+                      <p className="text-[11px] text-[#F5F0E8]/65 leading-relaxed">{exec.desc}</p>
+                      {exec.detail && <p className="mt-2 text-[11px] text-[#F5F0E8]/55 leading-relaxed border-t border-white/10 pt-2">{exec.detail}</p>}
                     </div>
                   </div>
 
@@ -209,42 +231,84 @@ export default function DashboardPage() {
                       { val: '$0.00', label: '이번 달 비용', color: '#34D399' },
                       { val: '0', label: '완료 작업', color: '#FBBF24' },
                     ].map(({ val, label, color }) => (
-                      <div key={label} className="glass rounded-xl p-2.5 sm:p-3 text-center">
+                      <div key={label} className="panel-card p-2.5 sm:p-3 text-center">
                         <p className="text-sm sm:text-lg font-bold" style={{ color }}>{val}</p>
-                        <p className="text-[9px] sm:text-[10px] text-[#F5F0E8]/60 mt-0.5 truncate">{label}</p>
+                        <p className="text-[10px] text-[#F5F0E8]/65 mt-0.5 truncate">{label}</p>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mb-5">
-                    <div className="flex items-center justify-between mb-2.5">
-                      <h4 className="text-xs sm:text-sm font-bold text-[#F5F0E8]/80">👥 팀원</h4>
-                      <span className="text-[9px] sm:text-[10px] text-[#F5F0E8]/50">{(hiredSkills[exec.id] || []).length} / 5</span>
-                    </div>
-                    {(hiredSkills[exec.id] || []).length > 0 ? (
+                  {/* CHRO: 채용 허브 패널 */}
+                  {exec.id === 'chro' ? (
+                    <div className="mb-5">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-base">👥</span>
+                        <h4 className="text-sm font-bold text-[#F5F0E8]/90">조직 채용 현황</h4>
+                        <span className="ml-auto text-[10px] text-amber-400/80 font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">CHRO 관제 허브</span>
+                      </div>
                       <div className="space-y-2">
-                        {(hiredSkills[exec.id] || []).map((skill: any) => (
-                          <div key={skill.id} className="glass rounded-xl p-3 flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style={{ backgroundColor: `${exec.color}15`, border: `1px solid ${exec.color}25` }}>🧠</div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-bold text-[#F5F0E8] truncate">{skill.skill_name}</p>
-                              <p className="text-[10px] text-[#F5F0E8]/40">{skill.skill_category} · {skill.difficulty || 'intermediate'}</p>
+                        {EXECUTIVES.filter(e => e.id !== 'chro').map(e => {
+                          const count = (hiredSkills[e.id] || []).length
+                          const pct = Math.round((count / 5) * 100)
+                          return (
+                            <div key={e.id} className="chro-exec-row">
+                              <div className="w-8 h-8 rounded-xl overflow-hidden shrink-0" style={{ background: `linear-gradient(135deg, #111, ${e.color}30)` }}>
+                                <img src={execImgSrc(e.id)} alt={e.title} className="w-full h-full object-contain p-0.5" onError={(ev) => imgFallback(ev as React.SyntheticEvent<HTMLImageElement>, e.color)} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className="text-xs font-bold text-[#F5F0E8]/90">{e.title} <span className="text-[#F5F0E8]/55 font-normal">{e.titleKo}</span></span>
+                                  <span className="text-[10px] text-[#F5F0E8]/65 font-medium">{count}/5명</span>
+                                </div>
+                                <div className="w-full rounded-full h-1.5" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                                  <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, backgroundColor: e.color, opacity: count === 0 ? 0 : 1 }} />
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => { setHireExec(e); setShowHireModal(true) }}
+                                className="shrink-0 text-[10px] font-bold px-3 py-1.5 rounded-lg transition-all hover:brightness-125 active:scale-95"
+                                style={{ backgroundColor: `${e.color}18`, color: e.color, border: `1px solid ${e.color}30` }}
+                              >
+                                + 채용
+                              </button>
                             </div>
-                            {skill.quality_score > 0 && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: skill.quality_score >= 80 ? 'rgba(52,211,153,0.15)' : 'rgba(251,191,36,0.15)', color: skill.quality_score >= 80 ? '#34D399' : '#FBBF24' }}>{skill.quality_score}점</span>
-                            )}
-                          </div>
-                        ))}
-                        <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="w-full py-2 rounded-xl text-xs font-bold transition-all hover:brightness-110 active:scale-95 border border-dashed" style={{ color: `${exec.color}80`, borderColor: `${exec.color}30` }}>+ 팀원 추가 채용</button>
+                          )
+                        })}
                       </div>
-                    ) : (
-                      <div className="glass rounded-xl p-3 sm:p-4 flex flex-col items-center justify-center text-center">
-                        <span className="text-2xl mb-2">🔍</span>
-                        <p className="text-[10px] sm:text-xs text-[#F5F0E8]/60 mb-3">아직 채용된 팀원이 없습니다</p>
-                        <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="text-sm font-bold px-4 py-2 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>🔍 CHRO에게 채용 요청</button>
+                    </div>
+                  ) : (
+                    <div className="mb-5">
+                      <div className="flex items-center justify-between mb-2.5">
+                        <h4 className="text-xs sm:text-sm font-bold text-[#F5F0E8]/85">👥 팀원</h4>
+                        <span className="text-[10px] text-[#F5F0E8]/65">{(hiredSkills[exec.id] || []).length} / 5</span>
                       </div>
-                    )}
-                  </div>
+                      {(hiredSkills[exec.id] || []).length > 0 ? (
+                        <div className="space-y-2">
+                          {(hiredSkills[exec.id] || []).map((skill: any) => (
+                            <div key={skill.id} className="panel-card p-3 flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0" style={{ backgroundColor: `${exec.color}15`, border: `1px solid ${exec.color}25` }}>🧠</div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-xs font-bold text-[#F5F0E8] truncate">{skill.skill_name}</p>
+                                <p className="text-[10px] text-[#F5F0E8]/65">{skill.skill_category} · {skill.difficulty || 'intermediate'}</p>
+                              </div>
+                              {skill.quality_score > 0 && (
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0" style={{ backgroundColor: skill.quality_score >= 80 ? 'rgba(52,211,153,0.15)' : 'rgba(251,191,36,0.15)', color: skill.quality_score >= 80 ? '#34D399' : '#FBBF24' }}>{skill.quality_score}점</span>
+                              )}
+                            </div>
+                          ))}
+                          <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="w-full py-2 rounded-xl text-xs font-bold transition-all hover:brightness-110 active:scale-95 border border-dashed" style={{ color: `${exec.color}90`, borderColor: `${exec.color}35` }}>+ 팀원 추가 채용</button>
+                        </div>
+                      ) : (
+                        <div className="panel-card p-4 flex flex-col items-center justify-center text-center">
+                          <span className="text-2xl mb-2">🔍</span>
+                          <p className="text-xs text-[#F5F0E8]/65 mb-3">아직 채용된 팀원이 없습니다</p>
+                          <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="text-sm font-bold px-4 py-2 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}35` }}>
+                            🔍 CHRO에게 채용 요청
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
                     <button onClick={() => openTelegramAction(exec.tgCommand)} className="font-bold text-xs sm:text-sm py-3 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>💬 대화하기</button>
