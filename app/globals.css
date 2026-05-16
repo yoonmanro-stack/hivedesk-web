@@ -27,21 +27,15 @@ body {
 }
 
 /* ════════════════════════════════════════════
-   GLASSMORPHISM — 얼룩 제거 버전
-   blur 8px + bg 0.09로 조정해 얼룩얼룩 현상 해소
-════════════════════════════════════════════ */
+/* 임원 카드 / 배지용 — 텔레그램 WebApp 호환 (blur 제거) */
 .glass {
-  background: rgba(255, 255, 255, 0.09);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(245, 158, 11, 0.18);
 }
 
-/* 패널/모달 내부용 — 더 불투명하게 (얼룩 완전 제거) */
+/* 패널/모달 내부용 — 솔리드 배경 */
 .glass-solid {
-  background: rgba(22, 22, 22, 0.96);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(22, 22, 22, 0.97);
   border: 1px solid rgba(245, 158, 11, 0.18);
 }
 
