@@ -201,10 +201,10 @@ export default function DashboardPage() {
       {/* ── Slide-up Panel ── */}
       {selectedExec && (
         <div className={`fixed inset-0 z-50 flex items-end justify-center transition-opacity duration-300 ${panelOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={closePanel} />
-          <div className={`relative w-full max-w-lg panel-bg rounded-t-3xl p-4 sm:p-6 transition-transform duration-300 max-h-[85vh] overflow-y-auto ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`}>
-            <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-4" />
-            <button onClick={closePanel} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm hover:bg-white/20 transition-colors">✕</button>
+          <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.65)' }} onClick={closePanel} />
+          <div className={`relative w-full max-w-lg rounded-t-3xl p-4 sm:p-6 transition-transform duration-300 max-h-[85vh] overflow-y-auto ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`} style={{ background: '#181818', borderTop: '2px solid rgba(245,158,11,0.22)' }}>
+            <div className="w-10 h-1 rounded-full mx-auto mb-4" style={{ background: 'rgba(255,255,255,0.25)' }} />
+            <button onClick={closePanel} className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-colors" style={{ background: 'rgba(255,255,255,0.12)', color: '#F5F0E8' }}>✕</button>
 
             {(() => {
               const exec = selectedExec
@@ -231,9 +231,9 @@ export default function DashboardPage() {
                       { val: '$0.00', label: '이번 달 비용', color: '#34D399' },
                       { val: '0', label: '완료 작업', color: '#FBBF24' },
                     ].map(({ val, label, color }) => (
-                      <div key={label} className="panel-card p-2.5 sm:p-3 text-center">
-                        <p className="text-sm sm:text-lg font-bold" style={{ color }}>{val}</p>
-                        <p className="text-[10px] text-[#F5F0E8]/65 mt-0.5 truncate">{label}</p>
+                      <div key={label} className="p-2.5 sm:p-3 text-center rounded-xl" style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                        <p className="text-base sm:text-lg font-black" style={{ color }}>{val}</p>
+                        <p className="text-[11px] mt-0.5 truncate" style={{ color: 'rgba(245,240,232,0.75)' }}>{label}</p>
                       </div>
                     ))}
                   </div>
@@ -299,9 +299,9 @@ export default function DashboardPage() {
                           <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="w-full py-2 rounded-xl text-xs font-bold transition-all hover:brightness-110 active:scale-95 border border-dashed" style={{ color: `${exec.color}90`, borderColor: `${exec.color}35` }}>+ 팀원 추가 채용</button>
                         </div>
                       ) : (
-                        <div className="panel-card p-4 flex flex-col items-center justify-center text-center">
+                        <div className="p-4 flex flex-col items-center justify-center text-center rounded-xl" style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}>
                           <span className="text-2xl mb-2">🔍</span>
-                          <p className="text-xs text-[#F5F0E8]/65 mb-3">아직 채용된 팀원이 없습니다</p>
+                          <p className="text-xs mb-3" style={{ color: 'rgba(245,240,232,0.75)' }}>아직 채용된 팀원이 없습니다</p>
                           <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="text-sm font-bold px-4 py-2 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}35` }}>
                             🔍 CHRO에게 채용 요청
                           </button>
@@ -323,8 +323,8 @@ export default function DashboardPage() {
 
       {/* Web Alert Modal */}
       {showWebAlert && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="glass rounded-2xl p-6 max-w-xs w-full text-center">
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.72)' }}>
+          <div className="rounded-2xl p-6 max-w-xs w-full text-center" style={{ background: '#1e1e1e', border: '1px solid rgba(245,158,11,0.20)' }}>
             <span className="text-3xl mb-3 block">📱</span>
             <h3 className="font-bold text-sm mb-2">{webAlertAction}</h3>
             <p className="text-xs text-[#F5F0E8]/60 mb-4">텔레그램 앱에서 hivedesk_bot을 통해 이용해주세요.</p>
