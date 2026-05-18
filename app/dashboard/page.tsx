@@ -47,6 +47,9 @@ export default function DashboardPage() {
   const [hireExec, setHireExec] = useState<Executive | null>(null)
   const [hiredSkills, setHiredSkills] = useState<Record<string, any[]>>({})
   const [orgId, setOrgId] = useState<string>('')
+  const [projects, setProjects] = useState<any[]>([])
+  const [activeProject, setActiveProject] = useState<any>(null)
+  const [showProjectMenu, setShowProjectMenu] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -57,6 +60,14 @@ export default function DashboardPage() {
       if (d.org_id) { setOrgId(d.org_id); fetchHiredSkills(d.org_id) }
       else fetchHiredSkills('')
     }).catch(() => fetchHiredSkills(''))
+    // 프로젝트 목록 로드
+    fetch('/api/projects').then(r => r.json()).then(d => {
+      if (d.projects) {
+        setProjects(d.projects)
+        const active = d.projects.find((p: any) => p.active_project) || d.projects[0]
+        if (active) setActiveProject(active)
+      }
+    }).catch(() => {})
   }, [])
 
   const fetchHiredSkills = useCallback(async (currentOrgId?: string) => {
@@ -150,6 +161,83 @@ export default function DashboardPage() {
           </div>
         </div>
       </header>
+
+      {/* 프로젝트 전환 바 */}
+      {activeProject && (
+        <div className="sticky top-[57px] z-40 border-b border-amber-500/8 bg-[#0D0D0D]/70 backdrop-blur-sm">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6">
+            <div className="relative">
+              <button
+                id="btn-project-switcher"
+                onClick={() => setShowProjectMenu(v => !v)}
+                className="flex items-center gap-2 py-2 text-left w-full hover:opacity-80 transition-opacity"
+              >
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)] flex-shrink-0" />
+                  <span className="text-[11px] font-bold text-amber-400">{activeProject.title}</span>
+                  <span className="text-[9px] text-[#F5F0E8]/40 hidden sm:inline">— {activeProject.description}</span>
+                </span>
+                <span className={`text-[#F5F0E8]/40 text-[10px] ml-auto transition-transform ${showProjectMenu ? 'rotate-180' : ''}`}>▾</span>
+              </button>
+
+              {/* 드롭다운 */}
+              {showProjectMenu && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setShowProjectMenu(false)} />
+                  <div className="absolute left-0 top-full mt-1 w-72 glass rounded-2xl border border-white/10 overflow-hidden z-50 shadow-xl">
+                    <div className="px-3 py-2 border-b border-white/8">
+                      <p className="text-[9px] text-[#F5F0E8]/40 font-semibold uppercase tracking-wider">프로젝트 전환</p>
+                    </div>
+                    {projects.map(p => (
+                      <button
+                        key={p.id}
+                        onClick={async () => {
+                          setShowProjectMenu(false)
+                          if (p.id === activeProject?.id) return
+                          // 활성 프로젝트 전환 API 호출
+                          await fetch('/api/projects', {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ project_id: p.id }),
+                          })
+                          setActiveProject(p)
+                          setProjects(prev => prev.map(pp => ({ ...pp, active_project: pp.id === p.id })))
+                        }}
+                        className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-white/5 transition-colors ${
+                          p.id === activeProject?.id ? 'bg-amber-500/8' : ''
+                        }`}
+                      >
+                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
+                          p.active_project ? 'bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)]' : 'bg-white/20'
+                        }`} />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-bold text-[#F5F0E8]/90 truncate">{p.title}</p>
+                          <p className="text-[9px] text-[#F5F0E8]/40 truncate">{p.description}</p>
+                        </div>
+                        <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${
+                          p.status === 'active' ? 'bg-emerald-500/15 text-emerald-400' :
+                          p.status === 'planning' ? 'bg-blue-500/15 text-blue-400' :
+                          'bg-white/10 text-[#F5F0E8]/40'
+                        }`}>{p.status === 'active' ? '운영중' : p.status === 'planning' ? '기획중' : p.status}</span>
+                      </button>
+                    ))}
+                    <div className="border-t border-white/8 p-2">
+                      <Link
+                        href="/projects/new"
+                        onClick={() => setShowProjectMenu(false)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-[11px] text-amber-400 font-bold hover:bg-amber-500/10 transition-colors"
+                      >
+                        <span>＋</span>
+                        <span>새 프로젝트 추가</span>
+                      </Link>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2">
         {/* Title */}
