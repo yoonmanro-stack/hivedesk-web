@@ -98,7 +98,7 @@ export async function POST(req: NextRequest) {
 
     // 5) SkillsMuse 인재풀 hired_count 증가 (비동기, 실패해도 무관)
     const SKILLSMUSE_URL = process.env.SKILLSMUSE_SUPABASE_URL
-    const SKILLSMUSE_KEY = process.env.SKILLSMUSE_SERVICE_ROLE_KEY
+    const SKILLSMUSE_KEY = process.env.SKILLSMUSE_SECRET_KEY
     if (SKILLSMUSE_URL && SKILLSMUSE_KEY) {
       fetch(`${SKILLSMUSE_URL}/rest/v1/rpc/increment_agent_hired_count`, {
         method: 'POST',

@@ -5,15 +5,15 @@ import Link from 'next/link'
 import HireModal from '@/components/HireModal'
 
 const EXECUTIVES = [
-  { id: 'ceo',  title: 'CEO',  titleKo: '경영 총괄',   desc: '비전 수립, 전략 결정, 경영 자문',           detail: '회사의 방향성을 결정합니다. 사업 전략 수립, 주요 의사결정, 파트너십 협상 등 대표 역할을 수행하는 AI 경영 총괄입니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_ceo'  },
-  { id: 'coo',  title: 'COO',  titleKo: '운영 총괄',   desc: '비즈니스 운영, 고객 관리, 최적화',           detail: '회사가 매일 원활하게 돌아가도록 관리합니다. 고객 응대, 업무 프로세스 개선, 파트너 관계 관리 등 내부 살림을 총괄합니다.',                              color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_coo'  },
-  { id: 'cpo',  title: 'CPO',  titleKo: '제품 총괄',   desc: 'UX 설계, 기능 기획, 로드맵 관리',           detail: '사용자가 편하게 쓸 수 있는 제품을 설계합니다. PRD 작성, 사용자 리서치, 로드맵 우선순위를 담당합니다.',                                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cpo'  },
-  { id: 'cdo',  title: 'CDO',  titleKo: '디자인 총괄', desc: 'UI/UX 디자인, 브랜드 에셋, 그래픽',          detail: '제품의 미적 감각과 사용자 경험을 시각적으로 구현합니다. 브랜드 정체성 확립, 화면 레이아웃, 픽셀 퍼펙트 디자인을 담당합니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cdo'  },
-  { id: 'cmo',  title: 'CMO',  titleKo: '마케팅 총괄', desc: 'SNS, SEO, 광고, 콘텐츠 전략',               detail: '브랜드를 세상에 알리는 역할입니다. 인스타·유튜브·블로그 기획, 구글 SEO, 광고 카피, 마케팅 캠페인 설계를 담당합니다.',                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cmo'  },
-  { id: 'cto',  title: 'CTO',  titleKo: '기술 총괄',   desc: '앱·웹 개발, 서버 구축, AI 자동화',          detail: '기술적인 모든 것을 담당합니다. 새 기능 개발, 서버 운영, 코드 오류 수정, 배포 자동화까지 제품이 작동하게 만드는 임원입니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cto'  },
-  { id: 'cfo',  title: 'CFO',  titleKo: '재무 총괄',   desc: '예산 관리, 비용 분석, 수익 전략',            detail: '회사 돈의 흐름을 관리합니다. 이번 달 비용, ROI 분석, 절약 포인트를 파악하고 재무 전략을 수립합니다.',                                                  color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cfo'  },
-  { id: 'chro', title: 'CHRO', titleKo: '인사 총괄',   desc: '팀원 채용, 조직 설계, 인재 관리',            detail: '맞는 사람을 찾아 팀을 꾸립니다. 4,500+ SkillsMuse 인재풀에서 전문가를 추천하고 조직 문화와 HR 정책을 설계합니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'hire_team' },
-  { id: 'clo',  title: 'CLO',  titleKo: '법무 총괄',   desc: '리스크 관리, 계약 검토, 규제 준수',          detail: '회사의 법적 리스크를 최소화합니다. 계약서 검토, 이용약관 작성, 저작권 및 규제 가이드라인을 제공합니다.',                                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_clo'  },
+  { id: 'ceo',  name: '리처드', title: 'CEO',  titleKo: '경영 총괄',   desc: '비전 수립, 전략 결정, 경영 자문',           detail: '회사의 방향성을 결정합니다. 사업 전략 수립, 주요 의사결정, 파트너십 협상 등 대표 역할을 수행하는 AI 경영 총괄입니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_ceo'  },
+  { id: 'coo',  name: '올리비아', title: 'COO',  titleKo: '운영 총괄',   desc: '비즈니스 운영, 고객 관리, 최적화',           detail: '회사가 매일 원활하게 돌아가도록 관리합니다. 고객 응대, 업무 프로세스 개선, 파트너 관계 관리 등 내부 살림을 총괄합니다.',                              color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_coo'  },
+  { id: 'cpo',  name: '레오',    title: 'CPO',  titleKo: '제품 총괄',   desc: 'UX 설계, 기능 기획, 로드맵 관리',           detail: '사용자가 편하게 쓸 수 있는 제품을 설계합니다. PRD 작성, 사용자 리서치, 로드맵 우선순위를 담당합니다.',                                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cpo'  },
+  { id: 'cdo',  name: '나디아',  title: 'CDO',  titleKo: '디자인 총괄', desc: 'UI/UX 디자인, 브랜드 에셋, 그래픽',          detail: '제품의 미적 감각과 사용자 경험을 시각적으로 구현합니다. 브랜드 정체성 확립, 화면 레이아웃, 픽셀 퍼펙트 디자인을 담당합니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cdo'  },
+  { id: 'cmo',  name: '조나스',  title: 'CMO',  titleKo: '마케팅 총괄', desc: 'SNS, SEO, 광고, 콘텐츠 전략',               detail: '브랜드를 세상에 알리는 역할입니다. 인스타·유튜브·블로그 기획, 구글 SEO, 광고 카피, 마케팅 캠페인 설계를 담당합니다.',                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cmo'  },
+  { id: 'cto',  name: '알렉스',  title: 'CTO',  titleKo: '기술 총괄',   desc: '앱·웹 개발, 서버 구축, AI 자동화',          detail: '기술적인 모든 것을 담당합니다. 새 기능 개발, 서버 운영, 코드 오류 수정, 배포 자동화까지 제품이 작동하게 만드는 임원입니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cto'  },
+  { id: 'cfo',  name: '소피아',  title: 'CFO',  titleKo: '재무 총괄',   desc: '예산 관리, 비용 분석, 수익 전략',            detail: '회사 돈의 흐름을 관리합니다. 이번 달 비용, ROI 분석, 절약 포인트를 파악하고 재무 전략을 수립합니다.',                                                  color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cfo'  },
+  { id: 'chro', name: '에마',    title: 'CHRO', titleKo: '인사 총괄',   desc: '팀원 채용, 조직 설계, 인재 관리',            detail: '맞는 사람을 찾아 팀을 꾸립니다. 4,500+ SkillsMuse 인재풀에서 전문가를 추천하고 조직 문화와 HR 정책을 설계합니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'hire_team' },
+  { id: 'clo',  name: '마커스',  title: 'CLO',  titleKo: '법무 총괄',   desc: '리스크 관리, 계약 검토, 규제 준수',          detail: '회사의 법적 리스크를 최소화합니다. 계약서 검토, 이용약관 작성, 저작권 및 규제 가이드라인을 제공합니다.',                                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_clo'  },
 ]
 
 type Executive = typeof EXECUTIVES[number]
@@ -52,6 +52,7 @@ export default function DashboardPage() {
   const [showProjectMenu, setShowProjectMenu] = useState(false)
   const [showNavMenu, setShowNavMenu] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
+  const [view, setView] = useState<'dashboard' | 'projects' | 'company'>('dashboard')
 
   useEffect(() => {
     setMounted(true)
@@ -191,22 +192,28 @@ export default function DashboardPage() {
                 <span className="text-base">＋</span>
                 <div><p className="text-sm font-medium text-[#F5F0E8]/90">새 프로젝트</p><p className="text-[9px] text-[#F5F0E8]/40">새 프로젝트 등록</p></div>
               </Link>
-              <button onClick={() => setShowNavMenu(false)}
-                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+              <button onClick={() => { setView('projects'); setShowNavMenu(false) }}
+                className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
+                  view === 'projects' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+                }`}>
                 <span className="text-base">📁</span>
                 <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">내 프로젝트</p><p className="text-[9px] text-[#F5F0E8]/40">전체 프로젝트 목록</p></div>
               </button>
               {/* 운영 섹션 */}
               <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">운영</p>
-              <button onClick={() => setShowNavMenu(false)}
-                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+              <button onClick={() => { setView('company'); setShowNavMenu(false) }}
+                className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
+                  view === 'company' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+                }`}>
                 <span className="text-base">📊</span>
                 <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">회사 현황</p><p className="text-[9px] text-[#F5F0E8]/40">전체 조직 운영 현황</p></div>
               </button>
-              <button onClick={() => setShowNavMenu(false)}
-                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+              <button onClick={() => { setView('dashboard'); setShowNavMenu(false) }}
+                className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
+                  view === 'dashboard' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+                }`}>
                 <span className="text-base">💬</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">대시보드</p><p className="text-[9px] text-[#F5F0E8]/40">팀별 소통 내용 확인</p></div>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">대시보드</p><p className="text-[9px] text-[#F5F0E8]/40">9인 임원 대화 및 지시</p></div>
               </button>
             </nav>
             <div className="px-5 py-4 border-t border-amber-500/10">
@@ -272,86 +279,164 @@ export default function DashboardPage() {
         </>
       )}
 
-      {/* 프로젝트 전환 바 */}
-      {activeProject && (
-        <div className="sticky top-[57px] z-40 border-b border-amber-500/8 bg-[#0D0D0D]/70 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-3 sm:px-6">
-            <div className="relative">
-              <button
-                id="btn-project-switcher"
-                onClick={() => setShowProjectMenu(v => !v)}
-                className="flex items-center gap-2 py-2 text-left w-full hover:opacity-80 transition-opacity"
-              >
-                <span className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)] flex-shrink-0" />
-                  <span className="text-[11px] font-bold text-amber-400">{activeProject.title}</span>
-                  <span className="text-[9px] text-[#F5F0E8]/40 hidden sm:inline">— {activeProject.description}</span>
-                </span>
-                <span className={`text-[#F5F0E8]/40 text-[10px] ml-auto transition-transform ${showProjectMenu ? 'rotate-180' : ''}`}>▾</span>
-              </button>
+      {/* 메인 뷰 */}
+      {/* 메인 뷰 */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4">
 
-              {/* 드롭다운 */}
-              {showProjectMenu && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowProjectMenu(false)} />
-                  <div className="absolute left-0 top-full mt-1 w-72 glass rounded-2xl border border-white/10 overflow-hidden z-50 shadow-xl">
-                    <div className="px-3 py-2 border-b border-white/8">
-                      <p className="text-[9px] text-[#F5F0E8]/40 font-semibold uppercase tracking-wider">프로젝트 전환</p>
-                    </div>
-                    {projects.map(p => (
-                      <button
-                        key={p.id}
-                        onClick={async () => {
-                          setShowProjectMenu(false)
-                          if (p.id === activeProject?.id) return
-                          // 활성 프로젝트 전환 API 호출
-                          await fetch('/api/projects', {
-                            method: 'PATCH',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ project_id: p.id }),
-                          })
-                          setActiveProject(p)
-                          setProjects(prev => prev.map(pp => ({ ...pp, active_project: pp.id === p.id })))
-                        }}
-                        className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-white/5 transition-colors ${
-                          p.id === activeProject?.id ? 'bg-amber-500/8' : ''
-                        }`}
-                      >
-                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                          p.active_project ? 'bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)]' : 'bg-white/20'
-                        }`} />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-[#F5F0E8]/90 truncate">{p.title}</p>
-                          <p className="text-[9px] text-[#F5F0E8]/40 truncate">{p.description}</p>
+        {/* ── 내 프로젝트 뷰 ── */}
+        {view === 'projects' && (
+          <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-bold text-[#F5F0E8]/90">📁 내 프로젝트</h2>
+              <Link href="/projects/new"
+                className="text-[10px] font-bold text-amber-400 px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-colors">
+                ＋ 새 프로젝트
+              </Link>
+            </div>
+            {projects.length === 0 ? (
+              <div className="glass rounded-2xl p-8 text-center">
+                <p className="text-3xl mb-2">🐝</p>
+                <p className="text-sm text-[#F5F0E8]/60">아직 등록된 프로젝트가 없어요</p>
+                <Link href="/projects/new" className="inline-block mt-3 text-xs text-amber-400 font-bold">+ 첫 프로젝트 만들기</Link>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3">
+                {projects.map(p => (
+                  <button
+                    key={p.id}
+                    onClick={async () => {
+                      if (p.id === activeProject?.id) return
+                      await fetch('/api/projects', {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ project_id: p.id }),
+                      })
+                      setActiveProject(p)
+                      setProjects(prev => prev.map(pp => ({ ...pp, active_project: pp.id === p.id })))
+                    }}
+                    className={`glass rounded-2xl p-4 text-left transition-all tap-fast ${
+                      p.active_project ? 'border-amber-500/40 amber-glow' : 'border-white/8 hover:border-white/20'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          {p.active_project && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)] flex-shrink-0" />}
+                          <p className="font-bold text-sm text-[#F5F0E8]/95 truncate">{p.title}</p>
                         </div>
-                        <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${
+                        <p className="text-[10px] text-[#F5F0E8]/50 line-clamp-2">{p.description}</p>
+                      </div>
+                      <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-medium ${
                           p.status === 'active' ? 'bg-emerald-500/15 text-emerald-400' :
                           p.status === 'planning' ? 'bg-blue-500/15 text-blue-400' :
                           'bg-white/10 text-[#F5F0E8]/40'
                         }`}>{p.status === 'active' ? '운영중' : p.status === 'planning' ? '기획중' : p.status}</span>
-                      </button>
-                    ))}
-                    <div className="border-t border-white/8 p-2">
-                      <Link
-                        href="/projects/new"
-                        onClick={() => setShowProjectMenu(false)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-[11px] text-amber-400 font-bold hover:bg-amber-500/10 transition-colors"
-                      >
-                        <span>＋</span>
-                        <span>새 프로젝트 추가</span>
-                      </Link>
+                        {p.active_project && <span className="text-[8px] text-amber-400 font-bold">★ 활성</span>}
+                      </div>
                     </div>
+                    {p.goal && <p className="text-[9px] text-[#F5F0E8]/30 mt-2 line-clamp-1">🎯 {p.goal}</p>}
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ── 회사 현황 뷰 (조직도) ── */}
+        {view === 'company' && (() => {
+          const totalMembers = EXECUTIVES.reduce((s, e) => s + (hiredSkills[e.id] || []).length, 0)
+          const TEAMS = [
+            { label: '제품 · 기술', ids: ['cpo','cto','cdo'] },
+            { label: '비즈니스 · 재무', ids: ['cmo','cfo'] },
+            { label: '운영 · 조직', ids: ['coo','chro','clo'] },
+          ]
+          return (
+            <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
+              {/* 헤더 */}
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-base font-bold text-[#F5F0E8]/90">📊 회사 현황</h2>
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] text-[#F5F0E8]/40">총 팀원</span>
+                  <span className="text-[11px] font-bold text-amber-400">{totalMembers}명</span>
+                  {activeProject && <span className="text-[9px] text-amber-400 font-bold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">● {activeProject.title}</span>}
+                </div>
+              </div>
+
+              {/* CEO 카드 */}
+              <button onClick={() => handleExecClick(CEO_EXEC)}
+                className="w-full glass amber-glow rounded-2xl p-3 mb-2 border-amber-500/30 tap-fast hover:bg-amber-500/8 transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B30)'}}>
+                    <img src={execImgSrc('ceo')} alt="CEO" className="w-full h-full object-contain" onError={e => imgFallback(e,'#F59E0B')} />
                   </div>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+                  <div className="flex-1 text-left min-w-0">
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <span className="text-[9px] font-bold text-amber-400 bg-amber-500/15 px-1.5 py-px rounded-md">👑 CEO</span>
+                      <span className="text-xs font-bold text-[#F5F0E8]/90">리처드</span>
+                      <span className="text-[9px] text-[#F5F0E8]/40">· 경영 총괄</span>
+                    </div>
+                    <p className="text-[9px] text-[#F5F0E8]/50 truncate">비전 수립 · 전략 결정 · 최종 의사결정</p>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <p className="text-xs font-bold text-amber-400">{(hiredSkills['ceo'] || []).length}<span className="text-[9px] font-normal text-[#F5F0E8]/40">명</span></p>
+                    <p className="text-[8px] text-[#F5F0E8]/30">팀원</p>
+                  </div>
+                </div>
+              </button>
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2">
+              {/* 수직 연결선 */}
+              <div className="flex justify-center mb-2"><div className="w-px h-3 bg-amber-500/20" /></div>
 
-        {/* Version Badge */}
+              {/* 팀 그룹 */}
+              {TEAMS.map(({ label, ids }) => (
+                <div key={label} className="mb-3">
+                  <p className="text-[8px] font-semibold text-[#F5F0E8]/25 uppercase tracking-widest mb-1.5 px-1">{label}</p>
+                  <div className="flex flex-col gap-1.5">
+                    {ids.map(id => {
+                      const exec = EXECUTIVES.find(e => e.id === id)!
+                      const members = (hiredSkills[exec.id] || [])
+                      return (
+                        <button key={id} onClick={() => handleExecClick(exec)}
+                          className="glass rounded-xl p-2.5 flex items-center gap-2.5 tap-fast hover:bg-amber-500/6 border-white/6 transition-colors text-left">
+                          <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B15)'}}>
+                            <img src={execImgSrc(id)} alt={exec.title} className="w-full h-full object-contain" onError={e => imgFallback(e, exec.color)} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5 mb-0.5">
+                              <span className="text-[9px] font-bold text-amber-400/80 bg-amber-500/10 px-1 py-px rounded">{exec.title}</span>
+                              <span className="text-[10px] font-bold text-[#F5F0E8]/85">{exec.name}</span>
+                              <span className="text-[8px] text-[#F5F0E8]/35">· {exec.titleKo}</span>
+                            </div>
+                            <p className="text-[8px] text-[#F5F0E8]/40 truncate">{exec.desc}</p>
+                          </div>
+                          <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                            <span className="text-[10px] font-bold text-[#F5F0E8]/70">{members.length}<span className="text-[8px] font-normal text-[#F5F0E8]/30">명</span></span>
+                            {members.length > 0
+                              ? <span className="text-[7px] text-emerald-400 font-bold">● 활성</span>
+                              : <span className="text-[7px] text-[#F5F0E8]/20">○ 공석</span>}
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              {/* 하단 요약 */}
+              <div className="mt-3 glass rounded-xl p-3 grid grid-cols-3 gap-2 text-center border-white/6">
+                <div><p className="text-sm font-black text-amber-400">{totalMembers}</p><p className="text-[8px] text-[#F5F0E8]/40">전체 팀원</p></div>
+                <div><p className="text-sm font-black text-[#F5F0E8]/80">9</p><p className="text-[8px] text-[#F5F0E8]/40">임원 부서</p></div>
+                <div><p className="text-sm font-black text-emerald-400">{EXECUTIVES.filter(e => (hiredSkills[e.id]||[]).length > 0).length}</p><p className="text-[8px] text-[#F5F0E8]/40">운영 중 팀</p></div>
+              </div>
+            </section>
+          )
+        })()}
+
+
+        {/* ── 대시보드 뷰 (기존 임원 그리드) ── */}
+        {view === 'dashboard' && (
+          <>
         <div className={`flex justify-center mb-4 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
           <span className="glass px-3 py-1 rounded-full text-[9px] sm:text-xs font-medium text-amber-400 border-amber-500/20 tracking-widest uppercase">● v4.0 · Nine Executives</span>
         </div>
@@ -524,6 +609,12 @@ export default function DashboardPage() {
           </div>
         </div>
       )}
+
+      {/* 같은 레벨의 div 닫기 — 대시보드 뷰 */}
+          </>
+        )}
+
+      </div>{/* max-w-7xl */}
 
       {/* Web Alert Modal */}
       {showWebAlert && (

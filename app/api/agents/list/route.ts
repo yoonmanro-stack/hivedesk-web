@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       .select('*')
       .eq('org_id', orgId)
       .eq('status', 'active')
-      .order('created_at', { ascending: false })
+      .order('hired_at', { ascending: false })
 
     if (error) {
       return NextResponse.json({ agents: [], error: error.message })

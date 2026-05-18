@@ -1,14 +1,14 @@
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const supabasePublishableKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!
 
-// 클라이언트 사이드용 (anon key)
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// 클라이언트 사이드용 (publishable key)
+export const supabase = createClient(supabaseUrl, supabasePublishableKey)
 
-// 서버 사이드용 (service role — 절대 클라이언트에 노출 금지)
+// 서버 사이드용 (secret key — 절대 클라이언트에 노출 금지)
 export function createServiceClient() {
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!serviceKey) throw new Error('SUPABASE_SERVICE_ROLE_KEY is not set')
-  return createClient(supabaseUrl, serviceKey)
+  const secretKey = process.env.SUPABASE_SECRET_KEY
+  if (!secretKey) throw new Error('SUPABASE_SECRET_KEY is not set')
+  return createClient(supabaseUrl, secretKey)
 }
