@@ -509,7 +509,7 @@ export default function DashboardPage() {
               >
                 <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-2" style={{ background: `linear-gradient(135deg, #111111 60%, ${exec.color}25)` }}>
                   <img src={execImgSrc(exec.id)} alt={exec.title} className="absolute inset-0 w-full h-full object-contain p-1" loading="lazy" onError={(e) => imgFallback(e, exec.color)} />
-                  <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_4px_rgba(52,211,153,0.8)]"></span>
+
                 </div>
                 <p className="text-sm font-bold" style={{ color: exec.color }}>{exec.title}</p>
                 <p className="text-xs text-[#F5F0E8]/65 truncate">{exec.titleKo}</p>
