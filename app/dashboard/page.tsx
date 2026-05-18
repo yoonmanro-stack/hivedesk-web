@@ -164,7 +164,7 @@ export default function DashboardPage() {
           </button>
           {/* 중앙: 로고 */}
           <div className="flex items-center gap-2">
-            <img src="/characters/ceo.png" alt="bee" className="w-8 h-8 object-contain bee-float" style={{ filter: 'drop-shadow(0 0 6px rgba(245,158,11,0.5))' }} />
+            <span className="text-2xl bee-float">🐝</span>
             <div className="flex flex-col items-start">
               <h1 className="text-base font-bold text-shimmer leading-tight">HiveDesk</h1>
               <p className="text-xs text-[#F5F0E8]/60 tracking-wide">9인 임원 · 1인 비서</p>
