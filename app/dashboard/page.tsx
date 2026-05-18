@@ -524,12 +524,11 @@ export default function DashboardPage() {
 
       </div>{/* max-w-7xl */}
 
-      {/* ── Slide-up Panel ── */}
+      {/* ── Slide-down Panel (상단 기준) ── */}
       {selectedExec && (
-        <div className={`fixed inset-0 z-50 flex items-end justify-center transition-opacity duration-300 ${panelOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className={`fixed inset-0 z-50 flex items-start justify-center transition-opacity duration-300 ${panelOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
           <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.65)' }} onClick={closePanel} />
-          <div className={`relative w-full max-w-lg rounded-t-3xl p-4 sm:p-6 transition-transform duration-300 max-h-[85vh] overflow-y-auto ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`} style={{ background: '#181818', borderTop: '2px solid rgba(245,158,11,0.22)' }}>
-            <div className="w-10 h-1 rounded-full mx-auto mb-4" style={{ background: 'rgba(255,255,255,0.25)' }} />
+          <div className={`relative w-full max-w-lg rounded-b-3xl p-4 sm:p-6 transition-transform duration-300 max-h-[90vh] overflow-y-auto ${panelOpen ? 'translate-y-0' : '-translate-y-full'}`} style={{ background: '#181818', borderBottom: '2px solid rgba(245,158,11,0.22)', marginTop: '56px' }}>
             <button onClick={closePanel} className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-sm transition-colors" style={{ background: 'rgba(255,255,255,0.12)', color: '#F5F0E8' }}>✕</button>
 
             {(() => {
