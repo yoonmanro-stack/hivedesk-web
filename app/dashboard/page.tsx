@@ -64,22 +64,26 @@ export default function DashboardPage() {
     setMounted(true)
     const tg = window.Telegram?.WebApp
     if (tg && !tg.isExpanded) tg.expand()
-    // 조직 ID 로드 후 팀원 목록 + 프로젝트 fetch
+
+    // UI 즉시 표시 후 데이터는 병렬로 백그라운드 로드
+    fetchHiredSkills('') // 먼저 빈 org_id로 즉시 시작
+
     fetch('/api/me').then(r => r.json()).then(d => {
       const oid = d.org_id || ''
-      if (oid) { setOrgId(oid); fetchHiredSkills(oid) }
-      else fetchHiredSkills('')
-      // 프로젝트 목록 로드 (org_id와 함께)
-      fetch(`/api/projects${oid ? `?org_id=${oid}` : ''}`)
-        .then(r => r.json())
-        .then(d => {
-          if (d.projects && d.projects.length > 0) {
-            setProjects(d.projects)
-            const active = d.projects.find((p: any) => p.active_project) || d.projects[0]
-            if (active) setActiveProject(active)
-          }
-        }).catch(() => {})
-    }).catch(() => fetchHiredSkills(''))
+      if (oid) {
+        setOrgId(oid)
+        fetchHiredSkills(oid) // org_id 확인 후 정확한 데이터로 갱신
+        fetch(`/api/projects?org_id=${oid}`)
+          .then(r => r.json())
+          .then(d => {
+            if (d.projects?.length > 0) {
+              setProjects(d.projects)
+              const active = d.projects.find((p: any) => p.active_project) || d.projects[0]
+              if (active) setActiveProject(active)
+            }
+          }).catch(() => {})
+      }
+    }).catch(() => {})
   }, [])
 
   const fetchHiredSkills = useCallback(async (currentOrgId?: string) => {
