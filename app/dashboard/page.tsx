@@ -164,8 +164,8 @@ export default function DashboardPage() {
           </button>
           {/* 중앙: 로고 */}
           <div className="flex flex-col items-center">
-            <h1 className="text-sm font-bold text-shimmer leading-tight">HiveDesk</h1>
-            <p className="text-[8px] text-[#F5F0E8]/40 tracking-wide">AI 1인 기업 · 9인 임원</p>
+            <h1 className="text-base font-bold text-shimmer leading-tight">HiveDesk</h1>
+            <p className="text-xs text-[#F5F0E8]/60 tracking-wide">AI 1인 기업 · 9인 임원</p>
           </div>
           {/* 우: 사람 아이콘 */}
           <div className="flex justify-end">
@@ -187,43 +187,43 @@ export default function DashboardPage() {
               <span className="text-2xl bee-float">🐝</span>
               <div>
                 <p className="text-sm font-bold text-shimmer">HiveDesk</p>
-                <p className="text-[9px] text-[#F5F0E8]/50">AI 1인 기업 · 9인 임원</p>
+                <p className="text-xs text-[#F5F0E8]/60">AI 1인 기업 · 9인 임원</p>
               </div>
             </div>
             <nav className="flex-1 overflow-y-auto py-2">
               {/* 프로젝트 섹션 */}
-              <p className="px-5 pt-3 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">프로젝트</p>
+              <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">프로젝트</p>
               <Link href="/projects/new" onClick={() => setShowNavMenu(false)}
                 className="flex items-center gap-3 px-5 py-3 hover:bg-amber-500/8 transition-colors">
                 <span className="text-base">＋</span>
-                <div><p className="text-sm font-medium text-[#F5F0E8]/90">새 프로젝트</p><p className="text-[9px] text-[#F5F0E8]/40">새 프로젝트 등록</p></div>
+                <div><p className="text-sm font-semibold text-[#F5F0E8]">새 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">새 프로젝트 등록</p></div>
               </Link>
               <button onClick={() => { setView('projects'); setShowNavMenu(false) }}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'projects' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
                 <span className="text-base">📁</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">내 프로젝트</p><p className="text-[9px] text-[#F5F0E8]/40">전체 프로젝트 목록</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">전체 프로젝트 목록</p></div>
               </button>
               {/* 운영 섹션 */}
-              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">운영</p>
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">운영</p>
               <button onClick={() => { setView('company'); setShowNavMenu(false) }}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'company' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
                 <span className="text-base">📊</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">회사 현황</p><p className="text-[9px] text-[#F5F0E8]/40">전체 조직 운영 현황</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 현황</p><p className="text-xs text-[#F5F0E8]/60">전체 조직 운영 현황</p></div>
               </button>
               <button onClick={() => { setView('dashboard'); setShowNavMenu(false) }}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
                 <span className="text-base">💬</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">대시보드</p><p className="text-[9px] text-[#F5F0E8]/40">9인 임원 대화 및 지시</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">대시보드</p><p className="text-xs text-[#F5F0E8]/60">9인 임원 대화 및 지시</p></div>
               </button>
             </nav>
             <div className="px-5 py-4 border-t border-amber-500/10">
-              <p className="text-[9px] text-[#F5F0E8]/25">HiveDesk v1.3</p>
+              <p className="text-xs text-[#F5F0E8]/40">HiveDesk v1.3</p>
             </div>
           </div>
         </>
@@ -238,47 +238,47 @@ export default function DashboardPage() {
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm">👤</div>
                 <div>
-                  <p className="text-sm font-bold text-[#F5F0E8]/90">대표님</p>
-                  <p className="text-[9px] text-[#F5F0E8]/50">🚀 Starter 플랜</p>
+                  <p className="text-sm font-bold text-[#F5F0E8]">대표님</p>
+                  <p className="text-xs text-[#F5F0E8]/60">🚀 Starter 플랜</p>
                 </div>
               </div>
-              <button onClick={() => setShowUserMenu(false)} className="text-[#F5F0E8]/40 hover:text-[#F5F0E8]/80 text-lg">✕</button>
+              <button onClick={() => setShowUserMenu(false)} className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg">✕</button>
             </div>
             <nav className="flex-1 overflow-y-auto py-2">
-              <p className="px-5 pt-3 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">계정</p>
+              <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">계정</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
                 <span className="text-base">👤</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">개인정보</p><p className="text-[9px] text-[#F5F0E8]/40">프로필 및 계정 설정</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">개인정보</p><p className="text-xs text-[#F5F0E8]/60">프로필 및 계정 설정</p></div>
               </button>
-              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">플랜 & 결제</p>
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">플랜 & 결제</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
                 <span className="text-base">🚀</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">구독 관리</p><p className="text-[9px] text-[#F5F0E8]/40">플랜 업그레이드 · 결제</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">구독 관리</p><p className="text-xs text-[#F5F0E8]/60">플랜 업그레이드 · 결제</p></div>
               </button>
-              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">개발자</p>
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">개발자</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
                 <span className="text-base">🔑</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">API Key 관리</p><p className="text-[9px] text-[#F5F0E8]/40">Claude · Gemini BYOAK</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">API Key 관리</p><p className="text-xs text-[#F5F0E8]/60">Claude · Gemini BYOAK</p></div>
               </button>
-              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">설정</p>
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">설정</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
                 <span className="text-base">🌐</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">언어 설정</p><p className="text-[9px] text-[#F5F0E8]/40">한국어 · English · 日本語</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">언어 설정</p><p className="text-xs text-[#F5F0E8]/60">한국어 · English · 日本語</p></div>
               </button>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
                 <span className="text-base">🔔</span>
-                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">알림 설정</p><p className="text-[9px] text-[#F5F0E8]/40">텔레그램 · 이메일 알림</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">알림 설정</p><p className="text-xs text-[#F5F0E8]/60">텔레그램 · 이메일 알림</p></div>
               </button>
             </nav>
             <div className="px-5 py-4 border-t border-amber-500/10">
-              <button className="w-full flex items-center gap-3 py-2 text-rose-400/70 hover:text-rose-400 transition-colors">
+              <button className="w-full flex items-center gap-3 py-2 text-rose-400/80 hover:text-rose-400 transition-colors">
                 <span className="text-base">↩</span>
-                <p className="text-sm">로그아웃</p>
+                <p className="text-sm font-semibold">로그아웃</p>
               </button>
             </div>
           </div>
@@ -292,18 +292,18 @@ export default function DashboardPage() {
         {/* ── 내 프로젝트 뷰 ── */}
         {view === 'projects' && (
           <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-base font-bold text-[#F5F0E8]/90">📁 내 프로젝트</h2>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-xl font-bold text-[#F5F0E8]">📁 내 프로젝트</h2>
               <Link href="/projects/new"
-                className="text-[10px] font-bold text-amber-400 px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-colors">
+                className="text-xs font-bold text-amber-400 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 hover:bg-amber-500/25 transition-colors">
                 ＋ 새 프로젝트
               </Link>
             </div>
             {projects.length === 0 ? (
               <div className="glass rounded-2xl p-8 text-center">
                 <p className="text-3xl mb-2">🐝</p>
-                <p className="text-sm text-[#F5F0E8]/60">아직 등록된 프로젝트가 없어요</p>
-                <Link href="/projects/new" className="inline-block mt-3 text-xs text-amber-400 font-bold">+ 첫 프로젝트 만들기</Link>
+                <p className="text-sm text-[#F5F0E8]/70">아직 등록된 프로젝트가 없어요</p>
+                <Link href="/projects/new" className="inline-block mt-3 text-sm text-amber-400 font-bold">+ 첫 프로젝트 만들기</Link>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
@@ -326,22 +326,22 @@ export default function DashboardPage() {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          {p.active_project && <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)] flex-shrink-0" />}
-                          <p className="font-bold text-sm text-[#F5F0E8]/95 truncate">{p.title}</p>
+                        <div className="flex items-center gap-2 mb-1.5">
+                          {p.active_project && <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)] flex-shrink-0" />}
+                          <p className="font-bold text-base text-[#F5F0E8] truncate">{p.title}</p>
                         </div>
-                        <p className="text-[10px] text-[#F5F0E8]/50 line-clamp-2">{p.description}</p>
+                        <p className="text-xs text-[#F5F0E8]/65 line-clamp-2">{p.description}</p>
                       </div>
                       <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-                        <span className={`text-[9px] px-2 py-0.5 rounded-full font-medium ${
-                          p.status === 'active' ? 'bg-emerald-500/15 text-emerald-400' :
-                          p.status === 'planning' ? 'bg-blue-500/15 text-blue-400' :
-                          'bg-white/10 text-[#F5F0E8]/40'
+                        <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${
+                          p.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' :
+                          p.status === 'planning' ? 'bg-blue-500/20 text-blue-400' :
+                          'bg-white/10 text-[#F5F0E8]/50'
                         }`}>{p.status === 'active' ? '운영중' : p.status === 'planning' ? '기획중' : p.status}</span>
-                        {p.active_project && <span className="text-[8px] text-amber-400 font-bold">★ 활성</span>}
+                        {p.active_project && <span className="text-xs text-amber-400 font-bold">★ 활성</span>}
                       </div>
                     </div>
-                    {p.goal && <p className="text-[9px] text-[#F5F0E8]/30 mt-2 line-clamp-1">🎯 {p.goal}</p>}
+                    {p.goal && <p className="text-xs text-[#F5F0E8]/50 mt-2 line-clamp-1">🎯 {p.goal}</p>}
                   </button>
                 ))}
               </div>
