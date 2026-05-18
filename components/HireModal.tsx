@@ -24,7 +24,7 @@ const GRADE_COLOR: Record<string, string> = { A: '#34D399', B: '#60A5FA', C: '#F
 const GRADE_BG: Record<string, string> = { A: 'rgba(52,211,153,0.12)', B: 'rgba(96,165,250,0.12)', C: 'rgba(251,191,36,0.12)', D: 'rgba(248,113,113,0.12)' }
 
 function GradeBadge({ grade }: { grade: string }) {
-  return <span className="text-[10px] font-black px-2 py-0.5 rounded-full" style={{ color: GRADE_COLOR[grade]||'#fff', background: GRADE_BG[grade]||'rgba(255,255,255,0.08)' }}>Grade {grade}</span>
+  return <span className="text-xs font-black px-2 py-0.5 rounded-full" style={{ color: GRADE_COLOR[grade]||'#fff', background: GRADE_BG[grade]||'rgba(255,255,255,0.08)' }}>Grade {grade}</span>
 }
 
 export default function HireModal({ isOpen, onClose, onHired, defaultCategory, parentExec, orgId }: HireModalProps) {
@@ -54,7 +54,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
   }
   const handleClose = () => { if (step === 'generating') return; reset(); onClose() }
 
-  // ── 인재풀 검색 (명시적 버튼) ──
+  // ── 인재풀 검색 ──
   const handleSearch = async () => {
     if (!role.trim()) return
     setStep('searching')
@@ -130,14 +130,13 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
 
         {/* 고정 헤더 */}
         <div className="shrink-0 px-5 pt-4 pb-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-          <div className="w-10 h-1 rounded-full mx-auto mb-3" style={{ background: 'rgba(255,255,255,0.25)' }} />
           <button onClick={handleClose} className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-sm" style={{ background: 'rgba(255,255,255,0.12)', color: '#F5F0E8' }}>✕</button>
           <div className="flex items-center gap-2">
             <span className="text-xl">👥</span>
             <h2 className="text-lg font-black" style={{ color: execColor }}>인재 채용</h2>
-            {parentExec && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full ml-auto" style={{ color: execColor, background: `${execColor}18`, border: `1px solid ${execColor}25` }}>{parentExec.title} 산하</span>}
+            {parentExec && <span className="text-xs font-bold px-2 py-0.5 rounded-full ml-auto" style={{ color: execColor, background: `${execColor}18`, border: `1px solid ${execColor}25` }}>{parentExec.title} 산하</span>}
           </div>
-          <p className="text-[11px] mt-0.5" style={{ color: 'rgba(245,240,232,0.55)' }}>최고의 에이전트를 팀에 합류시킵니다</p>
+          <p className="text-xs mt-1 text-[#F5F0E8]/65">최고의 에이전트를 팀에 합류시킵니다</p>
         </div>
 
         {/* 스크롤 바디 */}
@@ -146,10 +145,10 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
           {/* ── Step: input ── */}
           {step === 'input' && (
             <div>
-              <label className="text-xs font-bold text-[#F5F0E8]/80 block mb-2">어떤 전문가가 필요하신가요?</label>
+              <label className="text-sm font-bold text-[#F5F0E8] block mb-2">어떤 전문가가 필요하신가요?</label>
               <input
-                className="w-full px-4 py-3 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 outline-none mb-3"
-                style={{ background: 'rgba(255,255,255,0.07)', border: `1px solid ${role.length > 1 ? execColor+'50' : 'rgba(255,255,255,0.12)'}` }}
+                className="w-full px-4 py-3 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/40 outline-none mb-4"
+                style={{ background: 'rgba(255,255,255,0.07)', border: `1px solid ${role.length > 1 ? execColor+'50' : 'rgba(255,255,255,0.15)'}` }}
                 placeholder="예: React 개발자, SNS 마케터, 법률 전문가..."
                 value={role}
                 onChange={e => setRole(e.target.value)}
@@ -157,17 +156,17 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 autoFocus
               />
 
-              {/* 카테고리 필터 칩 — 34개 전체 가로 스크롤 */}
-              <div className="mb-4">
-                <p className="text-[10px] text-[#F5F0E8]/40 mb-2">카테고리 필터 (선택)</p>
+              {/* 카테고리 필터 */}
+              <div className="mb-5">
+                <p className="text-xs font-semibold text-[#F5F0E8]/60 mb-2">카테고리 필터 <span className="font-normal text-[#F5F0E8]/40">(선택)</span></p>
                 <div className="flex flex-wrap gap-1.5">
                   {SKILL_CATEGORIES.map(cat => (
                     <button key={cat} onClick={() => setCategoryFilter(categoryFilter === cat ? '' : cat)}
-                      className="text-[10px] font-medium px-2.5 py-1 rounded-full transition-all"
+                      className="text-xs font-medium px-2.5 py-1 rounded-full transition-all"
                       style={{
                         background: categoryFilter === cat ? `${execColor}25` : 'rgba(255,255,255,0.06)',
-                        color: categoryFilter === cat ? execColor : 'rgba(245,240,232,0.55)',
-                        border: `1px solid ${categoryFilter === cat ? execColor+'40' : 'rgba(255,255,255,0.10)'}`,
+                        color: categoryFilter === cat ? execColor : 'rgba(245,240,232,0.65)',
+                        border: `1px solid ${categoryFilter === cat ? execColor+'40' : 'rgba(255,255,255,0.12)'}`,
                       }}>
                       {cat}
                     </button>
@@ -182,7 +181,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 style={{ background: `linear-gradient(135deg, ${execColor}CC, ${execColor}88)`, color: '#0D0D0D' }}>
                 🔍 맞춤인재 찾기
               </button>
-              <p className="text-center text-[10px] text-[#F5F0E8]/30 mt-2">2글자 이상 입력 후 검색</p>
+              <p className="text-center text-xs text-[#F5F0E8]/60 mt-2.5">2글자 이상 입력 후 검색해주세요</p>
             </div>
           )}
 
@@ -193,22 +192,22 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 <div className="w-14 h-14 rounded-full border-4 border-t-transparent animate-spin" style={{ borderColor: `${execColor}40`, borderTopColor: execColor }} />
                 <span className="absolute inset-0 flex items-center justify-center text-xl">🔍</span>
               </div>
-              <p className="text-sm font-bold text-[#F5F0E8]/80">인재풀 검색 중...</p>
-              <p className="text-[11px] text-[#F5F0E8]/40 mt-1">"{role}"</p>
+              <p className="text-sm font-bold text-[#F5F0E8]/90">인재풀 검색 중...</p>
+              <p className="text-xs text-[#F5F0E8]/60 mt-1">"{role}"</p>
             </div>
           )}
 
           {/* ── Step: pool (결과) ── */}
           {step === 'pool' && (
             <div>
-              <button onClick={() => setStep('input')} className="flex items-center gap-1 text-[11px] text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 mb-4 transition-colors">← 다시 검색</button>
+              <button onClick={() => setStep('input')} className="flex items-center gap-1 text-xs text-[#F5F0E8]/60 hover:text-[#F5F0E8]/90 mb-4 transition-colors">← 다시 검색</button>
 
               {poolAgents.length > 0 ? (
                 <div>
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xs font-black text-[#F5F0E8]/85">🏆 인재풀 매칭</span>
-                    <span className="text-[10px] text-[#F5F0E8]/50">{poolAgents.length}명 발견</span>
-                    <span className="ml-auto text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ color: '#34D399', background: 'rgba(52,211,153,0.10)' }}>즉시 채용 가능</span>
+                    <span className="text-sm font-black text-[#F5F0E8]">🏆 인재풀 매칭</span>
+                    <span className="text-xs text-[#F5F0E8]/60">{poolAgents.length}명 발견</span>
+                    <span className="ml-auto text-xs font-bold px-2 py-0.5 rounded-full" style={{ color: '#34D399', background: 'rgba(52,211,153,0.10)' }}>즉시 채용 가능</span>
                   </div>
 
                   <div className="space-y-3 mb-4">
@@ -220,8 +219,8 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                               <p className="text-sm font-black text-[#F5F0E8]">{agent.agent_name}</p>
                               <GradeBadge grade={agent.quality_grade} />
                             </div>
-                            <p className="text-[11px] text-[#F5F0E8]/65">{agent.agent_role}</p>
-                            {agent.sub_category && <p className="text-[10px] text-[#F5F0E8]/40">{agent.primary_category} › {agent.sub_category}</p>}
+                            <p className="text-xs text-[#F5F0E8]/70">{agent.agent_role}</p>
+                            {agent.sub_category && <p className="text-xs text-[#F5F0E8]/50">{agent.primary_category} › {agent.sub_category}</p>}
                           </div>
                           <button onClick={() => hireFromPool(agent)}
                             className="shrink-0 text-xs font-black px-3 py-1.5 rounded-xl transition-all hover:brightness-125 active:scale-95"
@@ -233,20 +232,20 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                         {/* 스킬 태그 */}
                         <div className="flex flex-wrap gap-1 mb-2">
                           {(agent.skill_tags?.length ? agent.skill_tags : agent.skill_slugs).slice(0, 5).map((tag: string) => (
-                            <span key={tag} className="text-[9px] px-2 py-0.5 rounded-full"
-                              style={{ color: 'rgba(245,240,232,0.55)', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.09)' }}>
+                            <span key={tag} className="text-xs px-2 py-0.5 rounded-full"
+                              style={{ color: 'rgba(245,240,232,0.65)', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.10)' }}>
                               {tag.replace(/-/g, ' ')}
                             </span>
                           ))}
                         </div>
 
-                        {/* 채용 이력 뱃지 */}
+                        {/* 채용 이력 */}
                         {agent.hired_count > 0 && (
-                          <div className="flex items-center gap-2 text-[10px] text-[#F5F0E8]/45">
+                          <div className="flex items-center gap-2 text-xs text-[#F5F0E8]/55">
                             <span>⭐ {agent.avg_quality_score}점</span>
                             <span className="font-semibold" style={{ color: '#34D399' }}>✓ {agent.hired_count}개 기업이 채용</span>
                             {agent.employment_history && agent.employment_history.length > 0 && (
-                              <span className="text-[#F5F0E8]/30">· {agent.employment_history[agent.employment_history.length-1].org_label} 외</span>
+                              <span className="text-[#F5F0E8]/40">· {agent.employment_history[agent.employment_history.length-1].org_label} 외</span>
                             )}
                           </div>
                         )}
@@ -254,11 +253,11 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                     ))}
                   </div>
 
-                  {/* 원하는 인재 없을 때 생성 옵션 */}
+                  {/* 원하는 인재 없을 때 */}
                   <div className="border-t border-white/10 pt-3">
-                    <p className="text-[11px] text-[#F5F0E8]/40 text-center mb-2">원하는 인재가 없다면?</p>
+                    <p className="text-xs text-[#F5F0E8]/60 text-center mb-2">원하는 인재가 없다면?</p>
                     <button onClick={() => { setCategory(defaultCategory || ''); setStep('create') }}
-                      className="w-full py-2.5 rounded-xl text-xs font-bold border border-dashed transition-all hover:brightness-110"
+                      className="w-full py-2.5 rounded-xl text-sm font-bold border border-dashed transition-all hover:brightness-110"
                       style={{ color: `${execColor}90`, borderColor: `${execColor}35` }}>
                       🎯 맞춤 인재 직접 생성하기
                     </button>
@@ -268,14 +267,14 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 /* 결과 없음 */
                 <div className="text-center py-8">
                   <div className="text-4xl mb-3">😔</div>
-                  <p className="text-sm font-bold text-[#F5F0E8]/80 mb-1">인재풀에 딱 맞는 에이전트가 없어요</p>
-                  <p className="text-[11px] text-[#F5F0E8]/40 mb-6">"{role}" 검색 결과 없음</p>
+                  <p className="text-sm font-bold text-[#F5F0E8]/90 mb-1">인재풀에 딱 맞는 에이전트가 없어요</p>
+                  <p className="text-xs text-[#F5F0E8]/60 mb-6">"{role}" 검색 결과 없음</p>
                   <button onClick={() => { setCategory(defaultCategory || ''); setStep('create') }}
                     className="w-full py-3.5 rounded-xl text-sm font-black transition-all hover:brightness-110 active:scale-[0.98]"
                     style={{ background: `linear-gradient(135deg, ${execColor}CC, ${execColor}88)`, color: '#0D0D0D' }}>
                     🎯 맞춤 인재 직접 생성하기
                   </button>
-                  <p className="text-[10px] text-[#F5F0E8]/30 mt-2">생성 후 인재풀에 자동 등록됩니다</p>
+                  <p className="text-xs text-[#F5F0E8]/60 mt-2">생성 후 인재풀에 자동 등록됩니다</p>
                 </div>
               )}
             </div>
@@ -285,35 +284,35 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
           {step === 'create' && (
             <div>
               <button onClick={() => setStep(poolAgents.length > 0 ? 'pool' : 'input')}
-                className="flex items-center gap-1 text-[11px] text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 mb-4 transition-colors">
+                className="flex items-center gap-1 text-xs text-[#F5F0E8]/60 hover:text-[#F5F0E8]/90 mb-4 transition-colors">
                 ← 인재풀로 돌아가기
               </button>
 
               <div className="panel-card p-3 mb-4 flex items-center gap-3">
                 <span className="text-lg">🎯</span>
-                <div><p className="text-[10px] text-[#F5F0E8]/50">요청 역할</p><p className="text-sm font-bold text-[#F5F0E8]">{role}</p></div>
-                <button onClick={() => setStep('input')} className="ml-auto text-[10px] text-[#F5F0E8]/40 hover:text-[#F5F0E8]/70">수정</button>
+                <div><p className="text-xs text-[#F5F0E8]/60">요청 역할</p><p className="text-sm font-bold text-[#F5F0E8]">{role}</p></div>
+                <button onClick={() => setStep('input')} className="ml-auto text-xs text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80">수정</button>
               </div>
 
               <div className="mb-3">
-                <label className="text-xs font-bold text-[#F5F0E8]/80 block mb-1.5">팀원 이름 <span className="text-[#F5F0E8]/40 font-normal">(선택)</span></label>
-                <input className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 outline-none"
-                  style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                <label className="text-sm font-bold text-[#F5F0E8] block mb-1.5">팀원 이름 <span className="text-[#F5F0E8]/50 font-normal text-xs">(선택)</span></label>
+                <input className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/40 outline-none"
+                  style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.15)' }}
                   placeholder="예: Alex, Luna, 김지수..." value={memberName} onChange={e => setMemberName(e.target.value)} />
               </div>
 
               <div className="mb-3">
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-xs font-bold text-[#F5F0E8]/80">스킬 카테고리</label>
+                  <label className="text-sm font-bold text-[#F5F0E8]">스킬 카테고리</label>
                   <button onClick={handleSuggest} disabled={suggesting || !role.trim()}
-                    className="text-[10px] font-bold px-2.5 py-1 rounded-lg transition-all hover:brightness-110 disabled:opacity-40"
+                    className="text-xs font-bold px-2.5 py-1 rounded-lg transition-all hover:brightness-110 disabled:opacity-40"
                     style={{ color: execColor, background: `${execColor}15`, border: `1px solid ${execColor}25` }}>
                     {suggesting ? '분석 중...' : '🤖 AI 추천'}
                   </button>
                 </div>
-                {suggestReason && <p className="text-[10px] text-[#F5F0E8]/55 mb-1.5 px-1">💡 {suggestReason}</p>}
+                {suggestReason && <p className="text-xs text-[#F5F0E8]/65 mb-1.5 px-1">💡 {suggestReason}</p>}
                 <select className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] outline-none appearance-none"
-                  style={{ background: 'rgba(30,30,30,0.95)', border: `1px solid ${category ? execColor+'40' : 'rgba(255,255,255,0.12)'}` }}
+                  style={{ background: 'rgba(30,30,30,0.95)', border: `1px solid ${category ? execColor+'40' : 'rgba(255,255,255,0.15)'}` }}
                   value={category} onChange={e => setCategory(e.target.value)}>
                   <option value="">카테고리 선택...</option>
                   {SKILL_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -321,9 +320,9 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
               </div>
 
               <div className="mb-5">
-                <label className="text-xs font-bold text-[#F5F0E8]/80 block mb-1.5">추가 요청사항 <span className="text-[#F5F0E8]/40 font-normal">(선택)</span></label>
-                <textarea className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/30 outline-none resize-none"
-                  style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                <label className="text-sm font-bold text-[#F5F0E8] block mb-1.5">추가 요청사항 <span className="text-[#F5F0E8]/50 font-normal text-xs">(선택)</span></label>
+                <textarea className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/40 outline-none resize-none"
+                  style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.15)' }}
                   rows={3} placeholder="원하는 특화 스킬이나 경험을 적어주세요..."
                   value={requirements} onChange={e => setRequirements(e.target.value)} />
               </div>
@@ -333,7 +332,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 style={{ background: `linear-gradient(135deg, ${execColor}CC, ${execColor}88)`, color: '#0D0D0D' }}>
                 🏭 인재 생성 시작
               </button>
-              <p className="text-center text-[10px] text-[#F5F0E8]/35 mt-2">생성 후 자동으로 인재풀에 등록됩니다</p>
+              <p className="text-center text-xs text-[#F5F0E8]/60 mt-2.5">생성 후 자동으로 인재풀에 등록됩니다</p>
             </div>
           )}
 
@@ -344,8 +343,8 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 <div className="w-16 h-16 rounded-full border-4 border-t-transparent animate-spin" style={{ borderColor: `${execColor}40`, borderTopColor: execColor }} />
                 <span className="absolute inset-0 flex items-center justify-center text-2xl">🐝</span>
               </div>
-              <p className="text-sm font-bold text-[#F5F0E8]/90 mb-2">{statusMsg || '처리 중...'}</p>
-              <p className="text-[11px] text-[#F5F0E8]/45">잠시만 기다려 주세요</p>
+              <p className="text-sm font-bold text-[#F5F0E8] mb-2">{statusMsg || '처리 중...'}</p>
+              <p className="text-xs text-[#F5F0E8]/60">잠시만 기다려 주세요</p>
             </div>
           )}
 
@@ -354,9 +353,9 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
             <div className="flex flex-col items-center justify-center py-8 text-center">
               <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4" style={{ background: `${execColor}18`, border: `2px solid ${execColor}35` }}>🎉</div>
               <h3 className="text-lg font-black mb-1" style={{ color: execColor }}>채용 완료!</h3>
-              <p className="text-sm font-bold text-[#F5F0E8]/90 mb-1">{result.skillName || '에이전트'}</p>
-              <p className="text-[11px] text-[#F5F0E8]/55 mb-2">{parentExec?.title} 팀에 합류했습니다 🚀</p>
-              <p className="text-[10px] text-[#F5F0E8]/35 mb-5">인재풀에도 자동 등록됐습니다</p>
+              <p className="text-sm font-bold text-[#F5F0E8] mb-1">{result.skillName || '에이전트'}</p>
+              <p className="text-xs text-[#F5F0E8]/70 mb-2">{parentExec?.title} 팀에 합류했습니다 🚀</p>
+              <p className="text-xs text-[#F5F0E8]/50 mb-5">인재풀에도 자동 등록됐습니다</p>
               <button onClick={() => { reset(); onClose() }}
                 className="w-full py-3 rounded-xl text-sm font-black transition-all hover:brightness-110"
                 style={{ background: `${execColor}20`, color: execColor, border: `1px solid ${execColor}30` }}>
@@ -370,10 +369,10 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
             <div className="flex flex-col items-center justify-center py-8 text-center">
               <div className="w-16 h-16 rounded-full flex items-center justify-center text-3xl mb-4 bg-red-500/10 border border-red-500/25">⚠️</div>
               <h3 className="text-base font-black text-red-400 mb-2">채용 실패</h3>
-              <p className="text-[11px] text-[#F5F0E8]/60 mb-5">{errMsg || '알 수 없는 오류가 발생했습니다.'}</p>
+              <p className="text-xs text-[#F5F0E8]/70 mb-5">{errMsg || '알 수 없는 오류가 발생했습니다.'}</p>
               <div className="grid grid-cols-2 gap-2.5 w-full">
-                <button onClick={() => setStep('create')} className="py-2.5 rounded-xl text-xs font-bold border border-white/15 text-[#F5F0E8]/70 hover:bg-white/5 transition-all">다시 시도</button>
-                <button onClick={() => { reset(); onClose() }} className="py-2.5 rounded-xl text-xs font-bold border border-white/15 text-[#F5F0E8]/70 hover:bg-white/5 transition-all">닫기</button>
+                <button onClick={() => setStep('create')} className="py-2.5 rounded-xl text-sm font-bold border border-white/15 text-[#F5F0E8]/80 hover:bg-white/5 transition-all">다시 시도</button>
+                <button onClick={() => { reset(); onClose() }} className="py-2.5 rounded-xl text-sm font-bold border border-white/15 text-[#F5F0E8]/80 hover:bg-white/5 transition-all">닫기</button>
               </div>
             </div>
           )}
