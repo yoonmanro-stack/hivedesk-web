@@ -24,13 +24,15 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ════════════════════════════════════════════
 /* 임원 카드 / 배지용 — 텔레그램 WebApp 호환 (blur 제거) */
 .glass {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.18);
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(245, 158, 11, 0.22);
 }
 
 /* 패널/모달 내부용 — 솔리드 배경 */
@@ -155,28 +157,28 @@ body {
 }
 
 /* ════════════════════════════════════════════
-   TEXT 가독성 시스템 (3단계 통일)
-   기존 /30~/60 난잡한 불투명도를 정리
+   TEXT 가독성 시스템 — v2.0 (명도 강화)
+   배경 #0D0D0D 기준 최소 WCAG AA 충족
 ════════════════════════════════════════════ */
 
 /* 레이블, 카테고리, 포지션명 — 선명하게 */
 .hd-text-label {
-  color: rgba(245, 240, 232, 0.90);
-  font-size: 0.75rem;   /* 12px */
+  color: rgba(245, 240, 232, 0.95);
+  font-size: 0.875rem;  /* 14px */
   font-weight: 600;
 }
 
 /* 설명 본문 — 충분히 읽히게 */
 .hd-text-body {
-  color: rgba(245, 240, 232, 0.75);
-  font-size: 0.6875rem; /* 11px */
-  line-height: 1.5;
+  color: rgba(245, 240, 232, 0.80);
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.55;
 }
 
 /* 보조 정보 — 서브 레이블 */
 .hd-text-sub {
-  color: rgba(245, 240, 232, 0.55);
-  font-size: 0.625rem;  /* 10px */
+  color: rgba(245, 240, 232, 0.65);
+  font-size: 0.75rem;   /* 12px */
 }
 
 /* CHRO 허브 전용 임원 행 */

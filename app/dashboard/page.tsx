@@ -454,7 +454,7 @@ export default function DashboardPage() {
         {view === 'dashboard' && (
           <>
         <div className={`flex justify-center mb-4 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
-          <span className="glass px-3 py-1 rounded-full text-[9px] sm:text-xs font-medium text-amber-400 border-amber-500/20 tracking-widest uppercase">● v4.0 · Nine Executives</span>
+          <span className="glass px-4 py-1.5 rounded-full text-xs font-semibold text-amber-400 border-amber-500/30 tracking-widest uppercase">● v4.0 · Nine Executives</span>
         </div>
 
         {/* CEO — Featured Top Card */}
@@ -466,9 +466,9 @@ export default function DashboardPage() {
             <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-3 shadow-[0_0_30px_rgba(245,158,11,0.3)]" style={{ background: `linear-gradient(135deg, #111111 60%, ${CEO_EXEC.color}30)` }}>
               <img src={execImgSrc('ceo')} alt="CEO" className="absolute inset-0 w-full h-full object-contain p-1" loading="eager" onError={(e) => imgFallback(e, CEO_EXEC.color)} />
             </div>
-            <p className="text-amber-400 font-bold text-sm sm:text-base">👑 CEO</p>
-            <p className="text-[10px] text-[#F5F0E8]/60">경영 총괄 AI</p>
-            <span className="mt-2 text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">● 대기중</span>
+            <p className="text-amber-400 font-bold text-base sm:text-lg">👑 CEO</p>
+            <p className="text-xs text-[#F5F0E8]/70">경영 총괄 AI</p>
+            <span className="mt-2 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">● 대기중</span>
           </button>
         </section>
 
@@ -496,8 +496,8 @@ export default function DashboardPage() {
                   <img src={execImgSrc(exec.id)} alt={exec.title} className="absolute inset-0 w-full h-full object-contain p-1" loading="lazy" onError={(e) => imgFallback(e, exec.color)} />
                   <span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_4px_rgba(52,211,153,0.8)]"></span>
                 </div>
-                <p className="text-[11px] sm:text-sm font-bold" style={{ color: exec.color }}>{exec.title}</p>
-                <p className="text-[9px] sm:text-[10px] text-[#F5F0E8]/50 truncate">{exec.titleKo}</p>
+                <p className="text-sm font-bold" style={{ color: exec.color }}>{exec.title}</p>
+                <p className="text-xs text-[#F5F0E8]/65 truncate">{exec.titleKo}</p>
               </div>
             </button>
           ))}
