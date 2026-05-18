@@ -50,6 +50,8 @@ export default function DashboardPage() {
   const [projects, setProjects] = useState<any[]>([])
   const [activeProject, setActiveProject] = useState<any>(null)
   const [showProjectMenu, setShowProjectMenu] = useState(false)
+  const [showNavMenu, setShowNavMenu] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -140,30 +142,135 @@ export default function DashboardPage() {
 
   return (
     <main className="h-screen overflow-y-auto hero-bg honeycomb-bg relative">
-      {/* Header */}
+      {/* Header — 삼선(좌) · 로고(중앙) · 사람(우) */}
       <header className="border-b border-amber-500/10 backdrop-blur-md bg-[#0D0D0D]/80 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <span className="text-2xl sm:text-3xl bee-float">🐝</span>
-            <div>
-              <h1 className="text-sm sm:text-lg font-bold text-shimmer">HiveDesk</h1>
-              <p className="text-[9px] text-[#F5F0E8]/60">AI 1인 기업 · 9인 임원</p>
-            </div>
+        <div className="px-3 py-3 grid grid-cols-3 items-center">
+          {/* 좌: 삼선 메뉴 */}
+          <button
+            id="btn-nav-menu"
+            onClick={() => setShowNavMenu(true)}
+            className="flex flex-col gap-[5px] w-8 h-8 justify-center tap-fast"
+          >
+            <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
+            <span className="block h-[2px] w-4 bg-[#F5F0E8]/70 rounded-full" />
+            <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
+          </button>
+          {/* 중앙: 로고 */}
+          <div className="flex flex-col items-center">
+            <h1 className="text-sm font-bold text-shimmer leading-tight">HiveDesk</h1>
+            <p className="text-[8px] text-[#F5F0E8]/40 tracking-wide">AI 1인 기업 · 9인 임원</p>
           </div>
-          <div className="flex items-center gap-2">
-            <Link
-              href="/projects/new"
-              id="btn-new-project"
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[10px] sm:text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 hover:border-amber-500/50 transition-all active:scale-95 tap-fast"
-            >
-              <span className="text-xs">＋</span>
-              <span className="hidden sm:inline">새 프로젝트</span>
-            </Link>
-            <span className="glass px-2 py-1 rounded-full text-[9px] sm:text-xs font-medium text-amber-400 border-amber-500/20">🚀 Starter</span>
-            <div className="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-xs">👤</div>
+          {/* 우: 사람 아이콘 */}
+          <div className="flex justify-end">
+            <button
+              id="btn-user-menu"
+              onClick={() => setShowUserMenu(true)}
+              className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm tap-fast hover:bg-amber-500/30 transition-colors"
+            >👤</button>
           </div>
         </div>
       </header>
+
+      {/* Nav 드로어 (왼쪽) */}
+      {showNavMenu && (
+        <>
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setShowNavMenu(false)} />
+          <div className="fixed left-0 top-0 bottom-0 w-72 z-50 bg-[#0D0D0D] border-r border-amber-500/15 flex flex-col" style={{ animation: 'slideInLeft 0.22s ease' }}>
+            <div className="flex items-center gap-2.5 px-5 py-4 border-b border-amber-500/10">
+              <span className="text-2xl bee-float">🐝</span>
+              <div>
+                <p className="text-sm font-bold text-shimmer">HiveDesk</p>
+                <p className="text-[9px] text-[#F5F0E8]/50">AI 1인 기업 · 9인 임원</p>
+              </div>
+            </div>
+            <nav className="flex-1 overflow-y-auto py-2">
+              {/* 프로젝트 섹션 */}
+              <p className="px-5 pt-3 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">프로젝트</p>
+              <Link href="/projects/new" onClick={() => setShowNavMenu(false)}
+                className="flex items-center gap-3 px-5 py-3 hover:bg-amber-500/8 transition-colors">
+                <span className="text-base">＋</span>
+                <div><p className="text-sm font-medium text-[#F5F0E8]/90">새 프로젝트</p><p className="text-[9px] text-[#F5F0E8]/40">새 프로젝트 등록</p></div>
+              </Link>
+              <button onClick={() => setShowNavMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">📁</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">내 프로젝트</p><p className="text-[9px] text-[#F5F0E8]/40">전체 프로젝트 목록</p></div>
+              </button>
+              {/* 운영 섹션 */}
+              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">운영</p>
+              <button onClick={() => setShowNavMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">📊</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">회사 현황</p><p className="text-[9px] text-[#F5F0E8]/40">전체 조직 운영 현황</p></div>
+              </button>
+              <button onClick={() => setShowNavMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">💬</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">대시보드</p><p className="text-[9px] text-[#F5F0E8]/40">팀별 소통 내용 확인</p></div>
+              </button>
+            </nav>
+            <div className="px-5 py-4 border-t border-amber-500/10">
+              <p className="text-[9px] text-[#F5F0E8]/25">HiveDesk v1.3</p>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* User 드로어 (오른쪽) */}
+      {showUserMenu && (
+        <>
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setShowUserMenu(false)} />
+          <div className="fixed right-0 top-0 bottom-0 w-72 z-50 bg-[#0D0D0D] border-l border-amber-500/15 flex flex-col" style={{ animation: 'slideInRight 0.22s ease' }}>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-amber-500/10">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm">👤</div>
+                <div>
+                  <p className="text-sm font-bold text-[#F5F0E8]/90">대표님</p>
+                  <p className="text-[9px] text-[#F5F0E8]/50">🚀 Starter 플랜</p>
+                </div>
+              </div>
+              <button onClick={() => setShowUserMenu(false)} className="text-[#F5F0E8]/40 hover:text-[#F5F0E8]/80 text-lg">✕</button>
+            </div>
+            <nav className="flex-1 overflow-y-auto py-2">
+              <p className="px-5 pt-3 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">계정</p>
+              <button onClick={() => setShowUserMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">👤</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">개인정보</p><p className="text-[9px] text-[#F5F0E8]/40">프로필 및 계정 설정</p></div>
+              </button>
+              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">플랜 & 결제</p>
+              <button onClick={() => setShowUserMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">🚀</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">구독 관리</p><p className="text-[9px] text-[#F5F0E8]/40">플랜 업그레이드 · 결제</p></div>
+              </button>
+              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">개발자</p>
+              <button onClick={() => setShowUserMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">🔑</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">API Key 관리</p><p className="text-[9px] text-[#F5F0E8]/40">Claude · Gemini BYOAK</p></div>
+              </button>
+              <p className="px-5 pt-4 pb-1 text-[9px] font-semibold text-[#F5F0E8]/30 uppercase tracking-wider">설정</p>
+              <button onClick={() => setShowUserMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">🌐</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">언어 설정</p><p className="text-[9px] text-[#F5F0E8]/40">한국어 · English · 日本語</p></div>
+              </button>
+              <button onClick={() => setShowUserMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
+                <span className="text-base">🔔</span>
+                <div className="text-left"><p className="text-sm font-medium text-[#F5F0E8]/90">알림 설정</p><p className="text-[9px] text-[#F5F0E8]/40">텔레그램 · 이메일 알림</p></div>
+              </button>
+            </nav>
+            <div className="px-5 py-4 border-t border-amber-500/10">
+              <button className="w-full flex items-center gap-3 py-2 text-rose-400/70 hover:text-rose-400 transition-colors">
+                <span className="text-base">↩</span>
+                <p className="text-sm">로그아웃</p>
+              </button>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* 프로젝트 전환 바 */}
       {activeProject && (
@@ -243,11 +350,6 @@ export default function DashboardPage() {
       )}
 
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2">
-        {/* Title */}
-        <section className={`mb-2 ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
-          <h2 className="text-lg sm:text-2xl font-bold mb-1">🏢 Nine Agent</h2>
-          <p className="text-[11px] sm:text-sm text-[#F5F0E8]/70">9인 임원 AI에게 직접 대화하고 작업을 지시하세요</p>
-        </section>
 
         {/* Version Badge */}
         <div className={`flex justify-center mb-4 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
