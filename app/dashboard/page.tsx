@@ -164,7 +164,7 @@ export default function DashboardPage() {
           </button>
           {/* 중앙: 로고 */}
           <div className="flex flex-col items-center">
-            <h1 className="text-base font-bold text-shimmer leading-tight">HiveDesk</h1>
+            <h1 className="text-base font-bold text-shimmer leading-tight">🐝 HiveDesk</h1>
             <p className="text-xs text-[#F5F0E8]/60 tracking-wide">9인 임원 · 1인 비서</p>
           </div>
           {/* 우: 사람 아이콘 */}
