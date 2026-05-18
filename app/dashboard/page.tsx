@@ -21,6 +21,12 @@ type Executive = typeof EXECUTIVES[number]
 const CEO_EXEC = EXECUTIVES[0]
 const REST_EXECS = EXECUTIVES.slice(1)
 
+const COMPANY_TEAMS = [
+  { label: '제품 · 기술', ids: ['cpo','cto','cdo'] },
+  { label: '비즈니스 · 재무', ids: ['cmo','cfo'] },
+  { label: '운영 · 조직', ids: ['coo','chro','clo'] },
+]
+
 function execImgSrc(id: string) {
   return `/characters/${id}.png?v=2`
 }
@@ -344,94 +350,86 @@ export default function DashboardPage() {
         )}
 
         {/* ── 회사 현황 뷰 (조직도) ── */}
-        {view === 'company' && (() => {
-          const totalMembers = EXECUTIVES.reduce((s, e) => s + (hiredSkills[e.id] || []).length, 0)
-          const TEAMS = [
-            { label: '제품 · 기술', ids: ['cpo','cto','cdo'] },
-            { label: '비즈니스 · 재무', ids: ['cmo','cfo'] },
-            { label: '운영 · 조직', ids: ['coo','chro','clo'] },
-          ]
-          return (
-            <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
-              {/* 헤더 */}
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-base font-bold text-[#F5F0E8]/90">📊 회사 현황</h2>
-                <div className="flex items-center gap-2">
-                  <span className="text-[9px] text-[#F5F0E8]/40">총 팀원</span>
-                  <span className="text-[11px] font-bold text-amber-400">{totalMembers}명</span>
-                  {activeProject && <span className="text-[9px] text-amber-400 font-bold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">● {activeProject.title}</span>}
+        {view === 'company' && (
+          <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
+            {/* 헤더 */}
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-base font-bold text-[#F5F0E8]/90">📊 회사 현황</h2>
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] text-[#F5F0E8]/40">총 팀원</span>
+                <span className="text-[11px] font-bold text-amber-400">{EXECUTIVES.reduce((s,e)=>s+(hiredSkills[e.id]||[]).length,0)}명</span>
+                {activeProject && <span className="text-[9px] text-amber-400 font-bold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">● {activeProject.title}</span>}
+              </div>
+            </div>
+
+            {/* CEO 카드 */}
+            <button onClick={() => handleExecClick(CEO_EXEC)}
+              className="w-full glass amber-glow rounded-2xl p-3 mb-2 border-amber-500/30 tap-fast hover:bg-amber-500/8 transition-colors">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B30)'}}>
+                  <img src={execImgSrc('ceo')} alt="CEO" className="w-full h-full object-contain" onError={e => imgFallback(e,'#F59E0B')} />
+                </div>
+                <div className="flex-1 text-left min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-[9px] font-bold text-amber-400 bg-amber-500/15 px-1.5 py-px rounded-md">👑 CEO</span>
+                    <span className="text-xs font-bold text-[#F5F0E8]/90">리처드</span>
+                    <span className="text-[9px] text-[#F5F0E8]/40">· 경영 총괄</span>
+                  </div>
+                  <p className="text-[9px] text-[#F5F0E8]/50 truncate">비전 수립 · 전략 결정 · 최종 의사결정</p>
+                </div>
+                <div className="text-right flex-shrink-0">
+                  <p className="text-xs font-bold text-amber-400">{(hiredSkills['ceo']||[]).length}<span className="text-[9px] font-normal text-[#F5F0E8]/40">명</span></p>
+                  <p className="text-[8px] text-[#F5F0E8]/30">팀원</p>
                 </div>
               </div>
+            </button>
 
-              {/* CEO 카드 */}
-              <button onClick={() => handleExecClick(CEO_EXEC)}
-                className="w-full glass amber-glow rounded-2xl p-3 mb-2 border-amber-500/30 tap-fast hover:bg-amber-500/8 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B30)'}}>
-                    <img src={execImgSrc('ceo')} alt="CEO" className="w-full h-full object-contain" onError={e => imgFallback(e,'#F59E0B')} />
-                  </div>
-                  <div className="flex-1 text-left min-w-0">
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <span className="text-[9px] font-bold text-amber-400 bg-amber-500/15 px-1.5 py-px rounded-md">👑 CEO</span>
-                      <span className="text-xs font-bold text-[#F5F0E8]/90">리처드</span>
-                      <span className="text-[9px] text-[#F5F0E8]/40">· 경영 총괄</span>
-                    </div>
-                    <p className="text-[9px] text-[#F5F0E8]/50 truncate">비전 수립 · 전략 결정 · 최종 의사결정</p>
-                  </div>
-                  <div className="text-right flex-shrink-0">
-                    <p className="text-xs font-bold text-amber-400">{(hiredSkills['ceo'] || []).length}<span className="text-[9px] font-normal text-[#F5F0E8]/40">명</span></p>
-                    <p className="text-[8px] text-[#F5F0E8]/30">팀원</p>
-                  </div>
+            {/* 수직선 */}
+            <div className="flex justify-center mb-2"><div className="w-px h-3 bg-amber-500/20" /></div>
+
+            {/* 팀 그룹 */}
+            {COMPANY_TEAMS.map(({ label, ids }) => (
+              <div key={label} className="mb-3">
+                <p className="text-[8px] font-semibold text-[#F5F0E8]/25 uppercase tracking-widest mb-1.5 px-1">{label}</p>
+                <div className="flex flex-col gap-1.5">
+                  {ids.map(id => {
+                    const exec = EXECUTIVES.find(e => e.id === id)!
+                    const memberCount = (hiredSkills[exec.id] || []).length
+                    return (
+                      <button key={id} onClick={() => handleExecClick(exec)}
+                        className="glass rounded-xl p-2.5 flex items-center gap-2.5 tap-fast hover:bg-amber-500/8 border-white/8 transition-colors text-left">
+                        <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B15)'}}>
+                          <img src={execImgSrc(id)} alt={exec.title} className="w-full h-full object-contain" onError={e => imgFallback(e, exec.color)} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5 mb-0.5">
+                            <span className="text-[9px] font-bold text-amber-400/80 bg-amber-500/10 px-1 py-px rounded">{exec.title}</span>
+                            <span className="text-[10px] font-bold text-[#F5F0E8]/85">{exec.name}</span>
+                            <span className="text-[8px] text-[#F5F0E8]/35">· {exec.titleKo}</span>
+                          </div>
+                          <p className="text-[8px] text-[#F5F0E8]/40 truncate">{exec.desc}</p>
+                        </div>
+                        <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                          <span className="text-[10px] font-bold text-[#F5F0E8]/70">{memberCount}<span className="text-[8px] font-normal text-[#F5F0E8]/30">명</span></span>
+                          {memberCount > 0
+                            ? <span className="text-[7px] text-emerald-400 font-bold">● 활성</span>
+                            : <span className="text-[7px] text-[#F5F0E8]/20">○ 공석</span>}
+                        </div>
+                      </button>
+                    )
+                  })}
                 </div>
-              </button>
-
-              {/* 수직 연결선 */}
-              <div className="flex justify-center mb-2"><div className="w-px h-3 bg-amber-500/20" /></div>
-
-              {/* 팀 그룹 */}
-              {TEAMS.map(({ label, ids }) => (
-                <div key={label} className="mb-3">
-                  <p className="text-[8px] font-semibold text-[#F5F0E8]/25 uppercase tracking-widest mb-1.5 px-1">{label}</p>
-                  <div className="flex flex-col gap-1.5">
-                    {ids.map(id => {
-                      const exec = EXECUTIVES.find(e => e.id === id)!
-                      const members = (hiredSkills[exec.id] || [])
-                      return (
-                        <button key={id} onClick={() => handleExecClick(exec)}
-                          className="glass rounded-xl p-2.5 flex items-center gap-2.5 tap-fast hover:bg-amber-500/6 border-white/6 transition-colors text-left">
-                          <div className="w-9 h-9 rounded-lg overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B15)'}}>
-                            <img src={execImgSrc(id)} alt={exec.title} className="w-full h-full object-contain" onError={e => imgFallback(e, exec.color)} />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1.5 mb-0.5">
-                              <span className="text-[9px] font-bold text-amber-400/80 bg-amber-500/10 px-1 py-px rounded">{exec.title}</span>
-                              <span className="text-[10px] font-bold text-[#F5F0E8]/85">{exec.name}</span>
-                              <span className="text-[8px] text-[#F5F0E8]/35">· {exec.titleKo}</span>
-                            </div>
-                            <p className="text-[8px] text-[#F5F0E8]/40 truncate">{exec.desc}</p>
-                          </div>
-                          <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                            <span className="text-[10px] font-bold text-[#F5F0E8]/70">{members.length}<span className="text-[8px] font-normal text-[#F5F0E8]/30">명</span></span>
-                            {members.length > 0
-                              ? <span className="text-[7px] text-emerald-400 font-bold">● 활성</span>
-                              : <span className="text-[7px] text-[#F5F0E8]/20">○ 공석</span>}
-                          </div>
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-              ))}
-
-              {/* 하단 요약 */}
-              <div className="mt-3 glass rounded-xl p-3 grid grid-cols-3 gap-2 text-center border-white/6">
-                <div><p className="text-sm font-black text-amber-400">{totalMembers}</p><p className="text-[8px] text-[#F5F0E8]/40">전체 팀원</p></div>
-                <div><p className="text-sm font-black text-[#F5F0E8]/80">9</p><p className="text-[8px] text-[#F5F0E8]/40">임원 부서</p></div>
-                <div><p className="text-sm font-black text-emerald-400">{EXECUTIVES.filter(e => (hiredSkills[e.id]||[]).length > 0).length}</p><p className="text-[8px] text-[#F5F0E8]/40">운영 중 팀</p></div>
               </div>
-            </section>
-          )
-        })()}
+            ))}
+
+            {/* 하단 요약 */}
+            <div className="mt-3 glass rounded-xl p-3 grid grid-cols-3 gap-2 text-center border-white/6">
+              <div><p className="text-sm font-black text-amber-400">{EXECUTIVES.reduce((s,e)=>s+(hiredSkills[e.id]||[]).length,0)}</p><p className="text-[8px] text-[#F5F0E8]/40">전체 팀원</p></div>
+              <div><p className="text-sm font-black text-[#F5F0E8]/80">9</p><p className="text-[8px] text-[#F5F0E8]/40">임원 부서</p></div>
+              <div><p className="text-sm font-black text-emerald-400">{EXECUTIVES.filter(e=>(hiredSkills[e.id]||[]).length>0).length}</p><p className="text-[8px] text-[#F5F0E8]/40">운영 중 팀</p></div>
+            </div>
+          </section>
+        )}
 
 
         {/* ── 대시보드 뷰 (기존 임원 그리드) ── */}
