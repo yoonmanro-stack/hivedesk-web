@@ -165,7 +165,7 @@ export default function DashboardPage() {
           {/* 중앙: 로고 */}
           <div className="flex flex-col items-center">
             <h1 className="text-base font-bold text-shimmer leading-tight">HiveDesk</h1>
-            <p className="text-xs text-[#F5F0E8]/60 tracking-wide">AI 1인 기업 · 9인 임원</p>
+            <p className="text-xs text-[#F5F0E8]/60 tracking-wide">9인 임원 · 1인 비서</p>
           </div>
           {/* 우: 사람 아이콘 */}
           <div className="flex justify-end">
@@ -384,17 +384,16 @@ export default function DashboardPage() {
             {/* 수직선 */}
             <div className="flex justify-center mb-2"><div className="w-px h-3 bg-amber-500/30" /></div>
 
-            {/* 비서 카드 */}
-            <div className="glass rounded-2xl p-4 mb-2 border-white/10 flex items-center gap-3">
-              <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#A78BFA20)'}}>
-                <img src="/characters/secretary.png" alt="비서" className="w-full h-full object-contain" onError={e => { (e.target as HTMLImageElement).style.display='none' }} />
-                <div className="w-full h-full flex items-center justify-center text-2xl -mt-14">🎀</div>
+            {/* 비서 카드 — 캐릭터 이미지 포함 */}
+            <div className="glass rounded-2xl p-4 mb-2 border-purple-500/20 flex items-center gap-3" style={{background:'rgba(167,139,250,0.05)'}}>
+              <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#A78BFA25)'}}>
+                <img src="/characters/secretary.png" alt="아이리스" className="w-full h-full object-cover" />
               </div>
               <div className="flex-1 text-left min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-md">비서</span>
+                  <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-md">🎀 비서</span>
                   <span className="text-base font-bold text-[#F5F0E8]">아이리스</span>
-                  <span className="text-xs text-[#F5F0E8]/60">· CEO 보좌</span>
+                  <span className="text-xs text-[#F5F0E8]/60">· CEO 전담 보좌</span>
                 </div>
                 <p className="text-xs text-[#F5F0E8]/70">일정 관리 · 보고 정리 · 업무 조율</p>
               </div>
@@ -472,8 +471,24 @@ export default function DashboardPage() {
           </button>
         </section>
 
-        {/* Connecting Lines */}
+        {/* 비서 슬림 카드 — CEO 바로 아래 */}
         <div className={`flex justify-center mb-2 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
+          <div className="w-px h-2 bg-amber-500/30" />
+        </div>
+        <div className={`flex justify-center mb-3 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
+          <div className="w-full max-w-[260px] sm:max-w-[300px] rounded-xl border border-purple-500/20 bg-purple-500/5 px-4 py-2 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-sm">🎀</span>
+              <div>
+                <p className="text-xs font-bold text-purple-300">아이리스</p>
+                <p className="text-[10px] text-[#F5F0E8]/45">비서 · CEO 전담 보좌</p>
+              </div>
+            </div>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400/70">대기중</span>
+          </div>
+        </div>
+        {/* Connecting Lines */}
+        <div className={`flex justify-center mb-2 ${mounted ? 'fade-in-up fade-in-up-delay-2' : 'opacity-0'}`}>
           <div className="w-px h-3 bg-gradient-to-b from-amber-500/40 to-amber-500/10"></div>
         </div>
         <div className={`flex justify-center mb-4 ${mounted ? 'fade-in-up fade-in-up-delay-2' : 'opacity-0'}`}>
