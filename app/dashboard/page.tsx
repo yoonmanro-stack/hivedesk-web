@@ -486,7 +486,10 @@ export default function DashboardPage() {
           {/* Center last row (2 items) by adding invisible spacer */}
           {REST_EXECS.length % 3 === 2 && <div className="invisible" aria-hidden />}
         </section>
-      </div>
+          </>
+        )}
+
+      </div>{/* max-w-7xl */}
 
       {/* ── Slide-up Panel ── */}
       {selectedExec && (
@@ -608,11 +611,6 @@ export default function DashboardPage() {
         </div>
       )}
 
-      {/* 같은 레벨의 div 닫기 — 대시보드 뷰 */}
-          </>
-        )}
-
-      </div>{/* max-w-7xl */}
 
       {/* Web Alert Modal */}
       {showWebAlert && (
