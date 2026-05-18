@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import Link from 'next/link'
 import HireModal from '@/components/HireModal'
 
 const EXECUTIVES = [
@@ -45,20 +46,25 @@ export default function DashboardPage() {
   const [showHireModal, setShowHireModal] = useState(false)
   const [hireExec, setHireExec] = useState<Executive | null>(null)
   const [hiredSkills, setHiredSkills] = useState<Record<string, any[]>>({})
+  const [orgId, setOrgId] = useState<string>('')
 
   useEffect(() => {
     setMounted(true)
     const tg = window.Telegram?.WebApp
     if (tg && !tg.isExpanded) tg.expand()
-    fetchHiredSkills()
+    // 조직 ID 로드 후 팀원 목록 fetch
+    fetch('/api/me').then(r => r.json()).then(d => {
+      if (d.org_id) { setOrgId(d.org_id); fetchHiredSkills(d.org_id) }
+      else fetchHiredSkills('')
+    }).catch(() => fetchHiredSkills(''))
   }, [])
 
-  const fetchHiredSkills = useCallback(async () => {
+  const fetchHiredSkills = useCallback(async (currentOrgId?: string) => {
+    const oid = currentOrgId || orgId
     try {
-      // 기존 hired_skills + 신규 hired_agents 병합
       const [skillsRes, agentsRes] = await Promise.allSettled([
-        fetch('/api/hire/list'),
-        fetch('/api/agents/list'),
+        fetch(oid ? `/api/hire/list?org_id=${oid}` : '/api/hire/list'),
+        fetch(oid ? `/api/agents/list?org_id=${oid}` : '/api/agents/list'),
       ])
       const grouped: Record<string, any[]> = {}
 
@@ -89,7 +95,7 @@ export default function DashboardPage() {
       }
       setHiredSkills(grouped)
     } catch (e) { console.warn('hired fetch failed:', e) }
-  }, [])
+  }, [orgId])
 
   useEffect(() => {
     document.body.style.overflow = panelOpen ? 'hidden' : ''
@@ -131,6 +137,14 @@ export default function DashboardPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Link
+              href="/projects/new"
+              id="btn-new-project"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-[10px] sm:text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 hover:border-amber-500/50 transition-all active:scale-95 tap-fast"
+            >
+              <span className="text-xs">＋</span>
+              <span className="hidden sm:inline">새 프로젝트</span>
+            </Link>
             <span className="glass px-2 py-1 rounded-full text-[9px] sm:text-xs font-medium text-amber-400 border-amber-500/20">🚀 Starter</span>
             <div className="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-xs">👤</div>
           </div>
@@ -310,10 +324,7 @@ export default function DashboardPage() {
                     </div>
                   )}
 
-                  <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-                    <button onClick={() => openTelegramAction(exec.tgCommand)} className="font-bold text-xs sm:text-sm py-3 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>💬 대화하기</button>
-                    <button onClick={() => openTelegramAction('task_' + exec.tgCommand.replace('chat_', ''))} className="font-bold text-xs sm:text-sm py-3 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}15`, color: `${exec.color}AA`, border: `1px solid ${exec.color}20` }}>📋 작업 지시</button>
-                  </div>
+                  <button onClick={() => openTelegramAction(exec.tgCommand)} className="w-full font-bold text-sm py-3 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>📋 지시하기</button>
                 </div>
               )
             })()}
@@ -338,7 +349,7 @@ export default function DashboardPage() {
         isOpen={showHireModal}
         onClose={() => { setShowHireModal(false); setHireExec(null) }}
         onHired={() => fetchHiredSkills()}
-        orgId="default"
+        orgId={orgId}
         parentExec={hireExec ? { id: hireExec.id, title: hireExec.title, titleKo: hireExec.titleKo, color: hireExec.color } : null}
       />
     </main>
