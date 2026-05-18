@@ -476,15 +476,15 @@ export default function DashboardPage() {
           <div className="w-px h-2 bg-amber-500/30" />
         </div>
         <div className={`flex justify-center mb-3 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
-          <div className="w-full max-w-[260px] sm:max-w-[300px] rounded-xl border border-purple-500/20 bg-purple-500/5 px-4 py-2 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-sm">🎀</span>
+          <div className="w-full max-w-[260px] sm:max-w-[300px] rounded-2xl border border-purple-500/20 bg-purple-500/5 px-5 py-3.5 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="text-lg">🎀</span>
               <div>
-                <p className="text-xs font-bold text-purple-300">아이리스</p>
-                <p className="text-[10px] text-[#F5F0E8]/45">비서 · CEO 전담 보좌</p>
+                <p className="text-sm font-bold text-[#F5F0E8]">아이리스</p>
+                <p className="text-xs text-[#F5F0E8]/60">비서 · CEO 전담 보좌</p>
               </div>
             </div>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400/70">대기중</span>
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">대기중</span>
           </div>
         </div>
         {/* Connecting Lines */}
