@@ -770,10 +770,6 @@ export default function DashboardPage() {
                                   </div>
                                   {/* 역할 설명 */}
                                   <p className="text-xs text-[#F5F0E8]/50 mb-3">{sec.desc}</p>
-                                  {/* 지시하기 버튼 */}
-                                  <button onClick={() => openTelegramAction(sec.tgCommand)} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: `${exec.color}15`, color: exec.color, border: `1px solid ${exec.color}35` }}>
-                                    {Icon.clipboard(exec.color, 16)} 지시하기
-                                  </button>
                                 </div>
                               </div>
                             )}
