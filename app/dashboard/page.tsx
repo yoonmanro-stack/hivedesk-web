@@ -30,20 +30,26 @@ const Icon = {
 
 const EXECUTIVES = [
   { id: 'ceo',  name: '리처드', title: 'CEO',  titleKo: '경영 총괄',   desc: '비전 수립, 전략 결정, 경영 자문',           detail: '회사의 방향성을 결정합니다. 사업 전략 수립, 주요 의사결정, 파트너십 협상 등 대표 역할을 수행하는 AI 경영 총괄입니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_ceo'  },
-  { id: 'coo',  name: '올리비아', title: 'COO',  titleKo: '운영 총괄',   desc: '비즈니스 운영, 고객 관리, 최적화',           detail: '회사가 매일 원활하게 돌아가도록 관리합니다. 고객 응대, 업무 프로세스 개선, 파트너 관계 관리 등 내부 살림을 총괄합니다.',                              color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_coo'  },
-  { id: 'cpo',  name: '레오',    title: 'CPO',  titleKo: '제품 총괄',   desc: 'UX 설계, 기능 기획, 로드맵 관리',           detail: '사용자가 편하게 쓸 수 있는 제품을 설계합니다. PRD 작성, 사용자 리서치, 로드맵 우선순위를 담당합니다.',                                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cpo'  },
-  { id: 'cdo',  name: '나디아',  title: 'CDO',  titleKo: '디자인 총괄', desc: 'UI/UX 디자인, 브랜드 에셋, 그래픽',          detail: '제품의 미적 감각과 사용자 경험을 시각적으로 구현합니다. 브랜드 정체성 확립, 화면 레이아웃, 픽셀 퍼펙트 디자인을 담당합니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cdo'  },
-  { id: 'cmo',  name: '조나스',  title: 'CMO',  titleKo: '마케팅 총괄', desc: 'SNS, SEO, 광고, 콘텐츠 전략',               detail: '브랜드를 세상에 알리는 역할입니다. 인스타·유튜브·블로그 기획, 구글 SEO, 광고 카피, 마케팅 캠페인 설계를 담당합니다.',                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cmo'  },
-  { id: 'cto',  name: '알렉스',  title: 'CTO',  titleKo: '기술 총괄',   desc: '앱·웹 개발, 서버 구축, AI 자동화',          detail: '기술적인 모든 것을 담당합니다. 새 기능 개발, 서버 운영, 코드 오류 수정, 배포 자동화까지 제품이 작동하게 만드는 임원입니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cto'  },
-  { id: 'cfo',  name: '소피아',  title: 'CFO',  titleKo: '재무 총괄',   desc: '예산 관리, 비용 분석, 수익 전략',            detail: '회사 돈의 흐름을 관리합니다. 이번 달 비용, ROI 분석, 절약 포인트를 파악하고 재무 전략을 수립합니다.',                                                  color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cfo'  },
-  { id: 'chro', name: '에마',    title: 'CHRO', titleKo: '인사 총괄',   desc: '팀원 채용, 조직 설계, 인재 관리',            detail: '맞는 사람을 찾아 팀을 꾸립니다. 4,500+ SkillsMuse 인재풀에서 전문가를 추천하고 조직 문화와 HR 정책을 설계합니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'hire_team' },
-  { id: 'clo',  name: '마커스',  title: 'CLO',  titleKo: '법무 총괄',   desc: '리스크 관리, 계약 검토, 규제 준수',          detail: '회사의 법적 리스크를 최소화합니다. 계약서 검토, 이용약관 작성, 저작권 및 규제 가이드라인을 제공합니다.',                                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_clo'  },
+  { id: 'coo',  name: '엠마', title: 'COO',  titleKo: '운영 총괄',   desc: '비즈니스 운영, 고객 관리, 최적화',           detail: '회사가 매일 원활하게 돌아가도록 관리합니다. 고객 응대, 업무 프로세스 개선, 파트너 관계 관리 등 내부 살림을 총괄합니다.',                              color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_coo'  },
+  { id: 'cpo',  name: '이안',    title: 'CPO',  titleKo: '기획 총괄',   desc: 'UX 설계, 기능 기획, 로드맵 관리',           detail: '사용자가 편하게 쓸 수 있는 제품을 설계합니다. PRD 작성, 사용자 리서치, 로드맵 우선순위를 담당합니다.',                                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cpo'  },
+  { id: 'cdo',  name: '제이드',  title: 'CDO',  titleKo: '디자인 총괄', desc: 'UI/UX 디자인, 브랜드 에셋, 그래픽',          detail: '제품의 미적 감각과 사용자 경험을 시각적으로 구현합니다. 브랜드 정체성 확립, 화면 레이아웃, 픽셀 퍼펙트 디자인을 담당합니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cdo'  },
+  { id: 'cmo',  name: '폴',  title: 'CMO',  titleKo: '마케팅 총괄', desc: 'SNS, SEO, 광고, 콘텐츠 전략',               detail: '브랜드를 세상에 알리는 역할입니다. 인스타·유튜브·블로그 기획, 구글 SEO, 광고 카피, 마케팅 캠페인 설계를 담당합니다.',                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cmo'  },
+  { id: 'cto',  name: '뮤즈',  title: 'CTO',  titleKo: '개발 총괄',   desc: '앱·웹 개발, 서버 구축, AI 자동화',          detail: '기술적인 모든 것을 담당합니다. 새 기능 개발, 서버 운영, 코드 오류 수정, 배포 자동화까지 제품이 작동하게 만드는 임원입니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cto'  },
+  { id: 'cfo',  name: '알렉스',  title: 'CFO',  titleKo: '재무 총괄',   desc: '예산 관리, 비용 분석, 수익 전략',            detail: '회사 돈의 흐름을 관리합니다. 이번 달 비용, ROI 분석, 절약 포인트를 파악하고 재무 전략을 수립합니다.',                                                  color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cfo'  },
+  { id: 'chro', name: '소피아',    title: 'CHRO', titleKo: '인사 총괄',   desc: '팀원 채용, 조직 설계, 인재 관리',            detail: '맞는 사람을 찾아 팀을 꾸립니다. 4,500+ SkillsMuse 인재풀에서 전문가를 추천하고 조직 문화와 HR 정책을 설계합니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'hire_team' },
+  { id: 'clo',  name: '하비',  title: 'CLO',  titleKo: '법무 총괄',   desc: '리스크 관리, 계약 검토, 규제 준수',          detail: '회사의 법적 리스크를 최소화합니다. 계약서 검토, 이용약관 작성, 저작권 및 규제 가이드라인을 제공합니다.',                                               color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_clo'  },
+  { id: 'sec_chief', name: '아이리스', title: '비서실장', titleKo: '최고 실무 보좌관', desc: '임원 보좌, 일정 관리, 리소스 분배', detail: '비서실의 리더로서 대표님의 지시를 받아 가장 최적의 비서나 임원에게 업무를 전달하고 조율합니다.', color: '#A78BFA', bgGlow: 'rgba(167,139,250,0.15)', tgCommand: 'chat_sec_chief' },
+  { id: 'sec_research', name: '리서치 비서', title: '리서치', titleKo: '정보 스크래핑 전문가', desc: '자료 조사, 웹 스크래핑, 요약', detail: '인터넷을 검색하고 방대한 자료에서 필요한 정보만 정확히 찾아 요약 보고합니다.', color: '#A78BFA', bgGlow: 'rgba(167,139,250,0.15)', tgCommand: 'chat_sec_research' },
+  { id: 'sec_data', name: '데이터 비서', title: '데이터', titleKo: '데이터 클렌징 마스터', desc: '데이터 정제, 포맷 변환, 분석 정리', detail: '가공되지 않은 원시 데이터를 처리하고 구조화하여 깔끔한 형식으로 클렌징합니다.', color: '#A78BFA', bgGlow: 'rgba(167,139,250,0.15)', tgCommand: 'chat_sec_data' },
+  { id: 'sec_translate', name: '번역 비서', title: '번역', titleKo: '언어 현지화 스페셜리스트', desc: '다국어 번역, 뉘앙스 현지화', detail: '단순 직역을 넘어 비즈니스 뉘앙스와 문화적 맥락까지 완벽하게 고려한 번역을 제공합니다.', color: '#A78BFA', bgGlow: 'rgba(167,139,250,0.15)', tgCommand: 'chat_sec_translate' }
 ]
 
 type Executive = typeof EXECUTIVES[number]
 
 const CEO_EXEC = EXECUTIVES[0]
-const REST_EXECS = EXECUTIVES.slice(1)
+const REST_EXECS = EXECUTIVES.slice(1, 9)
+const SEC_CHIEF = EXECUTIVES.find(e => e.id === 'sec_chief')!
+const SEC_TEAM = EXECUTIVES.filter(e => e.id.startsWith('sec_') && e.id !== 'sec_chief')
 
 const COMPANY_TEAMS = [
   { label: '제품 · 기술', ids: ['cpo','cto','cdo'] },
@@ -462,20 +468,39 @@ export default function DashboardPage() {
             {/* 수직선 */}
             <div className="flex justify-center mb-2"><div className="w-px h-3 bg-amber-500/30" /></div>
 
-            {/* 비서 카드 — 캐릭터 이미지 포함 */}
-            <div className="glass rounded-2xl p-4 mb-2 border-purple-500/20 flex items-center gap-3" style={{background:'rgba(167,139,250,0.05)'}}>
-              <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#A78BFA25)'}}>
-                <img src="/characters/secretary.png" alt="아이리스" className="w-full h-full object-cover" />
-              </div>
-              <div className="flex-1 text-left min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-md flex items-center gap-1">{Icon.sparkle('#A78BFA',14)} 비서</span>
-                  <span className="text-base font-bold text-[#F5F0E8]">아이리스</span>
-                  <span className="text-xs text-[#F5F0E8]/60">· CEO 전담 보좌</span>
+            {/* 비서실장 (실무팀) 카드 */}
+            <div className="flex justify-center mb-6">
+              <button onClick={() => handleExecClick(SEC_CHIEF)}
+                className="w-full max-w-md glass rounded-2xl p-4 border-purple-500/20 flex flex-col gap-3 tap-fast hover:bg-purple-500/10 transition-colors text-left relative overflow-hidden" style={{background:'rgba(167,139,250,0.05)'}}>
+                <div className="absolute -right-6 -bottom-6 w-32 h-32 rounded-full opacity-10 bg-purple-500 blur-2xl pointer-events-none" />
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center text-2xl bg-purple-500/10 border border-purple-500/30">
+                      ☕️
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm font-bold text-[#F5F0E8]">{SEC_CHIEF.name}</span>
+                        <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-1.5 py-0.5 rounded-md flex items-center gap-1">{SEC_CHIEF.title}</span>
+                      </div>
+                      <p className="text-[11px] text-[#F5F0E8]/70">{SEC_CHIEF.titleKo}</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex-shrink-0 z-10">대기중</span>
                 </div>
-                <p className="text-xs text-[#F5F0E8]/70">일정 관리 · 보고 정리 · 업무 조율</p>
-              </div>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex-shrink-0">대기중</span>
+                
+                <div className="bg-black/20 rounded-xl p-3 flex items-center justify-between border border-white/5 relative z-10">
+                  <span className="text-xs text-[#F5F0E8]/60 flex items-center gap-1.5">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    실무팀 비서 3명
+                  </span>
+                  <div className="flex -space-x-2">
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs bg-[#222222] border-2 border-[#121212] z-30">🔍</div>
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs bg-[#222222] border-2 border-[#121212] z-20">📊</div>
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs bg-[#222222] border-2 border-[#121212] z-10">🌐</div>
+                  </div>
+                </div>
+              </button>
             </div>
 
             {/* 수직선 */}
@@ -549,21 +574,22 @@ export default function DashboardPage() {
           </button>
         </section>
 
-        {/* 비서 슬림 카드 — CEO 바로 아래 */}
+        {/* 비서실장 슬림 카드 — CEO 바로 아래 */}
         <div className={`flex justify-center mb-2 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
           <div className="w-px h-2 bg-amber-500/30" />
         </div>
         <div className={`flex justify-center mb-3 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
-          <div className="w-full max-w-[260px] sm:max-w-[300px] rounded-2xl border border-purple-500/20 bg-purple-500/5 px-5 py-3.5 flex items-center justify-between gap-3">
+          <button onClick={() => handleExecClick(SEC_CHIEF)}
+            className="w-full max-w-[280px] sm:max-w-[320px] rounded-2xl border border-purple-500/20 bg-purple-500/5 px-4 py-3 flex items-center justify-between gap-3 hover:bg-purple-500/10 transition-colors tap-fast">
             <div className="flex items-center gap-3">
-              <span className="text-lg">{Icon.sparkle('#A78BFA',18)}</span>
-              <div>
-                <p className="text-sm font-bold text-[#F5F0E8]">아이리스</p>
-                <p className="text-xs text-[#F5F0E8]/60">비서 · CEO 전담 보좌</p>
+              <span className="text-xl shrink-0">☕️</span>
+              <div className="text-left">
+                <p className="text-sm font-bold text-[#F5F0E8]">{SEC_CHIEF.title} <span className="text-xs font-normal text-[#F5F0E8]/60">· {SEC_CHIEF.name}</span></p>
+                <p className="text-[11px] text-[#F5F0E8]/60 truncate">{SEC_CHIEF.titleKo}</p>
               </div>
             </div>
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold">대기중</span>
-          </div>
+            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-semibold shrink-0">대기중</span>
+          </button>
         </div>
         {/* Connecting Lines */}
         <div className={`flex justify-center mb-2 ${mounted ? 'fade-in-up fade-in-up-delay-2' : 'opacity-0'}`}>
@@ -639,7 +665,7 @@ export default function DashboardPage() {
                 {/* 스탯 카드 */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   {[
-                    { val: String((hiredSkills[exec.id] || []).length), label: '팀원 배속', color: exec.color },
+                    { val: exec.id === 'sec_chief' ? String(SEC_TEAM.length) : String((hiredSkills[exec.id] || []).length), label: '팀원 배속', color: exec.color },
                     { val: '$0.00', label: '이번 달 비용', color: '#34D399' },
                     { val: '0', label: '완료 작업', color: '#FBBF24' },
                   ].map(({ val, label, color }) => (
@@ -662,7 +688,7 @@ export default function DashboardPage() {
                 {/* 탭: 조직 및 팀원 */}
                 {execTab === 'team' && (
                   <>
-                {/* CHRO 채용 허브 / 일반 팀원 */}
+                {/* CHRO 채용 허브 / 비서실장 팀원 / 일반 팀원 */}
                 {exec.id === 'chro' ? (
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-3">
@@ -689,6 +715,68 @@ export default function DashboardPage() {
                               </div>
                             </div>
                             <button onClick={() => { setHireExec(e); setShowHireModal(true) }} className="shrink-0 text-xs font-bold px-3 py-1.5 rounded-lg transition-all hover:brightness-125 active:scale-95" style={{ backgroundColor: `${e.color}18`, color: e.color, border: `1px solid ${e.color}30` }}>+ 채용</button>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ) : exec.id === 'sec_chief' ? (
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-sm font-bold text-[#F5F0E8] flex items-center gap-1.5">{Icon.users('#F5F0E8',16)} 비서진 (실무팀)</h3>
+                      <span className="text-xs text-[#F5F0E8]/65">{SEC_TEAM.length}명</span>
+                    </div>
+                    <div className="space-y-2.5">
+                      {SEC_TEAM.map(sec => {
+                        const isExpanded = expandedAgent === sec.id
+                        return (
+                          <div key={sec.id} className="rounded-xl overflow-hidden transition-all" style={{ background: 'rgba(255,255,255,0.06)', border: `1px solid ${isExpanded ? exec.color + '40' : 'rgba(255,255,255,0.10)'}` }}>
+                            {/* 메인 카드 */}
+                            <button onClick={() => setExpandedAgent(isExpanded ? null : sec.id)} className="w-full p-3.5 flex items-center gap-3 tap-fast text-left hover:bg-white/5 transition-colors">
+                              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: `${exec.color}15`, border: `1px solid ${exec.color}25` }}>{Icon.brain(exec.color,20)}</div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <p className="text-sm font-bold text-[#F5F0E8] truncate">{sec.name}</p>
+                                  <span className="text-[10px] font-black px-1.5 py-0.5 rounded shrink-0 bg-purple-500/20 text-purple-400">S</span>
+                                </div>
+                                <p className="text-xs text-[#F5F0E8]/55">{sec.title} · 5월 19일 합류</p>
+                              </div>
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5F0E8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s', opacity: 0.4 }}><polyline points="6 9 12 15 18 9"/></svg>
+                            </button>
+                            
+                            {/* 상세 아코디언 */}
+                            {isExpanded && (
+                              <div className="px-3.5 pb-3.5 pt-0">
+                                <div className="border-t border-white/8 pt-3">
+                                  {/* 스탯 */}
+                                  <div className="grid grid-cols-3 gap-2 mb-3">
+                                    <div className="text-center p-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                                      <p className="text-base font-black text-purple-400">Grade S</p>
+                                      <p className="text-[10px] text-[#F5F0E8]/50 mt-0.5">등급</p>
+                                    </div>
+                                    <div className="text-center p-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                                      <p className="text-base font-black text-[#F5F0E8]/80">3</p>
+                                      <p className="text-[10px] text-[#F5F0E8]/50 mt-0.5">보유 스킬</p>
+                                    </div>
+                                    <div className="text-center p-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                                      <p className="text-base font-black text-[#F5F0E8]/80">98</p>
+                                      <p className="text-[10px] text-[#F5F0E8]/50 mt-0.5">품질 점수</p>
+                                    </div>
+                                  </div>
+                                  {/* 스킬 태그 */}
+                                  <div className="flex flex-wrap gap-1.5 mb-3">
+                                    <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${exec.color}12`, color: `${exec.color}CC`, border: `1px solid ${exec.color}25` }}>{sec.titleKo}</span>
+                                    <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${exec.color}12`, color: `${exec.color}CC`, border: `1px solid ${exec.color}25` }}>전담 비서</span>
+                                  </div>
+                                  {/* 역할 설명 */}
+                                  <p className="text-xs text-[#F5F0E8]/50 mb-3">{sec.desc}</p>
+                                  {/* 지시하기 버튼 */}
+                                  <button onClick={() => openTelegramAction(sec.tgCommand)} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-95 flex items-center justify-center gap-2" style={{ backgroundColor: `${exec.color}15`, color: exec.color, border: `1px solid ${exec.color}35` }}>
+                                    {Icon.clipboard(exec.color, 16)} 지시하기
+                                  </button>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         )
                       })}
