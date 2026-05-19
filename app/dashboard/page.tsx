@@ -82,6 +82,8 @@ export default function DashboardPage() {
   const [showNavMenu, setShowNavMenu] = useState(false)
   const [showUserMenu, setShowUserMenu] = useState(false)
   const [view, setView] = useState<'dashboard' | 'projects' | 'company'>('dashboard')
+  const [expandedAgent, setExpandedAgent] = useState<string | null>(null)
+  const [firingAgent, setFiringAgent] = useState<string | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -641,19 +643,88 @@ export default function DashboardPage() {
                       <span className="text-xs text-[#F5F0E8]/65">{(hiredSkills[exec.id] || []).length} / 5</span>
                     </div>
                     {(hiredSkills[exec.id] || []).length > 0 ? (
-                      <div className="space-y-2">
-                        {(hiredSkills[exec.id] || []).map((skill: any) => (
-                          <div key={skill.id} className="panel-card p-3 flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-lg flex items-center justify-center text-sm shrink-0" style={{ backgroundColor: `${exec.color}15`, border: `1px solid ${exec.color}25` }}>{Icon.brain(exec.color,18)}</div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-bold text-[#F5F0E8] truncate">{skill.skill_name}</p>
-                              <p className="text-xs text-[#F5F0E8]/60">{skill.skill_category} · {skill.difficulty || 'intermediate'}</p>
+                      <div className="space-y-2.5">
+                        {(hiredSkills[exec.id] || []).map((skill: any) => {
+                          const isExpanded = expandedAgent === skill.id
+                          const isFiring = firingAgent === skill.id
+                          const grade = skill.quality_grade || skill._agent?.quality_grade || 'C'
+                          const gradeColor = grade === 'A' ? '#34D399' : grade === 'B' ? '#60A5FA' : grade === 'C' ? '#FBBF24' : '#F87171'
+                          const agentData = skill._agent || skill
+                          const hiredDate = agentData.hired_at ? new Date(agentData.hired_at).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric' }) : ''
+                          const skillSlugs: string[] = agentData.skill_slugs || []
+                          return (
+                            <div key={skill.id} className="rounded-xl overflow-hidden transition-all" style={{ background: 'rgba(255,255,255,0.06)', border: `1px solid ${isExpanded ? exec.color + '40' : 'rgba(255,255,255,0.10)'}` }}>
+                              {/* 메인 카드 */}
+                              <button onClick={() => setExpandedAgent(isExpanded ? null : skill.id)} className="w-full p-3.5 flex items-center gap-3 tap-fast text-left">
+                                <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ backgroundColor: `${exec.color}15`, border: `1px solid ${exec.color}25` }}>{Icon.brain(exec.color,20)}</div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center gap-2 mb-0.5">
+                                    <p className="text-sm font-bold text-[#F5F0E8] truncate">{skill.skill_name}</p>
+                                    <span className="text-[10px] font-black px-1.5 py-0.5 rounded shrink-0" style={{ backgroundColor: gradeColor + '20', color: gradeColor }}>{grade}</span>
+                                  </div>
+                                  <p className="text-xs text-[#F5F0E8]/55">{skill.skill_category || agentData.primary_category || '일반'}{hiredDate ? ` · ${hiredDate} 합류` : ''}</p>
+                                </div>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5F0E8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s', opacity: 0.4 }}><polyline points="6 9 12 15 18 9"/></svg>
+                              </button>
+                              {/* 상세 아코디언 */}
+                              {isExpanded && (
+                                <div className="px-3.5 pb-3.5 pt-0">
+                                  <div className="border-t border-white/8 pt-3">
+                                    {/* 스탯 */}
+                                    <div className="grid grid-cols-3 gap-2 mb-3">
+                                      <div className="text-center p-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                                        <p className="text-base font-black" style={{ color: gradeColor }}>Grade {grade}</p>
+                                        <p className="text-[10px] text-[#F5F0E8]/50 mt-0.5">등급</p>
+                                      </div>
+                                      <div className="text-center p-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                                        <p className="text-base font-black text-[#F5F0E8]/80">{skillSlugs.length || agentData.skill_count || 0}</p>
+                                        <p className="text-[10px] text-[#F5F0E8]/50 mt-0.5">보유 스킬</p>
+                                      </div>
+                                      <div className="text-center p-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                                        <p className="text-base font-black text-[#F5F0E8]/80">{agentData.avg_quality_score > 0 ? Math.round(agentData.avg_quality_score) : '—'}</p>
+                                        <p className="text-[10px] text-[#F5F0E8]/50 mt-0.5">품질 점수</p>
+                                      </div>
+                                    </div>
+                                    {/* 스킬 태그 */}
+                                    {skillSlugs.length > 0 && (
+                                      <div className="flex flex-wrap gap-1.5 mb-3">
+                                        {skillSlugs.slice(0, 5).map((slug: string) => (
+                                          <span key={slug} className="text-[10px] px-2 py-0.5 rounded-full" style={{ backgroundColor: `${exec.color}12`, color: `${exec.color}CC`, border: `1px solid ${exec.color}25` }}>{slug}</span>
+                                        ))}
+                                      </div>
+                                    )}
+                                    {/* 역할 설명 */}
+                                    {(agentData.agent_role || skill.skill_category) && (
+                                      <p className="text-xs text-[#F5F0E8]/50 mb-3">{agentData.agent_role || skill.skill_category}</p>
+                                    )}
+                                    {/* 해고 버튼 */}
+                                    {!isFiring ? (
+                                      <button onClick={() => setFiringAgent(skill.id)} className="w-full text-xs py-2 rounded-lg text-rose-400/60 hover:text-rose-400 hover:bg-rose-500/10 transition-colors border border-transparent hover:border-rose-500/20">
+                                        팀원 해제
+                                      </button>
+                                    ) : (
+                                      <div className="flex gap-2">
+                                        <button onClick={async () => {
+                                          try {
+                                            await fetch('/api/agents/fire', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ agent_id: skill.id, org_id: orgId }) })
+                                            setFiringAgent(null)
+                                            setExpandedAgent(null)
+                                            fetchHiredSkills()
+                                          } catch {}
+                                        }} className="flex-1 text-xs py-2 rounded-lg bg-rose-500/20 text-rose-400 font-bold border border-rose-500/30 hover:brightness-110 active:scale-95 transition-all">
+                                          확인 해제
+                                        </button>
+                                        <button onClick={() => setFiringAgent(null)} className="flex-1 text-xs py-2 rounded-lg bg-white/5 text-[#F5F0E8]/60 border border-white/10 hover:bg-white/10 transition-colors">
+                                          취소
+                                        </button>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                            {skill.quality_score > 0 && (
-                              <span className="text-xs font-bold px-2 py-0.5 rounded-full shrink-0" style={{ backgroundColor: skill.quality_score >= 80 ? 'rgba(52,211,153,0.15)' : 'rgba(251,191,36,0.15)', color: skill.quality_score >= 80 ? '#34D399' : '#FBBF24' }}>{skill.quality_score}점</span>
-                            )}
-                          </div>
-                        ))}
+                          )
+                        })}
                         <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="w-full py-2.5 rounded-xl text-sm font-bold transition-all hover:brightness-110 active:scale-95 border border-dashed" style={{ color: `${exec.color}90`, borderColor: `${exec.color}35` }}>+ 팀원 추가 채용</button>
                       </div>
                     ) : (
