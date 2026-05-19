@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase'
+import { sendHireNotification } from '@/lib/telegram'
 
 // 에이전트 신규 생성 채용
 // POST /api/agents/generate
@@ -166,6 +167,16 @@ export async function POST(req: NextRequest) {
         }),
       }).catch(() => {})
     }
+
+    // 채용 알림 (fire-and-forget)
+    sendHireNotification({
+      agentName:       agentName,
+      agentRole:       role,
+      assignedExec:    assigned_exec,
+      qualityGrade:    'C',
+      primaryCategory: category || 'general',
+      isNewGeneration: true,
+    }).catch(() => {})
 
     return NextResponse.json({
       success: true,

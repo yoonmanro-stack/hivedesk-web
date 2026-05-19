@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase'
 import { cookies } from 'next/headers'
+import { sendHireNotification } from '@/lib/telegram'
 
 const PLAN_LIMITS: Record<string, number> = {
   free:    0,
@@ -110,6 +111,16 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({ p_agent_id: agent_id }),
       }).catch(() => {}) // fire-and-forget
     }
+
+    // 채용 알림 (fire-and-forget)
+    sendHireNotification({
+      agentName:       agent_name,
+      agentRole:       agent_role,
+      assignedExec:    assigned_exec,
+      qualityGrade:    quality_grade || 'C',
+      primaryCategory: primary_category || '',
+      isNewGeneration: false,
+    }).catch(() => {})
 
     return NextResponse.json({
       success: true,
