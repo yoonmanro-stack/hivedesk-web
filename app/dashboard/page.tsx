@@ -4,6 +4,29 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import HireModal from '@/components/HireModal'
 
+/* ── Modern Line Icons (Lovable-style) ── */
+const s = { display:'inline-block',verticalAlign:'middle' } as const
+const Icon = {
+  folder:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>,
+  barChart:  (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>,
+  msgCircle: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>,
+  user:      (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
+  users:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  rocket:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>,
+  key:       (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>,
+  globe:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+  bell:      (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
+  crown:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M2 4l3 12h14l3-12-6 7-4-9-4 9-6-7z"/><path d="M3 20h18"/></svg>,
+  sparkle:   (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/></svg>,
+  brain:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>,
+  search:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
+  clipboard: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>,
+  phone:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>,
+  target:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>,
+  logOut:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
+  plus:      (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
+}
+
 const EXECUTIVES = [
   { id: 'ceo',  name: '리처드', title: 'CEO',  titleKo: '경영 총괄',   desc: '비전 수립, 전략 결정, 경영 자문',           detail: '회사의 방향성을 결정합니다. 사업 전략 수립, 주요 의사결정, 파트너십 협상 등 대표 역할을 수행하는 AI 경영 총괄입니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_ceo'  },
   { id: 'coo',  name: '올리비아', title: 'COO',  titleKo: '운영 총괄',   desc: '비즈니스 운영, 고객 관리, 최적화',           detail: '회사가 매일 원활하게 돌아가도록 관리합니다. 고객 응대, 업무 프로세스 개선, 파트너 관계 관리 등 내부 살림을 총괄합니다.',                              color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_coo'  },
@@ -180,7 +203,7 @@ export default function DashboardPage() {
               id="btn-user-menu"
               onClick={() => setShowUserMenu(true)}
               className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm tap-fast hover:bg-amber-500/30 transition-colors"
-            >👤</button>
+            >{Icon.user('#F5F0E8',16)}</button>
           </div>
         </div>
       </header>
@@ -202,14 +225,14 @@ export default function DashboardPage() {
               <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">프로젝트</p>
               <Link href="/projects/new" onClick={() => setShowNavMenu(false)}
                 className="flex items-center gap-3 px-5 py-3 hover:bg-amber-500/8 transition-colors">
-                <span className="text-base">＋</span>
+                <span className="text-base">{Icon.plus('#F5F0E8',16)}</span>
                 <div><p className="text-sm font-semibold text-[#F5F0E8]">새 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">새 프로젝트 등록</p></div>
               </Link>
               <button onClick={() => { setView('projects'); setShowNavMenu(false) }}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'projects' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
-                <span className="text-base">📁</span>
+                <span className="text-base">{Icon.folder('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">전체 프로젝트 목록</p></div>
               </button>
               {/* 운영 섹션 */}
@@ -218,14 +241,14 @@ export default function DashboardPage() {
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'company' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
-                <span className="text-base">📊</span>
+                <span className="text-base">{Icon.barChart('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 현황</p><p className="text-xs text-[#F5F0E8]/60">전체 조직 운영 현황</p></div>
               </button>
               <button onClick={() => { setView('dashboard'); setShowNavMenu(false) }}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
-                <span className="text-base">💬</span>
+                <span className="text-base">{Icon.msgCircle('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">대시보드</p><p className="text-xs text-[#F5F0E8]/60">9인 임원 대화 및 지시</p></div>
               </button>
             </nav>
@@ -243,7 +266,7 @@ export default function DashboardPage() {
           <div className="fixed right-0 top-0 bottom-0 w-72 z-50 bg-[#0D0D0D] border-l border-amber-500/15 flex flex-col" style={{ animation: 'slideInRight 0.22s ease' }}>
             <div className="flex items-center justify-between px-5 py-4 border-b border-amber-500/10">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm">👤</div>
+                <div className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm">{Icon.user('#F5F0E8',16)}</div>
                 <div>
                   <p className="text-sm font-bold text-[#F5F0E8]">대표님</p>
                   <p className="text-xs text-[#F5F0E8]/60">🚀 Starter 플랜</p>
@@ -255,36 +278,36 @@ export default function DashboardPage() {
               <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">계정</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
-                <span className="text-base">👤</span>
+                <span className="text-base">{Icon.user('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">개인정보</p><p className="text-xs text-[#F5F0E8]/60">프로필 및 계정 설정</p></div>
               </button>
               <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">플랜 & 결제</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
-                <span className="text-base">🚀</span>
+                <span className="text-base">{Icon.rocket('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">구독 관리</p><p className="text-xs text-[#F5F0E8]/60">플랜 업그레이드 · 결제</p></div>
               </button>
               <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">개발자</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
-                <span className="text-base">🔑</span>
+                <span className="text-base">{Icon.key('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">API Key 관리</p><p className="text-xs text-[#F5F0E8]/60">Claude · Gemini BYOAK</p></div>
               </button>
               <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">설정</p>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
-                <span className="text-base">🌐</span>
+                <span className="text-base">{Icon.globe('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">언어 설정</p><p className="text-xs text-[#F5F0E8]/60">한국어 · English · 日本語</p></div>
               </button>
               <button onClick={() => setShowUserMenu(false)}
                 className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors">
-                <span className="text-base">🔔</span>
+                <span className="text-base">{Icon.bell('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">알림 설정</p><p className="text-xs text-[#F5F0E8]/60">텔레그램 · 이메일 알림</p></div>
               </button>
             </nav>
             <div className="px-5 py-4 border-t border-amber-500/10">
               <button className="w-full flex items-center gap-3 py-2 text-rose-400/80 hover:text-rose-400 transition-colors">
-                <span className="text-base">↩</span>
+                <span className="text-base">{Icon.logOut('#F87171',18)}</span>
                 <p className="text-sm font-semibold">로그아웃</p>
               </button>
             </div>
@@ -300,7 +323,7 @@ export default function DashboardPage() {
         {view === 'projects' && (
           <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl font-bold text-[#F5F0E8]">📁 내 프로젝트</h2>
+              <h2 className="text-xl font-bold text-[#F5F0E8] flex items-center gap-2">{Icon.folder('#F5F0E8',20)} 내 프로젝트</h2>
               <Link href="/projects/new"
                 className="text-xs font-bold text-amber-400 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 hover:bg-amber-500/25 transition-colors">
                 ＋ 새 프로젝트
@@ -348,7 +371,7 @@ export default function DashboardPage() {
                         {p.active_project && <span className="text-xs text-amber-400 font-bold">★ 활성</span>}
                       </div>
                     </div>
-                    {p.goal && <p className="text-xs text-[#F5F0E8]/50 mt-2 line-clamp-1">🎯 {p.goal}</p>}
+                    {p.goal && <p className="text-xs text-[#F5F0E8]/50 mt-2 line-clamp-1 flex items-center gap-1">{Icon.target('#F5F0E8',12)} {p.goal}</p>}
                   </button>
                 ))}
               </div>
@@ -361,7 +384,7 @@ export default function DashboardPage() {
           <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
             {/* 헤더 */}
             <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl font-bold text-[#F5F0E8]">📊 회사 현황</h2>
+              <h2 className="text-xl font-bold text-[#F5F0E8] flex items-center gap-2">{Icon.barChart('#F5F0E8',20)} 회사 현황</h2>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-[#F5F0E8]/60">총 팀원</span>
                 <span className="text-sm font-bold text-amber-400">{EXECUTIVES.reduce((s,e)=>s+(hiredSkills[e.id]||[]).length,0)}명</span>
@@ -378,7 +401,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex-1 text-left min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-md">👑 CEO</span>
+                    <span className="text-xs font-bold text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-md flex items-center gap-1">{Icon.crown('#F59E0B',14)} CEO</span>
                     <span className="text-base font-bold text-[#F5F0E8]">리처드</span>
                     <span className="text-xs text-[#F5F0E8]/60">· 경영 총괄</span>
                   </div>
@@ -398,7 +421,7 @@ export default function DashboardPage() {
               </div>
               <div className="flex-1 text-left min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-md">🎀 비서</span>
+                  <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-2 py-0.5 rounded-md flex items-center gap-1">{Icon.sparkle('#A78BFA',14)} 비서</span>
                   <span className="text-base font-bold text-[#F5F0E8]">아이리스</span>
                   <span className="text-xs text-[#F5F0E8]/60">· CEO 전담 보좌</span>
                 </div>
@@ -472,7 +495,7 @@ export default function DashboardPage() {
             <div className="relative w-full aspect-square rounded-2xl overflow-hidden mb-3 shadow-[0_0_30px_rgba(245,158,11,0.3)]" style={{ background: `linear-gradient(135deg, #111111 60%, ${CEO_EXEC.color}30)` }}>
               <img src={execImgSrc('ceo')} alt="CEO" className="absolute inset-0 w-full h-full object-contain p-1" loading="eager" onError={(e) => imgFallback(e, CEO_EXEC.color)} />
             </div>
-            <p className="text-amber-400 font-bold text-base sm:text-lg">👑 CEO</p>
+            <p className="text-amber-400 font-bold text-base sm:text-lg flex items-center justify-center gap-1">{Icon.crown('#F59E0B',18)} CEO</p>
             <p className="text-xs text-[#F5F0E8]/70">경영 총괄 AI</p>
             <span className="mt-2 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/20">● 대기중</span>
           </button>
@@ -485,7 +508,7 @@ export default function DashboardPage() {
         <div className={`flex justify-center mb-3 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
           <div className="w-full max-w-[260px] sm:max-w-[300px] rounded-2xl border border-purple-500/20 bg-purple-500/5 px-5 py-3.5 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <span className="text-lg">🎀</span>
+              <span className="text-lg">{Icon.sparkle('#A78BFA',18)}</span>
               <div>
                 <p className="text-sm font-bold text-[#F5F0E8]">아이리스</p>
                 <p className="text-xs text-[#F5F0E8]/60">비서 · CEO 전담 보좌</p>
@@ -583,7 +606,7 @@ export default function DashboardPage() {
                 {exec.id === 'chro' ? (
                   <div className="mb-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-base">👥</span>
+                      <span className="text-base">{Icon.users('#F5F0E8',18)}</span>
                       <h3 className="text-sm font-bold text-[#F5F0E8]">조직 채용 현황</h3>
                       <span className="ml-auto text-xs text-amber-400 font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20">CHRO 관제 허브</span>
                     </div>
@@ -614,14 +637,14 @@ export default function DashboardPage() {
                 ) : (
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-sm font-bold text-[#F5F0E8]">👥 팀원</h3>
+                      <h3 className="text-sm font-bold text-[#F5F0E8] flex items-center gap-1.5">{Icon.users('#F5F0E8',16)} 팀원</h3>
                       <span className="text-xs text-[#F5F0E8]/65">{(hiredSkills[exec.id] || []).length} / 5</span>
                     </div>
                     {(hiredSkills[exec.id] || []).length > 0 ? (
                       <div className="space-y-2">
                         {(hiredSkills[exec.id] || []).map((skill: any) => (
                           <div key={skill.id} className="panel-card p-3 flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-lg flex items-center justify-center text-sm shrink-0" style={{ backgroundColor: `${exec.color}15`, border: `1px solid ${exec.color}25` }}>🧠</div>
+                            <div className="w-9 h-9 rounded-lg flex items-center justify-center text-sm shrink-0" style={{ backgroundColor: `${exec.color}15`, border: `1px solid ${exec.color}25` }}>{Icon.brain(exec.color,18)}</div>
                             <div className="flex-1 min-w-0">
                               <p className="text-sm font-bold text-[#F5F0E8] truncate">{skill.skill_name}</p>
                               <p className="text-xs text-[#F5F0E8]/60">{skill.skill_category} · {skill.difficulty || 'intermediate'}</p>
@@ -635,10 +658,10 @@ export default function DashboardPage() {
                       </div>
                     ) : (
                       <div className="p-6 flex flex-col items-center justify-center text-center rounded-2xl" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.10)' }}>
-                        <span className="text-3xl mb-3">🔍</span>
+                        <span className="text-3xl mb-3">{Icon.search('#F5F0E8',32)}</span>
                         <p className="text-sm text-[#F5F0E8]/70 mb-4">아직 채용된 팀원이 없습니다</p>
                         <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="text-sm font-bold px-5 py-2.5 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}35` }}>
-                          🔍 CHRO에게 채용 요청
+                          CHRO에게 채용 요청
                         </button>
                       </div>
                     )}
@@ -646,7 +669,7 @@ export default function DashboardPage() {
                 )}
 
                 {/* 지시하기 버튼 */}
-                <button onClick={() => openTelegramAction(exec.tgCommand)} className="w-full font-bold text-sm py-4 rounded-2xl transition-all hover:brightness-110 active:scale-95 mb-6" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>📋 지시하기</button>
+                <button onClick={() => openTelegramAction(exec.tgCommand)} className="w-full font-bold text-sm py-4 rounded-2xl transition-all hover:brightness-110 active:scale-95 mb-6 flex items-center justify-center gap-2" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>{Icon.clipboard(exec.color,18)} 지시하기</button>
               </div>
             </div>
           </div>
@@ -660,7 +683,7 @@ export default function DashboardPage() {
       {showWebAlert && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4" style={{ background: 'rgba(0,0,0,0.72)' }}>
           <div className="rounded-2xl p-6 max-w-xs w-full text-center" style={{ background: '#1e1e1e', border: '1px solid rgba(245,158,11,0.20)' }}>
-            <span className="text-3xl mb-3 block">📱</span>
+            <span className="mb-3 block">{Icon.phone('#F5F0E8',32)}</span>
             <h3 className="font-bold text-sm mb-2">{webAlertAction}</h3>
             <p className="text-xs text-[#F5F0E8]/60 mb-4">텔레그램 앱에서 hivedesk_bot을 통해 이용해주세요.</p>
             <a href="https://t.me/hivedesk_bot" target="_blank" rel="noopener noreferrer" className="block w-full py-2.5 rounded-xl text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 mb-2 hover:brightness-110 transition-all">텔레그램으로 이동 →</a>
