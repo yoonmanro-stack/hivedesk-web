@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import HireModal from '@/components/HireModal'
+import { supabase } from '@/lib/supabase'
 
 /* ── Modern Line Icons (Lovable-style) ── */
 const s = { display:'inline-block',verticalAlign:'middle' } as const
@@ -84,6 +85,51 @@ export default function DashboardPage() {
   const [view, setView] = useState<'dashboard' | 'projects' | 'company'>('dashboard')
   const [expandedAgent, setExpandedAgent] = useState<string | null>(null)
   const [firingAgent, setFiringAgent] = useState<string | null>(null)
+
+  // ━━━ Phase 4: Executive Panel Tabs & Realtime Data ━━━
+  const [execTab, setExecTab] = useState<'team'|'tasks'|'threads'>('team')
+  const [execTasks, setExecTasks] = useState<any[]>([])
+  const [execThreads, setExecThreads] = useState<any[]>([])
+
+  useEffect(() => {
+    if (!selectedExec || !orgId) return;
+
+    // Reset state on exec change
+    setExecTab('team');
+    setExecTasks([]);
+    setExecThreads([]);
+
+    const execId = selectedExec.id;
+
+    const fetchData = async () => {
+      const { data: tasks } = await supabase.from('tasks').select('*').eq('assigned_exec', execId).order('created_at', { ascending: false }).limit(20);
+      if (tasks) setExecTasks(tasks);
+
+      const { data: threads } = await supabase.from('conversation_threads').select('*').eq('exec_id', execId).order('created_at', { ascending: false }).limit(50);
+      if (threads) setExecThreads(threads);
+    };
+    fetchData();
+
+    // Setup Realtime Listeners
+    const tasksSub = supabase.channel(`tasks_${execId}`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks', filter: `assigned_exec=eq.${execId}` }, (payload) => {
+        if (payload.eventType === 'INSERT') {
+          setExecTasks(prev => [payload.new, ...prev]);
+        } else if (payload.eventType === 'UPDATE') {
+          setExecTasks(prev => prev.map(t => t.id === payload.new.id ? payload.new : t));
+        }
+      }).subscribe();
+
+    const threadsSub = supabase.channel(`threads_${execId}`)
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'conversation_threads', filter: `exec_id=eq.${execId}` }, (payload) => {
+        setExecThreads(prev => [payload.new, ...prev]);
+      }).subscribe();
+
+    return () => {
+      supabase.removeChannel(tasksSub);
+      supabase.removeChannel(threadsSub);
+    };
+  }, [selectedExec, orgId]);
 
   useEffect(() => {
     setMounted(true)
@@ -603,7 +649,19 @@ export default function DashboardPage() {
                     </div>
                   ))}
                 </div>
+                {/* 탭 네비게이션 */}
+                <div className="flex bg-[#111111] rounded-xl p-1 mb-6 border border-white/10">
+                  <button onClick={() => setExecTab('team')} className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${execTab === 'team' ? 'bg-[#222222] text-[#F5F0E8] shadow-sm' : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80'}`}>조직 및 팀원</button>
+                  <button onClick={() => setExecTab('tasks')} className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-1.5 ${execTab === 'tasks' ? 'bg-[#222222] text-[#F5F0E8] shadow-sm' : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80'}`}>
+                    진행 업무
+                    {execTasks.filter(t => t.status !== 'completed').length > 0 && <span className="text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full">{execTasks.filter(t => t.status !== 'completed').length}</span>}
+                  </button>
+                  <button onClick={() => setExecTab('threads')} className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${execTab === 'threads' ? 'bg-[#222222] text-[#F5F0E8] shadow-sm' : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80'}`}>회의 기록</button>
+                </div>
 
+                {/* 탭: 조직 및 팀원 */}
+                {execTab === 'team' && (
+                  <>
                 {/* CHRO 채용 허브 / 일반 팀원 */}
                 {exec.id === 'chro' ? (
                   <div className="mb-6">
@@ -734,6 +792,91 @@ export default function DashboardPage() {
                         <button onClick={() => { setHireExec(exec); setShowHireModal(true) }} className="text-sm font-bold px-5 py-2.5 rounded-xl transition-all hover:brightness-110 active:scale-95" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}35` }}>
                           CHRO에게 채용 요청
                         </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+                </>)}
+
+                {/* 탭: 진행 업무 (Tasks) */}
+                {execTab === 'tasks' && (
+                  <div className="mb-6 animate-fade-in-up">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-sm font-bold text-[#F5F0E8] flex items-center gap-1.5">{Icon.clipboard('#F5F0E8',16)} 작업 목록</h3>
+                    </div>
+                    {execTasks.length > 0 ? (
+                      <div className="space-y-3">
+                        {execTasks.map((t: any) => (
+                          <div key={t.id} className="p-4 rounded-xl border border-white/10 bg-white/5">
+                            <div className="flex items-start justify-between gap-2 mb-2">
+                              <h4 className="font-bold text-[#F5F0E8] text-sm leading-tight">{t.title}</h4>
+                              <span className={`shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                                t.status === 'completed' ? 'bg-emerald-500/20 text-emerald-400' :
+                                t.status === 'in_progress' ? 'bg-amber-500/20 text-amber-400' :
+                                'bg-white/10 text-white/60'
+                              }`}>{t.status === 'completed' ? '완료' : t.status === 'in_progress' ? '진행중' : t.status}</span>
+                            </div>
+                            {t.description && <p className="text-xs text-[#F5F0E8]/60 mb-3 line-clamp-2">{t.description}</p>}
+                            
+                            <div className="flex items-center gap-2">
+                              {t.branch_name && (
+                                <span className="text-[10px] bg-blue-500/10 text-blue-400 px-2 py-1 rounded border border-blue-500/20 font-mono flex items-center gap-1">
+                                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
+                                  {t.branch_name}
+                                </span>
+                              )}
+                              {t.preview_url && (
+                                <a href={t.preview_url} target="_blank" rel="noopener noreferrer" className="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-1 rounded border border-amber-500/30 hover:bg-amber-500/20 transition-colors flex items-center gap-1">
+                                  {Icon.globe('#F59E0B',12)} 미리보기
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-6 flex flex-col items-center justify-center text-center rounded-2xl border border-white/5 bg-white/5">
+                        <span className="text-2xl mb-2 opacity-50">{Icon.clipboard('#F5F0E8',24)}</span>
+                        <p className="text-sm text-[#F5F0E8]/50">할당된 작업이 없습니다.</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* 탭: 회의 기록 (Threads) */}
+                {execTab === 'threads' && (
+                  <div className="mb-6 animate-fade-in-up">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-sm font-bold text-[#F5F0E8] flex items-center gap-1.5">
+                        {Icon.msgCircle('#F5F0E8',16)} 회의 기록 
+                        <span className="flex items-center gap-1 ml-2 text-[10px] font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20">
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" /> LIVE
+                        </span>
+                      </h3>
+                    </div>
+                    {execThreads.length > 0 ? (
+                      <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1 custom-scrollbar">
+                        {execThreads.map((th: any) => {
+                          const isExec = th.role === 'assistant' || th.role === 'system';
+                          return (
+                            <div key={th.id} className={`p-3 rounded-xl border ${isExec ? 'bg-amber-500/5 border-amber-500/20 ml-4' : 'bg-white/5 border-white/10 mr-4'}`}>
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-xs font-bold" style={{ color: isExec ? exec.color : '#A78BFA' }}>
+                                  {isExec ? exec.title : '대표님 (CEO)'}
+                                </span>
+                                <span className="text-[10px] text-[#F5F0E8]/40">
+                                  {new Date(th.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                                </span>
+                              </div>
+                              <p className="text-xs text-[#F5F0E8]/80 whitespace-pre-wrap leading-relaxed">{th.message}</p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="p-6 flex flex-col items-center justify-center text-center rounded-2xl border border-white/5 bg-white/5">
+                        <span className="text-2xl mb-2 opacity-50">{Icon.msgCircle('#F5F0E8',24)}</span>
+                        <p className="text-sm text-[#F5F0E8]/50">기록된 회의 로그가 없습니다.</p>
                       </div>
                     )}
                   </div>
