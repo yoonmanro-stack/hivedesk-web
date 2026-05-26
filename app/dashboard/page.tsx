@@ -1092,7 +1092,7 @@ export default function DashboardPage() {
               setShowGradeManager(false)
               setShowProjectMenu(false)
             }}
-            className="flex items-center gap-2 cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
+            className="justify-self-center flex items-center gap-2 cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
           >
             <span className="text-2xl bee-float">🐝</span>
             <div className="flex flex-col items-start text-left">
