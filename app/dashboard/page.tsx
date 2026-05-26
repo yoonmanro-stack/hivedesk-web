@@ -30,6 +30,7 @@ const Icon = {
   plus:      (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
   briefcase: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
   monitor:   (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
+  helpCircle: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
 }
 
 const EXECUTIVES = [
@@ -148,7 +149,7 @@ export default function DashboardPage() {
   const [isSaving, setIsSaving] = useState(false)
 
   // 통합 회의실(Boardroom) UI 상태
-  const [dashboardSubView, setDashboardSubView] = useState<'grid' | 'boardroom' | 'team_rooms' | 'task_logs'>('grid')
+  const [dashboardSubView, setDashboardSubView] = useState<'grid' | 'boardroom' | 'team_rooms' | 'task_logs' | 'service_guide'>('grid')
   const [boardroomThreads, setBoardroomThreads] = useState<any[]>([])
   const [loadingBoardroom, setLoadingBoardroom] = useState(false)
   const [activeSessionId, setActiveSessionId] = useState<string>('')
@@ -1189,6 +1190,14 @@ export default function DashboardPage() {
                 }`}>
                 <span className="text-base">{Icon.monitor(view === 'dashboard' && dashboardSubView === 'task_logs' ? '#F59E0B' : '#F5F0E8', 18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">작업 실행 로그</p><p className="text-xs text-[#F5F0E8]/60">백엔드 개발 실황 CCTV 채널</p></div>
+              </button>
+
+              <button onClick={() => { setView('dashboard'); setDashboardSubView('service_guide'); setShowNavMenu(false) }}
+                className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
+                  view === 'dashboard' && dashboardSubView === 'service_guide' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+                }`}>
+                <span className="text-base">{Icon.helpCircle(view === 'dashboard' && dashboardSubView === 'service_guide' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">서비스 가이드</p><p className="text-xs text-[#F5F0E8]/60">텔레그램 핫키 및 사용 설명서</p></div>
               </button>
             </nav>
             <div className="px-5 py-4 border-t border-amber-500/10">
@@ -2304,6 +2313,68 @@ export default function DashboardPage() {
                     </div>
                   </div>
                 )}
+              </section>
+            )}
+
+            {/* 5️⃣ 신설: 서비스 가이드 (텔레그램 핫키 및 사용 설명서) */}
+            {dashboardSubView === 'service_guide' && (
+              <section className={`max-w-4xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
+                <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+                  
+                  <div className="flex items-center gap-3.5 border-b border-white/5 pb-4 mb-6">
+                    <span className="text-3xl animate-bounce shrink-0">📖</span>
+                    <div>
+                      <h2 className="text-lg sm:text-xl font-black text-amber-400">HiveDesk 서비스 가이드</h2>
+                      <p className="text-xs text-[#F5F0E8]/50 font-semibold font-mono">WORKSPACE USER MANUAL & TELEGRAM SHORTCUTS</p>
+                    </div>
+                  </div>
+
+                  {/* 텔레그램 핫키 섹션 */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/25 px-4 py-2.5 rounded-2xl w-fit">
+                      <span className="text-sm">🔑</span>
+                      <h3 className="text-xs sm:text-sm font-extrabold text-amber-300 font-mono tracking-wider">TELEGRAM GLOBAL 복귀 핫키 안내</h3>
+                    </div>
+                    
+                    <p className="text-xs sm:text-sm text-[#F5F0E8]/80 leading-relaxed font-medium">
+                      임원진과의 1:1 대화방(면담 세션)이나 특정 작업계획 조율방에 세션이 고정(Lock)되어 일반 질문이 전송되지 않을 때, 텔레그램 채팅창에 아래의 단어 중 하나를 입력하면 **언제 어디서든 즉시 비서실장 아이리스에게 메인 대화 세션이 우아하게 반환**되며 하단 키보드가 원격 복귀됩니다.
+                    </p>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                      {['exit', '퇴근', '비서실장', '아이리스', '대화종료', '종료', '본부'].map((key) => (
+                        <div key={key} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center hover:bg-amber-500/5 hover:border-amber-500/20 transition-all group">
+                          <code className="text-xs sm:text-sm font-black text-amber-400 font-mono block group-hover:scale-105 transition-transform">{key}</code>
+                          <span className="text-[9px] text-[#F5F0E8]/40 font-bold block mt-1">즉시 비서실 복귀</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 서비스 안내 설명 섹션 */}
+                  <div className="pt-6 border-t border-white/5 space-y-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">🐝</span>
+                      <h3 className="text-xs sm:text-sm font-extrabold text-[#F5F0E8] font-sans">하이브데스크 9인 임원진 소통 규칙</h3>
+                    </div>
+
+                    <ul className="space-y-3 text-xs sm:text-sm text-[#F5F0E8]/70 font-semibold pl-1">
+                      <li className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">1.</span>
+                        <span><strong>비서실장 아이리스를 통한 위임</strong>: 사용자가 채팅창에 지시한 실무 사항은 비서실장 아이리스가 분석하여 최적의 임원에게 자율적으로 1회성 위임 카드를 발송합니다.</span>
+                      </li>
+                      <li className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">2.</span>
+                        <span><strong>1:1 전담 연속 면담</strong>: 텔레그램 하단 키보드 버튼을 눌러 특정 임원을 호출할 경우, 해당 임원과 밀접한 대화를 길게 이어나갈 수 있는 전용 면담 세션이 가동됩니다.</span>
+                      </li>
+                      <li className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-amber-400 mt-0.5 shrink-0">3.</span>
+                        <span><strong>실시간 이사회 및 결재 자동화</strong>: 의결이 필요한 중대 과제는 백엔드 보드룸에서 임원 토론을 거쳐 PRD 계획서로 대표님께 배포 승인 버튼과 함께 즉시 보고됩니다.</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
               </section>
             )}
 
