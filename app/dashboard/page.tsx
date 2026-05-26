@@ -150,6 +150,7 @@ export default function DashboardPage() {
 
   // 통합 회의실(Boardroom) UI 상태
   const [dashboardSubView, setDashboardSubView] = useState<'grid' | 'boardroom' | 'team_rooms' | 'task_logs' | 'service_guide'>('grid')
+  const [guideTab, setGuideTab] = useState<'quick' | 'byok' | 'cctv' | 'telegram'>('quick')
   const [boardroomThreads, setBoardroomThreads] = useState<any[]>([])
   const [loadingBoardroom, setLoadingBoardroom] = useState(false)
   const [activeSessionId, setActiveSessionId] = useState<string>('')
@@ -2316,62 +2317,194 @@ export default function DashboardPage() {
               </section>
             )}
 
-            {/* 5️⃣ 신설: 서비스 가이드 (텔레그램 핫키 및 사용 설명서) */}
+            {/* 5️⃣ 신설: 서비스 가이드 (종합 사용 설명서 및 텔레그램 핫키) */}
             {dashboardSubView === 'service_guide' && (
               <section className={`max-w-4xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
                 <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
                   
+                  {/* 헤더 */}
                   <div className="flex items-center gap-3.5 border-b border-white/5 pb-4 mb-6">
                     <span className="text-3xl animate-bounce shrink-0">📖</span>
                     <div>
                       <h2 className="text-lg sm:text-xl font-black text-amber-400">HiveDesk 서비스 가이드</h2>
-                      <p className="text-xs text-[#F5F0E8]/50 font-semibold font-mono">WORKSPACE USER MANUAL & TELEGRAM SHORTCUTS</p>
+                      <p className="text-xs text-[#F5F0E8]/50 font-semibold font-mono">USER EXPERIENCE & INTEGRATED PLATFORM GUIDE</p>
                     </div>
                   </div>
 
-                  {/* 텔레그램 핫키 섹션 */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 bg-amber-500/10 border border-amber-500/25 px-4 py-2.5 rounded-2xl w-fit">
-                      <span className="text-sm">🔑</span>
-                      <h3 className="text-xs sm:text-sm font-extrabold text-amber-300 font-mono tracking-wider">TELEGRAM GLOBAL 복귀 핫키 안내</h3>
-                    </div>
+                  {/* 탭 네비게이션 */}
+                  <div className="flex flex-wrap gap-2 mb-6 border-b border-white/5 pb-4.5">
+                    {[
+                      { id: 'quick', label: '🐝 퀵 스타트', desc: '초보자 3단계 가이드' },
+                      { id: 'byok', label: '🔑 안전 보안 (BYOK)', desc: '비용 0원 API 키' },
+                      { id: 'cctv', label: '📹 실무 CCTV 로그', desc: '개발 실황 모니터링' },
+                      { id: 'telegram', label: '💬 텔레그램 핫키', desc: '세션 탈출 및 핫키' }
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setGuideTab(tab.id as any)}
+                        className={`flex-1 min-w-[140px] text-left p-3 rounded-xl border transition-all duration-200 ${
+                          guideTab === tab.id
+                            ? 'border-amber-500 bg-amber-500/10 shadow-[0_0_15px_rgba(245,158,11,0.15)]'
+                            : 'border-white/5 bg-white/3 hover:border-white/10 hover:bg-white/5'
+                        }`}
+                      >
+                        <p className={`text-xs font-black ${guideTab === tab.id ? 'text-amber-400' : 'text-white'}`}>{tab.label}</p>
+                        <p className="text-[9px] text-[#F5F0E8]/40 font-bold mt-0.5">{tab.desc}</p>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* 탭별 본문 */}
+                  <div className="space-y-6">
                     
-                    <p className="text-xs sm:text-sm text-[#F5F0E8]/80 leading-relaxed font-medium">
-                      임원진과의 1:1 대화방(면담 세션)이나 특정 작업계획 조율방에 세션이 고정(Lock)되어 일반 질문이 전송되지 않을 때, 텔레그램 채팅창에 아래의 단어 중 하나를 입력하면 **언제 어디서든 즉시 비서실장 아이리스에게 메인 대화 세션이 우아하게 반환**되며 하단 키보드가 원격 복귀됩니다.
-                    </p>
-
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                      {['exit', '퇴근', '비서실장', '아이리스', '대화종료', '종료', '본부'].map((key) => (
-                        <div key={key} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center hover:bg-amber-500/5 hover:border-amber-500/20 transition-all group">
-                          <code className="text-xs sm:text-sm font-black text-amber-400 font-mono block group-hover:scale-105 transition-transform">{key}</code>
-                          <span className="text-[9px] text-[#F5F0E8]/40 font-bold block mt-1">즉시 비서실 복귀</span>
+                    {/* 1. 🐝 퀵 스타트 가이드 */}
+                    {guideTab === 'quick' && (
+                      <div className="space-y-5 animate-fade-in-up">
+                        <div>
+                          <h3 className="text-sm sm:text-base font-black text-amber-400 flex items-center gap-2 mb-1.5">
+                            🚀 하이브데스크를 시작하는 3단계 핵심 프로세스
+                          </h3>
+                          <p className="text-xs sm:text-sm text-[#F5F0E8]/60 font-semibold leading-relaxed">
+                            처음 하이브데스크에 온보딩하신 대표님을 위한 초고속 업무 킥오프 요약입니다. 클릭 한 번으로 가상 주식회사를 구동하세요.
+                          </p>
                         </div>
-                      ))}
-                    </div>
-                  </div>
 
-                  {/* 서비스 안내 설명 섹션 */}
-                  <div className="pt-6 border-t border-white/5 space-y-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-base">🐝</span>
-                      <h3 className="text-xs sm:text-sm font-extrabold text-[#F5F0E8] font-sans">하이브데스크 9인 임원진 소통 규칙</h3>
-                    </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4.5 pt-2">
+                          {[
+                            {
+                              step: 'STEP 1',
+                              title: '💡 한 줄 아이디어 기획',
+                              desc: '사이드바의 `+ 새 프로젝트`를 클릭하여 생각나는 아이디어 한 줄을 던져보세요. CPO 이안이 즉각 Gemini AI를 구동해 10초 만에 4가지 세부 비즈니스 기획 방향과 CDO/CTO 임원 브리핑을 완성해 드립니다.'
+                            },
+                            {
+                              step: 'STEP 2',
+                              title: '⚖️ 이사회 의결 및 승인',
+                              desc: 'CPO 이안이 제품 요구사항 명세서(PRD)를 도출하면, 백엔드 보드룸(이사회 회의실)에서 9인의 AI 임원들이 난상 토론을 개시합니다. 토론 합의가 끝나면 대표님이 배포 승인(Merge) 버튼을 눌러 승인 결재를 내립니다.'
+                            },
+                            {
+                              step: 'STEP 3',
+                              title: '💻 샌드박스 개발 & 실배포',
+                              desc: '결재가 완료되면 CTO 뮤즈가 격리 가상 샌드박스(Git Worktree)를 띄워 실서버에 영향을 미치지 않고 실무 코딩과 빌드를 단행합니다. 테스트 성공 완료 시 Live main 브랜치에 동적 자동 병합 및 무중단 배포됩니다.'
+                            }
+                          ].map((x) => (
+                            <div key={x.step} className="bg-white/3 border border-white/5 rounded-2xl p-5 hover:border-amber-500/10 hover:bg-[#0c0d12]/50 transition-colors">
+                              <span className="text-[10px] font-mono font-black text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded bg-amber-500/10 inline-block mb-3 leading-none">{x.step}</span>
+                              <h4 className="text-xs sm:text-sm font-extrabold text-white mb-2">{x.title}</h4>
+                              <p className="text-xs text-[#F5F0E8]/70 leading-relaxed font-semibold">{x.desc}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
-                    <ul className="space-y-3 text-xs sm:text-sm text-[#F5F0E8]/70 font-semibold pl-1">
-                      <li className="flex items-start gap-2 leading-relaxed">
-                        <span className="text-amber-400 mt-0.5 shrink-0">1.</span>
-                        <span><strong>비서실장 아이리스를 통한 위임</strong>: 사용자가 채팅창에 지시한 실무 사항은 비서실장 아이리스가 분석하여 최적의 임원에게 자율적으로 1회성 위임 카드를 발송합니다.</span>
-                      </li>
-                      <li className="flex items-start gap-2 leading-relaxed">
-                        <span className="text-amber-400 mt-0.5 shrink-0">2.</span>
-                        <span><strong>1:1 전담 연속 면담</strong>: 텔레그램 하단 키보드 버튼을 눌러 특정 임원을 호출할 경우, 해당 임원과 밀접한 대화를 길게 이어나갈 수 있는 전용 면담 세션이 가동됩니다.</span>
-                      </li>
-                      <li className="flex items-start gap-2 leading-relaxed">
-                        <span className="text-amber-400 mt-0.5 shrink-0">3.</span>
-                        <span><strong>실시간 이사회 및 결재 자동화</strong>: 의결이 필요한 중대 과제는 백엔드 보드룸에서 임원 토론을 거쳐 PRD 계획서로 대표님께 배포 승인 버튼과 함께 즉시 보고됩니다.</span>
-                      </li>
-                    </ul>
+                    {/* 2. 🔑 안전 보안 (BYOK 정책) */}
+                    {guideTab === 'byok' && (
+                      <div className="space-y-4 animate-fade-in-up">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl">🔑</span>
+                          <h3 className="text-sm sm:text-base font-black text-amber-400">철저한 보안과 0원 마진의 BYOK 정책 안내</h3>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed font-semibold">
+                          하이브데스크는 플랫폼이 LLM API 비용을 마크업하여 가금하는 구조를 전면 타파하고, 사용자가 본인의 키를 직접 입력하는 **BYOK (Bring Your Own Key)** 정책을 고수합니다. 이로 인해 대표님은 API 비용을 100% 한계치까지 투명하게 직접 제어하실 수 있습니다.
+                        </p>
+
+                        <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-5 space-y-4">
+                          <h4 className="text-xs sm:text-sm font-extrabold text-amber-300">🔒 3대 자산 보호 약속 (암호화 방식)</h4>
+                          <ul className="space-y-3 pl-1">
+                            <li className="flex items-start gap-2.5 text-xs sm:text-sm text-[#F5F0E8]/85 font-semibold leading-relaxed">
+                              <span className="text-amber-400 mt-0.5 shrink-0">✓</span>
+                              <span><strong>브라우저 로컬 저장</strong>: 입력하신 Claude 및 Gemini API 실제 키는 오직 대표님 브라우저의 로컬 보안 영역(`localStorage`)에만 저장되며, 저희 서버 백엔드로는 절대 송출되거나 전송되지 않습니다.</span>
+                            </li>
+                            <li className="flex items-start gap-2.5 text-xs sm:text-sm text-[#F5F0E8]/85 font-semibold leading-relaxed">
+                              <span className="text-amber-400 mt-0.5 shrink-0">✓</span>
+                              <span><strong>Supabase 마스킹 보관</strong>: 데이터베이스에는 대표님이 키를 정상 보유하고 있는지 식별하기 위한 마스킹 값(`AIzaSy•••••••••`)과 has_key 플래그 정보만 매핑 저장되어 이중 탈취가 원천 차단됩니다.</span>
+                            </li>
+                            <li className="flex items-start gap-2.5 text-xs sm:text-sm text-[#F5F0E8]/85 font-semibold leading-relaxed">
+                              <span className="text-amber-400 mt-0.5 shrink-0">✓</span>
+                              <span><strong>RLS 소유자 보안 결계</strong>: 다른 플랫폼이나 유저가 대표님의 등록 데이터에 0.001%도 접근할 수 없도록, Supabase RLS(Row Level Security) 철벽 소유자 격리 규칙이 상시 가동됩니다.</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 3. 📹 실무 CCTV 로그 보는 법 */}
+                    {guideTab === 'cctv' && (
+                      <div className="space-y-4 animate-fade-in-up">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl">📹</span>
+                          <h3 className="text-sm sm:text-base font-black text-amber-400">작업 실행 로그 (CCTV) 모니터링 가이드</h3>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed font-semibold">
+                          하이브데스크의 AI 에이전트들은 대표님의 지시를 받아 실제 파일을 열고, 소스 코드를 생성하며, 터미널 명령어를 입력하는 모든 순간을 **순수 팩트 기반의 기계식 CCTV 피드**로 대시보드에 실시간 전송합니다.
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="bg-[#05070c] border border-white/5 rounded-2xl p-5 space-y-2">
+                            <h4 className="text-xs sm:text-sm font-extrabold text-amber-400">🔍 실시간 필터 및 검색</h4>
+                            <p className="text-xs text-[#F5F0E8]/60 font-semibold leading-relaxed">
+                              방대한 로그가 쌓여도 상단 글래스모피즘 검색창을 통해 원하는 키워드(예: `git`, `npm`)를 0.1초 만에 스캔 필터링하며, 날짜 선택 필터를 통해 특정 작업 시점의 이력만 분할 조회할 수 있습니다.
+                            </p>
+                          </div>
+                          
+                          <div className="bg-[#05070c] border border-white/5 rounded-2xl p-5 space-y-2">
+                            <h4 className="text-xs sm:text-sm font-extrabold text-amber-400">💡 Mute (비용 절감) 토글</h4>
+                            <p className="text-xs text-[#F5F0E8]/60 font-semibold leading-relaxed">
+                              'CCTV 중계' 스위치를 비활성화(Mute)시키면 백엔드 실무는 정상 수행하되, 번역용 API 토큰 소모 비용을 0원으로 완벽 차단하여 극도의 마이크로 예산 통제를 지원합니다.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 4. 💬 텔레그램 봇 단축키 */}
+                    {guideTab === 'telegram' && (
+                      <div className="space-y-4 animate-fade-in-up">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xl">🔑</span>
+                          <h3 className="text-sm sm:text-base font-black text-amber-400">텔레그램 봇 소통 규칙 및 글로벌 탈출 핫키</h3>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed font-semibold">
+                          임원진과의 1:1 대화방(면담 세션)이나 특정 작업계획 조율방에 세션이 고정(Lock)되어 일반 질문이 전송되지 않을 때, 텔레그램 채팅창에 아래의 단어 중 하나를 입력하면 **언제 어디서든 즉시 비서실장 아이리스에게 메인 대화 세션이 우아하게 반환**되며 하단 키보드가 원격 복귀됩니다.
+                        </p>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                          {['exit', '퇴근', '비서실장', '아이리스', '대화종료', '종료', '본부'].map((key) => (
+                            <div key={key} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center hover:bg-amber-500/5 hover:border-amber-500/20 transition-all group">
+                              <code className="text-xs sm:text-sm font-black text-amber-400 font-mono block group-hover:scale-105 transition-transform">{key}</code>
+                              <span className="text-[9px] text-[#F5F0E8]/40 font-bold block mt-1">즉시 비서실 복귀</span>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="pt-4 border-t border-white/5 space-y-4">
+                          <div className="flex items-center gap-2">
+                            <span className="text-base">🐝</span>
+                            <h3 className="text-xs sm:text-sm font-extrabold text-[#F5F0E8] font-sans">하이브데스크 임원진 협업 기본 헌법</h3>
+                          </div>
+
+                          <ul className="space-y-3 text-xs sm:text-sm text-[#F5F0E8]/70 font-semibold pl-1">
+                            <li className="flex items-start gap-2 leading-relaxed">
+                              <span className="text-amber-400 mt-0.5 shrink-0">1.</span>
+                              <span><strong>비서실장 아이리스를 통한 위임</strong>: 사용자가 채팅창에 지시한 실무 사항은 비서실장 아이리스가 분석하여 최적의 임원에게 자율적으로 1회성 위임 카드를 발송합니다.</span>
+                            </li>
+                            <li className="flex items-start gap-2 leading-relaxed">
+                              <span className="text-amber-400 mt-0.5 shrink-0">2.</span>
+                              <span><strong>1:1 전담 연속 면담</strong>: 텔레그램 하단 키보드 버튼을 눌러 특정 임원을 호출할 경우, 해당 임원과 밀접한 대화를 길게 이어나갈 수 있는 전용 면담 세션이 가동됩니다.</span>
+                            </li>
+                            <li className="flex items-start gap-2 leading-relaxed">
+                              <span className="text-amber-400 mt-0.5 shrink-0">3.</span>
+                              <span><strong>실시간 이사회 및 결재 자동화</strong>: 의결이 필요한 중대 과제는 백엔드 보드룸에서 임원 토론을 거쳐 PRD 계획서로 대표님께 배포 승인 버튼과 함께 즉시 보고됩니다.</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+
                   </div>
 
                 </div>
