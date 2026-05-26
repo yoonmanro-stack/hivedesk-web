@@ -8,7 +8,7 @@ import { sendHireNotification } from '@/lib/telegram'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { role, category, sub_category, skill_tags, requirements, assigned_exec, org_id, member_name, org_label } = body
+    const { role, category, sub_category, skill_tags, requirements, assigned_exec, org_id, member_name, org_label, quality_grade: reqGrade } = body
 
     if (!role || !assigned_exec || !org_id) {
       return NextResponse.json(
@@ -45,6 +45,18 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // v2.2: 등급 제한 체크
+    const grade = ((reqGrade as string) || 'C').toUpperCase()
+    const PLAN_GRADE_LIMITS: Record<string, string[]> = { free: [], starter: ['C'], pro: ['C', 'B'], vvip: ['A', 'B', 'C'] }
+    const allowedGrades = PLAN_GRADE_LIMITS[plan] || []
+    if (!allowedGrades.includes(grade)) {
+      const gradeLabels: Record<string, string> = { A: 'Grade A (시니어)', B: 'Grade B (중급)', C: 'Grade C (주니어)' }
+      return NextResponse.json(
+        { success: false, message: `${gradeLabels[grade] || grade} 인재는 현재 요금제(${plan})에서 생성할 수 없습니다. 업그레이드해 주세요.` },
+        { status: 403 }
+      )
+    }
+
     // 2) HiveDesk hired_agents 저장
     const agentName = member_name || `${role} 에이전트`
     const now = new Date().toISOString()
@@ -60,8 +72,8 @@ export async function POST(req: NextRequest) {
         skill_count: 0,
         primary_category: category || 'general',
         avg_quality_score: 0,
-        quality_grade: 'C',
-        agent_type: 'type_c',   // HiveDesk 커스텀 생성
+        quality_grade: grade || 'C',
+        agent_type: grade === 'A' ? 'type_a' : grade === 'B' ? 'type_b' : 'type_c',
         status: 'active',
         hired_at: now,
         source_agent_id: null,
@@ -151,22 +163,22 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // 4) n8n 파이프라인 트리거 (비동기)
-    const N8N_WEBHOOK = process.env.N8N_WEBHOOK_URL
-    if (N8N_WEBHOOK) {
-      fetch(N8N_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          agent_id: agent?.id,
-          role,
-          category: category || 'general',
-          requirements: requirements || '',
-          assigned_exec,
-          org_id,
-        }),
-      }).catch(() => {})
-    }
+    // 4) n8n 파이프라인 트리거 (비활성화 — 텔레그램 중복 알림 방지)
+    // const N8N_WEBHOOK = process.env.N8N_WEBHOOK_URL
+    // if (N8N_WEBHOOK) {
+    //   fetch(N8N_WEBHOOK, {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       agent_id: agent?.id,
+    //       role,
+    //       category: category || 'general',
+    //       requirements: requirements || '',
+    //       assigned_exec,
+    //       org_id,
+    //     }),
+    //   }).catch(() => {})
+    // }
 
     // 채용 알림 (fire-and-forget)
     sendHireNotification({

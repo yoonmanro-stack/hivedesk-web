@@ -430,3 +430,110 @@ CREATE POLICY "members_select_own_hired_agents"
     JOIN users u ON u.id = om.user_id
     WHERE u.telegram_id = (auth.uid())::bigint
   ));
+
+-- ============================================================
+-- ⑩ meetings — 회의 관리 테이블
+-- Version : 3.1.0
+-- Author  : CTO 뮤즈
+-- Date    : 2026-05-10
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS meetings (
+  id              UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          UUID          NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  project_id      UUID          REFERENCES projects(id) ON DELETE SET NULL,
+  created_by      UUID          NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+
+  title           VARCHAR(200)  NOT NULL,
+  description     TEXT,
+
+  meeting_type    VARCHAR(32)   NOT NULL DEFAULT 'general'
+                    CHECK (meeting_type IN (
+                      'general', 'tft', 'review', 'brainstorm', 'standup', 'retrospective'
+                    )),
+
+  status          VARCHAR(16)   NOT NULL DEFAULT 'scheduled'
+                    CHECK (status IN ('scheduled', 'in_progress', 'done', 'cancelled')),
+
+  scheduled_at    TIMESTAMPTZ   NOT NULL,
+  started_at      TIMESTAMPTZ,
+  ended_at        TIMESTAMPTZ,
+  duration_min    SMALLINT      GENERATED ALWAYS AS (
+                    CASE
+                      WHEN started_at IS NOT NULL AND ended_at IS NOT NULL
+                      THEN EXTRACT(EPOCH FROM (ended_at - started_at)) / 60
+                      ELSE NULL
+                    END::SMALLINT
+                  ) STORED,
+
+  participants    JSONB         NOT NULL DEFAULT '[]'::jsonb,
+  agenda          TEXT,
+  minutes         TEXT,
+  action_items    JSONB         NOT NULL DEFAULT '[]'::jsonb,
+  ai_summary      TEXT,
+
+  telegram_msg_id BIGINT,
+  cost_usd        NUMERIC(8, 4) NOT NULL DEFAULT 0.0000
+                    CHECK (cost_usd >= 0),
+
+  created_at      TIMESTAMPTZ   NOT NULL DEFAULT now(),
+  updated_at      TIMESTAMPTZ   NOT NULL DEFAULT now(),
+
+  CONSTRAINT meetings_title_not_empty   CHECK (trim(title) <> ''),
+  CONSTRAINT meetings_time_order        CHECK (ended_at IS NULL OR ended_at > started_at),
+  CONSTRAINT meetings_done_requires_end CHECK (status <> 'done' OR ended_at IS NOT NULL)
+);
+
+CREATE INDEX IF NOT EXISTS idx_meetings_org_scheduled ON meetings (org_id, scheduled_at DESC);
+CREATE INDEX IF NOT EXISTS idx_meetings_project_id    ON meetings (project_id) WHERE project_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_meetings_org_status    ON meetings (org_id, status);
+CREATE INDEX IF NOT EXISTS idx_meetings_created_by    ON meetings (created_by);
+
+CREATE TRIGGER trg_meetings_updated_at
+  BEFORE UPDATE ON meetings
+  FOR EACH ROW EXECUTE FUNCTION trigger_set_updated_at();
+
+CREATE OR REPLACE FUNCTION fn_meetings_audit()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.status = 'done' AND OLD.status <> 'done' THEN
+    INSERT INTO audit_logs (org_id, actor_type, actor_id, action, target_type, target_id, details, cost_usd)
+    VALUES (
+      NEW.org_id, 'human', NEW.created_by::TEXT, 'meeting_completed', 'meeting', NEW.id,
+      jsonb_build_object(
+        'title', NEW.title, 'meeting_type', NEW.meeting_type,
+        'duration_min', NEW.duration_min, 'participants', NEW.participants,
+        'action_items', jsonb_array_length(NEW.action_items)
+      ),
+      NEW.cost_usd
+    );
+  END IF;
+  IF NEW.status = 'cancelled' AND OLD.status <> 'cancelled' THEN
+    INSERT INTO audit_logs (org_id, actor_type, actor_id, action, target_type, target_id, details)
+    VALUES (
+      NEW.org_id, 'human', NEW.created_by::TEXT, 'meeting_cancelled', 'meeting', NEW.id,
+      jsonb_build_object('title', NEW.title, 'scheduled_at', NEW.scheduled_at)
+    );
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_meetings_audit
+  AFTER UPDATE OF status ON meetings
+  FOR EACH ROW EXECUTE FUNCTION fn_meetings_audit();
+
+ALTER TABLE meetings ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "service_role_all_meetings"
+  ON meetings FOR ALL TO service_role
+  USING (true) WITH CHECK (true);
+
+CREATE POLICY "members_select_own_meetings"
+  ON meetings FOR SELECT TO authenticated
+  USING (
+    org_id IN (
+      SELECT org_id FROM organization_members
+      WHERE user_id = auth.uid()
+    )
+  );

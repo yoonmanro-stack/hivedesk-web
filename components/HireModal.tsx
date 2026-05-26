@@ -13,11 +13,21 @@ interface AgentCard {
   employment_history?: { org_label: string; exec_title: string; hired_at: string; context: string }[]
 }
 
+interface HirePrefill {
+  role: string;
+  category: string;
+  grade: 'A'|'B'|'C';
+  skills?: string;
+  detail?: string;
+  requestId?: string;
+}
+
 interface HireModalProps {
   isOpen: boolean; onClose: () => void; onHired?: () => void
   defaultCategory?: string
   parentExec?: { id: string; title: string; titleKo: string; color: string } | null
   orgId?: string
+  prefill?: HirePrefill | null
 }
 
 const GRADE_COLOR: Record<string, string> = { A: '#34D399', B: '#60A5FA', C: '#FBBF24', D: '#F87171' }
@@ -27,30 +37,46 @@ function GradeBadge({ grade }: { grade: string }) {
   return <span className="text-xs font-black px-2 py-0.5 rounded-full" style={{ color: GRADE_COLOR[grade]||'#fff', background: GRADE_BG[grade]||'rgba(255,255,255,0.08)' }}>Grade {grade}</span>
 }
 
-export default function HireModal({ isOpen, onClose, onHired, defaultCategory, parentExec, orgId }: HireModalProps) {
+export default function HireModal({ isOpen, onClose, onHired, defaultCategory, parentExec, orgId, prefill }: HireModalProps) {
   const execColor = parentExec?.color || '#F59E0B'
 
   const [step, setStep] = useState<HireStep>('input')
-  const [role, setRole] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState(defaultCategory || '')
+  const [role, setRole] = useState(prefill?.role || '')
+  const [categoryFilter, setCategoryFilter] = useState(defaultCategory || prefill?.category || '')
   const [poolAgents, setPool] = useState<AgentCard[]>([])
   const [result, setResult] = useState<any>(null)
   const [errMsg, setErrMsg] = useState('')
   const [statusMsg, setStatusMsg] = useState('')
 
   // create form
-  const [category, setCategory] = useState(defaultCategory || '')
+  const [category, setCategory] = useState(defaultCategory || prefill?.category || '')
   const [memberName, setMemberName] = useState('')
-  const [requirements, setRequirements] = useState('')
+  const [requirements, setRequirements] = useState(prefill?.detail || '')
   const [suggesting, setSuggesting] = useState(false)
   const [suggestReason, setSuggestReason] = useState('')
+  const [selectedGrade, setSelectedGrade] = useState<'A'|'B'|'C'>(prefill?.grade || 'C')
+  const [prefillApplied, setPrefillApplied] = useState(false)
 
   if (!isOpen) return null
 
+  // prefill 자동 적용: 모달이 열릴 때 한 번만
+  if (prefill && !prefillApplied) {
+    setPrefillApplied(true)
+    setRole(prefill.role || '')
+    setCategory(prefill.category || '')
+    setCategoryFilter(prefill.category || '')
+    setSelectedGrade(prefill.grade || 'C')
+    if (prefill.detail) setRequirements(prefill.detail)
+    // prefill이 있으면 자동으로 검색 시작
+    setTimeout(() => {
+      if (prefill.role) handleSearch()
+    }, 300)
+  }
+
   const reset = () => {
     setStep('input'); setRole(''); setPool([]); setCategoryFilter(defaultCategory || '')
-    setCategory(defaultCategory || ''); setMemberName(''); setRequirements('')
-    setResult(null); setErrMsg(''); setStatusMsg(''); setSuggestReason('')
+    setCategory(defaultCategory || ''); setMemberName(''); setRequirements(''); setSelectedGrade('C')
+    setResult(null); setErrMsg(''); setStatusMsg(''); setSuggestReason(''); setPrefillApplied(false)
   }
   const handleClose = () => { if (step === 'generating') return; reset(); onClose() }
 
@@ -98,7 +124,8 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
       const res = await fetch('/api/hire/suggest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ role }) })
       const data = await res.json()
       if (data.category) { setCategory(data.category); setSuggestReason(data.reason || '') }
-    } catch {} finally { setSuggesting(false) }
+      else { setSuggestReason(data.reason || '추천 실패 — 직접 선택해주세요.') }
+    } catch (e: any) { console.error('[suggest]', e); setSuggestReason('네트워크 오류 — 직접 선택해주세요.') } finally { setSuggesting(false) }
   }
 
   // ── 맞춤 인재 생성 ──
@@ -112,7 +139,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
       const res = await fetch('/api/agents/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ role, category, requirements, assigned_exec: parentExec?.id || 'cto', org_id: orgId, member_name: memberName || undefined }),
+        body: JSON.stringify({ role, category, requirements, quality_grade: selectedGrade, assigned_exec: parentExec?.id || 'cto', org_id: orgId, member_name: memberName || undefined }),
       })
       clearInterval(iv)
       const data = await res.json()
@@ -124,7 +151,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
 
   return (
     <div className="fixed inset-0 z-[60] flex items-start justify-center">
-      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.6)' }} onClick={handleClose} />
+      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.92)' }} onClick={handleClose} />
       <div className="relative w-full max-w-lg flex flex-col shadow-2xl"
         style={{ background: '#1a1a1a', borderBottom: `2px solid ${execColor}40`, height: '100dvh', maxHeight: '100dvh' }}>
 
@@ -145,7 +172,63 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
           {/* ── Step: input ── */}
           {step === 'input' && (
             <div>
-              <label className="text-sm font-bold text-[#F5F0E8] block mb-2">어떤 전문가가 필요하신가요?</label>
+              {/* ── prefill: 채용 요청서 카드 ── */}
+              {prefill && prefill.role && (
+                <div className="mb-4 rounded-2xl overflow-hidden" style={{ border: `1px solid ${execColor}30`, background: 'rgba(255,255,255,0.03)' }}>
+                  {/* 요청서 헤더 */}
+                  <div className="px-4 py-2.5 flex items-center gap-2" style={{ background: `${execColor}12`, borderBottom: `1px solid ${execColor}20` }}>
+                    <span className="text-sm">📋</span>
+                    <span className="text-xs font-black" style={{ color: execColor }}>임원 채용 요청서</span>
+                    <GradeBadge grade={prefill.grade || 'C'} />
+                  </div>
+
+                  {/* 직무 */}
+                  <div className="px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                    <p className="text-xs text-[#F5F0E8]/50 mb-0.5">🎯 직무</p>
+                    <p className="text-sm font-bold text-[#F5F0E8]">{prefill.role}</p>
+                  </div>
+
+                  {/* 업무 상세 */}
+                  {prefill.detail && (
+                    <div className="px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                      <p className="text-xs text-[#F5F0E8]/50 mb-1.5">📋 업무</p>
+                      <div className="space-y-1">
+                        {prefill.detail.split('\n').filter((l: string) => l.trim()).map((line: string, i: number) => (
+                          <p key={i} className="text-xs text-[#F5F0E8]/80 leading-relaxed pl-2" style={{ borderLeft: `2px solid ${execColor}30` }}>
+                            {line.trim().replace(/^-\s*/, '')}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 필수 스킬 */}
+                  {prefill.skills && (
+                    <div className="px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                      <p className="text-xs text-[#F5F0E8]/50 mb-1.5">⚙️ 필수 스킬</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {prefill.skills.split(',').map((s: string, i: number) => (
+                          <span key={i} className="text-xs px-2 py-0.5 rounded-full font-medium"
+                            style={{ color: execColor, background: `${execColor}15`, border: `1px solid ${execColor}25` }}>
+                            {s.trim()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 카테고리 + 등급 */}
+                  <div className="px-4 py-2.5 flex items-center gap-4 text-xs">
+                    <span className="text-[#F5F0E8]/50">📎 <span className="font-bold text-[#F5F0E8]/80">{prefill.category}</span></span>
+                    <span className="text-[#F5F0E8]/50">📊 <span className="font-bold text-[#F5F0E8]/80">Grade {prefill.grade}</span></span>
+                  </div>
+                </div>
+              )}
+
+              {/* ── 역할 입력 (prefill 시 수정 가능) ── */}
+              <label className="text-sm font-bold text-[#F5F0E8] block mb-2">
+                {prefill ? '직무 확인' : '어떤 전문가가 필요하신가요?'}
+              </label>
               <input
                 className="w-full px-4 py-3 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/40 outline-none mb-4"
                 style={{ background: 'rgba(255,255,255,0.07)', border: `1px solid ${role.length > 1 ? execColor+'50' : 'rgba(255,255,255,0.15)'}` }}
@@ -153,24 +236,27 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 value={role}
                 onChange={e => setRole(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && role.trim().length > 1 && handleSearch()}
-                autoFocus
+                autoFocus={!prefill}
               />
 
               {/* 카테고리 필터 */}
               <div className="mb-5">
-                <p className="text-xs font-semibold text-[#F5F0E8]/60 mb-2">카테고리 필터 <span className="font-normal text-[#F5F0E8]/40">(선택)</span></p>
+                <p className="text-xs font-semibold text-[#F5F0E8]/60 mb-2">카테고리 필터 {!prefill && <span className="font-normal text-[#F5F0E8]/40">(선택)</span>}</p>
                 <div className="flex flex-wrap gap-1.5">
-                  {SKILL_CATEGORIES.map(cat => (
-                    <button key={cat} onClick={() => setCategoryFilter(categoryFilter === cat ? '' : cat)}
-                      className="text-xs font-medium px-2.5 py-1 rounded-full transition-all"
-                      style={{
-                        background: categoryFilter === cat ? `${execColor}25` : 'rgba(255,255,255,0.06)',
-                        color: categoryFilter === cat ? execColor : 'rgba(245,240,232,0.65)',
-                        border: `1px solid ${categoryFilter === cat ? execColor+'40' : 'rgba(255,255,255,0.12)'}`,
-                      }}>
-                      {cat}
-                    </button>
-                  ))}
+                  {SKILL_CATEGORIES.map(cat => {
+                    const isActive = categoryFilter === cat || prefill?.category === cat
+                    return (
+                      <button key={cat} onClick={() => setCategoryFilter(categoryFilter === cat ? '' : cat)}
+                        className="text-xs font-medium px-2.5 py-1 rounded-full transition-all"
+                        style={{
+                          background: isActive ? `${execColor}25` : 'rgba(255,255,255,0.06)',
+                          color: isActive ? execColor : 'rgba(245,240,232,0.65)',
+                          border: `1px solid ${isActive ? execColor+'40' : 'rgba(255,255,255,0.12)'}`,
+                        }}>
+                        {cat}
+                      </button>
+                    )
+                  })}
                 </div>
               </div>
 
@@ -181,7 +267,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 style={{ background: `linear-gradient(135deg, ${execColor}CC, ${execColor}88)`, color: '#0D0D0D' }}>
                 🔍 맞춤인재 찾기
               </button>
-              <p className="text-center text-xs text-[#F5F0E8]/60 mt-2.5">2글자 이상 입력 후 검색해주세요</p>
+              {!prefill && <p className="text-center text-xs text-[#F5F0E8]/60 mt-2.5">2글자 이상 입력 후 검색해주세요</p>}
             </div>
           )}
 
@@ -256,7 +342,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                   {/* 원하는 인재 없을 때 */}
                   <div className="border-t border-white/10 pt-3">
                     <p className="text-xs text-[#F5F0E8]/60 text-center mb-2">원하는 인재가 없다면?</p>
-                    <button onClick={() => { setCategory(defaultCategory || ''); setStep('create') }}
+                    <button onClick={() => { setCategory(prefill?.category || categoryFilter || defaultCategory || ''); setStep('create') }}
                       className="w-full py-2.5 rounded-xl text-sm font-bold border border-dashed transition-all hover:brightness-110"
                       style={{ color: `${execColor}90`, borderColor: `${execColor}35` }}>
                       🎯 맞춤 인재 직접 생성하기
@@ -269,7 +355,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                   <div className="text-4xl mb-3">😔</div>
                   <p className="text-sm font-bold text-[#F5F0E8]/90 mb-1">인재풀에 딱 맞는 에이전트가 없어요</p>
                   <p className="text-xs text-[#F5F0E8]/60 mb-6">"{role}" 검색 결과 없음</p>
-                  <button onClick={() => { setCategory(defaultCategory || ''); setStep('create') }}
+                  <button onClick={() => { setCategory(prefill?.category || categoryFilter || defaultCategory || ''); setStep('create') }}
                     className="w-full py-3.5 rounded-xl text-sm font-black transition-all hover:brightness-110 active:scale-[0.98]"
                     style={{ background: `linear-gradient(135deg, ${execColor}CC, ${execColor}88)`, color: '#0D0D0D' }}>
                     🎯 맞춤 인재 직접 생성하기
@@ -295,10 +381,11 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
               </div>
 
               <div className="mb-3">
-                <label className="text-sm font-bold text-[#F5F0E8] block mb-1.5">팀원 이름 <span className="text-[#F5F0E8]/50 font-normal text-xs">(선택)</span></label>
+                <label className="text-sm font-bold text-[#F5F0E8] block mb-1.5">팀원 이름 <span className="text-[#F5F0E8]/50 font-normal text-xs">(필수)</span></label>
                 <input className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/40 outline-none"
-                  style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.15)' }}
+                  style={{ background: 'rgba(255,255,255,0.07)', border: `1px solid ${memberName.trim() ? execColor+'40' : 'rgba(255,255,255,0.15)'}` }}
                   placeholder="예: Alex, Luna, 김지수..." value={memberName} onChange={e => setMemberName(e.target.value)} />
+                {!memberName.trim() && <p className="text-xs mt-1 px-1" style={{ color: '#F59E0B' }}>⚠️ 팀원 이름을 입력해주세요</p>}
               </div>
 
               <div className="mb-3">
@@ -319,6 +406,29 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                 </select>
               </div>
 
+              {/* 등급 선택 */}
+              <div className="mb-3">
+                <label className="text-sm font-bold text-[#F5F0E8] block mb-1.5">에이전트 등급</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(['C', 'B', 'A'] as const).map(g => {
+                    const labels = { A: '🏅 시니어', B: '⭐ 중급', C: '✨ 주니어' }
+                    const descs = { A: 'Opus · 최고 성능', B: 'Sonnet · 균형', C: 'Gemma · 무료' }
+                    const selected = selectedGrade === g
+                    return (
+                      <button key={g} onClick={() => setSelectedGrade(g)}
+                        className="p-2.5 rounded-xl text-center transition-all"
+                        style={{
+                          background: selected ? `${GRADE_BG[g]}` : 'rgba(255,255,255,0.04)',
+                          border: `1.5px solid ${selected ? GRADE_COLOR[g] + '60' : 'rgba(255,255,255,0.10)'}`,
+                        }}>
+                        <p className="text-sm font-black" style={{ color: selected ? GRADE_COLOR[g] : '#F5F0E8' }}>{labels[g]}</p>
+                        <p className="text-xs mt-0.5" style={{ color: selected ? GRADE_COLOR[g] + 'AA' : 'rgba(245,240,232,0.45)' }}>{descs[g]}</p>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
               <div className="mb-5">
                 <label className="text-sm font-bold text-[#F5F0E8] block mb-1.5">추가 요청사항 <span className="text-[#F5F0E8]/50 font-normal text-xs">(선택)</span></label>
                 <textarea className="w-full px-4 py-2.5 rounded-xl text-sm text-[#F5F0E8] placeholder-[#F5F0E8]/40 outline-none resize-none"
@@ -327,7 +437,7 @@ export default function HireModal({ isOpen, onClose, onHired, defaultCategory, p
                   value={requirements} onChange={e => setRequirements(e.target.value)} />
               </div>
 
-              <button onClick={handleGenerate} disabled={!category || !role.trim()}
+              <button onClick={handleGenerate} disabled={!category || !role.trim() || !memberName.trim()}
                 className="w-full py-3.5 rounded-xl text-sm font-black transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-40"
                 style={{ background: `linear-gradient(135deg, ${execColor}CC, ${execColor}88)`, color: '#0D0D0D' }}>
                 🏭 인재 생성 시작

@@ -10,6 +10,14 @@ const PLAN_LIMITS: Record<string, number> = {
   vvip:    9999,
 }
 
+// v2.2: 요금제별 채용 가능 등급 제한
+const PLAN_GRADE_LIMITS: Record<string, string[]> = {
+  free:    [],
+  starter: ['C'],
+  pro:     ['C', 'B'],
+  vvip:    ['A', 'B', 'C'],
+}
+
 // POST /api/agents/hire
 // 인재풀에서 1클릭 채용 — SkillsMuse agents 풀 → HiveDesk hired_agents 기록
 export async function POST(req: NextRequest) {
@@ -45,6 +53,18 @@ export async function POST(req: NextRequest) {
         success: false,
         message: 'Pro 요금제로 업그레이드하면 팀원을 채용할 수 있습니다.',
         limitInfo: { reason: 'upgrade_required' }
+      }, { status: 403 })
+    }
+
+    // v2.2: 등급 제한 체크
+    const grade = ((quality_grade as string) || 'C').toUpperCase()
+    const allowedGrades = PLAN_GRADE_LIMITS[plan] || []
+    if (!allowedGrades.includes(grade)) {
+      const gradeLabels: Record<string, string> = { A: 'Grade A (시니어)', B: 'Grade B (중급)', C: 'Grade C (주니어)' }
+      return NextResponse.json({
+        success: false,
+        message: `${gradeLabels[grade] || grade} 인재는 현재 요금제(${plan})에서 채용할 수 없습니다. 업그레이드해 주세요.`,
+        limitInfo: { reason: 'grade_restricted', grade, plan }
       }, { status: 403 })
     }
 

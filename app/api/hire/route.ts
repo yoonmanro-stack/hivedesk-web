@@ -45,9 +45,9 @@ export async function GET(req: NextRequest) {
     })
   }
 
-  // 2) 해당 임원의 현재 활성 팀원 수
+  // 2) 해당 임원의 현재 활성 팀원 수 — v2.1: hired_agents 통합
   const { count, error: countErr } = await supabase
-    .from('hired_skills')
+    .from('hired_agents')
     .select('*', { count: 'exact', head: true })
     .eq('org_id', orgId)
     .eq('assigned_exec', exec)
@@ -79,7 +79,7 @@ export async function GET(req: NextRequest) {
   })
 }
 
-// ── POST: 채용 기록 저장 ────────────────────────────
+// ── POST: 채용 기록 저장 — v2.1: hired_agents 통합 ────────────────────────────
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { count } = await supabase
-      .from('hired_skills')
+      .from('hired_agents')
       .select('*', { count: 'exact', head: true })
       .eq('org_id', org_id)
       .eq('assigned_exec', assigned_exec || 'cto')
@@ -115,20 +115,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: '채용 한도 초과' }, { status: 403 })
     }
 
-    // 저장
+    // v2.1: hired_agents 테이블에 저장 (hired_skills 형식 → hired_agents 매핑)
     const { data, error } = await supabase
-      .from('hired_skills')
+      .from('hired_agents')
       .insert({
         org_id,
         hired_by,
         assigned_exec: assigned_exec || 'cto',
-        skill_id: skill_id || null,
-        skill_name,
-        skill_category,
-        difficulty: difficulty || 'intermediate',
-        quality_score: quality_score || 0,
+        agent_name: skill_name,
+        agent_role: skill_category,
+        primary_category: skill_category,
+        skill_slugs: [],
+        skill_count: 0,
+        avg_quality_score: quality_score || 0,
         quality_grade: quality_grade || 'C',
+        agent_type: 'type_a',
         status: 'active',
+        source_agent_id: skill_id || null,
       })
       .select()
       .single()
