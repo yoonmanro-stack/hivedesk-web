@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 const CATEGORIES = ['SaaS', '모바일앱', '이커머스', '콘텐츠', 'AI 서비스', '커뮤니티', '기타']
 const STAGES = [
@@ -32,7 +33,34 @@ const ANALYSIS_PHASES = [
   { title: '🎨 CDO 하나: 디자인 방향 도출 중', desc: '선정된 비즈니스 방향별 최적 UI/UX 전략과 디자인 DNA를 분석하여 방향을 확정합니다.' }
 ]
 
-const TOTAL_STEPS = 5
+const TOTAL_STEPS = 4
+
+/* ── Modern Line Icons (Lovable-style) ── */
+const s = { display: 'inline-block', verticalAlign: 'middle' } as const
+const Icon = {
+  folder:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>,
+  barChart:  (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>,
+  msgCircle: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>,
+  user:      (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>,
+  users:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+  rocket:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>,
+  key:       (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>,
+  globe:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>,
+  bell:      (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>,
+  crown:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M2 4l3 12h14l3-12-6 7-4-9-4 9-6-7z"/><path d="M3 20h18"/></svg>,
+  sparkle:   (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"/></svg>,
+  brain:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2z"/></svg>,
+  person:    (c="currentColor",sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="8" r="4"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>,
+  search:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>,
+  clipboard: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>,
+  phone:     (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>,
+  target:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>,
+  logOut:    (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>,
+  plus:      (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
+  briefcase: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
+  monitor:   (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
+  helpCircle: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+}
 
 export default function NewProjectPage() {
   const router = useRouter()
@@ -41,6 +69,12 @@ export default function NewProjectPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [dir, setDir] = useState<'forward' | 'back'>('forward')
+
+  // Drawer states
+  const [showNavMenu, setShowNavMenu] = useState(false)
+  const [showBottomDrawer, setShowBottomDrawer] = useState(false)
+  const [showUserMenu, setShowUserMenu] = useState(false)
+  const [activeProject, setActiveProject] = useState<any>(null)
 
   // Form state
   const [name, setName] = useState('')
@@ -59,7 +93,7 @@ export default function NewProjectPage() {
 
   // Competitor-inspired Gates States
   const [selectedIntent, setSelectedIntent] = useState<number | null>(null)
-  const [selectedDna, setSelectedDna] = useState<'amber' | 'glass' | 'clay'>('amber')
+  const [selectedDna, setSelectedDna] = useState<'amber' | 'glass' | 'lime' | 'indigo' | 'swiss'>('amber')
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [analysisPhase, setAnalysisPhase] = useState(0)
   const [hasAnalyzed, setHasAnalyzed] = useState(false)
@@ -67,7 +101,15 @@ export default function NewProjectPage() {
 
   useEffect(() => {
     fetch('/api/me').then(r => r.json()).then(d => {
-      if (d.org_id) setOrgId(d.org_id)
+      if (d.org_id) {
+        setOrgId(d.org_id)
+        fetch('/api/projects').then(r => r.json()).then(pData => {
+          if (pData.projects) {
+            const active = pData.projects.find((p: any) => p.active_project)
+            setActiveProject(active || null)
+          }
+        }).catch(() => {})
+      }
     }).catch(() => {})
   }, [])
 
@@ -304,36 +346,53 @@ export default function NewProjectPage() {
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || '프로젝트 생성 실패')
-      router.push('/dashboard?view=projects')
+      router.push(`/dashboard?view=dashboard&sub=boardroom&project_id=${data.project.id}&new_project=true`)
     } catch (e: any) {
       setError(e.message)
       setLoading(false)
     }
   }
 
-  const maxWidthClass = (step === 2 || step === 3) ? 'max-w-3xl' : 'max-w-lg'
+  const maxWidthClass = step === 3 ? 'max-w-6xl' : step === 2 ? 'max-w-3xl' : 'max-w-lg'
 
   return (
     <main className="h-screen h-[100dvh] overflow-hidden hero-bg honeycomb-bg flex flex-col">
       {/* Header */}
-      <header className="border-b border-amber-500/20 bg-[#060606]/90 sticky top-0 z-50 px-5 py-4 flex items-center gap-3 backdrop-blur-md">
-        <button onClick={() => router.back()} className="w-8 h-8 rounded-full glass flex items-center justify-center text-sm text-amber-400 hover:scale-105 active:scale-95 transition-all">←</button>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => router.push('/dashboard')}
-            className="flex items-center gap-2 cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
-          >
-            <span className="text-2xl bee-float">🐝</span>
-            <h1 className="text-xl md:text-2xl font-black text-amber-400 tracking-tight text-shimmer font-mono leading-none">HiveDesk</h1>
-          </button>
-          <span className="text-[10px] md:text-xs font-extrabold text-neutral-100 px-2 py-0.75 rounded-md bg-amber-500/20 border border-amber-500/40 font-mono shadow-[0_0_12px_rgba(245,158,11,0.15)] ml-1 flex items-center justify-center self-center leading-none">
-            Step {step} / {TOTAL_STEPS}
-          </span>
-        </div>
-        <div className="ml-auto flex gap-1.5">
-          {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-            <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i + 1 === step ? 'w-8 bg-amber-400 step-pulse shadow-[0_0_8px_rgba(245,158,11,0.5)]' : i + 1 < step ? 'w-4 bg-amber-500/80' : 'w-4 bg-white/10'}`} />
-          ))}
+      <header className="border-b border-amber-500/10 backdrop-blur-md bg-[#0D0D0D]/80 sticky top-0 z-[100000] h-11 md:h-16 flex items-center justify-between w-full">
+        <div className="w-full px-3 grid grid-cols-3 items-center">
+          {/* 좌: 삼선 메뉴 버튼 고정 */}
+          <div className="flex items-center">
+            <button
+              id="btn-nav-menu"
+              type="button"
+              onClick={() => {
+                setShowNavMenu(true)
+              }}
+              className="flex flex-col gap-[5px] w-8 h-8 justify-center tap-fast hover:brightness-110 active:scale-95 transition-all"
+            >
+              <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
+              <span className="block h-[2px] w-4 bg-[#F5F0E8]/70 rounded-full" />
+              <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
+            </button>
+          </div>
+          {/* 중앙: SVG 아이콘 + pure 메뉴명 고정 */}
+          <div className="justify-self-center flex items-center gap-2 max-w-full">
+            <span className="shrink-0">{Icon.plus('#F59E0B', 16)}</span>
+            <span className="text-sm md:text-base font-bold text-[#F5F0E8] truncate tracking-wide font-sans">
+              새 프로젝트 생성
+            </span>
+          </div>
+          {/* 우: 계정 아바타 고정 */}
+          <div className="flex justify-end">
+            <button
+              id="btn-user-menu"
+              type="button"
+              onClick={() => setShowUserMenu(true)}
+              className="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-xs tap-fast hover:bg-amber-500/30 transition-all active:scale-95 shadow-inner"
+            >
+              {Icon.user('#F5F0E8', 14)}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -345,10 +404,10 @@ export default function NewProjectPage() {
             <div className="absolute inset-2 rounded-full bg-amber-500/20 border border-amber-500/50 animate-pulse" />
             <span className="text-6xl bee-float">🧠</span>
           </div>
-          <h3 className="text-xl font-extrabold text-amber-400 mb-3 tracking-wide text-shimmer">
+          <h3 className="text-xl font-bold text-amber-400 mb-3 tracking-wide text-shimmer">
             {ANALYSIS_PHASES[analysisPhase].title}
           </h3>
-          <p className="text-sm text-neutral-200 font-semibold text-center max-w-sm leading-relaxed min-h-[4rem] px-4">
+          <p className="text-xs sm:text-sm text-neutral-300 font-medium text-center max-w-sm leading-relaxed min-h-[4rem] px-4">
             {ANALYSIS_PHASES[analysisPhase].desc}
           </p>
           <div className="w-56 h-1.5 bg-white/10 rounded-full overflow-hidden mt-6 shadow-inner">
@@ -362,38 +421,61 @@ export default function NewProjectPage() {
 
       {/* Step Content */}
       <div className={`flex-1 overflow-y-auto px-5 py-8 ${maxWidthClass} mx-auto w-full`}>
+        {/* Step Progress Indicator (Unified Placement) */}
+        <div className="glass rounded-2xl p-3.5 mb-6 border border-amber-500/10 bg-amber-950/5 flex items-center justify-between shadow-inner">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-bold text-[#F5F0E8]/40 uppercase tracking-widest pl-1">생성 단계</span>
+            <span className="text-xs font-bold text-amber-400 bg-amber-500/15 border border-amber-500/35 px-2.5 py-0.5 rounded-md font-mono shadow-[0_0_10px_rgba(245,158,11,0.1)]">
+              Step {step} / {TOTAL_STEPS}
+            </span>
+          </div>
+          <div className="flex gap-1.5 items-center">
+            {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  i + 1 === step
+                    ? 'w-6 bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.5)]'
+                    : i + 1 < step
+                    ? 'w-3 bg-amber-500/60'
+                    : 'w-3 bg-white/10'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
 
         {/* ── STEP 1: 기본 정보 ── */}
         {step === 1 && (
           <div className="fade-in-up space-y-7">
             <div>
-              <h2 className="text-lg md:text-xl font-bold text-amber-400 tracking-tight mb-1.5">🚀 한 줄로 시작하는 초고속 AI 기획</h2>
-              <p className="text-xs md:text-sm text-neutral-350 font-medium leading-relaxed">대표님은 아이디어 한 줄만 가볍게 던져주세요. 하이브데스크의 9인 전문 AI 임원진이 비즈니스 타겟 세분화, 시스템 아키텍처 설계, 디자인 캔버스 프리뷰까지 단 10초 만에 알아서 완벽하게 조율해 드립니다.</p>
+              <h2 className="text-xl font-bold text-amber-400 tracking-tight mb-2">🚀 한 줄로 시작하는 초고속 AI 기획</h2>
+              <p className="text-xs md:text-sm text-[#F5F0E8]/75 font-medium leading-relaxed">대표님은 아이디어 한 줄만 가볍게 던져주세요. 하이브데스크의 9인 전문 AI 임원진이 비즈니스 타겟 세분화, 시스템 아키텍처 설계, 디자인 캔버스 프리뷰까지 단 10초 만에 알아서 완벽하게 조율해 드립니다.</p>
             </div>
 
             <div className="space-y-5">
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2.5">프로젝트 이름 *</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2.5">프로젝트 이름 *</label>
                 <input
                   id="project-name"
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder="예: FitPulse"
-                  className="w-full px-4 py-3.5 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all shadow-inner"
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all shadow-inner"
                   maxLength={50}
                   autoFocus
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2.5">한 줄 아이디어 기획안 * <span className="text-neutral-400 font-medium ml-1">({description.length}/100)</span></label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2.5">한 줄 아이디어 기획안 * <span className="text-amber-400/90 font-medium ml-1">({description.length}/100)</span></label>
                 <textarea
                   id="project-description"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
                   placeholder="예: 오늘 진행한 운동과 컨디션을 기록하고 최적의 피트니스 루틴을 처방받는 맞춤형 헬스 케어 서비스"
-                  className="w-full px-4 py-3.5 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-400 focus:bg-white/10 transition-all resize-none shadow-inner"
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all resize-none shadow-inner"
                   rows={3}
                   maxLength={100}
                 />
@@ -405,39 +487,29 @@ export default function NewProjectPage() {
                     type="button"
                     onClick={handleTriggerAnalysis}
                     disabled={!name.trim() || !description.trim()}
-                    className={`w-full py-4.5 px-6 rounded-2xl text-sm font-bold transition-all duration-300 flex items-center justify-between gap-3 border ${
+                    className={`w-full py-4 px-6 rounded-2xl text-sm font-bold transition-all duration-300 flex items-center justify-center gap-3 border ${
                       name.trim() && description.trim()
-                        ? 'bg-amber-400 text-black border-amber-300 shadow-[0_0_25px_rgba(245,158,11,0.35)] hover:brightness-110 active:scale-98 cursor-pointer'
-                        : 'bg-amber-500/5 text-amber-450 border-amber-500/25 cursor-not-allowed hover:bg-amber-500/8'
+                        ? 'bg-amber-400 text-black border-amber-300 shadow-[0_0_25px_rgba(245,158,11,0.35)] hover:scale-[1.01] active:scale-98 cursor-pointer font-black'
+                        : 'bg-amber-500/5 text-amber-500/40 border-amber-500/20 cursor-not-allowed'
                     }`}
                   >
-                    <span className="flex items-center gap-2.5 text-left">
-                      <span className={`w-2 h-2 rounded-full ${
-                        name.trim() && description.trim() ? 'bg-black animate-ping' : 'bg-amber-500 animate-pulse'
+                    <span className="flex items-center gap-2">
+                      <span className={`w-1.5 h-1.5 rounded-full ${
+                        name.trim() && description.trim() ? 'bg-black animate-ping' : 'bg-amber-500/40'
                       }`} />
-                      {name.trim() && description.trim() ? 'Gemini AI로 맞춤 기획안 4개 즉시 생성' : '프로젝트명과 아이디어를 입력하면 AI가 분석합니다'}
+                      {name.trim() && description.trim() ? '⚡ 9인 임원진에게 AI 기획 자동 완성하기 (10초 소요)' : '프로젝트명과 아이디어를 입력하면 AI가 분석합니다'}
                     </span>
-                    <div className={`w-10 h-5.5 rounded-full relative p-0.5 flex items-center shrink-0 transition-all duration-300 ${
-                      name.trim() && description.trim() ? 'bg-black border border-amber-500/30' : 'bg-amber-950/40 border border-amber-500/20'
-                    }`}>
-                      <div className={`w-4.5 h-4.5 rounded-full transition-all duration-300 transform ${
-                        name.trim() && description.trim() ? 'translate-x-4.5 bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.8)]' : 'translate-x-0 bg-amber-500/60 shadow-[0_0_4px_rgba(245,158,11,0.3)]'
-                      }`} />
-                    </div>
                   </button>
                 ) : (
                   <button
                     type="button"
                     onClick={() => go(2)}
-                    className="w-full py-4 px-6 rounded-2xl text-sm font-bold transition-all duration-300 flex items-center justify-between gap-3 bg-amber-400 text-black border-2 border-amber-300 shadow-[0_0_25px_rgba(245,158,11,0.3)] hover:brightness-110 active:scale-98"
+                    className="w-full py-4 px-6 rounded-2xl text-sm font-bold transition-all duration-300 flex items-center justify-center gap-3 bg-teal-500 text-black border border-teal-400 shadow-[0_0_25px_rgba(20,184,166,0.3)] hover:scale-[1.01] active:scale-98 font-black"
                   >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-2 h-2 rounded-full bg-black animate-ping" />
-                      ⚡ Gemini가 생성한 맞춤 기획안 {customIntents.length}개 확인하기
+                    <span className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-black animate-ping" />
+                      ✓ 맞춤 기획안 4종 자동 완성됨 (지금 즉시 확인하기)
                     </span>
-                    <div className="w-10 h-5.5 bg-black border border-amber-500/30 rounded-full relative p-0.5 flex items-center shrink-0 transition-colors duration-300">
-                      <div className="w-4.5 h-4.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.8)] transition-all duration-300 transform translate-x-4.5" />
-                    </div>
                   </button>
                 )}
               </div>
@@ -449,7 +521,7 @@ export default function NewProjectPage() {
         {step === 2 && (
           <div className="fade-in-up space-y-7">
             <div>
-              <h2 className="text-lg md:text-xl font-bold text-neutral-100 tracking-tight mb-1.5">Gemini가 분석한 {customIntents.length}가지 방향을 선택하세요</h2>
+              <h2 className="text-lg md:text-xl font-bold text-neutral-100 tracking-tight mb-1.5">AI Agent(CTO, CDO)가 분석한 {customIntents.length}가지 방향을 선택하세요</h2>
               <p className="text-xs md:text-sm text-neutral-300 font-medium leading-relaxed">대표님의 아이디어를 실시간 분석하여 생성한 맞춤형 비즈니스 방향입니다. 각 방향은 서로 다른 수익 모델과 타겟을 가집니다.</p>
             </div>
 
@@ -468,7 +540,7 @@ export default function NewProjectPage() {
                     }`}
                   >
                     {intent.badge && (
-                      <span className={`absolute top-4 right-4 text-[10px] px-2.5 py-0.75 rounded-full font-bold uppercase tracking-wider ${
+                      <span className={`absolute top-4 right-4 text-xs px-2.5 py-0.75 rounded-full font-bold uppercase tracking-wider ${
                         isSelected
                           ? 'bg-teal-400 text-black shadow-sm'
                           : 'bg-white/10 text-neutral-200'
@@ -515,197 +587,302 @@ export default function NewProjectPage() {
         {step === 3 && (
           <div className="fade-in-up space-y-7">
             <div>
-              <h2 className="text-lg md:text-xl font-bold text-neutral-100 tracking-tight mb-1.5">Visual DNA (디자인 테마 프리셋)</h2>
-              <p className="text-xs md:text-sm text-neutral-300 font-medium leading-relaxed">CDO 하나가 제안하는 3종의 디자인 스키마입니다. 미리보기를 실시간으로 확인해보세요.</p>
+              <h2 className="text-lg md:text-xl font-bold text-neutral-100 tracking-tight mb-1.5">Design DNA (디자인 테마 프리셋)</h2>
+              <p className="text-xs md:text-sm text-neutral-300 font-medium leading-relaxed">CDO 하나가 제안하는 5종의 고품격 디자인 스키마입니다. 원하는 테마를 선택하고 다음 단계로 진행하세요.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+              {/* 1. Amber Sleek */}
               <button
                 type="button"
-                onClick={() => { setSelectedDna('amber'); go(4); }}
-                className={`p-6 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative hover:scale-[1.01] ${
+                onClick={() => setSelectedDna('amber')}
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative hover:scale-[1.01] ${
                   selectedDna === 'amber'
                     ? 'border-amber-500 bg-amber-500/15 shadow-[0_0_20px_rgba(245,158,11,0.15)] scale-[1.01]'
                     : 'border-white/10 bg-white/4 hover:border-white/20'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-2.5">
-                    <span className="text-base font-extrabold text-neutral-100">Amber Sleek</span>
-                    <span className="text-xs text-amber-400 font-extrabold font-mono uppercase tracking-wider">고성능 테크</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-extrabold text-neutral-100">Amber Sleek</span>
+                    <span className="text-[9px] text-amber-400 font-extrabold font-mono uppercase tracking-wider bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-500/25">고성능 테크</span>
                   </div>
-                  <p className="text-xs text-neutral-300 font-semibold leading-relaxed mb-4">깊은 차콜 블랙 배경과 네온 앰버 테두리 조합의 현대적 테크 감성</p>
+                  <p className="text-[10px] text-neutral-300 font-semibold leading-relaxed mb-3">깊은 차콜 블랙 배경과 네온 앰버 테두리 조합의 현대적 테크 감성</p>
                   
-                  <div className="w-full bg-[#161616] border border-amber-500/40 rounded-lg p-3 space-y-2 mb-4 pointer-events-none shadow-inner">
-                    <div className="h-2.5 w-14 bg-amber-500/30 rounded" />
-                    <div className="h-4.5 w-full bg-white/10 rounded" />
-                    <div className="h-6.5 w-18 bg-amber-500/20 border border-amber-500/50 rounded flex items-center justify-center text-[10px] text-amber-400 font-extrabold tracking-wider">
-                      버튼
+                  {/* 전문 디자인 아이덴티티 스펙 */}
+                  <div className="space-y-1.5 border-t border-white/5 pt-2.5 mb-3 text-[9px] font-semibold text-neutral-400">
+                    <div className="flex items-center justify-between">
+                      <span>Typography</span>
+                      <span className="font-mono text-neutral-200">Outfit & Inter</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Concept</span>
+                      <span className="text-neutral-200">사이버네틱 생산성</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Palette</span>
+                      <div className="flex items-center gap-1 font-mono text-neutral-200">
+                        <div className="w-2 h-2 rounded-full bg-[#F59E0B]" />
+                        <span>#F59E0B</span>
+                        <div className="w-2 h-2 rounded-full bg-[#18181B] border border-white/25" />
+                        <span>#18181B</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 미니 샌드박스 컴포넌트 프리뷰 */}
+                  <div className="w-full bg-[#111111] border border-amber-500/40 rounded-xl p-2.5 space-y-1.5 pointer-events-none shadow-inner select-none">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[8px] font-mono text-amber-500 font-bold uppercase">PREVIEW</span>
+                      <span className="text-[7px] font-mono text-neutral-600">v1.4</span>
+                    </div>
+                    <div className="h-1.5 w-12 bg-amber-500/30 rounded" />
+                    <div className="h-3 w-full bg-white/5 rounded" />
+                    <div className="h-5.5 w-full bg-amber-500/20 border border-amber-500/50 rounded flex items-center justify-center text-[9px] text-amber-400 font-extrabold tracking-wider">
+                      🐝 기획서 승인
                     </div>
                   </div>
                 </div>
                 {selectedDna === 'amber' && (
-                  <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-amber-400 border-2 border-[#0D0D0D] flex items-center justify-center text-black text-sm font-extrabold shadow-md">
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-amber-400 border-2 border-[#0D0D0D] flex items-center justify-center text-black text-xs font-extrabold shadow-md">
                     ✓
                   </div>
                 )}
               </button>
 
+              {/* 2. Aurora Glass */}
               <button
                 type="button"
-                onClick={() => { setSelectedDna('glass'); go(4); }}
-                className={`p-6 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative overflow-hidden hover:scale-[1.01] ${
+                onClick={() => setSelectedDna('glass')}
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative overflow-hidden hover:scale-[1.01] ${
                   selectedDna === 'glass'
                     ? 'border-violet-500 bg-violet-500/15 shadow-[0_0_20px_rgba(139,92,246,0.15)] scale-[1.01]'
                     : 'border-white/10 bg-white/4 hover:border-white/20'
                 }`}
               >
-                <div className="absolute -right-10 -bottom-10 w-24 h-24 rounded-full bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 blur-xl pointer-events-none" />
+                <div className="absolute -right-10 -bottom-10 w-20 h-20 rounded-full bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 blur-xl pointer-events-none" />
                 
                 <div>
-                  <div className="flex items-center justify-between mb-2.5">
-                    <span className="text-base font-extrabold text-neutral-100">Aurora Glass</span>
-                    <span className="text-xs text-violet-300 font-extrabold font-mono uppercase tracking-wider">글래스모피즘</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-extrabold text-neutral-100">Aurora Glass</span>
+                    <span className="text-[9px] text-violet-300 font-extrabold font-mono uppercase tracking-wider bg-violet-500/20 px-1.5 py-0.5 rounded border border-violet-500/25">글래스모피즘</span>
                   </div>
-                  <p className="text-xs text-neutral-300 font-semibold leading-relaxed mb-4">반투명 아크릴 유리 효과와 우아한 오로라 광원 그라데이션의 프리미엄 감성</p>
+                  <p className="text-[10px] text-neutral-300 font-semibold leading-relaxed mb-3">반투명 아크릴 유리 효과와 우아한 오로라 그라데이션의 프리미엄 감성</p>
                   
-                  <div className="w-full backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-3 space-y-2 mb-4 pointer-events-none shadow-inner">
-                    <div className="h-2.5 w-10 bg-violet-400/40 rounded-full" />
-                    <div className="h-4.5 w-full bg-white/15 rounded" />
-                    <div className="h-6.5 w-22 bg-gradient-to-r from-violet-500/40 to-fuchsia-500/40 border border-white/20 rounded-full flex items-center justify-center text-[10px] text-violet-100 font-extrabold tracking-wider">
-                      버튼
+                  {/* 전문 디자인 아이덴티티 스펙 */}
+                  <div className="space-y-1.5 border-t border-white/5 pt-2.5 mb-3 text-[9px] font-semibold text-neutral-400">
+                    <div className="flex items-center justify-between">
+                      <span>Typography</span>
+                      <span className="font-mono text-neutral-200">Syne & Inter</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Concept</span>
+                      <span className="text-neutral-200">미래지향 프리미엄</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Palette</span>
+                      <div className="flex items-center gap-1 font-mono text-neutral-200">
+                        <div className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+                        <span>#8B5CF6</span>
+                        <div className="w-2 h-2 rounded-full bg-[#EC4899]" />
+                        <span>#EC4899</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 미니 샌드박스 컴포넌트 프리뷰 */}
+                  <div className="w-full backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl p-2.5 space-y-1.5 pointer-events-none shadow-inner select-none">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[8px] font-mono text-violet-300 font-bold uppercase">PREVIEW</span>
+                      <span className="text-[7px] font-mono text-white/40">v1.4</span>
+                    </div>
+                    <div className="h-1.5 w-8 bg-violet-400/40 rounded-full" />
+                    <div className="h-3 w-full bg-white/15 rounded" />
+                    <div className="h-5.5 w-full bg-gradient-to-r from-violet-500/40 to-fuchsia-500/40 border border-white/20 rounded-full flex items-center justify-center text-[9px] text-violet-100 font-extrabold tracking-wider">
+                      ✨ 기획서 승인
                     </div>
                   </div>
                 </div>
                 {selectedDna === 'glass' && (
-                  <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-violet-400 border-2 border-[#0D0D0D] flex items-center justify-center text-black text-sm font-extrabold shadow-md">
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-violet-400 border-2 border-[#0D0D0D] flex items-center justify-center text-black text-xs font-extrabold shadow-md">
                     ✓
                   </div>
                 )}
               </button>
 
+              {/* 3. Cyber Lime (NEW) */}
               <button
                 type="button"
-                onClick={() => { setSelectedDna('clay'); go(4); }}
-                className={`p-6 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative hover:scale-[1.01] ${
-                  selectedDna === 'clay'
-                    ? 'border-amber-900 bg-amber-900/15 shadow-[0_0_20px_rgba(146,64,14,0.15)] scale-[1.01]'
+                onClick={() => setSelectedDna('lime')}
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative hover:scale-[1.01] ${
+                  selectedDna === 'lime'
+                    ? 'border-[#CCFF00] bg-[#CCFF00]/10 shadow-[0_0_20px_rgba(204,255,0,0.15)] scale-[1.01]'
                     : 'border-white/10 bg-white/4 hover:border-white/20'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-2.5">
-                    <span className="text-base font-extrabold text-neutral-100">Warm Clay</span>
-                    <span className="text-xs text-amber-800 font-extrabold font-mono uppercase tracking-wider">뉴브루탈리즘</span>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-extrabold text-neutral-100">Cyber Lime</span>
+                    <span className="text-[9px] text-[#CCFF00] font-extrabold font-mono uppercase tracking-wider bg-[#CCFF00]/10 px-1.5 py-0.5 rounded border border-[#CCFF00]/25">네오 미니멀</span>
                   </div>
-                  <p className="text-xs text-neutral-300 font-semibold leading-relaxed mb-4">편안한 살구 아이보리 캔버스와 굵은 외곽선, 두꺼운 그림자의 위트 있는 감성</p>
+                  <p className="text-[10px] text-neutral-300 font-semibold leading-relaxed mb-3">깊은 흑연색(Graphite) 배경과 쨍한 일렉트릭 라임의 압도적인 몰입감</p>
                   
-                  <div className="w-full bg-[#FAF7F2] border-2 border-neutral-800 rounded-xl p-3 space-y-2 mb-4 pointer-events-none shadow-[2px_2px_0px_#27272A]">
-                    <div className="h-2.5 w-12 bg-amber-900/30 rounded" />
-                    <div className="h-4.5 w-full bg-[#EAE3D2] rounded" />
-                    <div className="h-6.5 w-18 bg-[#FF8A65] border-2 border-neutral-800 rounded-lg flex items-center justify-center text-[10px] text-neutral-900 font-extrabold shadow-[2px_2px_0px_#27272A] tracking-wider">
-                      버튼
+                  {/* 전문 디자인 아이덴티티 스펙 */}
+                  <div className="space-y-1.5 border-t border-white/5 pt-2.5 mb-3 text-[9px] font-semibold text-neutral-400">
+                    <div className="flex items-center justify-between">
+                      <span>Typography</span>
+                      <span className="font-mono text-neutral-200">Jakarta & JB Mono</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Concept</span>
+                      <span className="text-neutral-200">날렵한 기동성·속도</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Palette</span>
+                      <div className="flex items-center gap-1 font-mono text-neutral-200">
+                        <div className="w-2 h-2 rounded-full bg-[#CCFF00]" />
+                        <span>#CCFF00</span>
+                        <div className="w-2 h-2 rounded-full bg-[#121314] border border-white/25" />
+                        <span>#121314</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 미니 샌드박스 컴포넌트 프리뷰 */}
+                  <div className="w-full bg-[#121314] border border-[#CCFF00]/40 rounded-xl p-2.5 space-y-1.5 pointer-events-none shadow-inner select-none font-mono">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[8px] font-mono text-[#CCFF00] font-bold uppercase">PREVIEW</span>
+                      <span className="text-[7px] font-mono text-neutral-600">v1.4</span>
+                    </div>
+                    <div className="h-1.5 w-10 bg-[#CCFF00]/30 rounded animate-pulse" />
+                    <div className="h-3 w-full bg-white/5 rounded" />
+                    <div className="h-5.5 w-full bg-[#CCFF00]/20 border border-[#CCFF00]/60 rounded flex items-center justify-center text-[9px] text-[#CCFF00] font-bold tracking-wider">
+                      [ 기획서 승인 ]
                     </div>
                   </div>
                 </div>
-                {selectedDna === 'clay' && (
-                  <div className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-amber-800 border-2 border-[#0D0D0D] flex items-center justify-center text-[#FAF7F2] text-sm font-extrabold shadow-md">
+                {selectedDna === 'lime' && (
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#CCFF00] border-2 border-[#0D0D0D] flex items-center justify-center text-black text-xs font-extrabold shadow-md">
                     ✓
                   </div>
                 )}
               </button>
-            </div>
 
-            <div className="mt-8">
-              <label className="block mb-3.5 text-center text-xs tracking-widest text-neutral-300 uppercase font-extrabold">
-                🖥️ 실시간 컴포넌트 렌더링 미리보기 (CDO 하나 캔버스)
-              </label>
-              
-              <div className="w-full rounded-2xl bg-neutral-950/90 border border-white/10 p-8 flex items-center justify-center min-h-[250px] transition-all relative overflow-hidden shadow-inner">
-                {selectedDna === 'amber' && (
-                  <div className="w-full max-w-sm bg-neutral-900 border-2 border-amber-500/40 rounded-xl p-6 shadow-[0_0_25px_rgba(245,158,11,0.12)] space-y-4 fade-in">
+              {/* 4. Midnight Indigo (NEW) */}
+              <button
+                type="button"
+                onClick={() => setSelectedDna('indigo')}
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative hover:scale-[1.01] ${
+                  selectedDna === 'indigo'
+                    ? 'border-[#6366F1] bg-[#6366F1]/10 shadow-[0_0_20px_rgba(99,102,241,0.15)] scale-[1.01]'
+                    : 'border-white/10 bg-white/4 hover:border-white/20'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-extrabold text-neutral-100">Midnight Indigo</span>
+                    <span className="text-[9px] text-indigo-300 font-extrabold font-mono uppercase tracking-wider bg-indigo-500/20 px-1.5 py-0.5 rounded border border-indigo-500/25">네오 클래식 다크</span>
+                  </div>
+                  <p className="text-[10px] text-neutral-300 font-semibold leading-relaxed mb-3">옵시디안 블랙 베이스에 소프트 인디고 글로우가 내뿜는 웅장한 신뢰감</p>
+                  
+                  {/* 전문 디자인 아이덴티티 스펙 */}
+                  <div className="space-y-1.5 border-t border-white/5 pt-2.5 mb-3 text-[9px] font-semibold text-neutral-400">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] px-2.5 py-0.75 rounded bg-amber-500/20 text-amber-400 border border-amber-500/40 font-extrabold uppercase tracking-wider">
-                        PREVIEW
-                      </span>
-                      <span className="text-[10px] text-neutral-400 font-extrabold font-mono">v1.4</span>
+                      <span>Typography</span>
+                      <span className="font-mono text-neutral-200">Outfit & Inter</span>
                     </div>
-                    <div className="space-y-1.5">
-                      <h5 className="text-base font-extrabold text-amber-400 tracking-tight font-mono">
-                        {name || '프로젝트 제목'}
-                      </h5>
-                      <p className="text-xs text-neutral-200 font-semibold leading-relaxed">
-                        {description || '한 줄 기획 아이디어가 여기에 렌더링됩니다.'}
-                      </p>
-                    </div>
-                    <div className="flex gap-2.5 pt-2">
-                      <button onClick={() => go(4)} type="button" className="flex-1 py-2.5 bg-amber-500 text-black text-xs font-extrabold rounded hover:bg-amber-400 hover:scale-[1.02] active:scale-98 transition-all font-mono tracking-wider shadow-md">
-                        🐝 기획서 승인
-                      </button>
-                      <button onClick={() => go(2)} type="button" className="px-4 py-2.5 bg-neutral-800 text-neutral-200 border border-neutral-700 text-xs font-extrabold rounded hover:bg-neutral-700 transition-all font-mono">
-                        닫기
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {selectedDna === 'glass' && (
-                  <div className="w-full max-w-sm backdrop-blur-md bg-white/10 border-2 border-white/20 rounded-2xl p-6 shadow-[0_8_32px_0_rgba(139,92,246,0.22)] space-y-4 relative overflow-hidden fade-in">
-                    <div className="absolute -left-20 -top-20 w-40 h-40 rounded-full bg-violet-600/15 blur-2xl pointer-events-none" />
-                    <div className="absolute -right-20 -bottom-20 w-40 h-40 rounded-full bg-fuchsia-600/15 blur-2xl pointer-events-none" />
-                    
-                    <div className="flex items-center justify-between relative z-10">
-                      <span className="text-[10px] px-3 py-1 rounded-full bg-gradient-to-r from-violet-500/30 to-fuchsia-500/30 text-violet-100 border border-white/20 uppercase tracking-wider font-extrabold">
-                        PREVIEW
-                      </span>
-                      <span className="text-[10px] text-white/40 font-extrabold font-mono">v1.4</span>
-                    </div>
-                    <div className="space-y-1.5 relative z-10">
-                      <h5 className="text-base font-extrabold text-[#F5F0E8] tracking-tight bg-gradient-to-r from-violet-100 to-fuchsia-100 bg-clip-text text-transparent">
-                        {name || '프로젝트 제목'}
-                      </h5>
-                      <p className="text-xs text-violet-100/90 font-semibold leading-relaxed">
-                        {description || '한 줄 기획 아이디어가 여기에 렌더링됩니다.'}
-                      </p>
-                    </div>
-                    <div className="flex gap-2.5 pt-2 relative z-10">
-                      <button onClick={() => go(4)} type="button" className="flex-1 py-2.5 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:brightness-110 hover:scale-[1.02] active:scale-98 text-white text-xs font-extrabold rounded-full transition-all shadow-lg shadow-violet-500/30 tracking-wider">
-                        ✨ 기획서 승인
-                      </button>
-                      <button onClick={() => go(2)} type="button" className="px-4 py-2.5 bg-white/10 text-white border border-white/20 text-xs font-extrabold rounded-full hover:bg-white/20 transition-all">
-                        닫기
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {selectedDna === 'clay' && (
-                  <div className="w-full max-w-sm bg-[#FCF8F2] border-2 border-neutral-800 rounded-xl p-6 shadow-[5px_5px_0px_#1E1E1E] text-neutral-800 space-y-4 fade-in">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] px-2.5 py-0.75 rounded-md bg-[#FFE0B2] text-amber-900 border border-neutral-800 font-extrabold uppercase tracking-wider">
-                        PREVIEW
-                      </span>
-                      <span className="text-[10px] text-neutral-500 font-extrabold font-mono">v1.4</span>
+                      <span>Concept</span>
+                      <span className="text-neutral-200">웅장한 럭셔리·신뢰</span>
                     </div>
-                    <div className="space-y-1.5">
-                      <h5 className="text-base font-extrabold text-neutral-800 tracking-tight">
-                        {name || '프로젝트 제목'}
-                      </h5>
-                      <p className="text-xs text-neutral-700 font-bold leading-relaxed">
-                        {description || '한 줄 기획 아이디어가 여기에 렌더링됩니다.'}
-                      </p>
-                    </div>
-                    <div className="flex gap-2.5 pt-2">
-                      <button onClick={() => go(4)} type="button" className="flex-1 py-2.5 bg-[#FF8A65] hover:bg-[#FF7A50] text-neutral-900 text-xs font-extrabold rounded-lg border-2 border-neutral-800 shadow-[2px_2px_0px_#1E1E1E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all tracking-wider">
-                        🚀 기획서 승인
-                      </button>
-                      <button onClick={() => go(2)} type="button" className="px-4 py-2.5 bg-[#EAE3D2] hover:bg-[#DDD6C3] text-neutral-700 text-xs font-extrabold rounded-lg border-2 border-neutral-800 shadow-[2px_2px_0px_#1E1E1E] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">
-                        닫기
-                      </button>
+                    <div className="flex items-center justify-between">
+                      <span>Palette</span>
+                      <div className="flex items-center gap-1 font-mono text-neutral-200">
+                        <div className="w-2 h-2 rounded-full bg-[#6366F1]" />
+                        <span>#6366F1</span>
+                        <div className="w-2 h-2 rounded-full bg-[#030712] border border-white/25" />
+                        <span>#030712</span>
+                      </div>
                     </div>
                   </div>
+
+                  {/* 미니 샌드박스 컴포넌트 프리뷰 */}
+                  <div className="w-full bg-[#030712] border border-indigo-500/30 rounded-xl p-2.5 space-y-1.5 pointer-events-none shadow-[0_0_12px_rgba(99,102,241,0.12)] select-none">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[8px] font-mono text-indigo-400 font-bold uppercase">PREVIEW</span>
+                      <span className="text-[7px] font-mono text-neutral-600">v1.4</span>
+                    </div>
+                    <div className="h-1.5 w-12 bg-indigo-500/25 rounded" />
+                    <div className="h-3 w-full bg-white/5 rounded" />
+                    <div className="h-5.5 w-full bg-indigo-500/20 border border-indigo-500/40 rounded flex items-center justify-center text-[9px] text-indigo-300 font-extrabold tracking-wider">
+                      🔮 기획서 승인
+                    </div>
+                  </div>
+                </div>
+                {selectedDna === 'indigo' && (
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#6366F1] border-2 border-[#0D0D0D] flex items-center justify-center text-white text-xs font-bold shadow-md">
+                    ✓
+                  </div>
                 )}
-              </div>
+              </button>
+
+              {/* 5. Midnight Swiss */}
+              <button
+                type="button"
+                onClick={() => setSelectedDna('swiss')}
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between h-full transition-all duration-300 relative hover:scale-[1.01] ${
+                  selectedDna === 'swiss'
+                    ? 'border-white bg-white/10 shadow-[0_0_20px_rgba(255,255,255,0.12)] scale-[1.01]'
+                    : 'border-white/10 bg-white/4 hover:border-white/20'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-extrabold text-neutral-100">Midnight Swiss</span>
+                    <span className="text-[9px] text-white font-extrabold font-mono uppercase tracking-wider bg-white/10 px-1.5 py-0.5 rounded border border-white/20">스위스 모던</span>
+                  </div>
+                  <p className="text-[10px] text-neutral-300 font-semibold leading-relaxed mb-3">대담한 타이포 레이아웃과 1px의 극단적 칼선으로 설계한 흑백 대비 모더니즘</p>
+                  
+                  {/* 전문 디자인 아이덴티티 스펙 */}
+                  <div className="space-y-1.5 border-t border-white/5 pt-2.5 mb-3 text-[9px] font-semibold text-neutral-400">
+                    <div className="flex items-center justify-between">
+                      <span>Typography</span>
+                      <span className="font-mono text-neutral-200">Space Grotesk & Inter</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Concept</span>
+                      <span className="text-neutral-200">차가운 정밀함·대담</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span>Palette</span>
+                      <div className="flex items-center gap-1 font-mono text-neutral-200">
+                        <div className="w-2 h-2 rounded-full bg-[#FFFFFF]" />
+                        <span>#FFFFFF</span>
+                        <div className="w-2 h-2 rounded-full bg-[#FF002E]" />
+                        <span>#FF002E</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 미니 샌드박스 컴포넌트 프리뷰 */}
+                  <div className="w-full bg-[#09090B] border border-white/25 rounded-lg p-2.5 space-y-1.5 pointer-events-none shadow-inner select-none text-neutral-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[8px] font-mono text-neutral-200 font-bold uppercase">PREVIEW</span>
+                      <span className="text-[7px] font-mono text-neutral-500">v1.4</span>
+                    </div>
+                    <div className="h-1.5 w-10 bg-white/30 rounded" />
+                    <div className="h-3 w-full bg-white/5 rounded" />
+                    <div className="h-5.5 w-full bg-white text-black font-extrabold text-[9px] rounded flex items-center justify-center border border-white tracking-wider">
+                      ⬜ 기획서 승인
+                    </div>
+                  </div>
+                </div>
+                {selectedDna === 'swiss' && (
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-white border-2 border-[#0D0D0D] flex items-center justify-center text-black text-xs font-extrabold shadow-md">
+                    ✓
+                  </div>
+                )}
+              </button>
             </div>
           </div>
         )}
@@ -720,17 +897,17 @@ export default function NewProjectPage() {
 
             <div className="space-y-5">
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2.5">카테고리</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2.5">카테고리</label>
                 <div className="flex flex-wrap gap-2.5">
                   {CATEGORIES.map(c => (
                     <button
                       key={c}
                       type="button"
                       onClick={() => setCategory(prev => prev === c ? '' : c)}
-                      className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all border ${
+                      className={`px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                         category === c 
-                          ? 'bg-amber-500/30 text-amber-300 border-2 border-amber-400 shadow-sm scale-105' 
-                          : 'bg-white/5 text-neutral-200 border-white/15 hover:border-white/30'
+                          ? 'bg-amber-500/20 text-amber-300 border-2 border-amber-400 shadow-sm scale-105' 
+                          : 'bg-white/5 text-neutral-300 border-white/15 hover:border-white/30'
                       }`}
                     >
                       {c}
@@ -740,7 +917,7 @@ export default function NewProjectPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2.5">개발 단계</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2.5">개발 단계</label>
                 <div className="grid grid-cols-5 gap-2.5">
                   {STAGES.map(s => (
                     <button
@@ -749,75 +926,75 @@ export default function NewProjectPage() {
                       onClick={() => setStage(s.id)}
                       className={`flex flex-col items-center gap-1.5 py-3 rounded-xl border text-center transition-all ${
                         stage === s.id 
-                          ? 'border-2 border-amber-400 bg-amber-500/20 text-amber-300 font-extrabold shadow-sm scale-102' 
-                          : 'border-white/10 bg-white/4 text-neutral-200 hover:border-white/25 hover:bg-white/6'
+                          ? 'border-2 border-amber-400 bg-amber-500/20 text-amber-300 font-bold shadow-sm scale-102' 
+                          : 'border-white/10 bg-white/4 text-neutral-300 hover:border-white/25 hover:bg-white/6'
                       }`}
                     >
                       <span className="text-xl">{s.icon}</span>
-                      <span className="text-[10px] font-extrabold leading-tight">{s.label}</span>
+                      <span className="text-[10px] font-semibold leading-tight">{s.label}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2">6개월 후 제품 목표</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2">프로젝트 목표</label>
                 <textarea
                   id="project-goals"
                   value={goals}
                   onChange={e => setGoals(e.target.value)}
                   placeholder="예: 유료 구독자 100명, 스킬 1,000개 생성"
-                  className="w-full px-4 py-3 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-400 transition-all resize-none shadow-inner"
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all resize-none shadow-inner"
                   rows={2}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2">핵심 타겟 유저</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2">핵심 타겟 유저</label>
                 <textarea
                   id="target-audience"
                   value={userTarget}
                   onChange={e => setUserTarget(e.target.value)}
                   placeholder="예: AI 자동화에 관심 있는 비개발자 1인 창업자"
-                  className="w-full px-4 py-3 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-400 transition-all resize-none shadow-inner"
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all resize-none shadow-inner"
                   rows={2}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2">추천 기술 스택</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2">추천 기술 스택</label>
                 <input
                   type="text"
                   value={techStack}
                   onChange={e => setTechStack(e.target.value)}
                   placeholder="예: Next.js · Supabase · n8n"
-                  className="w-full px-4 py-3.5 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-400 transition-all shadow-inner"
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all shadow-inner"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2">예상 해결 과제 (Blockers)</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2">예상 해결 과제 (Blockers)</label>
                 <textarea
                   value={challenges}
                   onChange={e => setChallenges(e.target.value)}
                   placeholder="예: 오프라인 데이터 실시간 동기화 이슈 해결"
-                  className="w-full px-4 py-3 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-400 transition-all resize-none shadow-inner"
+                  className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all resize-none shadow-inner"
                   rows={2}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-extrabold text-neutral-100 mb-2.5">수익 모델</label>
+                <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2.5">수익 모델</label>
                 <div className="flex flex-wrap gap-2.5">
                   {REVENUE_MODELS.map(r => (
                     <button
                       key={r}
                       type="button"
                       onClick={() => setRevenueModel(prev => prev === r ? '' : r)}
-                      className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all border ${
+                      className={`px-4 py-2 rounded-full text-xs font-bold transition-all border ${
                         revenueModel === r 
-                          ? 'bg-amber-500/30 text-amber-300 border-2 border-amber-400 scale-105 shadow-sm' 
-                          : 'bg-white/5 text-neutral-200 border-white/15 hover:border-white/30'
+                          ? 'bg-amber-500/20 text-amber-300 border-2 border-amber-400 scale-105 shadow-sm' 
+                          : 'bg-white/5 text-neutral-300 border-white/15 hover:border-white/30'
                       }`}
                     >
                       {r}
@@ -828,36 +1005,36 @@ export default function NewProjectPage() {
 
               {revenueModel === '구독제' && (
                 <div>
-                  <label className="block text-sm font-extrabold text-neutral-100 mb-2">가격대 (선택)</label>
+                  <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2">가격대 (선택)</label>
                   <input
                     type="text"
                     value={price}
                     onChange={e => setPrice(e.target.value)}
                     placeholder="예: 기본 ₩9,900/월 · 프로 ₩29,900/월"
-                    className="w-full px-4 py-3.5 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-500/50 transition-all shadow-inner"
+                    className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all shadow-inner"
                   />
                 </div>
               )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-extrabold text-neutral-100 mb-2">웹사이트 (선택)</label>
+                  <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2">웹사이트 (선택)</label>
                   <input
                     type="url"
                     value={websiteUrl}
                     onChange={e => setWebsiteUrl(e.target.value)}
                     placeholder="https://"
-                    className="w-full px-4 py-3.5 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-500/50 transition-all shadow-inner"
+                    className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all shadow-inner"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-extrabold text-neutral-100 mb-2">GitHub (선택)</label>
+                  <label className="block text-xs font-bold text-[#F5F0E8]/80 uppercase tracking-wider mb-2">GitHub (선택)</label>
                   <input
                     type="url"
                     value={githubUrl}
                     onChange={e => setGithubUrl(e.target.value)}
                     placeholder="https://github.com/"
-                    className="w-full px-4 py-3.5 rounded-xl text-base font-semibold bg-white/5 border border-white/20 text-white placeholder-neutral-400 focus:outline-none focus:border-amber-500/50 transition-all shadow-inner"
+                    className="w-full px-4 py-3 rounded-xl text-sm font-medium bg-[#0D0D0D] border border-white/10 text-[#F5F0E8] placeholder-[#F5F0E8]/35 focus:outline-none focus:border-amber-500/70 focus:bg-white/3 transition-all shadow-inner"
                   />
                 </div>
               </div>
@@ -865,61 +1042,6 @@ export default function NewProjectPage() {
           </div>
         )}
 
-        {/* ── STEP 5: 임원진 활성화 ── */}
-        {step === 5 && (
-          <div className="fade-in-up space-y-7">
-            <div>
-              <h2 className="text-lg md:text-xl font-bold text-neutral-100 tracking-tight mb-1.5">AI 임원진 활성화 및 프로젝트 담당 지정</h2>
-              <p className="text-xs md:text-sm text-neutral-300 font-medium leading-relaxed">체크한 HiveDesk 소속 상주 임원진들이 가상 보드룸 회의와 기획 오케스트레이션을 주도합니다.</p>
-            </div>
-
-            <div className="glass rounded-2xl p-4 space-y-1.5 border border-white/10 shadow-inner">
-              {EXECUTIVES.map(exec => {
-                const on = activeExecs.includes(exec.id)
-                const isDefault = ['ceo', 'cto', 'cmo'].includes(exec.id)
-                return (
-                  <button
-                    key={exec.id}
-                    type="button"
-                    onClick={() => toggleExec(exec.id)}
-                    className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all ${
-                      on 
-                        ? 'bg-amber-500/15 border-2 border-amber-500/40 shadow-sm' 
-                        : 'hover:bg-white/5 border border-transparent'
-                    }`}
-                  >
-                    <span className="text-2xl w-8 text-center">{exec.icon}</span>
-                    <div className="flex-1 text-left">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-extrabold text-neutral-100">{exec.title}</span>
-                        {isDefault && <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30 font-bold">기본</span>}
-                        {exec.badge && <span className="text-[10px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30 font-bold">{exec.badge}</span>}
-                      </div>
-                      <span className="text-xs text-neutral-300 font-semibold leading-tight">{exec.desc}</span>
-                    </div>
-                    <div className={`w-5.5 h-5.5 rounded-full border-2 flex items-center justify-center transition-all ${on ? 'border-amber-400 bg-amber-500/30' : 'border-white/30'}`}>
-                      {on && <span className="text-amber-400 text-xs font-extrabold">✓</span>}
-                    </div>
-                  </button>
-                )
-              })}
-            </div>
-
-            <div className="glass rounded-xl p-4 border border-amber-500/25 bg-amber-950/10">
-              <p className="text-xs text-neutral-200 leading-relaxed font-bold">
-                🟢 <strong className="text-white">Gemma4 (무료)</strong> — 일일 브리핑·토론·라우팅<br/>
-                🟡 <strong className="text-white">Sonnet 4.6</strong> — 전략 문서·보고서 (BYOK)<br/>
-                🔴 <strong className="text-white">Opus 4.7</strong> — CTO 코딩·기술 (BYOK)
-              </p>
-            </div>
-
-            {error && (
-              <div className="px-4 py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-sm font-bold shadow-md">
-                {error}
-              </div>
-            )}
-          </div>
-        )}
       </div>
 
       {/* Bottom Nav */}
@@ -928,7 +1050,7 @@ export default function NewProjectPage() {
           <button
             type="button"
             onClick={() => go(step - 1)}
-            className="flex-1 py-3.5 rounded-xl text-sm font-extrabold glass text-neutral-200 hover:text-white transition-all active:scale-95 border border-white/10"
+            className="flex-1 py-3 px-4 rounded-xl text-sm font-bold glass text-neutral-200 hover:text-white transition-all active:scale-95 border border-white/10"
           >
             ← 이전
           </button>
@@ -939,7 +1061,7 @@ export default function NewProjectPage() {
             type="button"
             onClick={() => { if (canNext()) go(step + 1) }}
             disabled={!canNext()}
-            className={`flex-[2] py-3.5 rounded-xl text-sm font-extrabold transition-all active:scale-95 ${
+            className={`flex-[2] py-3 px-4 rounded-xl text-sm font-bold transition-all active:scale-95 ${
               canNext() 
                 ? 'bg-amber-400 text-black border-2 border-amber-300 hover:brightness-110 shadow-[0_0_15px_rgba(245,158,11,0.2)] cta-pulse' 
                 : 'bg-neutral-800/40 text-neutral-500 border border-neutral-700/50 cursor-not-allowed'
@@ -951,13 +1073,365 @@ export default function NewProjectPage() {
           <button
             type="button"
             onClick={handleSubmit}
-            disabled={loading || activeExecs.length === 0}
-            className="flex-[2] py-3.5 rounded-xl text-sm font-extrabold bg-amber-400 text-black border-2 border-amber-300 hover:brightness-110 shadow-[0_0_15px_rgba(245,158,11,0.2)] cta-pulse transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
+            disabled={loading}
+            className="flex-[2] py-3 px-4 rounded-xl text-sm font-bold bg-amber-400 text-black border-2 border-amber-300 hover:brightness-110 shadow-[0_0_15px_rgba(245,158,11,0.2)] cta-pulse transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {loading ? '🐝 임원진 소집 중...' : `🚀 ${name || '프로젝트'} 시작하기`}
+            {loading ? '🐝 임원진 소집 및 기획서 확정 중...' : `🚀 ${name || '프로젝트'} 시작하기`}
           </button>
         )}
       </div>
+
+      {/* Nav 드로어 (왼쪽) */}
+      {showNavMenu && (
+        <>
+          <div className="fixed inset-0 z-[110000] bg-black/60 backdrop-blur-sm" onClick={() => setShowNavMenu(false)} />
+          <div className="fixed left-0 top-0 bottom-0 w-64 z-[120000] bg-[#0D0D0D] border-r border-amber-500/15 flex flex-col" style={{ animation: 'slideInLeft 0.22s ease' }}>
+            <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-amber-500/10">
+              <button
+                onClick={() => {
+                  router.push('/dashboard')
+                  setShowNavMenu(false)
+                }}
+                className="flex items-center gap-2 text-left cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
+              >
+                <span className="text-xl bee-float">🐝</span>
+                <div>
+                  <p className="text-xs font-bold text-shimmer">HiveDesk</p>
+                  <p className="text-[10px] text-[#F5F0E8]/60">내 손안의 AI 1인 기업</p>
+                </div>
+              </button>
+              <button onClick={() => setShowNavMenu(false)} className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg pr-1">✕</button>
+            </div>
+            <nav className="flex-1 overflow-y-auto py-2">
+              {/* 프로젝트 섹션 */}
+              <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">프로젝트</p>
+              <button
+                onClick={() => setShowNavMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-amber-500/8 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.plus('#F5F0E8', 16)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-amber-400">새 프로젝트</p>
+                  <p className="text-xs text-[#F5F0E8]/60">새 프로젝트 등록</p>
+                </div>
+              </button>
+              <button
+                onClick={() => {
+                  router.push('/dashboard?view=projects')
+                  setShowNavMenu(false)
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.folder('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p>
+                  <p className="text-xs text-[#F5F0E8]/60">전체 프로젝트 목록</p>
+                </div>
+              </button>
+              {/* 운영 섹션 */}
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">운영</p>
+              <button
+                onClick={() => {
+                  router.push('/dashboard?view=company')
+                  setShowNavMenu(false)
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.barChart('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">회사 현황</p>
+                  <p className="text-xs text-[#F5F0E8]/60">전체 조직 운영 현황</p>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => {
+                  router.push('/dashboard?view=dashboard&sub=grid')
+                  setShowNavMenu(false)
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.briefcase('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">회사 조직도</p>
+                  <p className="text-xs text-[#F5F0E8]/60">9인 AI 임원진 및 부서</p>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => {
+                  router.push('/dashboard?view=dashboard&sub=boardroom')
+                  setShowNavMenu(false)
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.msgCircle('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">이사회 회의실</p>
+                  <p className="text-xs text-[#F5F0E8]/60">실시간 의사결정 및 세션</p>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => {
+                  router.push('/dashboard?view=dashboard&sub=team_rooms')
+                  setShowNavMenu(false)
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.users('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">팀별 회의실</p>
+                  <p className="text-xs text-[#F5F0E8]/60">9개 부서별 전용 실무 토론</p>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => {
+                  router.push('/dashboard?view=dashboard&sub=task_logs')
+                  setShowNavMenu(false)
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.monitor('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">작업 실행 로그</p>
+                  <p className="text-xs text-[#F5F0E8]/60">백엔드 개발 실황 CCTV 채널</p>
+                </div>
+              </button>
+
+              <button
+                onClick={() => {
+                  router.push('/dashboard?view=dashboard&sub=service_guide')
+                  setShowNavMenu(false)
+                }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left"
+              >
+                <span className="text-base">{Icon.helpCircle('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">서비스 가이드</p>
+                  <p className="text-xs text-[#F5F0E8]/60">텔레그램 핫키 및 사용 설명서</p>
+                </div>
+              </button>
+            </nav>
+            <div className="px-5 py-4 border-t border-amber-500/10">
+              <p className="text-xs text-[#F5F0E8]/40">HiveDesk v4.0</p>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* User 드로어 (오른쪽) */}
+      {showUserMenu && (
+        <>
+          <div className="fixed inset-0 z-[110000] bg-black/60 backdrop-blur-sm" onClick={() => setShowUserMenu(false)} />
+          <div className="fixed right-0 top-0 bottom-0 w-64 z-[120000] bg-[#0D0D0D] border-l border-amber-500/15 flex flex-col" style={{ animation: 'slideInRight 0.22s ease' }}>
+            <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-amber-500/10">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7.5 h-7.5 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-xs">{Icon.user('#F5F0E8', 13)}</div>
+                <div>
+                  <p className="text-xs font-bold text-[#F5F0E8]">대표님</p>
+                  <p className="text-[10px] text-[#F5F0E8]/60">🚀 Starter 플랜</p>
+                </div>
+              </div>
+              <button onClick={() => setShowUserMenu(false)} className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg">✕</button>
+            </div>
+            <nav className="flex-1 overflow-y-auto py-2">
+              <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">계정</p>
+              <button onClick={() => { router.push('/dashboard'); setShowUserMenu(false); }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left">
+                <span className="text-base">{Icon.user('#F5F0E8', 18)}</span>
+                <div><p className="text-sm font-semibold text-[#F5F0E8]">개인정보</p><p className="text-xs text-[#F5F0E8]/60">프로필 및 계정 설정</p></div>
+              </button>
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">플랜 & 결제</p>
+              <button onClick={() => { router.push('/dashboard'); setShowUserMenu(false); }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left">
+                <span className="text-base">{Icon.rocket('#F5F0E8', 18)}</span>
+                <div><p className="text-sm font-semibold text-[#F5F0E8]">구독 관리</p><p className="text-xs text-[#F5F0E8]/60">플랜 업그레이드 · 결제</p></div>
+              </button>
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">개발자</p>
+              <button onClick={() => { router.push('/dashboard'); setShowUserMenu(false); }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left">
+                <span className="text-base">{Icon.key('#F5F0E8', 18)}</span>
+                <div><p className="text-sm font-semibold text-[#F5F0E8]">API Key 관리</p><p className="text-xs text-[#F5F0E8]/60">Claude · Gemini BYOK</p></div>
+              </button>
+              <button onClick={() => { router.push('/dashboard'); setShowUserMenu(false); }}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left">
+                <span className="text-base"><svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="#F5F0E8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M16.36 16.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M16.36 7.64l1.42-1.42"/></svg></span>
+                <div><p className="text-sm font-semibold text-[#F5F0E8]">인재 등급 관리</p><p className="text-xs text-[#F5F0E8]/60">A·B·C 등급별 AI 모델 설정</p></div>
+              </button>
+              <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">설정</p>
+              <button onClick={() => setShowUserMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left">
+                <span className="text-base">{Icon.globe('#F5F0E8', 18)}</span>
+                <div><p className="text-sm font-semibold text-[#F5F0E8]">언어 설정</p><p className="text-xs text-[#F5F0E8]/60">한국어 · English · 日本語</p></div>
+              </button>
+              <button onClick={() => setShowUserMenu(false)}
+                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-white/5 transition-colors text-left">
+                <span className="text-base">{Icon.bell('#F5F0E8', 18)}</span>
+                <div><p className="text-sm font-semibold text-[#F5F0E8]">알림 설정</p><p className="text-xs text-[#F5F0E8]/60">텔레그램 · 이메일 알림</p></div>
+              </button>
+            </nav>
+            <div className="px-5 py-4 border-t border-amber-500/10 flex flex-col gap-2">
+              <button onClick={() => setShowUserMenu(false)} className="w-full flex items-center gap-3 py-2 text-rose-400/80 hover:text-rose-400 transition-colors text-left">
+                <span className="text-base">{Icon.logOut('#F87171', 18)}</span>
+                <p className="text-sm font-semibold">로그아웃</p>
+              </button>
+              <div className="pt-2 border-t border-white/5 flex flex-col gap-0.5">
+                <p className="text-[11px] text-[#F5F0E8]/40 font-bold">HiveDesk v4.0</p>
+                <p className="text-[9px] text-[#F5F0E8]/20 font-mono">9-Executive Automation OS</p>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* 🔮 모바일 전용 아크릴 바텀 드로어 (Bottom Sheet Drawer) */}
+      {showBottomDrawer && (
+        <>
+          <div
+            className="fixed inset-0 z-[110000] bg-black/70 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => setShowBottomDrawer(false)}
+          />
+          <div
+            className="fixed bottom-0 left-0 right-0 z-[120000] bg-[#070708]/95 backdrop-blur-xl border-t border-white/10 rounded-t-3xl px-4 pt-4 pb-6 flex flex-col gap-3 shadow-[0_-8px_30px_rgba(0,0,0,0.6)] h-fit max-h-[85vh] overflow-y-auto custom-scrollbar"
+            style={{ animation: 'slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
+          >
+            {/* 드로어 헤더 */}
+            <div className="flex items-center justify-between pb-2 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="text-xl bee-float">🐝</span>
+                <span className="text-xs font-bold text-shimmer">HiveDesk 메뉴</span>
+              </div>
+              <button
+                onClick={() => setShowBottomDrawer(false)}
+                className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg pr-1"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* 📁 프로젝트 관리 섹션 */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] font-bold text-[#F5F0E8]/40 uppercase tracking-widest pl-2">프로젝트 관리</p>
+              
+              <button
+                type="button"
+                onClick={() => setShowBottomDrawer(false)}
+                className="flex items-center gap-3 p-3 rounded-xl hover:bg-amber-500/12 text-[#F5F0E8] border border-amber-500/20 bg-amber-500/5 transition-all active:scale-[0.98] text-left"
+              >
+                <span className="shrink-0">{Icon.plus('#F59E0B', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-amber-400">새 프로젝트 생성</p>
+                  <p className="text-[10px] text-amber-400/80 font-medium">새로운 AI 비즈니스 아이디어 기획</p>
+                </div>
+              </button>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  router.push('/dashboard?view=projects')
+                  setShowBottomDrawer(false)
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-xl text-left hover:bg-white/5 text-[#F5F0E8]/70 border border-transparent transition-all"
+              >
+                <span className="shrink-0">{Icon.folder('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p>
+                  <p className="text-[10px] text-[#F5F0E8]/40 font-medium">진행 중인 전체 프로젝트 통합 관리</p>
+                </div>
+              </button>
+            </div>
+
+            {/* 💼 회사 운영 섹션 */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] font-bold text-[#F5F0E8]/40 uppercase tracking-widest pl-2">회사 운영</p>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  router.push('/dashboard?view=company')
+                  setShowBottomDrawer(false)
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-xl text-left hover:bg-white/5 text-[#F5F0E8]/70 border border-transparent transition-all"
+              >
+                <span className="shrink-0">{Icon.barChart('#F5F0E8', 18)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-[#F5F0E8]">회사 현황</p>
+                  <p className="text-[10px] text-[#F5F0E8]/40 font-medium">전사 리소스 분석 및 재무 통계</p>
+                </div>
+              </button>
+
+              {[
+                { id: 'grid', label: '회사 조직도', desc: '9인 AI 임원진 및 소속 부서 체계', icon: (c: string) => Icon.briefcase(c, 18) },
+                { id: 'boardroom', label: '이사회 회의실', desc: '텔레그램 실시간 AI 협업 및 의결 조율', icon: (c: string) => Icon.msgCircle(c, 18) },
+                { id: 'team_rooms', label: '팀별 회의실', desc: '임원 산하 세부 실무 요원 토론 공간', icon: (c: string) => Icon.users(c, 18) },
+                { id: 'task_logs', label: '작업 실행 로그', desc: '실무 에이전트 개발 실황 CCTV 생중계', icon: (c: string) => Icon.monitor(c, 18) },
+                { id: 'service_guide', label: '서비스 가이드', desc: '하이브데스크 단축키 및 핵심 사용법', icon: (c: string) => Icon.helpCircle(c, 18) }
+              ].map((menu) => {
+                return (
+                  <button
+                    key={menu.id}
+                    type="button"
+                    onClick={() => {
+                      router.push(`/dashboard?view=dashboard&sub=${menu.id}`)
+                      setShowBottomDrawer(false)
+                    }}
+                    className="w-full flex items-center gap-3 p-3 rounded-xl text-left hover:bg-white/5 text-[#F5F0E8]/70 border border-transparent transition-all"
+                  >
+                    <span className="shrink-0">{menu.icon('#F5F0E8')}</span>
+                    <div>
+                      <p className="text-sm font-semibold text-[#F5F0E8]">{menu.label}</p>
+                      <p className="text-[10px] text-[#F5F0E8]/40 font-medium">{menu.desc}</p>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* 🎯 활성 프로젝트 뱃지 (하단으로 이동하여 밀착) */}
+            <div className="bg-sky-500/10 border border-sky-500/20 px-3.5 py-2.5 rounded-xl flex items-center gap-2 mt-1 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+              <p className="text-[11px] text-sky-200 font-bold">
+                활성 프로젝트: {activeProject ? activeProject.title : '활성 프로젝트 없음'}
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+
+      <style jsx global>{`
+        @keyframes slideUp {
+          from { transform: translateY(100%); }
+          to { transform: translateY(0); }
+        }
+        @keyframes slideInLeft {
+          from { transform: translateX(-100%); }
+          to { transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+          from { transform: translateX(100%); }
+          to { transform: translateX(0); }
+        }
+        @keyframes bar-shimmer {
+          0% { background-position: 0 0; }
+          100% { background-position: 1rem 0; }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.15);
+          border-radius: 99px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+      `}</style>
     </main>
   )
 }

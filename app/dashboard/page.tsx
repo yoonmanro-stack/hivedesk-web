@@ -31,6 +31,7 @@ const Icon = {
   briefcase: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
   monitor:   (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
   helpCircle: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+  gallery: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>,
 }
 
 const EXECUTIVES = [
@@ -55,6 +56,60 @@ const CEO_EXEC = EXECUTIVES[0]
 const REST_EXECS = EXECUTIVES.slice(1, 9)
 const SEC_CHIEF = EXECUTIVES.find(e => e.id === 'sec_chief')!
 const SEC_TEAM = EXECUTIVES.filter(e => e.id.startsWith('sec_') && e.id !== 'sec_chief')
+
+const GALLERY_CARDS = [
+  {
+    id: 'trendscope',
+    title: 'TrendScope (유튜브 트렌드 분석)',
+    category: 'featured',
+    tags: ['YouTube_API', 'Trend_Analysis', 'Statistics'],
+    desc: '인기 채널과 트렌드 콘텐츠 데이터를 정밀 크롤링 및 시맨틱 맵핑하여 1인 기업가에게 10초 만에 콘텐츠 트렌드 분석 보고서(PRD)를 자동 제공하는 마켓 분석 프로젝트.',
+    kpi: '트렌드 매칭률 92% 돌파 / 콘텐츠 기획 기간 10일 단축',
+    painpoint: '인기 채널 및 콘텐츠 분석 데이터의 파편화로 인한 의사결정 지연',
+    solution: '유튜브 데이터 API 및 GPT 트렌드 분류기를 연동해 대중 선호도를 3D 지표 차트로 시각화',
+    cpo_insight: '유튜브 크리에이터 시장의 급변하는 대중적 선호를 수집해 콘텐츠 생존율을 3배 상향시킴.',
+    cdo_insight: '붉은색 그라데이션 광원을 배경으로 명확하고 차분한 테크니컬 통계 차트 그래픽 구현.',
+    cto_insight: 'Google YouTube Data API v3과 OpenAI Embeddings를 결합하여 유사 카테고리 채널 고속 클러스터링 실현.',
+    gradient: 'from-red-500/20 via-orange-500/20 to-rose-500/20',
+    primaryColor: '#EF4444',
+    hue: 0,
+    banner: '/trendscope_banner.png'
+  },
+  {
+    id: 'aurabeat',
+    title: 'AuraBeat (AI 사운드스케이프)',
+    category: 'apps',
+    tags: ['AI_Audio', 'Web_Audio_API', 'Neuroscience'],
+    desc: '사용자의 뇌파(EEG) 및 주변 환경 소음 데시벨을 분석하여 심리 안정 및 고도의 집중을 돕는 AI 사운드 큐레이터 플랫폼.',
+    kpi: '집중도 상승률 140% 향상 / 유저 이탈률 60% 감소',
+    painpoint: '일률적이고 단조로운 단일 소리 추천의 지루함',
+    solution: '맥락 자연어 분석 기반 바이노럴 비트 및 실시간 합성 오디오 믹싱 엔진 장착',
+    cpo_insight: '스트레스 감소 및 인지 집중력 강화를 유도하여 일일 활성 사용자 수(DAU) 리텐션을 혁신적으로 잠금.',
+    cdo_insight: '사운드 파동 상태에 따라 백드롭 필터 블러 밀도와 오로라 보라빛 네온 광원을 연동한 청각의 시각화.',
+    cto_insight: 'Web Audio API를 구동해 저지연 사운드 믹싱 및 합성 오디오 노이즈 캔슬링 알고리즘 완성.',
+    gradient: 'from-violet-500/20 via-purple-500/20 to-indigo-500/20',
+    primaryColor: '#8B5CF6',
+    hue: 260,
+    banner: '/aurabeat_banner.png'
+  },
+  {
+    id: 'synapse',
+    title: 'Synapse (자율형 시냅스 지식 네트워크)',
+    category: 'tools',
+    tags: ['DSKN', 'VectorDB', 'RAG'],
+    desc: '전사 AI 임원진의 단기/장기 기억을 잘게 쪼개어 실시간으로 삼투하고 전이시키는 차세대 지식 허브.',
+    kpi: 'API 토큰 비용 90% 절감 / Hallucination 발생률 0.1% 미만',
+    painpoint: '정적 마크다운 대량 로드로 인한 컨텍스트 블로팅 및 비용 폭발',
+    solution: '마이크로 시냅스 지식 세포(SKU) 단위 저장 및 실시간 시맨틱 쿼리 핀포인트 주입',
+    cpo_insight: '플랫폼 무형 자산 가치를 수천억 원 수준으로 락인하는 SaaS 핵심 락인 기둥.',
+    cdo_insight: '시냅스 간 자율 결합 과정을 대시보드상에 실시간 모니터링 시각화.',
+    cto_insight: 'pgvector 확장을 활성화하여 1536차원 임베딩 고속 벡터 검색 엔진 인프라 적용.',
+    gradient: 'from-emerald-500/20 via-teal-500/20 to-cyan-500/20',
+    primaryColor: '#10B981',
+    hue: 150,
+    banner: '/synapse_banner.png'
+  }
+]
 
 const COMPANY_TEAMS = [
   { label: '제품 · 기술', ids: ['cpo','cto','cdo'] },
@@ -145,12 +200,58 @@ export default function DashboardPage() {
   const [editGoal, setEditGoal] = useState('')
   const [editBrief, setEditBrief] = useState('')
   const [briefEditMode, setBriefEditMode] = useState(false)
+  const [isBriefDiscussing, setIsBriefDiscussing] = useState(false)
+  const [briefMessages, setBriefMessages] = useState<{ role: 'user' | 'assistant'; message: string }[]>([])
+  const [userBriefMsg, setUserBriefMsg] = useState('')
+  const [isSendingBriefMsg, setIsSendingBriefMsg] = useState(false)
+
+  const handleSendBriefMsg = async () => {
+    if (!userBriefMsg.trim() || isSendingBriefMsg || !settingsProject) return
+    const msg = userBriefMsg.trim()
+    setUserBriefMsg('')
+    
+    // 1. 유저 메시지 화면에 선반영
+    const newHistory = [...briefMessages, { role: 'user' as const, message: msg }]
+    setBriefMessages(newHistory)
+    setIsSendingBriefMsg(true)
+    
+    try {
+      const res = await fetch('/api/projects/discuss-brief', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contextMd: editBrief || settingsProject.context_md || '',
+          userMessage: msg,
+          chatHistory: newHistory,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'AI 응답 실패')
+      
+      // 2. 어시스턴트 메시지 및 수정된 기획서 반영
+      setBriefMessages(prev => [...prev, { role: 'assistant', message: data.assistantMessage }])
+      setEditBrief(data.updatedContextMd)
+    } catch (e: any) {
+      setBriefMessages(prev => [...prev, { role: 'assistant', message: `⚠️ 오류: ${e.message || '토론 처리 중 오류가 발생했습니다.'}` }])
+    } finally {
+      setIsSendingBriefMsg(false)
+    }
+  }
   const [deleteProjectId, setDeleteProjectId] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
   // 통합 회의실(Boardroom) UI 상태
-  const [dashboardSubView, setDashboardSubView] = useState<'grid' | 'boardroom' | 'team_rooms' | 'task_logs' | 'service_guide'>('grid')
+  const [dashboardSubView, setDashboardSubView] = useState<'grid' | 'boardroom' | 'team_rooms' | 'task_logs' | 'service_guide' | 'project_gallery'>('grid')
   const [guideTab, setGuideTab] = useState<'quick' | 'byok' | 'cctv' | 'telegram'>('quick')
+  
+  // 🎨 신규 프로젝트 갤러리 (Project Gallery) 관련 상태
+  const [galleryCategory, setGalleryCategory] = useState<'all' | 'featured' | 'apps' | 'visuals' | 'tools'>('all')
+  const [selectedGalleryCard, setSelectedGalleryCard] = useState<any | null>(null)
+  const [customTitle, setCustomTitle] = useState('')
+  const [customDesc, setCustomDesc] = useState('')
+  const [customTheme, setCustomTheme] = useState<'dark' | 'mint'>('dark')
+  const [appliedCardChanges, setAppliedCardChanges] = useState<boolean>(false)
+
   const [boardroomThreads, setBoardroomThreads] = useState<any[]>([])
   const [loadingBoardroom, setLoadingBoardroom] = useState(false)
   const [activeSessionId, setActiveSessionId] = useState<string>('')
@@ -947,12 +1048,140 @@ export default function DashboardPage() {
   }, [orgId])
 
   useEffect(() => {
-    document.body.style.overflow = panelOpen ? 'hidden' : ''
+    document.body.style.overflow = (panelOpen || selectedGalleryCard) ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
-  }, [panelOpen])
+  }, [panelOpen, selectedGalleryCard])
+
+  useEffect(() => {
+    if (selectedGalleryCard) {
+      // Scroll window to absolute top
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      // Scroll main scrollable element to top
+      const mainElement = document.querySelector('main');
+      if (mainElement) {
+        mainElement.scrollTop = 0;
+      }
+      // Reset modal container scroll position
+      const modalScrollContainer = document.getElementById('gallery-modal-container');
+      if (modalScrollContainer) {
+        modalScrollContainer.scrollTop = 0;
+      }
+    }
+  }, [selectedGalleryCard])
+
+  useEffect(() => {
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      mainElement.scrollTop = 0;
+    }
+  }, [dashboardSubView])
 
   const handleExecClick = (exec: Executive) => { setSelectedExec(exec); setPanelOpen(true) }
   const closePanel = () => { setPanelOpen(false); setTimeout(() => setSelectedExec(null), 300) }
+
+  const [showBottomDrawer, setShowBottomDrawer] = useState(false)
+
+  const isSubView = useMemo(() => {
+    return view !== 'dashboard' || dashboardSubView !== 'grid' || selectedExec !== null || selectedTeamRoom !== null || settingsProject !== null;
+  }, [view, dashboardSubView, selectedExec, selectedTeamRoom, settingsProject]);
+
+  const currentMenuTitle = useMemo(() => {
+    if (selectedTeamRoom) {
+      const exec = EXECUTIVES.find(e => e.id === selectedTeamRoom);
+      return `👔 ${exec ? exec.name : ''} 팀 실무회의실`;
+    }
+    if (selectedExec) {
+      return `👔 ${selectedExec.title} ${selectedExec.name}`;
+    }
+    if (settingsProject) {
+      return '⚙️ 프로젝트 기획서 수정';
+    }
+    if (view === 'projects') return '💼 내 프로젝트';
+    if (view === 'company') return '📊 회사 현황';
+    if (view === 'dashboard') {
+      if (dashboardSubView === 'boardroom') return '💬 이사회 회의실';
+      if (dashboardSubView === 'team_rooms') return '👥 팀별 회의실';
+      if (dashboardSubView === 'task_logs') return '💻 작업 실행 로그';
+      if (dashboardSubView === 'service_guide') return '📖 서비스 가이드';
+      if (dashboardSubView === 'project_gallery') return '🎨 프로젝트 갤러리';
+      return '🏢 회사 조직도';
+    }
+    return 'HiveDesk';
+  }, [view, dashboardSubView, selectedExec, selectedTeamRoom, settingsProject]);
+
+  const getHeaderTitleInfo = useMemo(() => {
+    let title = '';
+    let iconFn = Icon.briefcase;
+    let color = '#F59E0B';
+    
+    if (selectedTeamRoom) {
+      const exec = EXECUTIVES.find(e => e.id === selectedTeamRoom);
+      title = `${exec ? exec.name : ''} 팀 실무회의실`;
+      iconFn = Icon.users;
+    } else if (selectedExec) {
+      title = `${selectedExec.title} ${selectedExec.name}`;
+      iconFn = Icon.user;
+    } else if (settingsProject) {
+      title = '프로젝트 기획서 수정';
+      iconFn = Icon.clipboard;
+    } else if (view === 'projects') {
+      title = '내 프로젝트';
+      iconFn = Icon.folder;
+    } else if (view === 'company') {
+      title = '회사 현황';
+      iconFn = Icon.barChart;
+    } else if (view === 'dashboard') {
+      if (dashboardSubView === 'boardroom') {
+        title = '이사회 회의실';
+        iconFn = Icon.msgCircle;
+      } else if (dashboardSubView === 'team_rooms') {
+        title = '팀별 회의실';
+        iconFn = Icon.users;
+      } else if (dashboardSubView === 'task_logs') {
+        title = '작업 실행 로그';
+        iconFn = Icon.monitor;
+      } else if (dashboardSubView === 'service_guide') {
+        title = '서비스 가이드';
+        iconFn = Icon.helpCircle;
+      } else if (dashboardSubView === 'project_gallery') {
+        title = '프로젝트 갤러리';
+        iconFn = Icon.gallery;
+      } else {
+        title = '회사 조직도';
+        iconFn = Icon.briefcase;
+      }
+    } else {
+      title = 'HiveDesk';
+      iconFn = Icon.briefcase;
+    }
+    
+    return { title, icon: iconFn(color, 16) };
+  }, [view, dashboardSubView, selectedExec, selectedTeamRoom, settingsProject]);
+
+  const handleHeaderBack = useCallback(() => {
+    if (selectedTeamRoom) {
+      setSelectedTeamRoom(null);
+      return;
+    }
+    if (selectedExec) {
+      closePanel();
+      return;
+    }
+    if (settingsProject) {
+      setSettingsProject(null);
+      return;
+    }
+    if (view === 'projects' || view === 'company') {
+      setView('dashboard');
+      setDashboardSubView('grid');
+      return;
+    }
+    if (view === 'dashboard' && dashboardSubView !== 'grid') {
+      setDashboardSubView('grid');
+      return;
+    }
+  }, [view, dashboardSubView, selectedExec, selectedTeamRoom, settingsProject, closePanel]);
+
 
   const handleQuickAction = (command: string, label: string) => {
     if (command === 'hire_team') { setHireExec(null); setShowHireModal(true); return }
@@ -1069,45 +1298,41 @@ export default function DashboardPage() {
 
   return (
     <main className="h-screen overflow-y-auto hero-bg honeycomb-bg relative">
-      {/* Header — 삼선(좌) · 로고(중앙) · 사람(우) */}
-      <header className="border-b border-amber-500/10 backdrop-blur-md bg-[#0D0D0D]/80 sticky top-0 z-50">
-        <div className="px-3 py-3 grid grid-cols-3 items-center">
-          {/* 좌: 삼선 메뉴 */}
-          <button
-            id="btn-nav-menu"
-            onClick={() => setShowNavMenu(true)}
-            className="flex flex-col gap-[5px] w-8 h-8 justify-center tap-fast"
-          >
-            <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
-            <span className="block h-[2px] w-4 bg-[#F5F0E8]/70 rounded-full" />
-            <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
-          </button>
-          {/* 중앙: 로고 */}
-          <button
-            onClick={() => {
-              setView('dashboard')
-              setDashboardSubView('grid')
-              setSelectedExec(null)
-              setPanelOpen(false)
-              setShowNavMenu(false)
-              setShowUserMenu(false)
-              setShowGradeManager(false)
-              setShowProjectMenu(false)
-            }}
-            className="justify-self-center flex items-center gap-2 cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
-          >
-            <span className="text-2xl bee-float">🐝</span>
-            <div className="flex flex-col items-start text-left">
-              <h1 className="text-xl md:text-2xl font-black text-amber-400 tracking-tight text-shimmer font-mono leading-none">HiveDesk</h1>
-            </div>
-          </button>
-          {/* 우: 사람 아이콘 */}
+      {/* Header — 좌측 삼선 고정 · 중앙 SVG+메뉴명 · 우측 계정 고정 */}
+      <header className="border-b border-amber-500/10 backdrop-blur-md bg-[#0D0D0D]/80 sticky top-0 z-[100000] h-11 md:h-16 flex items-center justify-between w-full">
+        <div className="w-full px-3 grid grid-cols-3 items-center">
+          {/* 좌: 삼선 메뉴 버튼 고정 */}
+          <div className="flex items-center">
+            <button
+              id="btn-nav-menu"
+              type="button"
+              onClick={() => {
+                setShowNavMenu(true)
+              }}
+              className="flex flex-col gap-[5px] w-8 h-8 justify-center tap-fast hover:brightness-110 active:scale-95 transition-all"
+            >
+              <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
+              <span className="block h-[2px] w-4 bg-[#F5F0E8]/70 rounded-full" />
+              <span className="block h-[2px] w-5 bg-[#F5F0E8]/70 rounded-full" />
+            </button>
+          </div>
+          {/* 중앙: SVG 아이콘 + pure 메뉴명 고정 (본문 폰트스케일과 일치) */}
+          <div className="justify-self-center flex items-center gap-2 max-w-full">
+            <span className="shrink-0">{getHeaderTitleInfo.icon}</span>
+            <span className="text-sm md:text-base font-bold text-[#F5F0E8] truncate tracking-wide font-sans">
+              {getHeaderTitleInfo.title}
+            </span>
+          </div>
+          {/* 우: 계정 아바타 고정 */}
           <div className="flex justify-end">
             <button
               id="btn-user-menu"
+              type="button"
               onClick={() => setShowUserMenu(true)}
-              className="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm tap-fast hover:bg-amber-500/30 transition-colors"
-            >{Icon.user('#F5F0E8',16)}</button>
+              className="w-7 h-7 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-xs tap-fast hover:bg-amber-500/30 transition-all active:scale-95 shadow-inner"
+            >
+              {Icon.user('#F5F0E8', 14)}
+            </button>
           </div>
         </div>
       </header>
@@ -1115,27 +1340,30 @@ export default function DashboardPage() {
       {/* Nav 드로어 (왼쪽) */}
       {showNavMenu && (
         <>
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setShowNavMenu(false)} />
-          <div className="fixed left-0 top-0 bottom-0 w-72 z-50 bg-[#0D0D0D] border-r border-amber-500/15 flex flex-col" style={{ animation: 'slideInLeft 0.22s ease' }}>
-            <button
-              onClick={() => {
-                setView('dashboard')
-                setDashboardSubView('grid')
-                setSelectedExec(null)
-                setPanelOpen(false)
-                setShowNavMenu(false)
-                setShowUserMenu(false)
-                setShowGradeManager(false)
-                setShowProjectMenu(false)
-              }}
-              className="flex items-center gap-2.5 px-5 py-4 border-b border-amber-500/10 w-full text-left cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
-            >
-              <span className="text-2xl bee-float">🐝</span>
-              <div>
-                <p className="text-sm font-bold text-shimmer">HiveDesk</p>
-                <p className="text-xs text-[#F5F0E8]/60">내 손안의 AI 1인 기업</p>
-              </div>
-            </button>
+          <div className="fixed inset-0 z-[110000] bg-black/60 backdrop-blur-sm" onClick={() => setShowNavMenu(false)} />
+          <div className="fixed left-0 top-0 bottom-0 w-64 z-[120000] bg-[#0D0D0D] border-r border-amber-500/15 flex flex-col" style={{ animation: 'slideInLeft 0.22s ease' }}>
+            <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-amber-500/10">
+              <button
+                onClick={() => {
+                  setView('dashboard')
+                  setDashboardSubView('grid')
+                  setSelectedExec(null)
+                  setPanelOpen(false)
+                  setShowNavMenu(false)
+                  setShowUserMenu(false)
+                  setShowGradeManager(false)
+                  setShowProjectMenu(false)
+                }}
+                className="flex items-center gap-2 text-left cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
+              >
+                <span className="text-xl bee-float">🐝</span>
+                <div>
+                  <p className="text-xs font-bold text-shimmer">HiveDesk</p>
+                  <p className="text-[10px] text-[#F5F0E8]/60">내 손안의 AI 1인 기업</p>
+                </div>
+              </button>
+              <button onClick={() => setShowNavMenu(false)} className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg pr-1">✕</button>
+            </div>
             <nav className="flex-1 overflow-y-auto py-2">
               {/* 프로젝트 섹션 */}
               <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">프로젝트</p>
@@ -1150,6 +1378,14 @@ export default function DashboardPage() {
                 }`}>
                 <span className="text-base">{Icon.folder('#F5F0E8',18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">전체 프로젝트 목록</p></div>
+              </button>
+
+              <button onClick={() => { setView('dashboard'); setDashboardSubView('project_gallery'); setShowNavMenu(false) }}
+                className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
+                  view === 'dashboard' && dashboardSubView === 'project_gallery' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+                }`}>
+                <span className="text-base">{Icon.gallery(view === 'dashboard' && dashboardSubView === 'project_gallery' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+                <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">프로젝트 갤러리</p><p className="text-xs text-[#F5F0E8]/60">AI Studio 스타일 쇼케이스</p></div>
               </button>
               {/* 운영 섹션 */}
               <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">운영</p>
@@ -1200,6 +1436,7 @@ export default function DashboardPage() {
                 <span className="text-base">{Icon.helpCircle(view === 'dashboard' && dashboardSubView === 'service_guide' ? '#F59E0B' : '#F5F0E8', 18)}</span>
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">서비스 가이드</p><p className="text-xs text-[#F5F0E8]/60">텔레그램 핫키 및 사용 설명서</p></div>
               </button>
+
             </nav>
             <div className="px-5 py-4 border-t border-amber-500/10">
               <p className="text-xs text-[#F5F0E8]/40">HiveDesk v4.0</p>
@@ -1211,14 +1448,14 @@ export default function DashboardPage() {
       {/* User 드로어 (오른쪽) */}
       {showUserMenu && (
         <>
-          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setShowUserMenu(false)} />
-          <div className="fixed right-0 top-0 bottom-0 w-72 z-50 bg-[#0D0D0D] border-l border-amber-500/15 flex flex-col" style={{ animation: 'slideInRight 0.22s ease' }}>
-            <div className="flex items-center justify-between px-5 py-4 border-b border-amber-500/10">
+          <div className="fixed inset-0 z-[110000] bg-black/60 backdrop-blur-sm" onClick={() => setShowUserMenu(false)} />
+          <div className="fixed right-0 top-0 bottom-0 w-64 z-[120000] bg-[#0D0D0D] border-l border-amber-500/15 flex flex-col" style={{ animation: 'slideInRight 0.22s ease' }}>
+            <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-amber-500/10">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-sm">{Icon.user('#F5F0E8',16)}</div>
+                <div className="w-7.5 h-7.5 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-xs">{Icon.user('#F5F0E8', 13)}</div>
                 <div>
-                  <p className="text-sm font-bold text-[#F5F0E8]">대표님</p>
-                  <p className="text-xs text-[#F5F0E8]/60">🚀 Starter 플랜</p>
+                  <p className="text-xs font-bold text-[#F5F0E8]">대표님</p>
+                  <p className="text-[10px] text-[#F5F0E8]/60">🚀 Starter 플랜</p>
                 </div>
               </div>
               <button onClick={() => setShowUserMenu(false)} className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg">✕</button>
@@ -1280,42 +1517,31 @@ export default function DashboardPage() {
         {/* ── 내 프로젝트 뷰 ── */}
         {view === 'projects' && (
           <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setView('dashboard')
-                    setDashboardSubView('grid')
-                  }}
-                  className="text-xs font-extrabold text-neutral-300 hover:text-white px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 active:scale-95 transition-all flex items-center gap-1 leading-none self-center"
-                >
-                  ← 회사 조직도
-                </button>
-                <h2 className="text-xl font-bold text-[#F5F0E8] flex items-center gap-2">{Icon.folder('#F5F0E8',20)} 내 프로젝트</h2>
+            {/* 💡 이용 안내 배너 & + 새 프로젝트 생성 단추 통합 */}
+            <div className="glass rounded-2xl p-4.5 mb-5 border border-amber-500/20 bg-amber-950/10 flex flex-col gap-4 shadow-inner">
+              <div className="flex items-start gap-3">
+                <span className="shrink-0 pt-0.5">{Icon.sparkle('#F59E0B', 20)}</span>
+                <div className="space-y-1">
+                  <p className="text-xs md:text-sm font-bold text-amber-400">대표님, 9인 임원진과 실무를 시작해 보세요!</p>
+                  <p className="text-[11px] md:text-xs text-[#F5F0E8]/75 leading-relaxed font-semibold">
+                    새 프로젝트 진행은 **텔레그램 채팅창**에서 편하게 작업 지시를 해주시면 됩니다.<br />
+                    활성화(★ 활성)된 프로젝트의 컨텍스트를 100% 인지하고, 9인 임원진이 즉시 자율적으로 실무와 토론을 주도합니다.
+                  </p>
+                </div>
               </div>
-              <Link href="/projects/new"
-                className="text-xs font-bold text-amber-400 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 hover:bg-amber-500/25 transition-colors">
-                ＋ 새 프로젝트
-              </Link>
+              <div className="flex justify-end pt-1 border-t border-white/5">
+                <Link href="/projects/new"
+                  className="text-xs font-bold text-amber-400 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all flex items-center gap-1">
+                  {Icon.plus('#F59E0B', 14)} 새 프로젝트 만들기
+                </Link>
+              </div>
             </div>
 
-            {/* 💡 이용 안내 배너 */}
-            <div className="glass rounded-2xl p-4.5 mb-5 border border-amber-500/20 bg-amber-950/10 flex items-start gap-3 shadow-inner">
-              <span className="text-lg">💡</span>
-              <div className="space-y-1">
-                <p className="text-xs md:text-sm font-bold text-amber-400">대표님, 9인 임원진과 실무를 시작해 보세요!</p>
-                <p className="text-[11px] md:text-xs text-[#F5F0E8]/75 leading-relaxed font-semibold">
-                  새 프로젝트 진행은 **텔레그램 채팅창**에서 편하게 작업 지시를 해주시면 됩니다.<br />
-                  활성화(★ 활성)된 프로젝트의 컨텍스트를 100% 인지하고, 9인 임원진이 즉시 자율적으로 실무와 토론을 주도합니다.
-                </p>
-              </div>
-            </div>
             {projects.length === 0 ? (
-              <div className="glass rounded-2xl p-8 text-center">
-                <p className="text-3xl mb-2">🐝</p>
+              <div className="glass rounded-2xl p-8 text-center border border-white/5 flex flex-col items-center justify-center">
+                <span className="mb-3 shrink-0">{Icon.folder('#F5F0E8', 36)}</span>
                 <p className="text-sm text-[#F5F0E8]/70">아직 등록된 프로젝트가 없어요</p>
-                <Link href="/projects/new" className="inline-block mt-3 text-sm text-amber-400 font-bold">+ 첫 프로젝트 만들기</Link>
+                <Link href="/projects/new" className="inline-block mt-3 text-sm text-amber-400 font-bold hover:underline">+ 첫 프로젝트 만들기</Link>
               </div>
             ) : (
               <div className="flex flex-col gap-3">
@@ -1425,7 +1651,7 @@ export default function DashboardPage() {
                                 }}
                                 className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg hover:bg-white/5 text-[#F5F0E8] text-xs font-bold transition-colors text-left"
                               >
-                                <span>⚙️</span> 상세 설정
+                                <span>⚙️</span> 프로젝트 기획서 수정
                               </button>
                               <div className="h-px bg-white/5 my-1" />
                               <button
@@ -1454,13 +1680,20 @@ export default function DashboardPage() {
         {/* ── 회사 현황 뷰 (조직도) ── */}
         {view === 'company' && (
           <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
-            {/* 헤더 */}
-            <div className="flex items-center justify-between mb-5">
-              <h2 className="text-xl font-bold text-[#F5F0E8] flex items-center gap-2">{Icon.barChart('#F5F0E8',20)} 회사 현황</h2>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-[#F5F0E8]/60">총 팀원</span>
-                <span className="text-sm font-bold text-amber-400">{EXECUTIVES.reduce((s,e)=>s+(hiredSkills[e.id]||[]).length,0)}명</span>
-                {activeProject && <span className="text-xs text-amber-400 font-bold px-2.5 py-1 rounded-full bg-amber-500/15 border border-amber-500/30">● {activeProject.title}</span>}
+            {/* 회사 현황 본문 헤더 (중복 제목은 지우고 럭셔리 인라인 뱃지 캡슐로 렌더링) */}
+            <div className="flex items-center justify-end mb-4">
+              <div className="flex items-center gap-2 bg-white/5 border border-white/8 px-3.5 py-1.5 rounded-xl shadow-inner">
+                <span className="text-xs text-[#F5F0E8]/60 font-medium">총 팀원:</span>
+                <span className="text-xs font-bold text-amber-400">{EXECUTIVES.reduce((s,e)=>s+(hiredSkills[e.id]||[]).length,0)}명</span>
+                {activeProject && (
+                  <>
+                    <span className="text-white/10 mx-0.5">|</span>
+                    <span className="text-[10px] text-sky-200 font-bold bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 rounded-md flex items-center gap-1">
+                      <span className="w-1 h-1 rounded-full bg-sky-400 animate-pulse" />
+                      {activeProject.title}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
 
@@ -1573,7 +1806,7 @@ export default function DashboardPage() {
         {/* ── 대시보드 뷰 (기존 임원 그리드 및 통합 이사회) ── */}
         {view === 'dashboard' && (
           <>
-            <div className={`flex justify-center mb-4 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
+            <div className={`hidden md:flex justify-center mb-4 ${mounted ? 'fade-in-up-delay-1' : 'opacity-0'}`}>
               <span className="bg-sky-500/5 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-sky-200/90 border border-sky-500/20 flex items-center gap-1.5 shadow-[0_0_12px_rgba(14,165,233,0.1)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-sky-300/80 animate-pulse shadow-[0_0_4px_rgba(56,189,248,0.4)]" />
                 활성 프로젝트: {activeProject ? activeProject.title : '활성 프로젝트 없음'}
@@ -1581,9 +1814,10 @@ export default function DashboardPage() {
             </div>
 
             {/* 🔗 회사 조직도 / 이사회 회의실 / 팀별 회의실 3대 탭 전환용 럭셔리 아크릴 토글 */}
-            <div className={`flex justify-center mb-6 ${mounted ? 'fade-in-up fade-in-up-delay-1' : 'opacity-0'}`}>
+            <div className={`hidden md:flex justify-center mb-6 ${mounted ? 'fade-in-up-delay-1' : 'opacity-0'}`}>
               <div className="bg-[#111111]/90 backdrop-blur-md p-1 rounded-2xl border border-white/10 flex gap-1 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
                 <button
+                  type="button"
                   onClick={() => setDashboardSubView('grid')}
                   className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
                     dashboardSubView === 'grid'
@@ -1595,6 +1829,7 @@ export default function DashboardPage() {
                   회사 조직도
                 </button>
                 <button
+                  type="button"
                   onClick={() => setDashboardSubView('boardroom')}
                   className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
                     dashboardSubView === 'boardroom'
@@ -1606,6 +1841,7 @@ export default function DashboardPage() {
                   이사회 회의실
                 </button>
                 <button
+                  type="button"
                   onClick={() => setDashboardSubView('team_rooms')}
                   className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
                     dashboardSubView === 'team_rooms'
@@ -1617,6 +1853,7 @@ export default function DashboardPage() {
                   팀별 회의실
                 </button>
                 <button
+                  type="button"
                   onClick={() => setDashboardSubView('task_logs')}
                   className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
                     dashboardSubView === 'task_logs'
@@ -2462,23 +2699,64 @@ export default function DashboardPage() {
 
                     {/* 4. 💬 텔레그램 봇 단축키 */}
                     {guideTab === 'telegram' && (
-                      <div className="space-y-4 animate-fade-in-up">
+                      <div className="space-y-6 animate-fade-in-up">
                         <div className="flex items-center gap-2">
                           <span className="text-xl">🔑</span>
-                          <h3 className="text-sm sm:text-base font-black text-amber-400">텔레그램 봇 소통 규칙 및 글로벌 탈출 핫키</h3>
+                          <h3 className="text-sm sm:text-base font-black text-amber-400">텔레그램 봇 5대 핵심 단축키 & 임원진 슬래시(/) 명령어</h3>
                         </div>
 
                         <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed font-semibold">
-                          임원진과의 1:1 대화방(면담 세션)이나 특정 작업계획 조율방에 세션이 고정(Lock)되어 일반 질문이 전송되지 않을 때, 텔레그램 채팅창에 아래의 단어 중 하나를 입력하면 **언제 어디서든 즉시 비서실장 아이리스에게 메인 대화 세션이 우아하게 반환**되며 하단 키보드가 원격 복귀됩니다.
+                          대표님, 모바일 환경에서의 오타율 최소화와 가독성 극대화를 위해 하단 키보드가 **5대 기본 버튼**으로 초슬림 개편되었습니다. 9인의 C-Level 임원진은 전용 **슬래시(/) 명령어**를 통해 언제든지 다이렉트로 정교하게 소환하여 면담하실 수 있습니다.
                         </p>
 
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                          {['exit', '퇴근', '비서실장', '아이리스', '대화종료', '종료', '본부'].map((key) => (
-                            <div key={key} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center hover:bg-amber-500/5 hover:border-amber-500/20 transition-all group">
-                              <code className="text-xs sm:text-sm font-black text-amber-400 font-mono block group-hover:scale-105 transition-transform">{key}</code>
-                              <span className="text-[9px] text-[#F5F0E8]/40 font-bold block mt-1">즉시 비서실 복귀</span>
-                            </div>
-                          ))}
+                        {/* 5대 운영 명령어 카드 */}
+                        <div className="space-y-2.5">
+                          <h4 className="text-xs font-bold text-neutral-400 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                            🏢 5대 기본 운영 단축키 (하단 키보드 연동)
+                          </h4>
+                          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                            {[
+                              { cmd: '/office', label: '본부', desc: '글로벌 본부 메인 복귀' },
+                              { cmd: '/start', label: '출근', desc: '출근 루틴 가동 및 업무 개시' },
+                              { cmd: '/end', label: '퇴근', desc: '하루 업무 마감 및 백업' },
+                              { cmd: '/iris', label: '비서실장', desc: '비서실장 아이리스 호출' },
+                              { cmd: '/help', label: '가이드', desc: '도움말 가이드 호출' }
+                            ].map((item) => (
+                              <div key={item.cmd} className="bg-white/5 border border-white/10 rounded-xl p-3 text-center hover:bg-amber-500/5 hover:border-amber-500/20 transition-all group">
+                                <code className="text-xs sm:text-sm font-black text-amber-400 font-mono block group-hover:scale-105 transition-transform">{item.cmd}</code>
+                                <span className="text-xs text-[#F5F0E8]/85 font-extrabold block mt-1">{item.label}</span>
+                                <span className="text-[10px] text-[#F5F0E8]/40 font-bold block mt-0.5">{item.desc}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* 임원 단축키 */}
+                        <div className="space-y-2.5 pt-2">
+                          <h4 className="text-xs font-bold text-neutral-400 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                            👔 9인 임원진 직속 소환 단축키 (채팅창 입력 전용)
+                          </h4>
+                          <div className="grid grid-cols-3 sm:grid-cols-9 gap-2">
+                            {[
+                              { cmd: '/ceo', emoji: '👑', label: 'CEO 리처드' },
+                              { cmd: '/cpo', emoji: '🎯', label: 'CPO 이안' },
+                              { cmd: '/cdo', emoji: '🎨', label: 'CDO 하나' },
+                              { cmd: '/cto', emoji: '🛠', label: 'CTO 뮤즈' },
+                              { cmd: '/cmo', emoji: '📣', label: 'CMO 폴' },
+                              { cmd: '/coo', emoji: '⚙️', label: 'COO 엠마' },
+                              { cmd: '/cfo', emoji: '📈', label: 'CFO 알렉스' },
+                              { cmd: '/chro', emoji: '👥', label: 'CHRO 소피아' },
+                              { cmd: '/clo', emoji: '🛡', label: 'CLO 하비' },
+                            ].map((item) => (
+                              <div key={item.cmd} className="bg-white/5 border border-white/5 rounded-xl p-2.5 text-center hover:bg-sky-500/5 hover:border-sky-500/20 transition-all group">
+                                <span className="text-sm block mb-1 group-hover:scale-110 transition-transform">{item.emoji}</span>
+                                <code className="text-[10px] sm:text-xs font-black text-sky-400 font-mono block">{item.cmd}</code>
+                                <span className="text-[9px] text-[#F5F0E8]/50 font-bold block mt-0.5">{item.label}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
 
                         <div className="pt-4 border-t border-white/5 space-y-4">
@@ -2494,7 +2772,7 @@ export default function DashboardPage() {
                             </li>
                             <li className="flex items-start gap-2 leading-relaxed">
                               <span className="text-amber-400 mt-0.5 shrink-0">2.</span>
-                              <span><strong>1:1 전담 연속 면담</strong>: 텔레그램 하단 키보드 버튼을 눌러 특정 임원을 호출할 경우, 해당 임원과 밀접한 대화를 길게 이어나갈 수 있는 전용 면담 세션이 가동됩니다.</span>
+                              <span><strong>1:1 전담 연속 면담</strong>: 슬래시 명령어(/cto, /ceo 등)를 입력해 특정 임원을 호출할 경우, 해당 임원과 밀접한 대화를 길게 이어나갈 수 있는 전용 면담 세션이 가동됩니다. 복귀 시에는 하단 '🏢 본부' 버튼이나 '/office'를 입력하시면 됩니다.</span>
                             </li>
                             <li className="flex items-start gap-2 leading-relaxed">
                               <span className="text-amber-400 mt-0.5 shrink-0">3.</span>
@@ -2511,15 +2789,150 @@ export default function DashboardPage() {
               </section>
             )}
 
+            {/* 6️⃣ 신설: 프로젝트 갤러리 */}
+            {dashboardSubView === 'project_gallery' && (
+              <section className={`max-w-6xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
+                {/* 헤더 & 소개 배너 */}
+                <div className="glass rounded-3xl border border-white/10 bg-black/60 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-stretch">
+                  <div className="flex-1 p-6 sm:p-8 flex flex-col justify-center relative z-10">
+                    <div className="absolute top-0 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl shrink-0 animate-bounce">🎨</span>
+                      <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+                        HiveDesk <span className="text-shimmer">Project Gallery</span>
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed max-w-xl font-medium">
+                      AI Agent 임원들이 자율 협업으로 제작해 낸 프로젝트를 직접 체험하고 나만의 방식으로 리믹스할 수 있습니다.
+                    </p>
+                  </div>
+                  {/* 생성된 브랜드 맞춤형 테크 쇼케이스 이미지 배너 탑재 */}
+                  <div className="w-full md:w-[320px] h-48 md:h-auto relative overflow-hidden border-t md:border-t-0 md:border-l border-white/10 shrink-0">
+                    <img 
+                      src="/gallery_banner.png?v=2" 
+                      alt="HiveDesk Tech Showcase Banner" 
+                      className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-b from-black/20 via-transparent to-black/80" />
+                  </div>
+
+                  {/* 카테고리 칩 필터 */}
+                  <div className="flex flex-wrap gap-2.5 my-6">
+                    {[
+                      { id: 'all', label: '⭐ All Apps', desc: '전체 목록' },
+                      { id: 'featured', label: '🔥 Featured', desc: '대표 명인작' },
+                      { id: 'apps', label: '📱 Apps & Tools', desc: '제품 및 도구' },
+                      { id: 'visuals', label: '🎨 Games & Visuals', desc: '비주얼/인터랙션' },
+                      { id: 'tools', label: '⚙️ MCP & Integrations', desc: '지식 허브 및 백엔드' }
+                    ].map((tab) => {
+                      const isActive = galleryCategory === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          onClick={() => setGalleryCategory(tab.id as any)}
+                          className={`px-4 py-2 rounded-full border text-xs font-black transition-all ${
+                            isActive
+                              ? 'border-amber-450 bg-amber-500/15 text-amber-450 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
+                              : 'border-white/5 bg-white/3 hover:border-white/10 hover:bg-white/5 text-[#F5F0E8]/60'
+                          }`}
+                        >
+                          {tab.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* 갤러리 그리드 */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {GALLERY_CARDS.filter(card => galleryCategory === 'all' || card.category === galleryCategory || (galleryCategory === 'apps' && card.category === 'apps') || (galleryCategory === 'tools' && card.category === 'tools')).map((card) => {
+                      const isSelectedAndCustomized = selectedGalleryCard?.id === card.id && appliedCardChanges;
+                      const displayTitle = isSelectedAndCustomized ? customTitle : card.title;
+                      const displayDesc = isSelectedAndCustomized ? customDesc : card.desc;
+                      const displayTheme = isSelectedAndCustomized ? customTheme : 'dark';
+                      
+                      return (
+                        <div
+                          key={card.id}
+                          onClick={() => {
+                            setSelectedGalleryCard(card);
+                            setCustomTitle(displayTitle);
+                            setCustomDesc(displayDesc);
+                            setCustomTheme(displayTheme as any);
+                            setAppliedCardChanges(false);
+                          }}
+                          className="group rounded-2xl border border-white/18 bg-[#0d0e12] overflow-hidden cursor-pointer hover:border-white/35 hover:bg-[#121318] transition-all duration-300 relative hover:scale-[1.01] shadow-[0_12px_36px_rgba(0,0,0,0.65)] hover:shadow-[0_0_35px_rgba(255,255,255,0.05)]"
+                        >
+                          {/* 탑 썸네일 고화질 배너 이미지 */}
+                          <div className="h-44 relative overflow-hidden border-b border-white/5">
+                            <img 
+                              src={card.banner} 
+                              alt={card.title} 
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            {/* 어두운 비네팅 및 그라데이션 광원 오버레이 */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#080809] via-[#080809]/30 to-black/40" />
+                            {displayTheme === 'mint' && (
+                              <div className="absolute inset-0 bg-emerald-500/10 mix-blend-color" />
+                            )}
+                            
+                            {/* 카테고리 태그 */}
+                            <div className="absolute top-3 right-3 flex gap-1 z-10">
+                              {card.tags.map(tag => (
+                                <span key={tag} className="text-[9px] px-2 py-0.5 rounded bg-black/75 text-white/70 border border-white/10 font-mono">#{tag}</span>
+                              ))}
+                            </div>
+
+                            {/* 미니 로고/브랜드 플로팅 배지 */}
+                            <div className="absolute bottom-3 left-3 flex items-center gap-1.5 z-10">
+                              <span className="p-1 rounded-lg bg-black/75 border border-white/10 backdrop-blur-sm shadow-xl flex items-center justify-center">
+                                {card.id === 'trendscope' ? (
+                                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#EF4444" strokeWidth="2.5">
+                                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#EF4444"/>
+                                  </svg>
+                                ) : card.id === 'aurabeat' ? (
+                                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" strokeWidth="2.5">
+                                    <path d="M8 9v6M12 5v14M16 8v8M20 11v2M4 11v2" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                ) : (
+                                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                    <path d="M2 17l10 5 10-5M2 12l10 5 10-5" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                                )}
+                              </span>
+                              <span className="text-[9px] text-[#F5F0E8] font-black tracking-wider px-2 py-0.5 rounded bg-black/70 border border-white/5 backdrop-blur-sm capitalize shadow-md">{card.id}</span>
+                            </div>
+                          </div>
+
+                          {/* 텍스트 정보 */}
+                          <div className="p-5 space-y-3">
+                            <h3 className="text-sm sm:text-base font-black text-white group-hover:text-amber-400 transition-colors">{displayTitle}</h3>
+                            <p className="text-xs text-[#F5F0E8]/60 font-semibold leading-relaxed line-clamp-2 min-h-[2.5rem]">{displayDesc}</p>
+                            
+                            <div className="flex items-center justify-between pt-3 border-t border-white/5 text-[10px] font-bold text-emerald-400">
+                              <span>🔥 개선: {card.kpi.split(' / ')[0]}</span>
+                              <span className="text-[#F5F0E8]/40 hover:text-white transition-colors flex items-center gap-1">remix & view →</span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+
+              </section>
+            )}
+
             {/* 👥 개별 팀 회의실 실시간 스레드 팝업 모달 (씽크 팝업) */}
             {selectedTeamRoom && (() => {
               const exec = EXECUTIVES.find((e) => e.id === selectedTeamRoom)!
               const count = (hiredSkills[exec.id] || []).length
               const isTeamRoomActive = meetings.some((m: any) => m.status === 'in_progress' && m.exec_id === exec.id)
               return (
-                <div className="fixed inset-0 z-[99999] flex flex-col" style={{ background: '#0D0D0D' }}>
+                <div className="fixed inset-0 z-[99999] flex flex-col pt-11 md:pt-0" style={{ background: '#0D0D0D' }}>
                   {/* 헤더 */}
-                  <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
+                  <div className="hidden md:flex items-center gap-3 px-4 py-3 border-b border-white/10 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
                     <button
                       onClick={() => setSelectedTeamRoom(null)}
                       className="w-9 h-9 rounded-full flex items-center justify-center transition-colors bg-white/10 text-[#F5F0E8]"
@@ -2624,9 +3037,9 @@ export default function DashboardPage() {
       {selectedExec && (() => {
         const exec = selectedExec
         return (
-          <div className={`fixed inset-0 z-[9999] flex flex-col transition-transform duration-300 ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`} style={{ background: '#0D0D0D' }}>
+          <div className={`fixed inset-0 z-[9999] flex flex-col transition-transform duration-300 pt-11 md:pt-0 ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`} style={{ background: '#0D0D0D' }}>
             {/* 페이지 헤더 */}
-            <div className="flex items-center gap-3 px-4 py-3 border-b border-amber-500/15 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
+            <div className="hidden md:flex items-center gap-3 px-4 py-3 border-b border-amber-500/15 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
               <button onClick={closePanel} className="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style={{ background: 'rgba(255,255,255,0.10)', color: '#F5F0E8' }}>
                 ←
               </button>
@@ -3189,37 +3602,137 @@ export default function DashboardPage() {
       />
     
       <GradeModelManager isOpen={showGradeManager} onClose={() => setShowGradeManager(false)} orgId={orgId} />
+    
+      {/* 🎨 디자인 DNA 스펙 데이터 및 파싱 유틸 신설 */}
+      {(() => {
+        if (typeof window !== 'undefined' && !(window as any).DESIGN_DNA_CARDS) {
+          (window as any).DESIGN_DNA_CARDS = {
+            amber: {
+              name: 'Amber Sleek',
+              tag: '고성능 테크',
+              typography: 'Outfit & Inter',
+              concept: '사이버네틱 생산성',
+              colors: ['#F59E0B', '#18181B'],
+              description: '깊은 차콜 블랙 배경과 네온 앰버 테두리 조합의 현대적 테크 감성. 가독성 AA 등급을 완벽히 만족하며 사이버네틱한 몰입감을 선사합니다.',
+              colorGlow: 'rgba(245,158,11,0.15)'
+            },
+            glass: {
+              name: 'Aurora Glass',
+              tag: '글래스모피즘',
+              typography: 'Syne & Inter',
+              concept: '미래지향 프리미엄',
+              colors: ['#8B5CF6', '#EC4899'],
+              description: '반투명 아크릴 유리 효과와 우아한 오로라 그라데이션의 프리미엄 감성. 부드러운 하이라이트 글로우와 깊이감 있는 블러 효과를 제공합니다.',
+              colorGlow: 'rgba(139,92,246,0.15)'
+            },
+            lime: {
+              name: 'Cyber Lime',
+              tag: '네오 미니멀',
+              typography: 'Jakarta & JB Mono',
+              concept: '날렵한 기동성·속도',
+              colors: ['#CCFF00', '#121314'],
+              description: '깊은 흑연색(Graphite) 배경과 쨍한 일렉트릭 라임의 압도적 몰입감. 힙한 AI 빌더 스타일의 극치로 고해상도 디지털 감각을 뿜어냅니다.',
+              colorGlow: 'rgba(204,255,0,0.15)'
+            },
+            indigo: {
+              name: 'Midnight Indigo',
+              tag: '네오 클래식 다크',
+              typography: 'Outfit & Inter',
+              concept: '웅장한 럭셔리·신뢰',
+              colors: ['#6366F1', '#030712'],
+              description: '옵시디안 블랙 베이스에 소프트 인디고 글로우가 내뿜는 웅장한 신뢰감. 안정적이고 럭셔리한 대형 SaaS의 감각을 구현합니다.',
+              colorGlow: 'rgba(99,102,241,0.15)'
+            },
+            swiss: {
+              name: 'Midnight Swiss',
+              tag: '스위스 모던',
+              typography: 'Space Grotesk & Inter',
+              concept: '차가운 정밀함·대담',
+              colors: ['#FFFFFF', '#FF002E'],
+              description: '대담한 타이포 레이아웃과 1px의 극단적 칼선으로 설계한 흑백 대비 모더니즘. 격자 그리드와 차가운 정밀함이 융합된 예술적 레이아웃입니다.',
+              colorGlow: 'rgba(255,255,255,0.12)'
+            }
+          };
+          (window as any).parseDesignDna = (contextMd: string) => {
+            if (!contextMd) return 'amber';
+            const match = contextMd.match(/<!-- DESIGN_DNA:\s*(\w+)\s*-->/);
+            return match ? match[1] : 'amber';
+          };
+        }
+        return null;
+      })()}
 
       {/* 📋 프로젝트 기획서 모달 (상세 설정) */}
       {settingsProject && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/75 backdrop-blur-md px-3 py-4 overflow-y-auto">
-          <div className="w-full max-w-2xl rounded-2xl border border-amber-500/20 bg-[#0A0A0A] shadow-2xl animate-scaleUp mb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-lg overflow-hidden p-0 md:p-4">
+          <div className={`w-full h-full md:h-[88vh] bg-[#070708] shadow-2xl animate-scaleUp flex flex-col overflow-hidden transition-all duration-300 border-0 md:border md:border-amber-500/15 ${
+            isBriefDiscussing
+              ? 'max-w-none w-full md:max-w-4xl md:rounded-2xl'
+              : 'max-w-none w-full md:max-w-3xl md:rounded-2xl'
+          }`}>
 
             {/* 헤더 */}
-            <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-white/8">
-              <div>
-                <h3 className="text-base font-black text-amber-400">📋 프로젝트 기획서</h3>
-                <p className="text-[11px] text-white/40 mt-0.5">{settingsProject.title} — 전 임원진 공유 문서</p>
-              </div>
-              <div className="flex items-center gap-2">
-                {!briefEditMode ? (
+            <div className="flex items-center justify-between px-4 py-3 md:px-6 md:pt-5 md:pb-4 border-b border-white/5 shrink-0 bg-[#0A0A0B]">
+              <div className="flex items-center gap-2 md:gap-3 min-w-0">
+                <div className="min-w-0">
+                  <h3 className="text-xs md:text-base font-black text-amber-400 flex items-center gap-1">
+                    <span>📋</span> <span className="truncate">기획서 수정</span>
+                  </h3>
+                  <p className="text-[9px] md:text-[11px] text-white/35 mt-0.5 truncate max-w-[120px] xs:max-w-[200px] sm:max-w-none">
+                    {settingsProject.title}
+                  </p>
+                </div>
+                <div className="h-4 w-px bg-white/10 mx-1 md:mx-2 hidden sm:block shrink-0" />
+                {!isBriefDiscussing ? (
                   <button
-                    onClick={() => { setEditBrief(settingsProject.context_md || ''); setBriefEditMode(true) }}
-                    className="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 transition-all"
+                    type="button"
+                    onClick={() => {
+                      setEditBrief(settingsProject.context_md || '')
+                      setIsBriefDiscussing(true)
+                      if (briefMessages.length === 0) {
+                        setBriefMessages([
+                          {
+                            role: 'assistant',
+                            message: '대표님, 기획총괄 CPO 이안입니다. 이번에 확정된 기획서 초안과 디자인 DNA 스펙을 기반으로, 추가하고 싶으신 숨은 의도나 구체적인 기능 요구사항이 있다면 편하게 말씀해 주십시오. 제가 실시간으로 반영하여 완성도 높은 기획서로 다듬어 드리겠습니다.'
+                          }
+                        ])
+                      }
+                    }}
+                    className="px-2 py-1 rounded bg-amber-400/10 text-amber-350 border border-amber-400/20 hover:bg-amber-400/20 transition-all flex items-center gap-1 shrink-0 text-[10px] font-bold"
                   >
-                    ✏️ 수정
+                    💬 CPO 이안과 심층 기획
                   </button>
                 ) : (
                   <button
-                    onClick={() => setBriefEditMode(false)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-bold bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 transition-all"
+                    type="button"
+                    onClick={() => setIsBriefDiscussing(false)}
+                    className="px-2 py-1 rounded bg-white/5 text-white/50 border border-white/10 hover:bg-white/10 transition-all flex items-center gap-1 shrink-0 text-[10px] font-bold"
                   >
-                    미리보기
+                    ⬅️ 기획서 보기
                   </button>
                 )}
+              </div>
+              <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
+                {!isBriefDiscussing && (
+                  !briefEditMode ? (
+                    <button
+                      onClick={() => { setEditBrief(settingsProject.context_md || ''); setBriefEditMode(true) }}
+                      className="px-2 py-1 rounded bg-amber-500/15 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 transition-all text-[10px] font-bold"
+                    >
+                      ✏️ 직접 수정
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setBriefEditMode(false)}
+                      className="px-2 py-1 rounded bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 transition-all text-[10px] font-bold"
+                    >
+                      미리보기
+                    </button>
+                  )
+                )}
                 <button
-                  onClick={() => { setSettingsProject(null); setBriefEditMode(false) }}
-                  className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all text-sm"
+                  onClick={() => { setSettingsProject(null); setBriefEditMode(false); setIsBriefDiscussing(false); }}
+                  className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all text-xs"
                 >
                   ✕
                 </button>
@@ -3227,68 +3740,221 @@ export default function DashboardPage() {
             </div>
 
             {/* 기획서 본문 */}
-            <div className="px-6 py-5 max-h-[65vh] overflow-y-auto custom-scrollbar">
-              {briefEditMode ? (
-                <div className="space-y-3">
-                  <p className="text-xs text-amber-400/70 font-semibold">📝 마크다운 형식으로 직접 수정하세요. 저장 시 전 임원진에게 자동 공유됩니다.</p>
-                  <textarea
-                    value={editBrief}
-                    onChange={e => setEditBrief(e.target.value)}
-                    className="w-full h-96 px-4 py-3 rounded-xl text-xs font-mono bg-white/5 border border-white/15 text-white/90 placeholder-neutral-600 focus:outline-none focus:border-amber-400/50 transition-all resize-none shadow-inner leading-relaxed"
-                    placeholder="# 프로젝트 기획서\n\n## 개요\n..."
-                  />
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {settingsProject.context_md ? (
-                    <div className="prose-brief">
-                      {settingsProject.context_md.split('\n').map((line: string, i: number) => {
-                        if (line.startsWith('# ')) return (
-                          <h1 key={i} className="text-lg font-black text-amber-400 mb-3 mt-1">{line.slice(2)}</h1>
-                        )
-                        if (line.startsWith('## ')) return (
-                          <h2 key={i} className="text-sm font-bold text-white mt-5 mb-2 flex items-center gap-1.5">{line.slice(3)}</h2>
-                        )
-                        if (line.startsWith('### ')) return (
-                          <h3 key={i} className="text-xs font-bold text-amber-300/80 mt-3 mb-1">{line.slice(4)}</h3>
-                        )
-                        if (line.startsWith('> ')) return (
-                          <blockquote key={i} className="border-l-2 border-amber-500/40 pl-3 text-xs text-white/50 italic my-2">{line.slice(2)}</blockquote>
-                        )
-                        if (line.startsWith('- ')) return (
-                          <li key={i} className="text-xs text-white/75 ml-3 my-0.5 list-disc list-inside">{line.slice(2)}</li>
-                        )
-                        if (line.startsWith('---')) return (
-                          <hr key={i} className="border-white/10 my-4" />
-                        )
-                        if (line.trim() === '') return <div key={i} className="h-1" />
-                        return (
-                          <p key={i} className="text-xs text-white/75 leading-relaxed">{line}</p>
-                        )
-                      })}
+            {isBriefDiscussing ? (
+              // CPO 이안 1:1 심층 토론 활성화 모드 (고객센터 대형 상담실 1열 뷰)
+              <div className="flex-1 flex flex-col overflow-hidden bg-[#050505] px-3.5 py-3 md:px-6 md:py-5">
+                
+                {/* 이안 프로필 헤더 - 모바일에서 높이를 극도로 축소하여 공간 낭비 방지 */}
+                <div className="flex items-center gap-2 md:gap-3 pb-2 md:pb-3 border-b border-white/5 mb-3 md:mb-4 shrink-0">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-tr from-amber-500/20 to-purple-500/20 border border-amber-500/35 flex items-center justify-center text-base md:text-lg overflow-hidden shadow-inner select-none shrink-0">
+                    👔
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-xs md:text-sm font-black text-[#F5F0E8] tracking-wide truncate">CPO 이안</p>
+                      <div className="flex items-center gap-1 bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded-full shrink-0">
+                        <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-[8px] font-extrabold text-emerald-450 tracking-tight uppercase">ONLINE</span>
+                      </div>
                     </div>
-                  ) : (
-                    <div className="text-center py-12 space-y-3">
-                      <span className="text-4xl block">📄</span>
-                      <p className="text-sm font-bold text-white/50">아직 기획서가 없습니다</p>
-                      <p className="text-xs text-white/30">프로젝트 생성 시 Gemini가 자동 작성합니다</p>
-                      <button
-                        onClick={() => { setEditBrief(''); setBriefEditMode(true) }}
-                        className="mt-2 px-4 py-2 rounded-xl text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 transition-all"
+                    <p className="text-[9px] md:text-[10px] text-[#F5F0E8]/40 font-medium mt-0.5 truncate hidden sm:block">
+                      하이브데스크 기획총괄책임자 (1:1 심층 기획 회의실)
+                    </p>
+                  </div>
+                  <span className="text-[8px] md:text-[10px] text-amber-400/80 font-mono font-black bg-amber-400/5 px-2 py-0.5 rounded border border-amber-400/20 select-none hidden xs:block">
+                    CPO ACTIVE
+                  </span>
+                </div>
+
+                {/* 챗 메시지 영역 (화면 절반 이상을 시원하게 차지함) */}
+                <div className="flex-1 overflow-y-auto space-y-3 pr-1 md:pr-2 mb-3 md:mb-4 scrollbar-thin scrollbar-thumb-white/5 min-h-[120px] select-text">
+                  {briefMessages.map((m, idx) => (
+                    <div
+                      key={idx}
+                      className={`flex items-start gap-2 md:gap-3 max-w-[90%] md:max-w-[85%] ${
+                        m.role === 'user' ? 'ml-auto flex-row-reverse' : ''
+                      }`}
+                    >
+                      {m.role === 'assistant' && (
+                        <div className="w-6 h-6 rounded bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xs shrink-0 select-none hidden md:flex">
+                          👔
+                        </div>
+                      )}
+                      <div
+                        className={`rounded-2xl px-3 py-2 md:px-4 md:py-2.5 text-xs leading-relaxed shadow-sm ${
+                          m.role === 'user'
+                            ? 'bg-amber-400 text-black font-bold rounded-tr-none'
+                            : 'bg-white/5 text-white/90 border border-white/8 rounded-tl-none'
+                        }`}
                       >
-                        ✏️ 직접 작성하기
-                      </button>
+                        <p className="whitespace-pre-wrap select-text font-medium text-[11px] md:text-xs">{m.message}</p>
+                      </div>
+                    </div>
+                  ))}
+                  {isSendingBriefMsg && (
+                    <div className="flex items-start gap-2 md:gap-3 max-w-[90%] md:max-w-[85%]">
+                      <div className="w-6 h-6 rounded bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-xs shrink-0 select-none hidden md:flex">
+                        👔
+                      </div>
+                      <div className="rounded-2xl px-3 py-2 md:px-4 md:py-2.5 text-xs bg-white/5 text-white/50 border border-white/8 rounded-tl-none flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce delay-100" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-bounce delay-200" />
+                        <span className="text-[10px] text-neutral-400 font-semibold ml-1">이안이 기획안 정밀 검토 및 기획서 갱신 중...</span>
+                      </div>
                     </div>
                   )}
                 </div>
-              )}
-            </div>
+
+                {/* 지시 입력 폼 (고객센터 상담 스타일의 웅장한 대형 textarea) */}
+                <div className="pt-2 md:pt-3.5 border-t border-white/5 flex gap-2 md:gap-3 shrink-0 items-stretch bg-[#050505]">
+                  <textarea
+                    rows={2}
+                    value={userBriefMsg}
+                    onChange={e => setUserBriefMsg(e.target.value)}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSendBriefMsg();
+                      }
+                    }}
+                    placeholder="이안에게 기획서에 추가/수정하고 싶은 구체적인 지시사항을 입력해 주세요."
+                    disabled={isSendingBriefMsg}
+                    className="flex-1 px-3 py-2.5 rounded-xl text-xs md:text-sm bg-[#09090B] border border-white/10 text-white placeholder-neutral-500 focus:outline-none focus:border-amber-400/40 transition-all font-semibold resize-none leading-relaxed h-11 md:h-20 min-h-[44px] md:min-h-[80px]"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleSendBriefMsg}
+                    disabled={isSendingBriefMsg || !userBriefMsg.trim()}
+                    className="px-4 md:px-6 bg-amber-400 text-black font-black rounded-xl hover:brightness-110 active:scale-95 transition-all select-none disabled:opacity-40 flex flex-col justify-center items-center gap-0.5 shrink-0"
+                  >
+                    <span className="text-xs md:text-sm">전송</span>
+                    <span className="text-[8px] font-bold opacity-60 hidden md:inline">Enter ⚡</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              // 기존 일반 기획서 보기 & 직접 수정 모드
+              <div className="px-6 py-5 max-h-[65vh] overflow-y-auto custom-scrollbar bg-[#0A0A0A]">
+                {briefEditMode ? (
+                  <div className="space-y-3">
+                    <p className="text-xs text-amber-400/70 font-semibold">📝 마크다운 형식으로 직접 수정하세요. 저장 시 전 임원진에게 자동 공유됩니다.</p>
+                    <textarea
+                      value={editBrief}
+                      onChange={e => setEditBrief(e.target.value)}
+                      className="w-full h-96 px-4 py-3 rounded-xl text-xs font-mono bg-white/5 border border-white/15 text-white/90 placeholder-neutral-600 focus:outline-none focus:border-amber-400/50 transition-all resize-none shadow-inner leading-relaxed"
+                      placeholder="# 프로젝트 기획서\n\n## 개요\n..."
+                    />
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {settingsProject.context_md ? (
+                      <>
+                        <div className="prose-brief">
+                        {settingsProject.context_md.split('\n').map((line: string, i: number) => {
+                          if (line.startsWith('# ')) return (
+                            <h1 key={i} className="text-lg font-black text-amber-400 mb-3 mt-1">{line.slice(2)}</h1>
+                          )
+                          if (line.startsWith('## ')) return (
+                            <h2 key={i} className="text-sm font-bold text-white mt-5 mb-2 flex items-center gap-1.5">{line.slice(3)}</h2>
+                          )
+                          if (line.startsWith('### ')) return (
+                            <h3 key={i} className="text-xs font-bold text-amber-300/80 mt-3 mb-1">{line.slice(4)}</h3>
+                          )
+                          if (line.startsWith('> ')) return (
+                            <blockquote key={i} className="border-l-2 border-amber-500/40 pl-3 text-xs text-white/50 italic my-2">{line.slice(2)}</blockquote>
+                          )
+                          if (line.startsWith('- ')) return (
+                            <li key={i} className="text-xs text-white/75 ml-3 my-0.5 list-disc list-inside">{line.slice(2)}</li>
+                          )
+                          if (line.startsWith('---')) return (
+                            <hr key={i} className="border-white/10 my-4" />
+                          )
+                          if (line.trim() === '') return <div key={i} className="h-1" />
+                          return (
+                            <p key={i} className="text-xs text-white/75 leading-relaxed">{line}</p>
+                          )
+                        })}
+                      </div>
+
+                      {/* 🎨 [디자인 DNA 카드 복원] 대표님이 선택하신 디자인 DNA 카드를 웅장하고 세련되게 렌더링! */}
+                      {(() => {
+                        const win = typeof window !== 'undefined' ? (window as any) : null;
+                        if (!win || !win.parseDesignDna || !win.DESIGN_DNA_CARDS) return null;
+                        
+                        const dnaKey = win.parseDesignDna(settingsProject.context_md);
+                        const spec = win.DESIGN_DNA_CARDS[dnaKey] || win.DESIGN_DNA_CARDS.amber;
+                        return (
+                          <div className="mt-8 border-t border-white/8 pt-6 select-none">
+                            <h3 className="text-xs uppercase tracking-wider text-amber-400 font-bold mb-4 flex items-center gap-1.5">
+                              <span>🎨</span> Design DNA (적용된 디자인 아이덴티티 프리셋)
+                            </h3>
+                            <div className="p-5 rounded-2xl border transition-all duration-300 relative overflow-hidden bg-white/3" style={{ borderColor: spec.colors[0] + '35', boxShadow: `0 0 20px ${spec.colorGlow}` }}>
+                              <div className="absolute -right-10 -bottom-10 w-24 h-24 rounded-full blur-2xl opacity-15" style={{ background: `linear-gradient(to right, ${spec.colors[0]}, ${spec.colors[1] || spec.colors[0]})` }} />
+                              
+                              <div className="flex items-center justify-between mb-3.5">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-sm font-extrabold text-neutral-100">{spec.name}</span>
+                                  <span className="text-[9px] font-extrabold font-mono uppercase tracking-wider px-2 py-0.5 rounded border" style={{ color: spec.colors[0], borderColor: spec.colors[0] + '40', backgroundColor: spec.colors[0] + '10' }}>
+                                    {spec.tag}
+                                  </span>
+                                </div>
+                                <span className="text-[9px] text-[#F5F0E8]/40 font-mono font-bold">IDENTITY SPEC</span>
+                              </div>
+                              
+                              <p className="text-xs text-[#F5F0E8]/80 leading-relaxed font-semibold mb-4">{spec.description}</p>
+                              
+                              <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 border-t border-white/5 pt-3 md:pt-4 text-[10px] font-semibold text-[#F5F0E8]/50">
+                                <div>
+                                  <span className="block text-[8px] text-[#F5F0E8]/35 uppercase tracking-wider mb-0.5 md:mb-1">Typography</span>
+                                  <span className="font-mono text-neutral-200">{spec.typography}</span>
+                                </div>
+                                <div>
+                                  <span className="block text-[8px] text-[#F5F0E8]/35 uppercase tracking-wider mb-0.5 md:mb-1">Visual Concept</span>
+                                  <span className="text-neutral-200">{spec.concept}</span>
+                                </div>
+                                <div className="xs:col-span-2 md:col-span-1">
+                                  <span className="block text-[8px] text-[#F5F0E8]/35 uppercase tracking-wider mb-0.5 md:mb-1">Palette / Colors</span>
+                                  <div className="flex items-center gap-1.5 font-mono text-neutral-200 mt-0.5">
+                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: spec.colors[0] }} />
+                                    <span>{spec.colors[0]}</span>
+                                    {spec.colors[1] && (
+                                      <>
+                                        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: spec.colors[1] }} />
+                                        <span>{spec.colors[1]}</span>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                      </>
+                    ) : (
+                      <div className="text-center py-12 space-y-3">
+                        <span className="text-4xl block">📄</span>
+                        <p className="text-sm font-bold text-white/50">아직 기획서가 없습니다</p>
+                        <p className="text-xs text-white/30">프로젝트 생성 시 Gemini가 자동 작성합니다</p>
+                        <button
+                          onClick={() => { setEditBrief(''); setBriefEditMode(true) }}
+                          className="mt-2 px-4 py-2 rounded-xl text-xs font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500/25 transition-all"
+                        >
+                          ✏️ 직접 작성하기
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* 푸터 버튼 */}
-            <div className="px-6 py-4 border-t border-white/8 flex gap-3">
+            <div className="px-6 py-4 border-t border-white/8 flex gap-3 shrink-0 bg-[#0A0A0A]">
               <button
                 type="button"
-                onClick={() => { setSettingsProject(null); setBriefEditMode(false) }}
+                onClick={() => { setSettingsProject(null); setBriefEditMode(false); setIsBriefDiscussing(false); }}
                 className="flex-1 py-3 rounded-xl text-xs font-bold border border-white/10 bg-white/5 hover:bg-white/10 text-neutral-200 transition-all active:scale-95"
               >
                 닫기
@@ -3296,20 +3962,19 @@ export default function DashboardPage() {
               <button
                 type="button"
                 onClick={handleSaveSettings}
-                disabled={isSaving || !briefEditMode}
+                disabled={isSaving || (isBriefDiscussing ? false : !briefEditMode)}
                 className={`flex-1 py-3 rounded-xl text-xs font-bold transition-all shadow-md active:scale-95 ${
-                  briefEditMode
+                  isBriefDiscussing || briefEditMode
                     ? 'bg-amber-400 text-black hover:brightness-110'
                     : 'bg-white/5 text-white/30 cursor-not-allowed'
                 }`}
               >
-                {isSaving ? '저장 중...' : briefEditMode ? '💾 저장 & 임원 공유' : '수정 모드에서 저장'}
+                {isSaving ? '저장 중...' : (isBriefDiscussing || briefEditMode) ? '💾 저장 & 임원 공유' : '수정 모드에서 저장'}
               </button>
             </div>
           </div>
         </div>
       )}
-
       {/* 🗑️ 프로젝트 삭제 최종 확인 모달 */}
       {deleteProjectId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md px-4">
@@ -3589,7 +4254,366 @@ export default function DashboardPage() {
         </div>
       )}
 
+      {/* 🔮 모바일 전용 아크릴 바텀 드로어 (Bottom Sheet Drawer) */}
+      {showBottomDrawer && (
+        <>
+          <div
+            className="fixed inset-0 z-[110000] bg-black/70 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => setShowBottomDrawer(false)}
+          />
+          <div
+            className="fixed bottom-0 left-0 right-0 z-[120000] bg-[#070708]/95 backdrop-blur-xl border-t border-white/10 rounded-t-3xl px-4 pt-4 pb-6 flex flex-col gap-3 shadow-[0_-8px_30px_rgba(0,0,0,0.6)] h-fit max-h-[85vh] overflow-y-auto custom-scrollbar"
+            style={{ animation: 'slideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
+          >
+            {/* 드로어 헤더 */}
+            <div className="flex items-center justify-between pb-2 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="text-xl bee-float">🐝</span>
+                <span className="text-xs font-bold text-shimmer">HiveDesk 메뉴</span>
+              </div>
+              <button
+                onClick={() => setShowBottomDrawer(false)}
+                className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg pr-1"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* 📁 프로젝트 관리 섹션 */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] font-bold text-[#F5F0E8]/40 uppercase tracking-widest pl-2">프로젝트 관리</p>
+              
+              <Link
+                href="/projects/new"
+                onClick={() => setShowBottomDrawer(false)}
+                className="flex items-center gap-3 p-3 rounded-xl hover:bg-amber-500/12 text-[#F5F0E8] border border-amber-500/20 bg-amber-500/5 transition-all active:scale-[0.98]"
+              >
+                <span className="shrink-0">{Icon.plus('#F59E0B', 18)}</span>
+                <div className="text-left">
+                  <p className="text-sm font-semibold text-[#F5F0E8]">새 프로젝트 생성</p>
+                  <p className="text-[10px] text-amber-400/80 font-medium">새로운 AI 비즈니스 아이디어 기획</p>
+                </div>
+              </Link>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  setView('projects');
+                  setSelectedExec(null);
+                  setPanelOpen(false);
+                  setShowBottomDrawer(false);
+                }}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${
+                  view === 'projects'
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                    : 'hover:bg-white/5 text-[#F5F0E8]/70 border border-transparent'
+                }`}
+              >
+                <span className="shrink-0">{Icon.folder(view === 'projects' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+                <div className="text-left">
+                  <p className={`text-sm font-semibold ${view === 'projects' ? 'text-amber-450' : 'text-[#F5F0E8]'}`}>내 프로젝트</p>
+                  <p className="text-[10px] text-[#F5F0E8]/40 font-medium">진행 중인 전체 프로젝트 통합 관리</p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setView('dashboard');
+                  setDashboardSubView('project_gallery');
+                  setSelectedExec(null);
+                  setPanelOpen(false);
+                  setShowBottomDrawer(false);
+                }}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${
+                  view === 'dashboard' && dashboardSubView === 'project_gallery'
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                    : 'hover:bg-white/5 text-[#F5F0E8]/70 border border-transparent'
+                }`}
+              >
+                <span className="shrink-0">{Icon.gallery(view === 'dashboard' && dashboardSubView === 'project_gallery' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+                <div className="text-left">
+                  <p className={`text-sm font-semibold ${view === 'dashboard' && dashboardSubView === 'project_gallery' ? 'text-amber-450' : 'text-[#F5F0E8]'}`}>프로젝트 갤러리</p>
+                  <p className="text-[10px] text-[#F5F0E8]/40 font-medium">AI Studio 스타일 쇼케이스</p>
+                </div>
+              </button>
+            </div>
+
+            {/* 💼 회사 운영 섹션 */}
+            <div className="flex flex-col gap-1.5">
+              <p className="text-[10px] font-bold text-[#F5F0E8]/40 uppercase tracking-widest pl-2">회사 운영</p>
+              
+              <button
+                type="button"
+                onClick={() => {
+                  setView('company');
+                  setSelectedExec(null);
+                  setPanelOpen(false);
+                  setShowBottomDrawer(false);
+                }}
+                className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${
+                  view === 'company'
+                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                    : 'hover:bg-white/5 text-[#F5F0E8]/70 border border-transparent'
+                }`}
+              >
+                <span className="shrink-0">{Icon.barChart(view === 'company' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+                <div className="text-left">
+                  <p className={`text-sm font-semibold ${view === 'company' ? 'text-amber-450' : 'text-[#F5F0E8]'}`}>회사 현황</p>
+                  <p className="text-[10px] text-[#F5F0E8]/40 font-medium">전사 리소스 분석 및 재무 통계</p>
+                </div>
+              </button>
+
+              {[
+                { id: 'grid', label: '회사 조직도', desc: '9인 AI 임원진 및 소속 부서 체계', icon: (c: string) => Icon.briefcase(c, 18) },
+                { id: 'boardroom', label: '이사회 회의실', desc: '텔레그램 실시간 AI 협업 및 의결 조율', icon: (c: string) => Icon.msgCircle(c, 18) },
+                { id: 'team_rooms', label: '팀별 회의실', desc: '임원 산하 세부 실무 요원 토론 공간', icon: (c: string) => Icon.users(c, 18) },
+                { id: 'task_logs', label: '작업 실행 로그', desc: '실무 에이전트 개발 실황 CCTV 생중계', icon: (c: string) => Icon.monitor(c, 18) },
+                { id: 'service_guide', label: '서비스 가이드', desc: '하이브데스크 단축키 및 핵심 사용법', icon: (c: string) => Icon.helpCircle(c, 18) }
+              ].map((menu) => {
+                const isActive = dashboardSubView === menu.id && view === 'dashboard';
+                return (
+                  <button
+                    key={menu.id}
+                    type="button"
+                    onClick={() => {
+                      setView('dashboard');
+                      setDashboardSubView(menu.id as any);
+                      setSelectedExec(null);
+                      setPanelOpen(false);
+                      setShowBottomDrawer(false);
+                    }}
+                    className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all ${
+                      isActive
+                        ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                        : 'hover:bg-white/5 text-[#F5F0E8]/70 border border-transparent'
+                    }`}
+                  >
+                    <span className="shrink-0">{menu.icon(isActive ? '#F59E0B' : '#F5F0E8')}</span>
+                    <div className="text-left">
+                      <p className={`text-sm font-semibold ${isActive ? 'text-amber-450' : 'text-[#F5F0E8]'}`}>{menu.label}</p>
+                      <p className="text-[10px] text-[#F5F0E8]/40 font-medium">{menu.desc}</p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* 🎯 활성 프로젝트 뱃지 (하단으로 이동하여 밀착) */}
+            <div className="bg-sky-500/10 border border-sky-500/20 px-3.5 py-2.5 rounded-xl flex items-center gap-2 mt-1 shrink-0">
+              <span className="w-1.5 h-1.5 rounded-full bg-sky-400 animate-pulse" />
+              <p className="text-[11px] text-sky-200 font-bold">
+                활성 프로젝트: {activeProject ? activeProject.title : '활성 프로젝트 없음'}
+              </p>
+            </div>
+          </div>
+        </>
+      )}
+
+      {/* 🔮 리믹스 플레이그라운드 & 슬라이드업 상세 시트 모달 (최외각 배치로 transform 격리) */}
+      {selectedGalleryCard && (
+        <div 
+          id="gallery-modal-container"
+          className="fixed inset-0 z-[150000] overflow-y-auto bg-black/85 backdrop-blur-md flex justify-center items-start pt-0 pb-6 md:py-12 px-0 sm:px-6 animate-fade-in"
+        >
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-auto" onClick={() => setSelectedGalleryCard(null)} />
+          <div 
+            className="relative w-full md:max-w-6xl bg-[#080809] border-x-0 md:border border-y border-white/12 rounded-none md:rounded-3xl shadow-2xl flex flex-col md:flex-row h-auto min-h-fit overflow-visible z-10 mt-0 md:my-auto"
+            style={{ animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
+          >
+            {/* 드로어 헤더 */}
+            <div className="absolute top-4 right-4 z-50">
+              <button 
+                onClick={() => setSelectedGalleryCard(null)}
+                className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 transition-all text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* 1. 좌측 메인 상세 내용 및 라이브 프리뷰 */}
+            <div className="flex-1 p-4 sm:p-8 flex flex-col gap-6 border-r border-white/5 h-auto overflow-visible">
+              <div>
+                <span className="text-[10px] font-mono font-black text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded bg-amber-500/10 inline-block mb-2">PROJECT SHOWCASE</span>
+                <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+                  {appliedCardChanges ? customTitle : selectedGalleryCard.title}
+                </h2>
+                <p className="text-xs text-[#F5F0E8]/50 mt-1 font-mono">KPI IMPROVEMENT REPORT</p>
+              </div>
+
+              {/* 프리미엄 배너 히어로 뷰어 */}
+              <div className="relative w-full aspect-video md:aspect-[2.5/1] rounded-2xl overflow-hidden border border-white/20 bg-black/60 shadow-2xl">
+                <img 
+                  src={selectedGalleryCard.banner} 
+                  alt={selectedGalleryCard.title} 
+                  className="w-full h-full object-cover opacity-90 transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-black/50" />
+                {customTheme === 'mint' && (
+                  <div className="absolute inset-0 bg-emerald-500/10 mix-blend-color" />
+                )}
+                
+                {/* 배너 하단 텍스트 및 실시간 반영 오버레이 */}
+                <div className="absolute bottom-5 left-5 right-5 flex flex-col md:flex-row md:items-end justify-between gap-4 z-10">
+                  <div className="space-y-1.5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[9px] font-black px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 tracking-wider">REMIX ACTIVE</span>
+                      <span className="text-[9px] font-black px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">✨ {selectedGalleryCard.kpi}</span>
+                    </div>
+                    <h4 className="text-base sm:text-lg font-black text-white drop-shadow-md">
+                      {appliedCardChanges ? customTitle : selectedGalleryCard.title}
+                    </h4>
+                    <p className="text-xs text-white/80 font-bold leading-relaxed max-w-2xl drop-shadow-sm">
+                      {appliedCardChanges ? customDesc : selectedGalleryCard.desc}
+                    </p>
+                  </div>
+                  
+                  {/* 오른쪽 하단 테마 배지 */}
+                  <span className="shrink-0 text-[10px] font-mono font-black text-white/70 bg-black/80 border border-white/10 backdrop-blur-sm px-3 py-1 rounded-md uppercase tracking-widest shadow-lg">
+                    Theme: {customTheme}
+                  </span>
+                </div>
+              </div>
+
+              {/* C-Level 임원들의 자율 협업 성과 분석 (이안, 하나, 뮤즈) */}
+              <div className="space-y-4">
+                <h3 className="text-xs font-black text-neutral-400 tracking-wider uppercase">👔 C-Level AI 임원 협업 분석 레포트</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* CPO 이안 */}
+                  <div className="bg-[#0e0f12]/90 border border-white/12 rounded-xl p-4.5 space-y-2 shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full overflow-hidden border border-amber-500/20"><img src={execImgSrc('cpo')} alt="CPO" className="w-full h-full object-cover" onError={(e) => imgFallback(e, '#F59E0B')} /></div>
+                      <h4 className="text-xs font-extrabold text-amber-400">CPO 이안 (기획)</h4>
+                    </div>
+                    <p className="text-xs text-[#F5F0E8]/80 leading-relaxed font-semibold">{selectedGalleryCard.cpo_insight}</p>
+                    <div className="pt-2 border-t border-white/10 text-[9px] text-[#F5F0E8]/40 font-mono">
+                      <span className="text-amber-400">Painpoint:</span> {selectedGalleryCard.painpoint}
+                    </div>
+                  </div>
+
+                  {/* CDO 하나 */}
+                  <div className="bg-[#0e0f12]/90 border border-white/12 rounded-xl p-4.5 space-y-2 shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full overflow-hidden border border-amber-500/20"><img src={execImgSrc('cdo')} alt="CDO" className="w-full h-full object-cover" onError={(e) => imgFallback(e, '#F59E0B')} /></div>
+                      <h4 className="text-xs font-extrabold text-purple-400">CDO 하나 (디자인)</h4>
+                    </div>
+                    <p className="text-xs text-[#F5F0E8]/80 leading-relaxed font-semibold">{selectedGalleryCard.cdo_insight}</p>
+                    <div className="pt-2 border-t border-white/10 text-[9px] text-[#F5F0E8]/40 font-mono">
+                      <span className="text-purple-400">Aesthetics:</span> {selectedGalleryCard.solution}
+                    </div>
+                  </div>
+
+                  {/* CTO 뮤즈 */}
+                  <div className="bg-[#0e0f12]/90 border border-white/12 rounded-xl p-4.5 space-y-2 shadow-lg">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full overflow-hidden border border-amber-500/20"><img src={execImgSrc('cto')} alt="CTO" className="w-full h-full object-cover" onError={(e) => imgFallback(e, '#F59E0B')} /></div>
+                      <h4 className="text-xs font-extrabold text-sky-400">CTO 뮤즈 (개발)</h4>
+                    </div>
+                    <p className="text-xs text-[#F5F0E8]/80 leading-relaxed font-semibold">{selectedGalleryCard.cto_insight}</p>
+                    <div className="pt-2 border-t border-white/10 text-[9px] text-[#F5F0E8]/40 font-mono">
+                      <span className="text-sky-400">Backend:</span> Supabase & Vector Schema
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. 우측 실시간 커스텀 컨트롤 패널 (Playground Customizer) */}
+            <div className="w-full md:w-80 bg-[#0c0d12] p-4 sm:p-8 flex flex-col gap-6 h-auto overflow-visible">
+              <div>
+                <h3 className="text-sm font-black text-amber-400 flex items-center gap-2">
+                  <span>🔮</span>
+                  Remix Custom Playground
+                </h3>
+                <p className="text-[11px] text-[#F5F0E8]/40 mt-1 font-semibold leading-relaxed">
+                  나만의 텍스트와 HSL 컬러 테마를 설정하여 본 프로젝트의 디자인을 0초 만에 핫 리로드하고, 대시보드 위젯에 즉시 주입해 보세요!
+                </p>
+              </div>
+
+              {/* 입력 폼 */}
+              <div className="space-y-4 flex-1">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase">프로젝트 타이틀 수정</label>
+                  <input 
+                    type="text" 
+                    value={customTitle}
+                    onChange={(e) => setCustomTitle(e.target.value)}
+                    placeholder="Vividot (패션 브랜드 이커머스)"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs text-[#F5F0E8] focus:border-amber-500 focus:outline-none transition-all font-semibold"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase">상세 묘사(Desc) 수정</label>
+                  <textarea 
+                    rows={3}
+                    value={customDesc}
+                    onChange={(e) => setCustomDesc(e.target.value)}
+                    placeholder="파편화된 원시 시장 조사 자료를 신속하게 요약하여 PRD 초안을 도출해 낸 이커머스 프로젝트."
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs text-[#F5F0E8] focus:border-amber-500 focus:outline-none transition-all font-semibold resize-none leading-relaxed"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase">Aesthetic 테마 선택</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button 
+                      onClick={() => setCustomTheme('dark')}
+                      className={`p-3 rounded-xl border text-center transition-all ${
+                        customTheme === 'dark'
+                          ? 'border-amber-500 bg-amber-500/10 text-amber-400 font-bold'
+                          : 'border-white/5 bg-white/3 hover:bg-white/5 text-[#F5F0E8]/50'
+                      }`}
+                    >
+                      <span className="text-xs block">👑 tailored dark</span>
+                      <span className="text-[9px] block text-neutral-500 mt-0.5">중후한 앰버 HSL</span>
+                    </button>
+                    <button 
+                      onClick={() => setCustomTheme('mint')}
+                      className={`p-3 rounded-xl border text-center transition-all ${
+                        customTheme === 'mint'
+                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold'
+                          : 'border-white/5 bg-white/3 hover:bg-white/5 text-[#F5F0E8]/50'
+                      }`}
+                    >
+                      <span className="text-xs block">🌿 fresh mint</span>
+                      <span className="text-[9px] block text-neutral-500 mt-0.5">산뜻한 민트 HSL</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* 리믹스 적용 버튼 */}
+              <div className="space-y-2">
+                <button
+                  onClick={() => {
+                    setAppliedCardChanges(true);
+                  }}
+                  className="w-full py-3.5 rounded-xl text-xs font-bold bg-amber-400 text-black hover:brightness-115 active:scale-95 transition-all shadow-[0_4px_20px_rgba(245,158,11,0.2)]"
+                >
+                  ✨ 리믹스 디자인 핫 리로드 (0s)
+                </button>
+                <button
+                  onClick={() => {
+                    setSelectedGalleryCard(null);
+                  }}
+                  className="w-full py-3 rounded-xl text-xs font-bold border border-white/10 bg-white/5 text-neutral-400 hover:text-white transition-all"
+                >
+                  쇼케이스 닫기
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
       <style jsx global>{`
+        @keyframes slideUp {
+          from { transform: translateY(100%); }
+          to { transform: translateY(0); }
+        }
         @keyframes bar-shimmer {
           0% { background-position: 0 0; }
           100% { background-position: 1rem 0; }
