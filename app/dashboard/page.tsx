@@ -5597,7 +5597,7 @@ export default function DashboardPage() {
                     value={customDesc}
                     onChange={(e) => setCustomDesc(e.target.value)}
                     placeholder="파편화된 원시 시장 조사 자료를 신속하게 요약하여 PRD 초안을 도출해 낸 이커머스 프로젝트."
-                    className="w-full px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs text-[#F5F0E8] focus:border-amber-500 focus:outline-none transition-all font-semibold resize-none leading-relaxed"
+                    className="w-full px-3.5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-xs text-[#F5F0E8] focus:border-amber-500 focus:outline-none transition-all font-semibold resize-none leading-relaxed custom-scrollbar"
                   />
                 </div>
 
