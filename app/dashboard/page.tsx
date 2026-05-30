@@ -3295,19 +3295,56 @@ export default function DashboardPage() {
             <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
               <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
                 
-                {/* 좌측: 브랜드 맞춤형 테크 쇼케이스 텍스트 영역 */}
-                <div className="flex-1 flex flex-col justify-center relative z-10 space-y-3">
+                {/* 좌측: 브랜드 맞춤형 테크 쇼케이스 텍스트 영역 (CPO/CDO 3대 기획 필러 탑재) */}
+                <div className="flex-1 flex flex-col justify-between relative z-10 space-y-6">
                   <div className="absolute top-0 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl shrink-0 animate-bounce">🎨</span>
-                    <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
-                      HiveDesk <span className="text-shimmer">Project Gallery</span>
-                    </h2>
+                  
+                  <div className="space-y-2.5">
+                    <div className="flex items-center gap-3">
+                      <span className="text-3xl shrink-0 animate-bounce">🎨</span>
+                      <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+                        HiveDesk <span className="text-shimmer">Project Gallery</span>
+                      </h2>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed max-w-xl font-medium">
+                      임원진들의 자율 협업으로 완수해 낸 B2B SaaS 기획·디자인·개발의 실제 동작 갤러리를 감상하고, 실시간 리믹스 및 0초 핫 리로드를 통해 나만의 비즈니스 방향성을 실체화해 보세요.
+                    </p>
                   </div>
-                  <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed max-w-xl font-medium">
-                    AI Agent 임원들이 자율 협업으로 제작해 낸 프로젝트를 직접 체험하고 나만의 방식으로 리믹스할 수 있습니다.
-                  </p>
+
+                  {/* CPO 이안 & CDO 하나 3대 핵심 가치 구조화 핀 보드 */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/10 pt-5">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-sm">📊</span>
+                        <h4 className="text-[11px] font-bold text-amber-400">초고속 RAG 기획</h4>
+                      </div>
+                      <p className="text-[10px] text-[#F5F0E8]/50 leading-relaxed font-medium">
+                        파편화된 원시 데이터 요약 및 MVP 기획안(PRD) 초안 1분 도출.
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-sm">⚙️</span>
+                        <h4 className="text-[11px] font-bold text-sky-400">자율 실무 자동화</h4>
+                      </div>
+                      <p className="text-[10px] text-[#F5F0E8]/50 leading-relaxed font-medium">
+                        반복 마케팅 카피 라이팅, 빌드 및 Vercel E2E 배포를 1초 만에 실행.
+                      </p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-sm">🔮</span>
+                        <h4 className="text-[11px] font-bold text-purple-400">리믹스 플레이그라운드</h4>
+                      </div>
+                      <p className="text-[10px] text-[#F5F0E8]/50 leading-relaxed font-medium">
+                        테마 HSL 및 텍스트 0s 핫 리로드를 통한 실시간 인터랙티브 UI 커스텀.
+                      </p>
+                    </div>
+                  </div>
                 </div>
+
 
                 {/* 우측: 생성된 브랜드 맞춤형 테크 쇼케이스 이미지 배너 탑재 */}
                 <div className="w-full md:w-[380px] h-64 md:h-auto relative overflow-hidden border border-white/10 rounded-2xl shrink-0">
