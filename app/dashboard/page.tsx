@@ -3293,16 +3293,16 @@ export default function DashboardPage() {
           {/* 6️⃣ 신설: 브랜드 쇼케이스 프로젝트 갤러리 */}
           {dashboardSubView === 'project_gallery' && (
             <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
-              <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="glass rounded-3xl p-5 sm:p-6 lg:p-7 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-5 lg:gap-8">
                 
                 {/* 좌측: 브랜드 맞춤형 테크 쇼케이스 텍스트 영역 (CPO/CDO 3대 기획 필러 탑재) */}
-                <div className="flex-1 flex flex-col justify-between relative z-10 space-y-6">
+                <div className="flex-1 flex flex-col justify-between relative z-10 space-y-4">
                   <div className="absolute top-0 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
                   
-                  <div className="space-y-2.5">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl shrink-0 animate-bounce">🎨</span>
-                      <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+                      <h2 className="text-lg sm:text-xl lg:text-2xl font-black text-white flex items-center gap-2">
                         HiveDesk <span className="text-shimmer">Project Gallery</span>
                       </h2>
                     </div>
@@ -3312,7 +3312,7 @@ export default function DashboardPage() {
                   </div>
 
                   {/* CPO 이안 & CDO 하나 3대 핵심 가치 구조화 핀 보드 */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/10 pt-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-white/10 pt-4">
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5">
                         <span className="text-sm">📊</span>
@@ -3347,9 +3347,9 @@ export default function DashboardPage() {
 
 
                 {/* 우측: 생성된 브랜드 맞춤형 테크 쇼케이스 이미지 배너 탑재 */}
-                <div className="w-full md:w-[380px] h-64 md:h-auto relative overflow-hidden border border-white/10 rounded-2xl shrink-0">
+                <div className="w-full md:w-[350px] lg:w-[440px] h-40 sm:h-44 md:h-[155px] lg:h-[175px] relative overflow-hidden border border-white/10 rounded-2xl shrink-0 self-center">
                   <img 
-                    src="/gallery_banner.png?v=2" 
+                    src="/gallery_banner.png?v=3" 
                     alt="HiveDesk Tech Showcase Banner" 
                     className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700" 
                     loading="eager"
