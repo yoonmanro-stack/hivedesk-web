@@ -3293,20 +3293,35 @@ export default function DashboardPage() {
           {/* 6️⃣ 신설: 브랜드 쇼케이스 프로젝트 갤러리 */}
           {dashboardSubView === 'project_gallery' && (
             <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
-              <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden flex flex-col md:flex-row gap-6">
+              <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
                 
-                {/* 생성된 브랜드 맞춤형 테크 쇼케이스 이미지 배너 탑재 */}
-                <div className="w-full md:w-[380px] h-64 md:h-auto relative overflow-hidden border-t md:border-t-0 md:border-l border-white/10 shrink-0">
-                    <img 
-                      src="/gallery_banner.png?v=2" 
-                      alt="HiveDesk Tech Showcase Banner" 
-                      className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700" 
-                      loading="eager"
-                    />
-                    {/* 이미지의 좌측면을 어둡게 마스킹하여 텍스트 영역과 부드러운 그라데이션 병합 형성 */}
-                    <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-b from-[#080809] via-transparent to-transparent pointer-events-none" />
+                {/* 좌측: 브랜드 맞춤형 테크 쇼케이스 텍스트 영역 */}
+                <div className="flex-1 flex flex-col justify-center relative z-10 space-y-3">
+                  <div className="absolute top-0 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
+                  <div className="flex items-center gap-3">
+                    <span className="text-3xl shrink-0 animate-bounce">🎨</span>
+                    <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+                      HiveDesk <span className="text-shimmer">Project Gallery</span>
+                    </h2>
                   </div>
+                  <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed max-w-xl font-medium">
+                    AI Agent 임원들이 자율 협업으로 제작해 낸 프로젝트를 직접 체험하고 나만의 방식으로 리믹스할 수 있습니다.
+                  </p>
                 </div>
+
+                {/* 우측: 생성된 브랜드 맞춤형 테크 쇼케이스 이미지 배너 탑재 */}
+                <div className="w-full md:w-[380px] h-64 md:h-auto relative overflow-hidden border border-white/10 rounded-2xl shrink-0">
+                  <img 
+                    src="/gallery_banner.png?v=2" 
+                    alt="HiveDesk Tech Showcase Banner" 
+                    className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700" 
+                    loading="eager"
+                  />
+                  {/* 이미지의 좌측면을 어둡게 마스킹하여 텍스트 영역과 부드러운 그라데이션 병합 형성 */}
+                  <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-b from-[#080809]/40 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
+
 
                 {/* 카테고리 칩 필터 */}
                 <div className="flex flex-wrap gap-2.5 my-6">
