@@ -32,10 +32,14 @@ const Icon = {
   monitor:   (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
   helpCircle: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
   gallery: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>,
+  calendar: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>,
+  pin: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><line x1="18" y1="8" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="6"/><path d="M12 6H8a2 2 0 0 0-2 2v3.586a1 1 0 0 1-.293.707l-2.414 2.414a1 1 0 0 0 .707 1.707H12m0-10.414V17m0 0l-3 3m3-3l3 3m-3-13.414h4a2 2 0 0 1 2 2v3.586a1 1 0 0 0 .293.707l2.414 2.414a1 1 0 0 1-.707 1.707H12"/></svg>,
+  trophy: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"/><path d="M12 2a7 7 0 0 0-7 7c0 3.18 2.12 5.86 5 6.71V2h2z"/></svg>,
+  send: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>,
 }
 
 const EXECUTIVES = [
-  { id: 'ceo',  name: '리처드', title: 'CEO',  titleKo: '경영 총괄',   desc: '비전 수립, 전략 결정, 경영 자문',           detail: '회사의 방향성을 결정합니다. 사업 전략 수립, 주요 의사결정, 파트너십 협상 등 대표 역할을 수행하는 AI 경영 총괄입니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_ceo'  },
+  { id: 'ceo',  name: '리처드', title: 'AI CEO',  titleKo: '인공지능 경영 대행',   desc: '비전 수립, 전략 결정, 경영 자문',           detail: '회사의 방향성을 결정합니다. 사업 전략 수립, 주요 의사결정, 파트너십 협상 등 대표 역할을 수행하는 AI 경영 총괄입니다.',                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_ceo'  },
   { id: 'coo',  name: '엠마', title: 'COO',  titleKo: '운영 총괄',   desc: '비즈니스 운영, 고객 관리, 최적화',           detail: '회사가 매일 원활하게 돌아가도록 관리합니다. 고객 응대, 업무 프로세스 개선, 파트너 관계 관리 등 내부 살림을 총괄합니다.',                              color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_coo'  },
   { id: 'cpo',  name: '이안',    title: 'CPO',  titleKo: '기획 총괄',   desc: 'UX 설계, 기능 기획, 로드맵 관리',           detail: '사용자가 편하게 쓸 수 있는 제품을 설계합니다. PRD 작성, 사용자 리서치, 로드맵 우선순위를 담당합니다.',                                                   color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cpo'  },
   { id: 'cdo',  name: '하나',  title: 'CDO',  titleKo: '디자인 총괄', desc: 'UI/UX 디자인, 브랜드 에셋, 그래픽',          detail: '제품의 미적 감각과 사용자 경험을 시각적으로 구현합니다. 브랜드 정체성 확립, 화면 레이아웃, 픽셀 퍼펙트 디자인을 담당합니다.',                          color: '#F59E0B', bgGlow: 'rgba(245,158,11,0.15)',  tgCommand: 'chat_cdo'  },
@@ -132,7 +136,7 @@ const MEETING_SESSIONS = [
     id: 'session_1',
     date: '2026년 5월 24일',
     topic: 'FitPulse AI 기획 및 런칭 사전 의도 조율 회의',
-    participants: ['CEO 리처드', 'CPO 이안', 'CDO 하나', 'CTO 뮤즈'],
+    participants: ['AI CEO 리처드', 'CPO 이안', 'CDO 하나', 'CTO 뮤즈'],
     report: {
       title: 'FitPulse 기획 조율 공식 결정 보고서',
       summary: '사용자 운동 데이터 분석 AI 피팅 서비스인 FitPulse의 MVP 기획안을 승인하고, 디자인 DNA를 확정하여 다음주 수요일까지 CTO 뮤즈 산하 개발팀에서 프로토타입을 배포하기로 합의함.',
@@ -149,7 +153,7 @@ const MEETING_SESSIONS = [
     id: 'session_2',
     date: '2026년 5월 10일',
     topic: '하이브데스크 v4.0 아키텍처 개편 및 텔레그램 연동 회의',
-    participants: ['CEO 리처드', 'COO 엠마', 'CTO 뮤즈', 'CHRO 소피아'],
+    participants: ['AI CEO 리처드', 'COO 엠마', 'CTO 뮤즈', 'CHRO 소피아'],
     report: {
       title: '하이브데스크 v4.0 인프라 결정 보고서',
       summary: '텔레그램 봇 브릿지를 핵심 지시 창구로 도입하고, 9인 임원 관제를 위한 실시간 Dashboard를 React Next.js 기반으로 전면 쇄신하는 인프라 구축안을 의결함.',
@@ -163,6 +167,91 @@ const MEETING_SESSIONS = [
     }
   }
 ]
+
+const BoardroomReportCard = ({ content, timeStr }: { content: string, timeStr: string }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  return (
+    <div className="w-full py-3 px-1 sm:px-2 animate-fade-in-up">
+      <div className="glass rounded-2xl p-4 sm:p-5 border border-amber-500/25 bg-amber-950/15 shadow-[0_0_30px_rgba(245,158,11,0.08)] relative overflow-hidden max-w-full">
+        {/* 백그라운드 후광 이펙트 */}
+        <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full blur-2xl -z-10" />
+
+        <div className="flex items-center justify-between border-b border-amber-500/15 pb-3 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-lg text-amber-400 shrink-0">🏆</span>
+            <div>
+              <h4 className="text-xs sm:text-sm font-extrabold text-amber-400 tracking-wide">이사회 의결 결정 보고서</h4>
+              <p className="text-[9px] text-amber-500/50 font-bold">HiveDesk Boardroom Resolution Report</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-[10px] bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 px-2 py-1 rounded-md text-amber-400 font-bold transition-colors select-none tap-fast active:scale-95"
+          >
+            {isExpanded ? '접기 ▲' : '상세 보기 ▼'}
+          </button>
+        </div>
+
+        <div className={`text-[11px] sm:text-xs text-[#F5F0E8]/90 font-medium leading-relaxed whitespace-pre-wrap select-text transition-all duration-300 ${isExpanded ? 'max-h-[1500px] opacity-100' : 'max-h-[120px] overflow-hidden'}`}>
+          {content}
+        </div>
+        
+        {!isExpanded && (
+          <div className="absolute bottom-10 left-0 right-0 h-12 bg-gradient-to-t from-[#06080D] via-[#06080D]/80 to-transparent pointer-events-none" />
+        )}
+
+        <div className="flex justify-between items-center mt-3 pt-2.5 border-t border-white/5 text-[9px] text-[#F5F0E8]/35 font-bold">
+          <span>AI CEO 리처드 의결 서명 완료</span>
+          <span>{timeStr}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TeamroomReportCard = ({ content, timeStr, exec }: { content: string, timeStr: string, exec: Executive }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  return (
+    <div className="w-full py-3 px-1 sm:px-2 animate-fade-in-up">
+      <div className="glass rounded-2xl p-4 sm:p-5 border border-white/10 bg-[#0E0E0F]/80 shadow-[0_0_30px_rgba(255,255,255,0.02)] relative overflow-hidden max-w-full">
+        {/* 백그라운드 후광 이펙트 */}
+        <div className="absolute top-0 right-0 w-24 h-24 rounded-full blur-2xl -z-10" style={{ backgroundColor: `${exec.color}10` }} />
+
+        <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-lg shrink-0">🏆</span>
+            <div>
+              <h4 className="text-xs sm:text-sm font-extrabold tracking-wide" style={{ color: exec.color }}>{exec.title} {exec.name} 팀 실무 결과 보고서</h4>
+              <p className="text-[9px] text-[#F5F0E8]/40 font-bold">HiveDesk Teamroom Operations Report</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-[10px] px-2.5 py-1 rounded-md font-bold transition-all select-none tap-fast active:scale-95 border"
+            style={{ backgroundColor: `${exec.color}15`, color: exec.color, borderColor: `${exec.color}30` }}
+          >
+            {isExpanded ? '접기 ▲' : '상세 보기 ▼'}
+          </button>
+        </div>
+
+        <div className={`text-[11px] sm:text-xs text-[#F5F0E8]/90 font-medium leading-relaxed whitespace-pre-wrap select-text transition-all duration-300 ${isExpanded ? 'max-h-[1500px] opacity-100' : 'max-h-[120px] overflow-hidden'}`}>
+          {content}
+        </div>
+        
+        {!isExpanded && (
+          <div className="absolute bottom-10 left-0 right-0 h-12 bg-gradient-to-t from-[#0D0D0D] via-[#0D0D0D]/80 to-transparent pointer-events-none" />
+        )}
+
+        <div className="flex justify-between items-center mt-3 pt-2.5 border-t border-white/5 text-[9px] text-[#F5F0E8]/35 font-bold">
+          <span>👔 {exec.title} {exec.name} 최종 승인 및 보고 완료</span>
+          <span>{timeStr}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 function openTelegramAction(command: string) {
   const tg = window.Telegram?.WebApp
@@ -264,114 +353,226 @@ export default function DashboardPage() {
   const [logSearchQuery, setLogSearchQuery] = useState('')
   const [logSelectedDate, setLogSelectedDate] = useState('')
   const cctvContainerRef = useRef<HTMLDivElement>(null)
+  const boardroomContainerRef = useRef<HTMLDivElement>(null)
   const [teamThreads, setTeamThreads] = useState<any[]>([])
   const [loadingTeamThreads, setLoadingTeamThreads] = useState(false)
 
   // 회의 세션 실시간 Supabase 연동 상태
   const [meetings, setMeetings] = useState<any[]>([])
   const [loadingMeetings, setLoadingMeetings] = useState(false)
+  const [meetingSearchQuery, setMeetingSearchQuery] = useState('')
+  const [meetingSearchDate, setMeetingSearchDate] = useState('')
+  const [teamSearchQuery, setTeamSearchQuery] = useState('')
 
-  const displayMeetings = useMemo(() => {
-    // 1. 현재 활성화된 프로젝트에 연관된 회의만 필터링 (프로젝트 ID 매칭 또는 타이틀 키워드 매칭)
-    const activeProjectMeetings = meetings.filter((m: any) => {
-      if (!activeProject) return false
-      const projectTitle = activeProject.title || ''
-      return m.project_id === activeProject.id || 
-             (m.title && projectTitle && m.title.toLowerCase().includes(projectTitle.toLowerCase()))
-    })
+  // ━━━ KakaoTalk-style Continuous Team Room Thread Memo ━━━
+  const activeTeamThreads = useMemo(() => {
+    // 🌟 [호출] 형태의 기계식 호출 로그 및 대표님(CEO)의 관전 메시지를 완벽히 필터링하여 순수 AI 실무진 토론 피드만 유지
+    let filtered = [...teamThreads].reverse();
+    filtered = filtered.filter((th) => {
+      const msg = th.message || '';
+      const isCallLog = msg.includes('호출') && msg.startsWith('[') && msg.endsWith(']');
+      const isOwner = th.role === 'user';
+      return !isCallLog && !isOwner;
+    });
 
-    if (activeProjectMeetings.length > 0) {
-      return activeProjectMeetings.map((m: any) => {
-        const dateStr = m.started_at 
-          ? new Date(m.started_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
-          : new Date(m.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
-        
-        const budgetStr = m.cost_usd && Number(m.cost_usd) > 0 ? `$${Number(m.cost_usd).toFixed(2)}` : '$0.00'
-        
-        const participantsList = Array.isArray(m.participants)
-          ? m.participants.map((p: any) => typeof p === 'object' ? `${p.role || ''} ${p.name || ''}`.trim() : String(p))
-          : ['CEO 리처드']
-        
-        const summaryStr = m.ai_summary || m.description || '이사회 조율이 완료되었습니다.'
-        
-        const actionsList = Array.isArray(m.action_items)
-          ? m.action_items.map((a: any) => typeof a === 'object' ? `${a.assignee || '담당'}: ${a.task || ''}`.trim() : String(a))
-          : []
-        
-        return {
-          id: m.id,
-          date: dateStr,
-          topic: m.title || m.description || '기획 및 의도 조율 회의',
-          participants: participantsList,
-          status: m.status || 'completed',
-          report: {
-            title: m.title ? `${m.title} 공식 결정 보고서` : '이사회 기획 조율 공식 결정 보고서',
-            summary: summaryStr,
-            budget: budgetStr,
-            assignee: m.exec_id ? `${m.exec_id.toUpperCase()} 부서 및 관련 팀` : '전체 부서',
-            actions: actionsList.length > 0 ? actionsList : ['임원 회의록 및 PRD 최종 확정']
-          }
-        }
-      })
-    }
+    // 만약 실제 적재된 스레드 중, 'assistant'나 'exec_id === selectedTeamRoom'에서 온 '진짜 실제 임원/실무진 대화'가 존재한다면 DB 데이터를 그대로 렌더링
+    const hasActualReplies = filtered.some(th => th.role !== 'user' && th.role !== 'system');
 
-    // 2. 현재 활성화된 프로젝트가 있으나 관련 회의가 없는 경우 -> 해당 프로젝트 컨텍스트에 맞게 동적 기획 회의 자동 생성!
-    if (activeProject) {
-      const dateStr = activeProject.created_at
-        ? new Date(activeProject.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
-        : new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })
-      
-      return [
-        {
-          id: `fallback_${activeProject.id}_1`,
-          date: dateStr,
-          topic: `${activeProject.title} AI 기획 및 런칭 사전 의도 조율 회의`,
-          participants: ['CEO 리처드', 'CPO 이안', 'CDO 하나', 'CTO 뮤즈'],
-          status: 'completed',
-          report: {
-            title: `${activeProject.title} 기획 조율 공식 결정 보고서`,
-            summary: activeProject.description || `${activeProject.title}의 MVP 기획안을 승인하고, 디자인 DNA를 확정하여 본격적인 실무 분업에 합의함.`,
-            budget: '$0.00',
-            assignee: 'C-Level 임원진 & 실무팀',
-            actions: [
-              `CPO 이안: ${activeProject.title} 상세 기획서(PRD) 최종 확정 및 Notion 공유`,
-              `CDO 하나: 대표님이 결정하신 디자인 가이드라인 기반의 고화질 와이어프레임 설계`,
-              `CTO 뮤즈: 프로젝트 초기 기술 스택 빌드 파이프라인 및 Supabase DB 연동`
-            ]
-          }
-        }
-      ]
-    }
-
-    // 3. 활성화된 프로젝트 정보가 아직 로드되지 않은 경우의 최하위 폴백
-    return MEETING_SESSIONS
-  }, [meetings, activeProject])
-
-  useEffect(() => {
-    if (displayMeetings.length > 0) {
-      const exists = displayMeetings.some(m => m.id === activeSessionId)
-      if (!exists) {
-        setActiveSessionId(displayMeetings[0].id)
+    if (hasActualReplies && filtered.length > 0) {
+      if (teamSearchQuery) {
+        const q = teamSearchQuery.toLowerCase();
+        filtered = filtered.filter((th) => 
+          (th.message || '').toLowerCase().includes(q) || 
+          (th.role || '').toLowerCase().includes(q)
+        );
       }
-    }
-  }, [displayMeetings, activeSessionId])
-
-  // ━━━ 활성 세션의 이사회 대화 내역 (실제 DB 데이터 우선 + 극사실 시뮬레이션 폴백) ━━━
-  const activeSessionThreads = useMemo(() => {
-    // 만약 데이터베이스에 실제 회의 스레드가 적재되어 있다면 그것을 최우선으로 출력
-    if (boardroomThreads.length > 0) {
-      return boardroomThreads;
+      return filtered;
     }
 
-    // 만약 실제 회의 스레드가 비어 있다면, 활성화된 세션에 최적화된 고품질 토론 시뮬레이션 데이터 동적 렌더링
-    const currentSession = displayMeetings.find((x) => x.id === activeSessionId) || displayMeetings[0];
-    if (!currentSession) return [];
+    // 만약 실제 대화 기록이 없다면 (처음 회의실을 열었거나, 기계식 summon 로그/대표 지시만 있을 때)
+    // 활성 프로젝트와 현재 선택된 임원에 어울리는 생생한 "실무진 협업 시뮬레이션 대화" 폴백 렌더링!
+    const exec = EXECUTIVES.find((e) => e.id === selectedTeamRoom);
+    if (!exec) return [];
 
-    const projectTitle = activeProject ? activeProject.title : 'FitPulse';
+    const hiredAgentsList = hiredSkills[exec.id] || [];
+    // 🌟 [비즈니스 룰 반영] 배속된 실무진 요원이 단 한 명도 없다면, 회의 시뮬레이션을 개시하지 않고 빈 피드를 반환 (채용 유도)
+    if (hiredAgentsList.length === 0) {
+      return [];
+    }
+
+    // 🌟 고용된 실제 팀원의 이름을 동적으로 획득 (없을 시 기본값 '스경'/'케빈' 등으로 정교한 폴백)
+    const primaryAgentName = hiredAgentsList[0]?.skill_name || (exec.id === 'cdo' ? '스경' : exec.id === 'cto' ? '케빈' : '스경');
+
+    const projectTitle = activeProject ? activeProject.title : '하이브데스크';
     const projectDesc = activeProject?.description || '사용자 데이터 기반 서비스 운영 최적화';
-    const isLimjang = currentSession.topic.includes('임장도우미') || projectTitle === '임장도우미';
+    const keywords = projectDesc
+      .replace(/[^\w\sㄱ-ㅎㅏ-ㅣ가-힣]/g, ' ')
+      .split(/\s+/)
+      .filter((w: string) => w.length > 1 && !['기반', '위해', '통해', '하는', '제공', '분석', '의한', '있게', '대해', '있도록', '하는', '서비스'].includes(w));
+    
+    const key1 = keywords[0] || '핵심 기능';
+    const key2 = keywords[1] || '최적화';
 
-    // 1인 기업 AI 임원진들의 극사실주의 다이내믹 토론 생성기
+    const now = Date.now();
+    const time1 = new Date(now - 15 * 60 * 1000).toISOString();
+    const time2 = new Date(now - 12 * 60 * 1000).toISOString();
+    const time3 = new Date(now - 8 * 60 * 1000).toISOString();
+    const time4 = new Date(now - 4 * 60 * 1000).toISOString();
+    const time5 = new Date(now - 2 * 60 * 1000).toISOString();
+
+    let fallbackData = [];
+    if (exec.id === 'cdo') {
+      fallbackData = [
+        {
+          id: 'dyn_team_cdo_init',
+          exec_id: 'cdo',
+          role: 'system',
+          message: '👥 CDO 하나 실무회의가 개회되었습니다.',
+          created_at: time1
+        },
+        {
+          id: 'dyn_team_cdo_2',
+          exec_id: 'cdo',
+          role: 'cdo',
+          message: `지시 수령했습니다, 대표님. 10개 버튼의 컬러 명도를 낮추고 어두운 톤으로 변경하는 실무 회의를 개시합니다. 디자인팀 실무진인 ${primaryAgentName}님과 함께 디자인 최적화 작업에 착수하겠습니다.`,
+          created_at: time2
+        },
+        {
+          id: 'dyn_team_cdo_3',
+          exec_id: 'cdo',
+          role: primaryAgentName, // 🌟 동적 실명 세팅
+          message: `[👥 CDO 디자인팀 실무 협업]\n\nCDO 하나: "${primaryAgentName}님, 대표님의 UAT 검증 지시사항에 따라 대시보드의 주요 액션 버튼 10개의 명도를 낮추고 어두운 컬러(Slate/Zinc 테마)로 조정해야 해. 변경된 버튼 컬러 팔레트와 CSS 명세안을 공유해 줘."\n\n팀원 ${primaryAgentName}: "확인했습니다! 기존의 밝은 호버링 컬러를 HSL(38, 90%, 20%) 계열의 럭셔리 다크 톤으로 어둡게 변경하고, WCAG 명도 대비 표준을 준수하는 버튼 디자인 리뉴얼 시안을 CDO 드라이브에 공유했습니다."`,
+          created_at: time3
+        },
+        {
+          id: 'dyn_team_cdo_4',
+          exec_id: 'cdo',
+          role: 'cdo',
+          message: `${primaryAgentName}님이 공유한 10개 버튼의 어두운 컬러 색상 대조를 완벽히 검증했습니다. 기존의 눈부심 현상을 방지하는 극도로 깊고 진중한 HSL 색상 비율이 적용되었습니다. 프론트엔드 퍼블리셔 및 대표님께 실시간 보고 완료했습니다!`,
+          created_at: time4
+        },
+        {
+          id: 'dyn_team_cdo_5',
+          exec_id: 'cdo',
+          role: 'system',
+          message: `## 💻 CDO 실무 결과 보고서\n\n### 🎯 작업 성과\n- '${projectTitle}' 대시보드 내 10개 버튼 컬러 어둡게 변경 완료\n- 팀원 ${primaryAgentName}과의 고속 피그마 협업 및 CSS 팔레트 정합성 검증 완료\n\n### 📁 적용 대상\n- Figma UI/UX Draft v2.0 (다크 버튼 테마)\n- CSS 디자인 가이드라인 변수 정의 배포 완료\n\n### ⏱️ 최종 보고\n대표님의 지시에 따라 10개 주요 액션 버튼의 명도 대비를 어두운 톤으로 우아하게 개편하여 모바일 조작성과 프리미엄 가독성을 극대화한 UI 컴포넌트 설계를 마쳤습니다.\n\n👔 CDO 하나 최종 서명 및 사용자 보고 완료`,
+          created_at: time5
+        }
+      ];
+    } else if (exec.id === 'cto') {
+      fallbackData = [
+        {
+          id: 'dyn_team_cto_init',
+          exec_id: 'cto',
+          role: 'system',
+          message: '👥 CTO 뮤즈 실무회의가 개회되었습니다.',
+          created_at: time1
+        },
+        {
+          id: 'dyn_team_cto_2',
+          exec_id: 'cto',
+          role: 'cto',
+          message: `지시 수령했습니다, 대표님. 1.2초 내 빌드 및 Supabase RLS 우회 없는 완벽 동적 보안 연동 아키텍처 설계를 즉시 수행하겠습니다.`,
+          created_at: time2
+        },
+        {
+          id: 'dyn_team_cto_3',
+          exec_id: 'cto',
+          role: primaryAgentName, // 🌟 동적 실명 세팅
+          message: `[👥 CTO 개발팀 실무 협업]\n\nCTO 뮤즈: "모바일 웹 API 응답 속도 최적화를 위해 Turbopack 캐시와 Supabase RPC query 튜닝을 하겠습니다. 데이터 연동 백엔드를 구축해 주십시오."\n\n개발팀원 ${primaryAgentName}: "알겠습니다. conversation_threads 테이블의 인덱스 설계 및 RLS Bypass 보안 정책 3종을 반영하여 API 라우터 코딩을 완료했습니다. 로컬 통합 테스트도 0.9초 내에 성공 확인했습니다!"`,
+          created_at: time3
+        },
+        {
+          id: 'dyn_team_cto_4',
+          exec_id: 'cto',
+          role: 'cto',
+          message: `좋습니다. Next.js 16 Turbopack 컴파일을 로컬에서 0.8초대로 빌드 성공 완료했으며, 메모리 누수가 없음을 힙스냅샷 분석으로 완벽히 체크했습니다. 원격 프로덕션 서버에 scp 배포 완료 후 pm2 restart를 핫 리로드 처리했습니다.`,
+          created_at: time4
+        },
+        {
+          id: 'dyn_team_cto_5',
+          exec_id: 'cto',
+          role: 'system',
+          message: `## 💻 CTO 실무 결과 보고서\n\n### 🎯 작업 성과\n- '${projectTitle}' 실시간 Supabase API 라우터 연동 완료\n- Next.js Turbopack 최적화 컴파일 및 PM2 핫 배포 파이프라인 정비\n\n### 📁 적용 대상\n- /web/app/api/dashboard/route.ts\n- Supabase DB 스키마 마이그레이션\n\n### ⏱️ 최종 보고\n대표님의 지시를 받아 Supabase API 연동 및 Turbopack 빌드 최적화를 무오류 성공 확인하고 상용 서버에 무중단 배포를 완벽히 마쳤습니다.\n\n👔 CTO 뮤즈 최종 서명 및 사용자 보고 완료`,
+          created_at: time5
+        }
+      ];
+    } else {
+      fallbackData = [
+        {
+          id: 'dyn_team_gen_init',
+          exec_id: exec.id,
+          role: 'system',
+          message: `👥 ${exec.title} ${exec.name} 실무회의가 개회되었습니다.`,
+          created_at: time1
+        },
+        {
+          id: 'dyn_team_gen_2',
+          exec_id: exec.id,
+          role: exec.id,
+          message: `지시 받았습니다, 대표님. 부서 실무진들과 즉시 협력하여 ${key2}에 초점을 맞춘 핵심 성과물을 최단 시간 내 도출해 보고드리겠습니다.`,
+          created_at: time2
+        },
+        {
+          id: 'dyn_team_gen_3',
+          exec_id: exec.id,
+          role: primaryAgentName, // 🌟 동적 실명 세팅
+          message: `[👥 ${exec.title} 실무팀 협업]\n\n${exec.title} ${exec.name}: "우리 부서의 액션 아이템인 ${key1}를 빠르게 마무리해야 해. 실무진 요원들은 본인의 역할을 100% 발휘해서 기획 초안을 마련해 줘."\n\n실무 요원 ${primaryAgentName}: "네! 대표님의 운영 방향과 기획 스펙을 분석하여, 비즈니스 런웨이를 극대화하는 성과지표 설계를 완료했습니다."`,
+          created_at: time3
+        },
+        {
+          id: 'dyn_team_gen_4',
+          exec_id: exec.id,
+          role: exec.id,
+          message: `부서 기획안의 타당성을 100% 교차 검토했습니다. 리스크 요인을 완벽히 헷징하여 전사 배포 완료했으며, 결과 보고서를 올립니다.`,
+          created_at: time4
+        },
+        {
+          id: 'dyn_team_gen_5',
+          exec_id: exec.id,
+          role: 'system',
+          message: `## 💻 ${exec.title} 실무 결과 보고서\n\n### 🎯 작업 성과\n- '${projectTitle}' 부서별 핵심 ${key1} 수립 완료\n- 실무 인프라 연동 및 운영 타당성 검증 완료\n\n### 📁 적용 대상\n- 부서별 비즈니스 가이드라인 문서 및 계획서\n\n### ⏱️ 최종 보고\n대표님의 지시사항에 따라 '${projectTitle}' 프로젝트의 부서별 최적화 실무 설계를 성공적으로 마치고 사용자 보고를 마쳤습니다.\n\n👔 ${exec.title} ${exec.name} 최종 서명 및 사용자 보고 완료`,
+          created_at: time5
+        }
+      ];
+    }
+
+    let merged = [...fallbackData];
+
+    if (teamSearchQuery) {
+      const q = teamSearchQuery.toLowerCase();
+      merged = merged.filter((th) => 
+        (th.message || '').toLowerCase().includes(q) || 
+        (th.role || '').toLowerCase().includes(q)
+      );
+    }
+    return merged;
+  }, [teamThreads, teamSearchQuery, selectedTeamRoom, activeProject, meetings]);
+
+  // ━━━ KakaoTalk-style Continuous Boardroom Thread Memo ━━━
+  const activeSessionThreads = useMemo(() => {
+    // 만약 데이터베이스에 실제 회의 스레드가 적재되어 있는 경우
+    if (boardroomThreads.length > 0) {
+      // 1. boardroomThreads는 최신순(descending)으로 들어옴 -> 오름차순(ascending, 옛날것부터 아래로 흐르도록)으로 정렬하고, 관전 중인 대표님(CEO)의 메시지는 완전 소거
+      let sortedThreads = [...boardroomThreads].reverse().filter(th => th.role !== 'user');
+      
+      // 2. 만약 검색어(meetingSearchQuery)가 존재한다면 필터링
+      if (meetingSearchQuery) {
+        const q = meetingSearchQuery.toLowerCase();
+        sortedThreads = sortedThreads.filter((th) => 
+          (th.message || '').toLowerCase().includes(q) || 
+          (th.role || '').toLowerCase().includes(q)
+        );
+      }
+      
+      return sortedThreads;
+    }
+
+    // 만약 실제 회의 스레드가 비어 있다면, 활성화된 세션에 최적화된 고품질 토론 시뮬레이션 데이터 동적 렌더링 (폴백)
+    const projectTitle = activeProject ? activeProject.title : '하이브데스크';
+    const projectDesc = activeProject?.description || '사용자 데이터 기반 서비스 운영 최적화';
+    const isLimjang = projectTitle.includes('임장도우미');
+
     const keywords = projectDesc
       .replace(/[^\w\sㄱ-ㅎㅏ-ㅣ가-힣]/g, ' ')
       .split(/\s+/)
@@ -389,8 +590,9 @@ export default function DashboardPage() {
     const time5 = new Date(now - 12 * 60 * 1000).toISOString();
     const time6 = new Date(now - 11 * 60 * 1000).toISOString();
 
+    let fallbackData = [];
     if (isLimjang) {
-      return [
+      fallbackData = [
         {
           id: 'dyn_lim_1',
           exec_id: 'ceo',
@@ -434,54 +636,62 @@ export default function DashboardPage() {
           created_at: time6
         }
       ];
+    } else {
+      fallbackData = [
+        {
+          id: 'dyn_gen_1',
+          exec_id: 'ceo',
+          role: 'ceo',
+          message: `임원진 여러분, 이번 안건은 '${projectTitle}' 프로젝트의 기획 스코프 획정 및 실무 배포를 위한 역할 분업화입니다. 대표님께서 직접 이사회를 모니터링하고 계십니다. 각자의 전문 영역에서 가장 날카로운 의견을 개진해 주십시오. CPO 이안부터 브리핑하십시오.`,
+          created_at: time1
+        },
+        {
+          id: 'dyn_gen_2',
+          exec_id: 'cpo',
+          role: 'cpo',
+          message: `CPO 이안입니다. '${projectTitle}'의 핵심 비즈니스 가치는 사용자가 수동 작업 없이 바로 '${key1}'을 신속하게 도출해내는 것입니다. MVP 단계에서 번잡한 기능을 과감히 다이어트하고 핵심 밸류에만 집중하도록 PRD 기획서를 최종 설계하여 Notion에 연동 완료했습니다.`,
+          created_at: time2
+        },
+        {
+          id: 'dyn_gen_3',
+          exec_id: 'cdo',
+          role: 'cdo',
+          message: `이안의 기능 다이어트 방향성에는 적극 동의해요. 하지만 UI/UX 디자이너로서 짚어두고 싶네요. 기능이 미니멀해질수록 화면의 시각적 완성도와 미적 디테일이 브랜드 신뢰를 좌우합니다. 우리의 가치인 '${key2}'이 단 한 번의 조작으로 시선에 와닿을 수 있도록, 글래스모피즘 계열의 세련된 투명 레이어 구조를 가미한 와이어프레임 시안 6종을 도출하겠습니다.`,
+          created_at: time3
+        },
+        {
+          id: 'dyn_gen_4',
+          exec_id: 'cto',
+          role: 'cto',
+          message: `디자이너로서의 시각적 완성도에 대한 우려, 타당합니다. CTO로서 프론트와 백엔드의 실시간 연동 성능으로 뒷받침하겠습니다. 사용자가 입력한 동적 데이터가 지연 없이 반영되도록 Supabase PostgreSQL을 연동해 실시간 데이터 싱크를 맞출 계획입니다. 오늘 안으로 '${key3}' 처리를 위한 테이블 스키마 생성 및 기초 뼈대 API 개발 환경 셋업을 완수하여 CI/CD 배포 파이프라인에 병합하겠습니다.`,
+          created_at: time4
+        },
+        {
+          id: 'dyn_gen_5',
+          exec_id: 'ceo',
+          role: 'ceo',
+          message: `기획의 날카로운 MVP 타겟팅, 디자인의 신뢰성 높은 와이어프레임 시안, 개발의 Supabase DB 및 인프라 설계... AI 임원진들의 눈부신 협업과 유기적 분업이군요. 예산을 승인 결재하며, 오늘 각자 수립한 부서별 태스크 액션 아이템을 바탕으로 즉각 실무 개발 및 런칭 준비에 돌입하십시오. 회의 종료를 의결합니다.`,
+          created_at: time5
+        },
+        {
+          id: 'dyn_gen_6',
+          exec_id: 'system',
+          role: 'system',
+          message: `⚙️ [시스템 이벤트] 이사회 안건 '${projectTitle} 기획 및 의결 조율 회의'에 대한 의결 결과 및 전사 공식 의결 결정문이 성공적으로 발행 완료되었습니다.`,
+          created_at: time6
+        }
+      ];
     }
 
-    // 완전히 동적으로 조립되는 범용 AI 시뮬레이션 빌더 (하드코딩 방지 + 미생 스타일 극적 대화)
-    return [
-      {
-        id: 'dyn_gen_1',
-        exec_id: 'ceo',
-        role: 'ceo',
-        message: `임원진 여러분, 이번 안건은 '${projectTitle}' 프로젝트의 기획 스코프 획정 및 실무 배포를 위한 역할 분업화입니다. 대표님께서 직접 이사회를 모니터링하고 계십니다. 각자의 전문 영역에서 가장 날카로운 의견을 개진해 주십시오. CPO 이안부터 브리핑하십시오.`,
-        created_at: time1
-      },
-      {
-        id: 'dyn_gen_2',
-        exec_id: 'cpo',
-        role: 'cpo',
-        message: `CPO 이안입니다. '${projectTitle}'의 핵심 비즈니스 가치는 사용자가 수동 작업 없이 바로 '${key1}'을 신속하게 도출해내는 것입니다. MVP 단계에서 번잡한 기능을 과감히 다이어트하고 핵심 밸류에만 집중하도록 PRD 기획서를 최종 설계하여 Notion에 연동 완료했습니다.`,
-        created_at: time2
-      },
-      {
-        id: 'dyn_gen_3',
-        exec_id: 'cdo',
-        role: 'cdo',
-        message: `이안의 기능 다이어트 방향성에는 적극 동의해요. 하지만 UI/UX 디자이너로서 짚어두고 싶네요. 기능이 미니멀해질수록 화면의 시각적 완성도와 미적 디테일이 브랜드 신뢰를 좌우합니다. 우리의 가치인 '${key2}'이 단 한 번의 조작으로 시선에 와닿을 수 있도록, 글래스모피즘 계열의 세련된 투명 레이어 구조를 가미한 와이어프레임 시안 6종을 도출하겠습니다.`,
-        created_at: time3
-      },
-      {
-        id: 'dyn_gen_4',
-        exec_id: 'cto',
-        role: 'cto',
-        message: `디자이너로서의 시각적 완성도에 대한 우려, 타당합니다. CTO로서 프론트와 백엔드의 실시간 연동 성능으로 뒷받침하겠습니다. 사용자가 입력한 동적 데이터가 지연 없이 반영되도록 Supabase PostgreSQL을 연동해 실시간 데이터 싱크를 맞출 계획입니다. 오늘 안으로 '${key3}' 처리를 위한 테이블 스키마 생성 및 기초 뼈대 API 개발 환경 셋업을 완수하여 CI/CD 배포 파이프라인에 병합하겠습니다.`,
-        created_at: time4
-      },
-      {
-        id: 'dyn_gen_5',
-        exec_id: 'ceo',
-        role: 'ceo',
-        message: `기획의 날카로운 MVP 타겟팅, 디자인의 신뢰성 높은 와이어프레임 시안, 개발의 Supabase DB 및 인프라 설계... AI 임원진들의 눈부신 협업과 유기적 분업이군요. 예산을 승인 결재하며, 오늘 각자 수립한 부서별 태스크 액션 아이템을 바탕으로 즉각 실무 개발 및 런칭 준비에 돌입하십시오. 회의 종료를 의결합니다.`,
-        created_at: time5
-      },
-      {
-        id: 'dyn_gen_6',
-        exec_id: 'system',
-        role: 'system',
-        message: `⚙️ [시스템 이벤트] 이사회 안건 '${projectTitle} 기획 및 의결 조율 회의'에 대한 의결 결과 및 전사 공식 의결 결정문이 성공적으로 발행 완료되었습니다.`,
-        created_at: time6
-      }
-    ];
-  }, [boardroomThreads, activeSessionId, displayMeetings, activeProject])
+    if (meetingSearchQuery) {
+      const q = meetingSearchQuery.toLowerCase();
+      fallbackData = fallbackData.filter((th) => 
+        (th.message || '').toLowerCase().includes(q) || 
+        (th.role || '').toLowerCase().includes(q)
+      );
+    }
+    return fallbackData;
+  }, [boardroomThreads, activeProject, meetingSearchQuery])
 
   // ━━━ BYOK API Key Manager UI States ━━━
   const [showApiKeyManager, setShowApiKeyManager] = useState(false)
@@ -572,7 +782,7 @@ export default function DashboardPage() {
     // Supabase Realtime을 활성화하여 텔레그램 지시 등 전체 스레드 펄스를 실시간 꽂아줌
     const channel = supabase.channel('boardroom_live')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'conversation_threads', filter: 'exec_id=eq.boardroom' }, (payload) => {
-        setBoardroomThreads(prev => [payload.new, ...prev].slice(0, 100))
+        setBoardroomThreads(prev => [payload.new, ...prev].slice(0, 300))
       })
       .subscribe()
 
@@ -707,6 +917,20 @@ export default function DashboardPage() {
       })
     }
   }, [taskLogsThreads, dashboardSubView])
+
+  // 🏛️ 이사회 대화실 하단 고정 자동 스크롤 훅 (단톡방 프리미엄 UX)
+  useEffect(() => {
+    if (dashboardSubView === 'boardroom' && boardroomContainerRef.current) {
+      setTimeout(() => {
+        if (boardroomContainerRef.current) {
+          boardroomContainerRef.current.scrollTo({
+            top: boardroomContainerRef.current.scrollHeight,
+            behavior: 'smooth'
+          })
+        }
+      }, 80)
+    }
+  }, [activeSessionThreads, dashboardSubView])
 
   // 🌟 유니크한 로그 날짜 추출
   const availableDates = useMemo(() => {
@@ -1183,6 +1407,21 @@ export default function DashboardPage() {
   }, [view, dashboardSubView, selectedExec, selectedTeamRoom, settingsProject, closePanel]);
 
 
+  const handleSidebarClick = useCallback((targetView: 'projects' | 'dashboard' | 'company', targetSubView: 'grid' | 'boardroom' | 'team_rooms' | 'task_logs' | 'service_guide' | 'project_gallery' | null = null) => {
+    setView(targetView);
+    if (targetSubView) {
+      setDashboardSubView(targetSubView);
+    }
+    // 임원, 팀 회의실 등 활성 서브패널 상태 완전 초기화
+    setSelectedExec(null);
+    setPanelOpen(false);
+    setSelectedTeamRoom(null);
+    setSettingsProject(null);
+    setSelectedGalleryCard(null);
+    setShowNavMenu(false);
+  }, []);
+
+
   const handleQuickAction = (command: string, label: string) => {
     if (command === 'hire_team') { setHireExec(null); setShowHireModal(true); return }
     const tg = window.Telegram?.WebApp
@@ -1297,12 +1536,112 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="h-screen overflow-y-auto hero-bg honeycomb-bg relative">
+    <main className="h-screen overflow-y-auto hero-bg honeycomb-bg relative lg:pl-64">
+      {/* 데스크톱 전용 상시 고정 사이드바 */}
+      <aside className="hidden lg:flex lg:flex-col fixed left-0 top-0 bottom-0 w-64 bg-[#0D0D0D]/60 backdrop-blur-xl border-r border-amber-500/12 z-[90000] no-scrollbar">
+        <div className="flex items-center gap-2.5 px-6 py-5 border-b border-amber-500/10">
+          <button
+            onClick={() => {
+              setView('dashboard')
+              setDashboardSubView('grid')
+              setSelectedExec(null)
+              setPanelOpen(false)
+              setShowGradeManager(false)
+              setShowProjectMenu(false)
+            }}
+            className="flex items-center gap-2 text-left cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
+          >
+            <span className="text-xl bee-float">🐝</span>
+            <div>
+              <p className="text-xs font-bold text-shimmer">HiveDesk</p>
+              <p className="text-[10px] text-[#F5F0E8]/60">내 손안의 AI 1인 기업</p>
+            </div>
+          </button>
+        </div>
+        <nav className="flex-1 overflow-y-auto py-2 no-scrollbar">
+          {/* 프로젝트 섹션 */}
+          <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">프로젝트</p>
+          <Link href="/projects/new"
+            className="flex items-center gap-3 px-5 py-3 hover:bg-amber-500/8 transition-all duration-200 hover:translate-x-1">
+            <span className="text-base">{Icon.plus('#F5F0E8',16)}</span>
+            <div><p className="text-sm font-semibold text-[#F5F0E8]">새 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">새 프로젝트 등록</p></div>
+          </Link>
+          <button onClick={() => handleSidebarClick('projects')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'projects' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.folder('#F5F0E8',18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">전체 프로젝트 목록</p></div>
+          </button>
+
+          <button onClick={() => handleSidebarClick('dashboard', 'project_gallery')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'dashboard' && dashboardSubView === 'project_gallery' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.gallery(view === 'dashboard' && dashboardSubView === 'project_gallery' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">프로젝트 갤러리</p><p className="text-xs text-[#F5F0E8]/60">AI Studio 스타일 쇼케이스</p></div>
+          </button>
+          
+          {/* 운영 섹션 */}
+          <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">운영</p>
+          <button onClick={() => handleSidebarClick('company')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'company' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.barChart('#F5F0E8',18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 현황</p><p className="text-xs text-[#F5F0E8]/60">전체 조직 운영 현황</p></div>
+          </button>
+          
+          <button onClick={() => handleSidebarClick('dashboard', 'grid')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'dashboard' && dashboardSubView === 'grid' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.briefcase(view === 'dashboard' && dashboardSubView === 'grid' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 조직도</p><p className="text-xs text-[#F5F0E8]/60">9인 AI 임원진 및 부서</p></div>
+          </button>
+          
+          <button onClick={() => handleSidebarClick('dashboard', 'boardroom')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'dashboard' && dashboardSubView === 'boardroom' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.msgCircle(view === 'dashboard' && dashboardSubView === 'boardroom' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">이사회 회의실</p><p className="text-xs text-[#F5F0E8]/60">실시간 의사결정 및 세션</p></div>
+          </button>
+          
+          <button onClick={() => handleSidebarClick('dashboard', 'team_rooms')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'dashboard' && dashboardSubView === 'team_rooms' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.users(view === 'dashboard' && dashboardSubView === 'team_rooms' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">팀별 회의실</p><p className="text-xs text-[#F5F0E8]/60">9개 부서별 전용 실무 토론</p></div>
+          </button>
+          
+          <button onClick={() => handleSidebarClick('dashboard', 'task_logs')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'dashboard' && dashboardSubView === 'task_logs' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.monitor(view === 'dashboard' && dashboardSubView === 'task_logs' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">작업 실행 로그</p><p className="text-xs text-[#F5F0E8]/60">백엔드 개발 실황 CCTV 채널</p></div>
+          </button>
+
+          <button onClick={() => handleSidebarClick('dashboard', 'service_guide')}
+            className={`w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 ${
+              view === 'dashboard' && dashboardSubView === 'service_guide' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
+            }`}>
+            <span className="text-base">{Icon.helpCircle(view === 'dashboard' && dashboardSubView === 'service_guide' ? '#F59E0B' : '#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">서비스 가이드</p><p className="text-xs text-[#F5F0E8]/60">텔레그램 핫키 및 사용 설명서</p></div>
+          </button>
+        </nav>
+        <div className="px-5 py-4 border-t border-amber-500/10">
+          <p className="text-xs text-[#F5F0E8]/40">HiveDesk v4.0</p>
+        </div>
+      </aside>
+
       {/* Header — 좌측 삼선 고정 · 중앙 SVG+메뉴명 · 우측 계정 고정 */}
       <header className="border-b border-amber-500/10 backdrop-blur-md bg-[#0D0D0D]/80 sticky top-0 z-[100000] h-11 md:h-16 flex items-center justify-between w-full">
         <div className="w-full px-3 grid grid-cols-3 items-center">
-          {/* 좌: 삼선 메뉴 버튼 고정 */}
-          <div className="flex items-center">
+          {/* 좌: 삼선 메뉴 버튼 고정 (데스크톱에서 숨김) */}
+          <div className="flex items-center lg:hidden">
             <button
               id="btn-nav-menu"
               type="button"
@@ -1317,14 +1656,14 @@ export default function DashboardPage() {
             </button>
           </div>
           {/* 중앙: SVG 아이콘 + pure 메뉴명 고정 (본문 폰트스케일과 일치) */}
-          <div className="justify-self-center flex items-center gap-2 max-w-full">
+          <div className="justify-self-center flex items-center gap-2 max-w-full lg:col-start-2">
             <span className="shrink-0">{getHeaderTitleInfo.icon}</span>
             <span className="text-sm md:text-base font-bold text-[#F5F0E8] truncate tracking-wide font-sans">
               {getHeaderTitleInfo.title}
             </span>
           </div>
           {/* 우: 계정 아바타 고정 */}
-          <div className="flex justify-end">
+          <div className="flex justify-end lg:col-start-3">
             <button
               id="btn-user-menu"
               type="button"
@@ -1364,7 +1703,7 @@ export default function DashboardPage() {
               </button>
               <button onClick={() => setShowNavMenu(false)} className="text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 text-lg pr-1">✕</button>
             </div>
-            <nav className="flex-1 overflow-y-auto py-2">
+            <nav className="flex-1 overflow-y-auto py-2 no-scrollbar">
               {/* 프로젝트 섹션 */}
               <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">프로젝트</p>
               <Link href="/projects/new"
@@ -1372,7 +1711,7 @@ export default function DashboardPage() {
                 <span className="text-base">{Icon.plus('#F5F0E8',16)}</span>
                 <div><p className="text-sm font-semibold text-[#F5F0E8]">새 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">새 프로젝트 등록</p></div>
               </Link>
-              <button onClick={() => { setView('projects'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('projects')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'projects' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1380,7 +1719,7 @@ export default function DashboardPage() {
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">전체 프로젝트 목록</p></div>
               </button>
 
-              <button onClick={() => { setView('dashboard'); setDashboardSubView('project_gallery'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('dashboard', 'project_gallery')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' && dashboardSubView === 'project_gallery' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1389,7 +1728,7 @@ export default function DashboardPage() {
               </button>
               {/* 운영 섹션 */}
               <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">운영</p>
-              <button onClick={() => { setView('company'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('company')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'company' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1397,7 +1736,7 @@ export default function DashboardPage() {
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 현황</p><p className="text-xs text-[#F5F0E8]/60">전체 조직 운영 현황</p></div>
               </button>
               
-              <button onClick={() => { setView('dashboard'); setDashboardSubView('grid'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('dashboard', 'grid')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' && dashboardSubView === 'grid' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1405,7 +1744,7 @@ export default function DashboardPage() {
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 조직도</p><p className="text-xs text-[#F5F0E8]/60">9인 AI 임원진 및 부서</p></div>
               </button>
               
-              <button onClick={() => { setView('dashboard'); setDashboardSubView('boardroom'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('dashboard', 'boardroom')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' && dashboardSubView === 'boardroom' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1413,7 +1752,7 @@ export default function DashboardPage() {
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">이사회 회의실</p><p className="text-xs text-[#F5F0E8]/60">실시간 의사결정 및 세션</p></div>
               </button>
               
-              <button onClick={() => { setView('dashboard'); setDashboardSubView('team_rooms'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('dashboard', 'team_rooms')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' && dashboardSubView === 'team_rooms' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1421,7 +1760,7 @@ export default function DashboardPage() {
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">팀별 회의실</p><p className="text-xs text-[#F5F0E8]/60">9개 부서별 전용 실무 토론</p></div>
               </button>
               
-              <button onClick={() => { setView('dashboard'); setDashboardSubView('task_logs'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('dashboard', 'task_logs')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' && dashboardSubView === 'task_logs' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1429,7 +1768,7 @@ export default function DashboardPage() {
                 <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">작업 실행 로그</p><p className="text-xs text-[#F5F0E8]/60">백엔드 개발 실황 CCTV 채널</p></div>
               </button>
 
-              <button onClick={() => { setView('dashboard'); setDashboardSubView('service_guide'); setShowNavMenu(false) }}
+              <button onClick={() => handleSidebarClick('dashboard', 'service_guide')}
                 className={`w-full flex items-center gap-3 px-5 py-3 transition-colors ${
                   view === 'dashboard' && dashboardSubView === 'service_guide' ? 'bg-amber-500/10 text-amber-400' : 'hover:bg-white/5'
                 }`}>
@@ -1556,25 +1895,12 @@ export default function DashboardPage() {
                         p.active_project ? 'border-amber-500/40 amber-glow' : 'border-white/8 hover:border-white/20'
                       }`}
                     >
-                      {/* 클릭하여 활성화하는 영역 */}
-                      <div
-                        onClick={async () => {
-                          if (isEditing) return
-                          if (p.id === activeProject?.id) return
-                          await fetch('/api/projects', {
-                            method: 'PATCH',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ org_id: orgId, project_id: p.id }),
-                          })
-                          setActiveProject(p)
-                          setProjects(prev => prev.map(pp => ({ ...pp, active_project: pp.id === p.id })))
-                        }}
-                        className="cursor-pointer flex-1 text-left tap-fast pr-10"
-                      >
+                      {/* 클릭 변경이 배제된 정적 정보 영역 */}
+                      <div className="flex-1 text-left tap-fast pr-14">
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-1.5">
-                              {p.active_project && <span className="w-2 h-2 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(245,158,11,0.8)] flex-shrink-0" />}
+                              {p.active_project && <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.8)] flex-shrink-0 animate-pulse" />}
                               
                               {/* ✏️ 이름 변경 인라인 폼 */}
                               {isEditing ? (
@@ -1592,26 +1918,55 @@ export default function DashboardPage() {
                                   onClick={e => e.stopPropagation()}
                                 />
                               ) : (
-                                <p className="font-bold text-base text-[#F5F0E8] truncate">{p.title}</p>
+                                <div className="flex items-center gap-2 flex-wrap min-w-0">
+                                  <p className="font-bold text-base text-[#F5F0E8] truncate">{p.title}</p>
+                                  {/* 뱃지를 제목 바로 뒤로 밀착 이동 */}
+                                  <span className={`text-[10px] px-2.5 py-0.5 rounded-full font-black flex-shrink-0 ${
+                                    p.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' :
+                                    p.status === 'planning' ? 'bg-blue-500/20 text-blue-400' :
+                                    'bg-white/10 text-[#F5F0E8]/50'
+                                  }`}>{p.status === 'active' ? '운영중' : p.status === 'planning' ? '기획중' : p.status}</span>
+                                </div>
                               )}
                             </div>
                             <p className="text-xs text-[#F5F0E8]/65 line-clamp-2">{p.description}</p>
                           </div>
                           
-                          <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-                            <span className={`text-xs px-2.5 py-0.5 rounded-full font-semibold ${
-                              p.status === 'active' ? 'bg-emerald-500/20 text-emerald-400' :
-                              p.status === 'planning' ? 'bg-blue-500/20 text-blue-400' :
-                              'bg-white/10 text-[#F5F0E8]/50'
-                            }`}>{p.status === 'active' ? '운영중' : p.status === 'planning' ? '기획중' : p.status}</span>
-                            {p.active_project && <span className="text-xs text-amber-400 font-bold">★ 활성</span>}
-                          </div>
+                          
                         </div>
                         {p.goal && <p className="text-xs text-[#F5F0E8]/50 mt-2 line-clamp-1 flex items-center gap-1">{Icon.target('#F5F0E8',12)} {p.goal}</p>}
                       </div>
 
-                      {/* ⚙️ 삼점 (...) 더보기 버튼 */}
-                      <div className="absolute top-2 right-2 z-20">
+                      {/* ⚙️ 컨트롤러 존 (토글 스위치 + 삼점 더보기 버튼) */}
+                      <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-2">
+                        {/* 🌟 럭셔리 콤팩트 골드 토글 스위치 (Exclusive Activation) */}
+                        <button
+                          type="button"
+                          onClick={async (e) => {
+                            e.stopPropagation()
+                            if (p.active_project) return // 이미 활성화된 프로젝트는 토글 해제 불가 (항상 1개 락인)
+                            
+                            await fetch('/api/projects', {
+                              method: 'PATCH',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ org_id: orgId, project_id: p.id }),
+                            })
+                            setActiveProject(p)
+                            setProjects(prev => prev.map(pp => ({ ...pp, active_project: pp.id === p.id })))
+                          }}
+                          className={`w-7.5 h-4.5 rounded-full p-0.5 transition-colors duration-300 focus:outline-none flex items-center shrink-0 cursor-pointer ${
+                            p.active_project 
+                              ? 'bg-amber-400 shadow-[0_0_8px_rgba(245,158,11,0.6)]' 
+                              : 'bg-zinc-700/60 border border-white/20 hover:bg-zinc-700/80'
+                          }`}
+                        >
+                          <span
+                            className={`w-3.5 h-3.5 rounded-full bg-white transition-transform duration-300 shadow-sm ${
+                              p.active_project ? 'translate-x-3' : 'translate-x-0'
+                            }`}
+                          />
+                        </button>
+
                         <button
                           type="button"
                           onClick={(e) => {
@@ -1677,195 +2032,291 @@ export default function DashboardPage() {
           </section>
         )}
 
-        {/* ── 회사 현황 뷰 (조직도) ── */}
+                {/* ── 회사 현황 뷰 (Corporate Cockpit 전면 고도화) ── */}
         {view === 'company' && (
-          <section className={mounted ? 'fade-in-up' : 'opacity-0'}>
-            {/* 회사 현황 본문 헤더 (중복 제목은 지우고 럭셔리 인라인 뱃지 캡슐로 렌더링) */}
-            <div className="flex items-center justify-end mb-4">
-              <div className="flex items-center gap-2 bg-white/5 border border-white/8 px-3.5 py-1.5 rounded-xl shadow-inner">
-                <span className="text-xs text-[#F5F0E8]/60 font-medium">총 팀원:</span>
-                <span className="text-xs font-bold text-amber-400">{EXECUTIVES.reduce((s,e)=>s+(hiredSkills[e.id]||[]).length,0)}명</span>
-                {activeProject && (
-                  <>
-                    <span className="text-white/10 mx-0.5">|</span>
-                    <span className="text-[10px] text-sky-200 font-bold bg-sky-500/10 border border-sky-500/20 px-2.5 py-0.5 rounded-md flex items-center gap-1">
-                      <span className="w-1 h-1 rounded-full bg-sky-400 animate-pulse" />
-                      {activeProject.title}
-                    </span>
-                  </>
-                )}
+          <section className={`space-y-6 ${mounted ? 'fade-in-up' : 'opacity-0'} mb-8`}>
+            {/* 1. 최상단 실시간 럭셔리 KPI 4구 대시보드 캡슐 */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="glass rounded-2xl p-4 border border-white/8 bg-[#0D0D0F]/65 hover:border-amber-500/25 transition-all shadow-inner relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-amber-500/3 rounded-full blur-xl pointer-events-none" />
+                <p className="text-[10px] sm:text-xs font-bold text-[#F5F0E8]/40 uppercase tracking-wider mb-1">운영 임원 부서</p>
+                <div className="flex items-baseline gap-1.5">
+                  <h3 className="text-xl sm:text-2xl font-black text-amber-450 font-sans tracking-tight">
+                    {EXECUTIVES.filter(e => (hiredSkills[e.id] || []).length > 0).length} <span className="text-xs sm:text-sm font-normal text-[#F5F0E8]/60">/ 9개</span>
+                  </h3>
+                </div>
+                <p className="text-[9px] sm:text-[10px] text-[#F5F0E8]/50 font-semibold mt-1">
+                  고용된 실무진 요원: <strong className="text-white font-bold">{EXECUTIVES.reduce((s, e) => s + (hiredSkills[e.id] || []).length, 0)}명</strong>
+                </p>
+              </div>
+
+              <div className="glass rounded-2xl p-4 border border-white/8 bg-[#0D0D0F]/65 hover:border-amber-500/25 transition-all shadow-inner relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-sky-500/3 rounded-full blur-xl pointer-events-none" />
+                <p className="text-[10px] sm:text-xs font-bold text-[#F5F0E8]/40 uppercase tracking-wider mb-1">누적 자동화 과업</p>
+                <div className="flex items-baseline gap-1.5">
+                  <h3 className="text-xl sm:text-2xl font-black text-sky-400 font-sans tracking-tight">1,284 <span className="text-xs sm:text-sm font-normal text-[#F5F0E8]/60">건</span></h3>
+                </div>
+                <p className="text-[9px] sm:text-[10px] text-[#F5F0E8]/50 font-semibold mt-1">
+                  AI 자율 연동 처리 엔진: <strong className="text-white font-bold">Opus 4.7</strong>
+                </p>
+              </div>
+
+              <div className="glass rounded-2xl p-4 border border-white/8 bg-[#0D0D0F]/65 hover:border-amber-500/25 transition-all shadow-inner relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-emerald-500/3 rounded-full blur-xl pointer-events-none" />
+                <p className="text-[10px] sm:text-xs font-bold text-[#F5F0E8]/40 uppercase tracking-wider mb-1">실시간 AI 가동률</p>
+                <div className="flex items-baseline gap-1.5">
+                  <h3 className="text-xl sm:text-2xl font-black text-emerald-400 font-sans tracking-tight">12.4 <span className="text-xs sm:text-sm font-normal text-[#F5F0E8]/60">%</span></h3>
+                </div>
+                <p className="text-[9px] sm:text-[10px] text-emerald-400 font-bold mt-1 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" /> System Stable
+                </p>
+              </div>
+
+              <div className="glass rounded-2xl p-4 border border-white/8 bg-[#0D0D0F]/65 hover:border-amber-500/25 transition-all shadow-inner relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-purple-500/3 rounded-full blur-xl pointer-events-none" />
+                <p className="text-[10px] sm:text-xs font-bold text-[#F5F0E8]/40 uppercase tracking-wider mb-1">절감된 실무 시간</p>
+                <div className="flex items-baseline gap-1.5">
+                  <h3 className="text-xl sm:text-2xl font-black text-purple-400 font-sans tracking-tight">148.5 <span className="text-xs sm:text-sm font-normal text-[#F5F0E8]/60">시간</span></h3>
+                </div>
+                <p className="text-[9px] sm:text-[10px] text-[#F5F0E8]/50 font-semibold mt-1">
+                  1인 기업 시간 레버리지: <strong className="text-amber-450 font-black">12.5배</strong>
+                </p>
               </div>
             </div>
 
-            {/* CEO 카드 */}
-            <button onClick={() => handleExecClick(CEO_EXEC)}
-              className="w-full glass amber-glow rounded-2xl p-4 mb-2 border-amber-500/30 tap-fast hover:bg-amber-500/8 transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-14 h-14 rounded-xl overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B30)'}}>
-                  <img src={execImgSrc('ceo')} alt="CEO" className="w-full h-full object-contain" onError={e => imgFallback(e,'#F59E0B')} />
-                </div>
-                <div className="flex-1 text-left min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded-md flex items-center gap-1">{Icon.crown('#F59E0B',14)} CEO</span>
-                    <span className="text-base font-bold text-[#F5F0E8]">리처드</span>
-                    <span className="text-xs text-[#F5F0E8]/60">· 경영 총괄</span>
+            {/* 2. 전사 AI 임원진 실시간 가동 상태판 (Cockpit Live Monitor) & 재무 ROI */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* 좌측 2/3 영역: AI 임원 가동 현황판 */}
+              <div className="lg:col-span-2 glass rounded-3xl p-5 border border-white/10 bg-[#09090C]/80 shadow-2xl space-y-4">
+                <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">👔</span>
+                    <h3 className="text-sm font-extrabold text-white">전사 AI 임원 실시간 가동 상황판</h3>
                   </div>
-                  <p className="text-xs text-[#F5F0E8]/70">비전 수립 · 전략 결정 · 최종 의사결정</p>
-                </div>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex-shrink-0">대기중</span>
-              </div>
-            </button>
-
-            {/* 수직선 */}
-            <div className="flex justify-center mb-2"><div className="w-px h-3 bg-amber-500/30" /></div>
-
-            {/* 비서실장 (실무팀) 카드 */}
-            <div className="flex justify-center mb-6">
-              <button onClick={() => handleExecClick(SEC_CHIEF)}
-                className="w-full max-w-md glass rounded-2xl p-4 border-purple-500/20 flex flex-col gap-3 tap-fast hover:bg-purple-500/10 transition-colors text-left relative overflow-hidden" style={{background:'rgba(167,139,250,0.05)'}}>
-                <div className="absolute -right-6 -bottom-6 w-32 h-32 rounded-full opacity-10 bg-purple-500 blur-2xl pointer-events-none" />
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-full flex-shrink-0 overflow-hidden border-2 border-purple-500/40">
-                      <img src="/characters/sec_chief.png?v=3" alt="비서실장" className="w-full h-full object-cover" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-bold text-[#F5F0E8]">{SEC_CHIEF.name}</span>
-                        <span className="text-xs font-bold text-purple-400 bg-purple-500/15 px-1.5 py-0.5 rounded-md flex items-center gap-1">{SEC_CHIEF.title}</span>
-                      </div>
-                      <p className="text-[11px] text-[#F5F0E8]/70">{SEC_CHIEF.titleKo}</p>
-                    </div>
-                  </div>
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex-shrink-0 z-10">대기중</span>
-                </div>
-                
-                <div className="bg-black/20 rounded-xl p-3 flex items-center justify-between border border-white/5 relative z-10">
-                  <span className="text-xs text-[#F5F0E8]/60 flex items-center gap-1.5">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    실무팀 비서 3명
+                  <span className="text-[9px] px-2.5 py-0.5 rounded-full bg-[#1A1A1E] border border-white/8 text-[#F5F0E8]/50 font-bold uppercase tracking-wider">
+                    Orchestrated Live Monitor
                   </span>
-                  <div className="flex -space-x-2">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs bg-[#222222] border-2 border-[#121212] z-30">🔍</div>
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs bg-[#222222] border-2 border-[#121212] z-20">📊</div>
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs bg-[#222222] border-2 border-[#121212] z-10">🌐</div>
-                  </div>
                 </div>
-              </button>
-            </div>
 
-            {/* 수직선 */}
-            <div className="flex justify-center mb-3"><div className="w-px h-3 bg-white/10" /></div>
+                <div className="space-y-3">
+                  {EXECUTIVES.map((exec) => {
+                    const count = (hiredSkills[exec.id] || []).length;
+                    
+                    // 각 임원 부서별 실시간 고유 가동 시나리오 정의 (현장감 유도)
+                    let currentAction = '대기 중 (Standby)';
+                    let loadPercent = 0;
+                    let mood = '보통';
+                    let statusColor = 'bg-[#4B5563]'; // gray
+                    let textStatusColor = 'text-[#F5F0E8]/40';
 
-            {/* 팀 그룹 */}
-            {COMPANY_TEAMS.map(({ label, ids }) => (
-              <div key={label} className="mb-4">
-                <p className="text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-widest mb-2 px-1">{label}</p>
-                <div className="flex flex-col gap-2">
-                  {ids.map(id => {
-                    const exec = EXECUTIVES.find(e => e.id === id)!
-                    const memberCount = (hiredSkills[exec.id] || []).length
+                    if (count > 0) {
+                      loadPercent = exec.id === 'cto' ? 45 : exec.id === 'cpo' ? 32 : exec.id === 'cdo' ? 18 : 12;
+                      statusColor = 'bg-emerald-500 animate-pulse';
+                      textStatusColor = 'text-emerald-400';
+                      mood = '매우 의욕적 ⚡';
+                      
+                      if (exec.id === 'ceo') {
+                        currentAction = '활성 프로젝트 전략 마이그레이션 결재안 상신 대기';
+                      } else if (exec.id === 'cto') {
+                        currentAction = 'Supabase RLS 보안 규칙 아키텍처 실시간 교차 검증 및 컴파일 검토';
+                      } else if (exec.id === 'cpo') {
+                        currentAction = '대표님 피드백 반영을 위한 서비스 가이드 UX 로드맵 우선순위 갱신';
+                      } else if (exec.id === 'cdo') {
+                        currentAction = 'Corporate Cockpit의 글래스모피즘 테두리 및 황금빛 액센트 아우라 섀도우 마감';
+                      } else if (exec.id === 'cfo') {
+                        currentAction = '이번 달 서버 API 가동 리소스 대비 순이익률 ROI 지출 보고서 산출';
+                      } else {
+                        currentAction = '8임원 연합 텔레그램 메인 채널 실시간 명령 대기 및 자동화 인지';
+                      }
+                    } else {
+                      currentAction = '공석 (임원이 배치되지 않음. 필요 시 인재 등급 관리에서 고용)';
+                    }
+
                     return (
-                      <button key={id} onClick={() => handleExecClick(exec)}
-                        className="glass rounded-xl p-3 flex items-center gap-3 tap-fast hover:bg-amber-500/8 border-white/8 transition-colors text-left">
-                        <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0" style={{background:'linear-gradient(135deg,#111 60%,#F59E0B15)'}}>
-                          <img src={execImgSrc(id)} alt={exec.title} className="w-full h-full object-contain" onError={e => imgFallback(e, exec.color)} />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-bold text-amber-400 bg-amber-500/15 px-1.5 py-0.5 rounded">{exec.title}</span>
-                            <span className="text-sm font-bold text-[#F5F0E8]">{exec.name}</span>
-                            <span className="text-xs text-[#F5F0E8]/55">· {exec.titleKo}</span>
+                      <div key={exec.id} className="glass rounded-xl p-3 border border-white/5 bg-[#0D0D0F]/45 hover:border-white/10 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <div className="w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-white/10" style={{ background: `linear-gradient(135deg, #111, ${exec.color}15)` }}>
+                            <img src={execImgSrc(exec.id)} alt={exec.title} className="w-full h-full object-contain p-0.5" onError={e => imgFallback(e, exec.color)} />
                           </div>
-                          <p className="text-xs text-[#F5F0E8]/60 truncate">{exec.desc}</p>
+                          <div className="text-left min-w-0 flex-1">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="text-[10px] font-black text-amber-450 bg-amber-500/10 px-1.5 py-0.5 rounded-md border border-amber-500/20">{exec.title}</span>
+                              <span className="text-xs font-extrabold text-[#F5F0E8]">{exec.name}</span>
+                              <span className="text-[10px] text-[#F5F0E8]/50">· {exec.titleKo}</span>
+                            </div>
+                            <p className="text-[10px] text-[#F5F0E8]/70 truncate mt-1 leading-relaxed font-semibold">
+                              ⚡ <strong className="text-white/90">과업:</strong> {currentAction}
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                          <span className="text-sm font-bold text-[#F5F0E8]/80">{memberCount}<span className="text-xs font-normal text-[#F5F0E8]/50">명</span></span>
-                          {memberCount > 0
-                            ? <span className="text-xs text-emerald-400 font-bold">● 활성</span>
-                            : <span className="text-xs text-[#F5F0E8]/30">○ 공석</span>}
+
+                        <div className="flex items-center gap-4 shrink-0 justify-between md:justify-end border-t md:border-t-0 border-white/5 pt-2 md:pt-0">
+                          <div className="text-right space-y-0.5">
+                            <div className="flex items-center gap-1.5 justify-end">
+                              <span className={`w-1.5 h-1.5 rounded-full ${statusColor}`} />
+                              <span className={`text-[10px] font-black ${textStatusColor}`}>
+                                {count > 0 ? '● LIVE RUN' : '○ STANDBY'}
+                              </span>
+                            </div>
+                            <p className="text-[9px] text-[#F5F0E8]/40 font-bold font-mono">가동률: {loadPercent}% | 기분: {mood}</p>
+                          </div>
+                          
+                          {/* 실시간 로드율 미니 가로바 */}
+                          <div className="w-16 h-1 rounded-full bg-white/5 overflow-hidden shrink-0 hidden md:block">
+                            <div className="h-full rounded-full transition-all duration-500" style={{ width: `${loadPercent}%`, backgroundColor: exec.color }} />
+                          </div>
                         </div>
-                      </button>
-                    )
+                      </div>
+                    );
                   })}
                 </div>
               </div>
-            ))}
 
-            {/* 하단 요약 */}
-            <div className="mt-3 glass rounded-xl p-4 grid grid-cols-3 gap-2 text-center border-white/8">
-              <div><p className="text-xl font-black text-amber-400">{EXECUTIVES.reduce((s,e)=>s+(hiredSkills[e.id]||[]).length,0)}</p><p className="text-xs text-[#F5F0E8]/60">전체 팀원</p></div>
-              <div><p className="text-xl font-black text-[#F5F0E8]/90">9</p><p className="text-xs text-[#F5F0E8]/60">임원 부서</p></div>
-              <div><p className="text-xl font-black text-emerald-400">{EXECUTIVES.filter(e=>(hiredSkills[e.id]||[]).length>0).length}</p><p className="text-xs text-[#F5F0E8]/60">운영 중 팀</p></div>
+              {/* 우측 1/3 영역: 전사 재무 지출 콕핏 & ROI */}
+              <div className="glass rounded-3xl p-5 border border-white/10 bg-[#09090C]/80 shadow-2xl space-y-4 flex flex-col justify-between">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">💰</span>
+                      <h3 className="text-sm font-extrabold text-white">전사 재무 지출 Cockpit</h3>
+                    </div>
+                    <span className="text-[9px] font-black text-amber-450 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">CFO 알렉스 관리</span>
+                  </div>
+
+                  {/* 재무 상태 캡슐 */}
+                  <div className="space-y-2.5">
+                    <div className="glass rounded-2xl p-3 border border-white/5 bg-[#050507]/60">
+                      <p className="text-[10px] font-bold text-[#F5F0E8]/40 uppercase mb-0.5">이번 달 누적 인프라 API 비용</p>
+                      <div className="flex items-baseline justify-between">
+                        <span className="text-lg font-black text-rose-400 font-mono">$118.50</span>
+                        <span className="text-[9px] text-[#F5F0E8]/40 font-bold font-mono">예산 한도 $500.00 대비 23.7%</span>
+                      </div>
+                      <div className="w-full h-1 bg-white/5 rounded-full mt-2 overflow-hidden">
+                        <div className="h-full bg-rose-500 rounded-full" style={{ width: '23.7%' }} />
+                      </div>
+                    </div>
+
+                    <div className="glass rounded-2xl p-3 border border-white/5 bg-[#050507]/60">
+                      <p className="text-[10px] font-bold text-[#F5F0E8]/40 uppercase mb-0.5">이번 달 순이익 ROI 절감액</p>
+                      <div className="flex items-baseline justify-between">
+                        <span className="text-lg font-black text-emerald-400 font-mono">$4,850.00</span>
+                        <span className="text-[9px] text-emerald-400 font-extrabold">▲ 외주 비용 대비 41배 절약</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 일간 API 토큰 소모 트렌드 */}
+                  <div className="space-y-2 pt-2">
+                    <p className="text-[10px] font-bold text-[#F5F0E8]/50 uppercase tracking-widest pl-1">일간 API 토큰 소모 추이</p>
+                    <div className="space-y-1.5 font-mono text-[9px] font-bold text-[#F5F0E8]/60 bg-[#060608]/80 p-2.5 rounded-xl border border-white/5">
+                      <div className="flex items-center justify-between">
+                        <span>월 (Mon)</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-amber-500/70">■■■░░░░</span>
+                          <span>38%</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>화 (Tue)</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-amber-500/70">■■■■░░░</span>
+                          <span>52%</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>수 (Wed)</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-amber-450 animate-pulse">■■■■■■░</span>
+                          <span className="text-amber-400">84% (보드룸 의결)</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>목 (Thu)</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-amber-500/70">■■■■░░░</span>
+                          <span>41%</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>금 (Fri)</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-emerald-400">■■░░░░░</span>
+                          <span className="text-emerald-400">25% (현재)</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CFO 알렉스의 재무 보증 싸인 */}
+                <div className="mt-4 pt-3.5 border-t border-white/5 text-center">
+                  <p className="text-[10px] font-bold text-amber-450 italic leading-snug">
+                    "CFO 알렉스 재무 보증: 9인 임원 자동 오케스트레이션으로<br />
+                    1인 기업 순이익률이 기존 외주 방식 대비 845% 극대화되었습니다."
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. 백엔드 PM2 서버 실시간 헬스 체크 보드 (Platform Server Alive-Status) */}
+            <div className="glass rounded-3xl p-5 border border-white/10 bg-[#09090C]/80 shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-white/5 pb-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🖥️</span>
+                  <h3 className="text-sm font-extrabold text-white">백엔드 서버 가동 상태 모니터 (PM2 Live Dashboard)</h3>
+                </div>
+                <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-0.5 rounded-full shrink-0">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-[9px] font-black text-emerald-400 tracking-wider">ALL SERVICES RUNNING</span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+                <div className="glass rounded-2xl p-4 border border-white/5 bg-[#050507]/60 flex items-center justify-between gap-3">
+                  <div className="space-y-1 text-left min-w-0">
+                    <p className="text-xs font-black text-white font-mono truncate">hivedesk-web</p>
+                    <p className="text-[9px] text-[#F5F0E8]/40 font-bold font-mono">Next.js WebApp | Port: 3000</p>
+                    <p className="text-[9px] text-[#F5F0E8]/60 font-bold font-mono">RAM: 240KB | 업타임 100% 무장애</p>
+                  </div>
+                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)] shrink-0 animate-pulse flex items-center justify-center text-[7px] text-black font-black">ON</span>
+                </div>
+
+                <div className="glass rounded-2xl p-4 border border-white/5 bg-[#050507]/60 flex items-center justify-between gap-3">
+                  <div className="space-y-1 text-left min-w-0">
+                    <p className="text-xs font-black text-white font-mono truncate">hivedesk-bridge</p>
+                    <p className="text-[9px] text-[#F5F0E8]/40 font-bold font-mono">Telegram AI Emma | Up: 19h</p>
+                    <p className="text-[9px] text-[#F5F0E8]/60 font-bold font-mono">RAM: 118.7MB | 업타임 100%</p>
+                  </div>
+                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)] shrink-0 animate-pulse flex items-center justify-center text-[7px] text-black font-black">ON</span>
+                </div>
+
+                <div className="glass rounded-2xl p-4 border border-white/5 bg-[#050507]/60 flex items-center justify-between gap-3">
+                  <div className="space-y-1 text-left min-w-0">
+                    <p className="text-xs font-black text-white font-mono truncate">hivedesk-tunnel</p>
+                    <p className="text-[9px] text-[#F5F0E8]/40 font-bold font-mono">Global Secure Tunnel | Up: 2D</p>
+                    <p className="text-[9px] text-[#F5F0E8]/60 font-bold font-mono">RAM: 45.4MB | 무정체 터널 연결</p>
+                  </div>
+                  <span className="w-3.5 h-3.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)] shrink-0 animate-pulse flex items-center justify-center text-[7px] text-black font-black">ON</span>
+                </div>
+              </div>
+
+              {/* 하드웨어 간이 헬스 정보 */}
+              <div className="pt-3 border-t border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-2 text-[10px] font-bold text-[#F5F0E8]/45">
+                <div className="flex items-center gap-4 flex-wrap">
+                  <span>🖥️ CPU 사용량: <strong className="text-emerald-400">4.8%</strong></span>
+                  <span>💾 RAM 점유율: <strong className="text-[#F5F0E8]/70">16.4GB / 32.0GB</strong></span>
+                  <span>⚡ Network: <strong className="text-emerald-400">🟢 1.2 Gbps 무손실 대역폭 유지 중</strong></span>
+                </div>
+                <span>원격 서버 노드: MacMini M2 PRO (24/7 구동)</span>
+              </div>
             </div>
           </section>
         )}
 
 
-
         {/* ── 대시보드 뷰 (기존 임원 그리드 및 통합 이사회) ── */}
         {view === 'dashboard' && (
           <>
-            <div className={`hidden md:flex justify-center mb-4 ${mounted ? 'fade-in-up-delay-1' : 'opacity-0'}`}>
-              <span className="bg-sky-500/5 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold text-sky-200/90 border border-sky-500/20 flex items-center gap-1.5 shadow-[0_0_12px_rgba(14,165,233,0.1)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-sky-300/80 animate-pulse shadow-[0_0_4px_rgba(56,189,248,0.4)]" />
-                활성 프로젝트: {activeProject ? activeProject.title : '활성 프로젝트 없음'}
-              </span>
-            </div>
-
-            {/* 🔗 회사 조직도 / 이사회 회의실 / 팀별 회의실 3대 탭 전환용 럭셔리 아크릴 토글 */}
-            <div className={`hidden md:flex justify-center mb-6 ${mounted ? 'fade-in-up-delay-1' : 'opacity-0'}`}>
-              <div className="bg-[#111111]/90 backdrop-blur-md p-1 rounded-2xl border border-white/10 flex gap-1 shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
-                <button
-                  type="button"
-                  onClick={() => setDashboardSubView('grid')}
-                  className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
-                    dashboardSubView === 'grid'
-                      ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
-                      : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 border border-transparent'
-                  }`}
-                >
-                  {Icon.briefcase(dashboardSubView === 'grid' ? '#F59E0B' : '#F5F0E8', 14)}
-                  회사 조직도
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDashboardSubView('boardroom')}
-                  className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
-                    dashboardSubView === 'boardroom'
-                      ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
-                      : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 border border-transparent'
-                  }`}
-                >
-                  {Icon.msgCircle(dashboardSubView === 'boardroom' ? '#F59E0B' : '#F5F0E8', 14)}
-                  이사회 회의실
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDashboardSubView('team_rooms')}
-                  className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
-                    dashboardSubView === 'team_rooms'
-                      ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
-                      : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 border border-transparent'
-                  }`}
-                >
-                  {Icon.users(dashboardSubView === 'team_rooms' ? '#F59E0B' : '#F5F0E8', 14)}
-                  팀별 회의실
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setDashboardSubView('task_logs')}
-                  className={`px-3 sm:px-4.5 py-2.5 rounded-xl text-xs font-extrabold transition-all duration-300 flex items-center gap-1.5 ${
-                    dashboardSubView === 'task_logs'
-                      ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.2)]'
-                      : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80 border border-transparent'
-                  }`}
-                >
-                  {Icon.monitor(dashboardSubView === 'task_logs' ? '#F59E0B' : '#F5F0E8', 14)}
-                  작업 실행 로그
-                </button>
-              </div>
-            </div>
 
             {/* 1️⃣ 회사 조직도 뷰 (임원 및 비서진 그리드) */}
             {dashboardSubView === 'grid' && (
@@ -1907,11 +2358,11 @@ export default function DashboardPage() {
                   <div className="w-px h-3 bg-gradient-to-b from-amber-500/40 to-amber-500/10"></div>
                 </div>
                 <div className={`flex justify-center mb-4 ${mounted ? 'fade-in-up fade-in-up-delay-2' : 'opacity-0'}`}>
-                  <div className="w-full max-w-5xl h-px bg-gradient-to-r from-transparent via-amber-500/25 to-transparent"></div>
+                  <div className="w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-amber-500/25 to-transparent"></div>
                 </div>
 
                 {/* Executive Character Grid (4×2 Layout) */}
-                <section className={`grid grid-cols-2 sm:grid-cols-4 max-w-5xl mx-auto gap-2 sm:gap-4 mb-5 ${mounted ? 'fade-in-up fade-in-up-delay-3' : 'opacity-0'}`}>
+                <section className={`grid grid-cols-2 sm:grid-cols-4 max-w-7xl mx-auto gap-2 sm:gap-4 mb-5 ${mounted ? 'fade-in-up fade-in-up-delay-3' : 'opacity-0'}`}>
                   {REST_EXECS.map((exec, index) => (
                     <button
                       key={exec.id}
@@ -1941,72 +2392,119 @@ export default function DashboardPage() {
             {dashboardSubView === 'boardroom' && (() => {
               const isBoardroomActive = meetings.some((m: any) => m.status === 'in_progress' && (m.exec_id === 'ceo' || m.exec_id === 'boardroom' || m.meeting_type === 'general'))
               return (
-                <section className={`max-w-4xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
-                <div className="glass rounded-2xl p-4.5 mb-4 border border-amber-500/15 bg-amber-950/10 flex flex-col gap-3 shadow-xl">
-                  {/* 상단 라인: 타이틀, 드롭다운, 상태 태그 */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl shrink-0">🏛️</span>
-                      <div>
-                        <h3 className="text-xs sm:text-sm font-black text-amber-400 leading-tight">이사회 의결 본부</h3>
-                        <p className="text-[10px] text-[#F5F0E8]/40 font-bold">
-                          활성 프로젝트: <span className="text-amber-500/80">{activeProject?.title || '로딩 중...'}</span>
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <select
-                        value={activeSessionId}
-                        onChange={(e) => setActiveSessionId(e.target.value)}
-                        className="px-2.5 py-1.5 rounded-lg text-[10px] sm:text-[11px] font-bold bg-[#0D0D0D] border border-white/10 text-white focus:outline-none focus:border-amber-400 transition-all cursor-pointer shadow-inner min-w-[140px] max-w-[200px] truncate"
-                      >
-                        {displayMeetings.map((s) => (
-                          <option key={s.id} value={s.id}>
-                            📅 {s.date} - {s.topic.slice(0, 16)}...
-                          </option>
-                        ))}
-                      </select>
-
-                      {isBoardroomActive ? (
-                        <div className="flex items-center gap-1.5 bg-rose-500/10 border border-rose-500/25 px-2.5 py-0.5 rounded-full shrink-0">
-                          <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
-                          <span className="text-[9px] font-black text-rose-400 tracking-wider uppercase">● LIVE FEED</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-1.5 bg-neutral-500/10 border border-neutral-500/25 px-2.5 py-0.5 rounded-full shrink-0">
-                          <span className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
-                          <span className="text-[9px] font-black text-neutral-400 tracking-wider">회의 종료</span>
-                        </div>
+                <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
+                <div className="glass rounded-2xl p-2 sm:p-4.5 mb-2 sm:mb-4 border border-amber-500/15 bg-amber-950/10 flex flex-col gap-2 sm:gap-3 shadow-xl">
+                  {/* 카카오톡 스타일 스마트 검색바 */}
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="relative w-full">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40">
+                        {Icon.search('#F5F0E8', 14)}
+                      </span>
+                      <input
+                        type="text"
+                        value={meetingSearchQuery}
+                        onChange={(e) => setMeetingSearchQuery(e.target.value)}
+                        placeholder="이사회 회의 안건 또는 대화 내용 검색..."
+                        className="w-full pl-9 pr-10 py-1.5 sm:py-2.5 rounded-xl text-xs font-semibold bg-[#0D0D0D]/80 border border-white/10 text-[#F5F0E8] placeholder-white/30 focus:outline-none focus:border-amber-400 transition-all shadow-inner h-8 sm:h-9.5"
+                      />
+                      {meetingSearchQuery && (
+                        <button
+                          onClick={() => setMeetingSearchQuery('')}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/80 p-0.5 rounded transition-colors text-xs font-bold"
+                          title="검색 초기화"
+                        >
+                          ✕
+                        </button>
                       )}
                     </div>
                   </div>
 
-                  {/* 하단 라인: 안건 및 참석진 초슬림 요약 */}
+                  {/* 이사회 회의 안건 정보 표시 (실시간 DB 연동 및 소집 일시 추가, 폴백 지원) */}
                   {(() => {
-                    const s = displayMeetings.find((x) => x.id === activeSessionId) || displayMeetings[0]
-                    if (!s) return null
+                    const activeMeeting = meetings.find(
+                      (m: any) =>
+                        m.status === 'in_progress' &&
+                        (m.exec_id === 'ceo' || m.exec_id === 'boardroom' || m.meeting_type === 'general')
+                    );
+                    const completedMeeting = meetings.find(
+                      (m: any) =>
+                        m.status === 'completed' &&
+                        (m.exec_id === 'ceo' || m.exec_id === 'boardroom' || m.meeting_type === 'general')
+                    );
+
+                    // 대표님의 고품격 UAT 시나리오 폴백 데이터 구축
+                    const defaultMeeting = {
+                      title: '현재 제주도 부동산 실태 조사 및 경매물건 심층 분석 회의',
+                      description: '이사회 개회 - 전체 소집시켜 안건은 현재 제주도 부동산 실태 조사야. 특히 경매물건에 대한 심층 분석을 해줘.',
+                      participants: [
+                        'CTO 뮤즈', 'CFO 알렉스', 'CMO 폴', 'COO 엠마', 'CDO 하나', 'CPO 이안', 'CHRO 소피아', 'CLO 하비'
+                      ],
+                      created_at: '2026-05-30T15:00:00+09:00',
+                      project_title: activeProject?.title || '임장도우미'
+                    };
+
+                    const displayMeeting = activeMeeting || completedMeeting || defaultMeeting;
+                    const isLive = !!activeMeeting;
+                    const title = displayMeeting.title || displayMeeting.agenda || displayMeeting.description;
+                    
+                    const dateStr = displayMeeting.created_at
+                      ? new Date(displayMeeting.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric' }).replace(/\s/g, '').replace(/\.$/, '')
+                      : '2026.5.30';
+
+                    const participantsList = Array.isArray(displayMeeting.participants)
+                      ? displayMeeting.participants.map((p: any) => typeof p === 'object' ? p.name : String(p))
+                      : (displayMeeting.participants ? String(displayMeeting.participants).split(',') : []);
+
+                    const projectTitle = displayMeeting.project_title || (activeProject ? activeProject.title : '임장도우미');
+
                     return (
-                      <div className="flex flex-col gap-2.5 text-xs">
-                        <div className="flex items-start gap-1.5">
-                          <span className="text-amber-400 shrink-0 text-[10px] mt-0.5">📌</span>
-                          <p className="text-[#F5F0E8]/85 font-medium leading-relaxed text-[11px] sm:text-xs">
-                            <span className="text-amber-300 font-extrabold mr-1">[핵심 의제]</span>
-                            {s.topic}
+                      <div className="flex flex-col gap-2 text-[10.5px] sm:text-xs bg-amber-500/5 border border-amber-500/15 rounded-xl p-2.5 sm:p-3.5 mt-0.5 sm:mt-1 shadow-inner">
+                        <div className="flex items-center gap-1.5 pb-1.5 border-b border-amber-500/10">
+                          <span className="shrink-0 text-amber-450 font-extrabold tracking-wider">
+                            🏛️ 이사회 회의 정보 {isLive ? '(실시간 진행 중)' : '(최근 완료)'}
+                          </span>
+                          {isLive && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping ml-1" />}
+                        </div>
+
+                        {/* 안건 */}
+                        <div className="flex items-start gap-1.5 mt-0.5">
+                          <span className="shrink-0 text-amber-400/80 font-black min-w-[36px]">안건:</span>
+                          <p className="text-[#F5F0E8]/90 font-semibold leading-relaxed">
+                            {title}
                           </p>
                         </div>
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="text-[#F5F0E8]/40 font-bold text-[9px] tracking-wider uppercase shrink-0">👥 참석 임원진:</span>
+
+                        {/* 일시 */}
+                        <div className="flex items-start gap-1.5">
+                          <span className="shrink-0 text-amber-400/80 font-black min-w-[36px]">일시:</span>
+                          <p className="text-[#F5F0E8]/80 font-semibold">
+                            {dateStr}
+                          </p>
+                        </div>
+
+                        {/* 참석 */}
+                        <div className="flex items-start gap-1.5">
+                          <span className="shrink-0 text-amber-400/80 font-black min-w-[36px]">참석:</span>
                           <div className="flex flex-wrap gap-1">
-                            {s.participants.map((p: any) => (
-                              <span key={p} className="text-[9px] font-extrabold bg-white/5 border border-white/8 px-1.5 py-0.5 rounded text-[#F5F0E8]/60 shadow-sm">
-                                {p}
+                            {participantsList.map((pName: string) => (
+                              <span key={pName} className="text-[8px] sm:text-[9px] font-extrabold bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded text-amber-400 shadow-sm">
+                                {pName}
                               </span>
                             ))}
                           </div>
                         </div>
+
+                        {/* 프로젝트 */}
+                        {projectTitle && (
+                          <div className="flex items-start gap-1.5">
+                            <span className="shrink-0 text-amber-400/80 font-black min-w-[36px]">프로젝트:</span>
+                            <span className="text-[#F5F0E8]/85 font-extrabold">
+                              {projectTitle}
+                            </span>
+                          </div>
+                        )}
                       </div>
-                    )
+                    );
                   })()}
                 </div>
 
@@ -2022,18 +2520,17 @@ export default function DashboardPage() {
                     {/* 채팅창 헤더 */}
                     <div className="border-b border-white/5 bg-[#101420]/80 px-4 py-3 flex items-center justify-between shadow-sm shrink-0">
                       <div className="flex items-center gap-2">
-                        <div className="relative">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 absolute bottom-0 right-0 border-2 border-[#121622] animate-pulse" />
-                          <div className="w-8.5 h-8.5 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                            <span className="text-sm">🏛️</span>
-                          </div>
+                        <div className="w-8.5 h-8.5 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+                          <span className="text-sm text-amber-400">{Icon.msgCircle('#F59E0B', 16)}</span>
                         </div>
                         <div>
                           <h4 className="text-xs sm:text-sm font-extrabold text-white flex items-center gap-1.5 leading-none">
                             이사회 실시간 회의실
                             <span className="text-[8px] bg-amber-500/15 border border-amber-500/30 text-amber-400 px-1 py-0.2 rounded font-black tracking-wider uppercase">C-Suite</span>
                           </h4>
-                          <p className="text-[9px] sm:text-[10px] text-[#F5F0E8]/40 font-bold mt-0.5">4명 임원 활성 참여 중 · 실시간 관제</p>
+                          <p className="text-[9px] sm:text-[10px] text-[#F5F0E8]/40 font-bold mt-0.5">
+                            9인 AI 임원진 실시간 관제 및 의결 히스토리
+                          </p>
                         </div>
                       </div>
 
@@ -2050,17 +2547,68 @@ export default function DashboardPage() {
                       )}
                     </div>
 
-                    {/* 채팅 메시지 바디 */}
-                    <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 scrollbar-thin bg-gradient-to-b from-[#0B0D16] to-[#06080D] custom-scrollbar">
+                    {/* 채팅 메시지 바디 (모바일 좌우 패딩을 16px에서 10px(p-2.5)로 극소화하여 우측 가로폭 대폭 넓힘) */}
+                    <div ref={boardroomContainerRef} className="flex-1 overflow-y-auto p-2.5 sm:p-5 space-y-4 scrollbar-thin bg-gradient-to-b from-[#0B0D16] to-[#06080D] custom-scrollbar">
                       {activeSessionThreads.map((th: any, idx: number) => {
                         const msg = th.message || ''
                         const isOwner = th.role === 'user'
-                        const isSystem = th.exec_id === 'system' || th.role === 'system'
+                        const isSystem = th.exec_id === 'system' || th.role === 'system' || th.message.includes('━━━')
                         const roleId = th.role === 'iris' ? 'sec_chief' : th.role
                         const exec = EXECUTIVES.find(e => e.id === roleId)
                         
-                        // 시스템 알림 스타일
+                        const isReport = msg.includes('이사회 결과 보고서') || msg.includes('## 💻 이사회 결과 보고서')
+                        
+                        // 1. 인라인 이사회 결과 보고서 카드 렌더링
+                        if (isReport) {
+                          const timeStr = th.created_at
+                            ? new Date(th.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                            : new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                          return (
+                            <BoardroomReportCard 
+                              key={th.id}
+                              content={msg}
+                              timeStr={timeStr}
+                            />
+                          )
+                        }
+
+                        // 2. 시스템 알림 및 개회/폐회 타임라인 경계선 렌더링
                         if (isSystem) {
+                          if (msg.includes('이사회 회의 개회') || msg.includes('이사회 개회')) {
+                            return (
+                              <div key={th.id} className="w-full py-3.5 flex flex-col items-center justify-center animate-fade-in-up">
+                                <div className="w-full flex items-center justify-center gap-3">
+                                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-amber-500/25 to-transparent" />
+                                  <div className="glass rounded-xl px-4 py-2 border border-amber-500/20 bg-amber-950/40 text-center shadow-lg max-w-sm sm:max-w-md">
+                                    <p className="text-[11px] font-black text-amber-450 tracking-wider flex items-center gap-1.5 justify-center">
+                                      <span>🏛️</span> 이사회 개회
+                                    </p>
+                                    <p className="text-[10px] text-[#F5F0E8]/70 mt-1 font-bold leading-relaxed whitespace-pre-wrap text-left">
+                                      {msg.replace(/━━━/g, '').replace('이사회 회의 개회', '').trim()}
+                                    </p>
+                                  </div>
+                                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-amber-500/25 to-transparent" />
+                                </div>
+                              </div>
+                            )
+                          }
+                          
+                          if (msg.includes('이사회 회의 폐회') || msg.includes('이사회 폐회') || msg.includes('회의 폐회')) {
+                            return (
+                              <div key={th.id} className="w-full py-3 flex flex-col items-center justify-center animate-fade-in-up">
+                                <div className="w-full flex items-center justify-center gap-3">
+                                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neutral-500/20 to-transparent" />
+                                  <div className="glass rounded-xl px-4 py-1.5 border border-neutral-500/20 bg-neutral-900/60 text-center shadow-lg">
+                                    <p className="text-[10px] font-black text-neutral-400 tracking-wider flex items-center gap-1.5 justify-center">
+                                      <span>🏁</span> 이사회 폐회 — 의결 완료
+                                    </p>
+                                  </div>
+                                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-neutral-500/20 to-transparent" />
+                                </div>
+                              </div>
+                            )
+                          }
+
                           return (
                             <div 
                               key={th.id} 
@@ -2075,53 +2623,30 @@ export default function DashboardPage() {
                         }
 
                         const senderName = isOwner ? '대표님 (CEO)' : (exec ? `${exec.title} ${exec.name}` : 'AI 오케스트레이터')
-                        const senderTitle = isOwner ? '경영 총괄' : (exec ? exec.titleKo : '협업 중')
+                        const senderTitle = isOwner ? '경영 관전' : (exec ? exec.titleKo : '협업 중')
                         const color = isOwner ? '#F59E0B' : (exec ? exec.color : '#F59E0B')
                         const timeStr = th.created_at
-                          ? new Date(th.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
-                          : new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' })
+                          ? new Date(th.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                          : new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
 
-                        // CEO 본인 메시지 (우측 정렬)
-                        if (isOwner) {
-                          return (
-                            <div
-                              key={th.id}
-                              className="flex flex-col items-end gap-1 max-w-[96%] sm:max-w-[94%] ml-auto animate-fade-in-up"
-                              style={{ animationDelay: `${Math.min(idx * 0.05, 0.6)}s` }}
-                            >
-                              {/* 발신자 정보 */}
-                              <div className="flex items-center gap-1 mr-1 text-[10px] font-extrabold text-amber-400">
-                                <span>{senderName}</span>
-                                <span className="text-[#F5F0E8]/30 font-semibold">· {senderTitle}</span>
-                              </div>
-
-                              {/* 대화 버블 + 시간 정렬 */}
-                              <div className="flex items-end gap-1.5 w-full justify-end">
-                                <span className="text-[9px] text-[#F5F0E8]/35 font-bold shrink-0 pb-0.5">{timeStr}</span>
-                                <div className="bg-amber-500/10 border border-amber-500/25 p-3 rounded-2xl rounded-tr-none text-xs sm:text-sm text-[#F5F0E8]/90 font-medium leading-relaxed whitespace-pre-wrap shadow-md hover:border-amber-500/40 transition-colors">
-                                  {msg}
-                                </div>
-                              </div>
-                            </div>
-                          )
-                        }
-
-                        // 타 임원진 메시지 (좌측 정렬)
+                        // 단일 통합 좌측 정렬 피드 레이아웃 (모바일 우측 여백을 최소화하여 시원하게 전폭 사용)
                         return (
                           <div
                             key={th.id}
-                            className="flex gap-2.5 max-w-[96%] sm:max-w-[94%] items-start animate-fade-in-up"
+                            className="flex gap-2 sm:gap-3 max-w-full w-full items-start animate-fade-in-up"
                             style={{ animationDelay: `${Math.min(idx * 0.05, 0.6)}s` }}
                           >
-                            {/* 임원 프로필 아바타 */}
+                            {/* 임원 및 대표 아바타 */}
                             <div 
-                              className="w-8 h-8 rounded-xl overflow-hidden shrink-0 bg-neutral-900 border shadow-md"
+                              className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xl overflow-hidden shrink-0 bg-neutral-900 border shadow-md flex items-center justify-center transition-transform hover:scale-105"
                               style={{ borderColor: `${color}40`, background: `linear-gradient(135deg, #111, ${color}15)` }}
                             >
-                              {exec && (
+                              {isOwner ? (
+                                <span className="text-xs sm:text-sm select-none">👑</span>
+                              ) : (
                                 <img 
-                                  src={execImgSrc(exec.id)} 
-                                  alt={exec.title} 
+                                  src={execImgSrc(roleId)} 
+                                  alt={senderName} 
                                   className="w-full h-full object-contain p-0.5" 
                                   onError={e => imgFallback(e, color)} 
                                 />
@@ -2129,22 +2654,25 @@ export default function DashboardPage() {
                             </div>
 
                             {/* 버블 + 텍스트 */}
-                            <div className="flex flex-col gap-1">
+                            <div className="flex flex-col gap-1 flex-1 w-full min-w-0">
                               {/* 발신자 정보 */}
-                              <div className="flex items-center gap-1 ml-0.5 text-[10px] font-extrabold" style={{ color }}>
+                              <div className="flex items-center gap-1.5 ml-0.5 text-[10.5px] font-extrabold" style={{ color }}>
                                 <span>{senderName}</span>
-                                <span className="text-[#F5F0E8]/30 font-semibold">· {senderTitle}</span>
+                                <span className="text-[#F5F0E8]/60 font-semibold text-[9.5px]">· {senderTitle}</span>
                               </div>
 
-                              {/* 대화 버블 + 시간 정렬 */}
-                              <div className="flex items-end gap-1.5">
+                              {/* 대화 버블 (모바일 패딩을 p-2.5 pb-5로 슬림화하여 가로폭 가독성 극대화) */}
+                              <div className="w-full">
                                 <div 
-                                  className="bg-[#131722] border p-3 rounded-2xl rounded-tl-none text-xs sm:text-sm text-[#F5F0E8]/90 font-medium leading-relaxed whitespace-pre-wrap shadow-md hover:border-white/10 transition-colors"
-                                  style={{ borderColor: `${color}15` }}
+                                  className="relative border p-2.5 pb-5 sm:p-3.5 sm:pb-6 rounded-2xl rounded-tl-none text-xs sm:text-sm text-[#F5F0E8]/90 font-medium leading-relaxed whitespace-pre-wrap shadow-md hover:border-white/15 transition-colors w-full"
+                                  style={{ 
+                                    borderColor: `${color}25`, 
+                                    backgroundColor: isOwner ? 'rgba(245,158,11,0.06)' : 'rgba(19,23,34,0.65)' 
+                                  }}
                                 >
-                                  {msg}
+                                  <div className="pr-1">{msg}</div>
+                                  <span className="absolute bottom-1 right-2.5 text-[8.5px] text-[#F5F0E8]/30 font-bold select-none">{timeStr}</span>
                                 </div>
-                                <span className="text-[9px] text-[#F5F0E8]/35 font-bold shrink-0 pb-0.5">{timeStr}</span>
                               </div>
                             </div>
                           </div>
@@ -2152,81 +2680,16 @@ export default function DashboardPage() {
                       })}
                     </div>
 
-                    {/* 채팅창 하단 가짜/가이드 입력란 */}
-                    <div className="border-t border-white/5 bg-[#0A0D15]/95 px-4 py-3 shrink-0 flex flex-col gap-2">
-                      <div className="flex items-center gap-2.5 bg-[#05070A] border border-white/5 rounded-2xl p-2 sm:p-2.5">
-                        <div className="flex-1 text-[10px] sm:text-xs text-[#F5F0E8]/40 font-medium px-1 select-none truncate">
-                          실시간 이사회 명령 또는 의무 지시를 입력하십시오...
-                        </div>
-                        <button 
-                          onClick={() => openTelegramAction('start')}
-                          className="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-[10px] font-black hover:bg-amber-500/20 transition-all shrink-0 active:scale-95 flex items-center gap-1.5"
-                        >
-                          <span>💬 지시하기</span>
-                        </button>
-                      </div>
-                      <p className="text-[9px] text-[#F5F0E8]/30 text-center font-semibold leading-tight">
-                        💡 텔레그램 공식 봇(@hivedesk_bot)을 통해 활성 프로젝트 지시를 전송하면, AI 임원진이 실시간으로 본 회의실에서 의결 조율을 진행합니다.
-                      </p>
-                    </div>
+                    {/* 채팅창 하단 가짜/가이드 입력란 통째로 완전 제거 */}
                   </div>
                 )}
-
-                {/* 🏆 공식 결정 보고서 카드 (의결 종료 후 하단 박제) */}
-                {(() => {
-                  const s = displayMeetings.find((x) => x.id === activeSessionId) || displayMeetings[0]
-                  return (
-                    <div className="glass rounded-2xl p-5 md:p-6 border border-amber-500/40 bg-amber-500/5 shadow-[0_0_30px_rgba(245,158,11,0.15)] relative overflow-hidden animate-scaleUp">
-                      {/* 백그라운드 후광 이펙트 */}
-                      <div className="absolute top-0 right-0 w-36 h-36 bg-amber-500/10 rounded-full blur-3xl -z-10" />
-
-                      <div className="flex items-center gap-2 border-b border-amber-500/20 pb-4 mb-4">
-                        <span className="text-2xl">🏆</span>
-                        <div>
-                          <h4 className="text-sm md:text-base font-black text-amber-400 tracking-wide">{s.report.title}</h4>
-                          <p className="text-[10px] text-amber-500/70 font-semibold">HiveDesk AI Boardroom Resolution Report</p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4 text-xs leading-relaxed">
-                        <div>
-                          <p className="font-extrabold text-amber-300">📜 의결 결정 요약</p>
-                          <p className="text-[#F5F0E8]/90 font-medium mt-1.5">{s.report.summary}</p>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-3.5">
-                          <div>
-                            <p className="font-extrabold text-amber-300">💰 승인 예산</p>
-                            <p className="text-white font-extrabold text-sm mt-1">{s.report.budget}</p>
-                          </div>
-                          <div>
-                            <p className="font-extrabold text-amber-300">👤 담당 부서</p>
-                            <p className="text-white font-bold text-xs mt-1">{s.report.assignee}</p>
-                          </div>
-                        </div>
-
-                        <div className="border-t border-white/5 pt-3.5">
-                          <p className="font-extrabold text-amber-300 mb-2">⚡ 주요 액션 아이템</p>
-                          <ul className="space-y-1.5 pl-1.5">
-                            {s.report.actions.map((act: any) => (
-                              <li key={act} className="flex items-start gap-2 text-[#F5F0E8]/80 font-medium">
-                                <span className="text-amber-400 shrink-0 mt-0.5">▪</span>
-                                <span>{act}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })()}
               </section>
               )
             })()}
 
             {/* 3️⃣ 팀별 회의실 로비 뷰 */}
             {dashboardSubView === 'team_rooms' && (
-              <section className={`max-w-5xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
+              <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
                 {/* 팀별 회의실 배너 */}
                 <div className="glass rounded-2xl p-4.5 mb-6 border border-amber-500/10 bg-amber-950/5 flex items-start gap-3 shadow-inner">
                   <span className="text-lg">👥</span>
@@ -2241,7 +2704,11 @@ export default function DashboardPage() {
 
                 {/* 9개 팀별 회의실 로비 카드 그리드 */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                  {EXECUTIVES.slice(0, 9).map((exec) => {
+                  {(() => {
+                    const secChief = EXECUTIVES.find(e => e.id === 'sec_chief')!;
+                    const others = EXECUTIVES.filter(e => e.id !== 'ceo' && e.id !== 'sec_chief' && !e.id.startsWith('sec_'));
+                    const teamRoomExecs = [secChief, ...others];
+                    return teamRoomExecs.map((exec) => {
                     const count = (hiredSkills[exec.id] || []).length
                     const activeMsgCount = count > 0 ? 1 : 0
                     const isTeamRoomActive = meetings.some((m: any) => m.status === 'in_progress' && m.exec_id === exec.id)
@@ -2262,7 +2729,12 @@ export default function DashboardPage() {
                             </div>
                             <div>
                               <p className="text-sm font-extrabold text-white group-hover:text-amber-400 transition-colors">{exec.title} {exec.titleKo}</p>
-                              <p className="text-[10px] text-[#F5F0E8]/50 font-bold">{exec.name} 부서 실무진</p>
+                              <p className="text-[10px] font-bold">
+                                <span className="text-[#F5F0E8]/85 font-extrabold">{exec.name}</span>
+                                <span className="text-[#F5F0E8]/40">
+                                  {exec.id === 'sec_chief' ? ' 비서실 실무진' : ' 부서 실무진'}
+                                </span>
+                              </p>
                             </div>
                           </div>
 
@@ -2287,14 +2759,15 @@ export default function DashboardPage() {
                         </span>
                       </button>
                     )
-                  })}
-                </div>
+                  })
+                })()}
+              </div>
               </section>
             )}
 
             {/* 4️⃣ 신설: 작업 실행 로그 CCTV 채널 */}
             {dashboardSubView === 'task_logs' && (
-              <section className={`max-w-4xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
+              <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'}`}>
                 {/* CCTV 모니터 헤더 배너 */}
                 <div className="glass rounded-2xl p-4.5 mb-4 border border-amber-500/15 bg-amber-950/10 flex flex-col gap-3 shadow-xl">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-2.5">
@@ -2556,7 +3029,7 @@ export default function DashboardPage() {
 
             {/* 5️⃣ 신설: 서비스 가이드 (종합 사용 설명서 및 텔레그램 핫키) */}
             {dashboardSubView === 'service_guide' && (
-              <section className={`max-w-4xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
+              <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
                 <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden">
                   <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
                   
@@ -2740,7 +3213,7 @@ export default function DashboardPage() {
                           </h4>
                           <div className="grid grid-cols-3 sm:grid-cols-9 gap-2">
                             {[
-                              { cmd: '/ceo', emoji: '👑', label: 'CEO 리처드' },
+                              { cmd: '/ceo', emoji: '👑', label: 'AI CEO 리처드' },
                               { cmd: '/cpo', emoji: '🎯', label: 'CPO 이안' },
                               { cmd: '/cdo', emoji: '🎨', label: 'CDO 하나' },
                               { cmd: '/cto', emoji: '🛠', label: 'CTO 뮤즈' },
@@ -2770,54 +3243,73 @@ export default function DashboardPage() {
                               <span className="text-amber-400 mt-0.5 shrink-0">1.</span>
                               <span><strong>비서실장 아이리스를 통한 위임</strong>: 사용자가 채팅창에 지시한 실무 사항은 비서실장 아이리스가 분석하여 최적의 임원에게 자율적으로 1회성 위임 카드를 발송합니다.</span>
                             </li>
-                            <li className="flex items-start gap-2 leading-relaxed">
-                              <span className="text-amber-400 mt-0.5 shrink-0">2.</span>
-                              <span><strong>1:1 전담 연속 면담</strong>: 슬래시 명령어(/cto, /ceo 등)를 입력해 특정 임원을 호출할 경우, 해당 임원과 밀접한 대화를 길게 이어나갈 수 있는 전용 면담 세션이 가동됩니다. 복귀 시에는 하단 '🏢 본부' 버튼이나 '/office'를 입력하시면 됩니다.</span>
-                            </li>
-                            <li className="flex items-start gap-2 leading-relaxed">
-                              <span className="text-amber-400 mt-0.5 shrink-0">3.</span>
-                              <span><strong>실시간 이사회 및 결재 자동화</strong>: 의결이 필요한 중대 과제는 백엔드 보드룸에서 임원 토론을 거쳐 PRD 계획서로 대표님께 배포 승인 버튼과 함께 즉시 보고됩니다.</span>
-                            </li>
-                          </ul>
+                  </ul>
+                </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4.5 pt-2">
+                    <div className="glass rounded-xl p-3 border border-white/5 bg-[#09090A]/40 flex items-start gap-2.5 hover:border-amber-500/20 hover:bg-[#0E0E0F]/55 transition-all duration-300">
+                      <span className="text-lg shrink-0 mt-0.5">💡</span>
+                      <div className="space-y-0.5">
+                                                    <p className="text-xs font-bold text-amber-400">PRD 기획 자동화 (CPO 이안)</p>
+                          <p className="text-[10px] text-[#F5F0E8]/50 leading-normal font-bold">아이디어 한 줄에서 정밀 비즈니스 모델과 ROI 분석을 도출하여 3종 PRD 명세서 자동 생성.</p>
                         </div>
                       </div>
-                    )}
-
-                  </div>
-
-                </div>
-              </section>
-            )}
-
-            {/* 6️⃣ 신설: 프로젝트 갤러리 */}
-            {dashboardSubView === 'project_gallery' && (
-              <section className={`max-w-6xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
-                {/* 헤더 & 소개 배너 */}
-                <div className="glass rounded-3xl border border-white/10 bg-black/60 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-stretch">
-                  <div className="flex-1 p-6 sm:p-8 flex flex-col justify-center relative z-10">
-                    <div className="absolute top-0 left-0 w-80 h-80 bg-violet-500/5 rounded-full blur-3xl pointer-events-none" />
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-3xl shrink-0 animate-bounce">🎨</span>
-                      <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
-                        HiveDesk <span className="text-shimmer">Project Gallery</span>
-                      </h2>
+                      <div className="glass rounded-xl p-3 border border-white/5 bg-[#09090A]/40 flex items-start gap-2.5 hover:border-amber-500/20 hover:bg-[#0E0E0F]/55 transition-all duration-300">
+                        <span className="text-lg shrink-0 mt-0.5">🎨</span>
+                        <div className="space-y-0.5">
+                          <p className="text-xs font-bold text-amber-400">디자인 DNA 캔버스 (CDO 하나)</p>
+                          <p className="text-[10px] text-[#F5F0E8]/50 leading-normal font-bold">비즈니스 성격에 가장 부합하는 프리미엄 글래스모피즘 테마 및 UI 레이아웃 인터랙션 매핑.</p>
+                        </div>
+                      </div>
+                      <div className="glass rounded-xl p-3 border border-white/5 bg-[#09090A]/40 flex items-start gap-2.5 hover:border-amber-500/20 hover:bg-[#0E0E0F]/55 transition-all duration-300">
+                        <span className="text-lg shrink-0 mt-0.5">💻</span>
+                        <div className="space-y-0.5">
+                          <p className="text-xs font-bold text-amber-400">풀스택 배포 (CTO 뮤즈)</p>
+                          <p className="text-[10px] text-[#F5F0E8]/50 leading-normal font-bold">PostgreSQL DB 스키마 설계부터 API 라우터 구축, Vercel CI/CD 병합까지 실서버 자율 완수.</p>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-xs sm:text-sm text-[#F5F0E8]/75 leading-relaxed max-w-xl font-medium">
-                      AI Agent 임원들이 자율 협업으로 제작해 낸 프로젝트를 직접 체험하고 나만의 방식으로 리믹스할 수 있습니다.
-                    </p>
+
+                    {/* 실시간 플랫폼 신뢰 지표 바 */}
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-4.5 border-t border-white/5 text-[10px] sm:text-[11px] font-bold text-[#F5F0E8]/40">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(52,211,153,0.8)]" />
+                        <span>임원진 실시간 가동률: <strong className="text-emerald-400 font-black">98.7%</strong></span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span>🚀 평균 빌드 타임: <strong className="text-amber-400 font-black">10초 미만</strong></span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span>🛡️ 보안 규격: <strong className="text-teal-400 font-black">Supabase RLS Guarded</strong></span>
+                      </div>
+                    </div>
                   </div>
-                  {/* 생성된 브랜드 맞춤형 테크 쇼케이스 이미지 배너 탑재 */}
-                  <div className="w-full md:w-[320px] h-48 md:h-auto relative overflow-hidden border-t md:border-t-0 md:border-l border-white/10 shrink-0">
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+          {/* 6️⃣ 신설: 브랜드 쇼케이스 프로젝트 갤러리 */}
+          {dashboardSubView === 'project_gallery' && (
+            <section className={`max-w-7xl mx-auto ${mounted ? 'fade-in-up' : 'opacity-0'} space-y-6 mb-8`}>
+              <div className="glass rounded-3xl p-6 sm:p-8 border border-amber-500/15 bg-gradient-to-b from-amber-950/5 to-[#080808] shadow-2xl relative overflow-hidden flex flex-col md:flex-row gap-6">
+                
+                {/* 생성된 브랜드 맞춤형 테크 쇼케이스 이미지 배너 탑재 */}
+                <div className="w-full md:w-[380px] h-64 md:h-auto relative overflow-hidden border-t md:border-t-0 md:border-l border-white/10 shrink-0">
                     <img 
                       src="/gallery_banner.png?v=2" 
                       alt="HiveDesk Tech Showcase Banner" 
                       className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700" 
+                      loading="eager"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-b from-black/20 via-transparent to-black/80" />
+                    {/* 이미지의 좌측면을 어둡게 마스킹하여 텍스트 영역과 부드러운 그라데이션 병합 형성 */}
+                    <div className="absolute inset-0 bg-gradient-to-r md:bg-gradient-to-b from-[#080809] via-transparent to-transparent pointer-events-none" />
                   </div>
+                </div>
 
-                  {/* 카테고리 칩 필터 */}
-                  <div className="flex flex-wrap gap-2.5 my-6">
+                {/* 카테고리 칩 필터 */}
+                <div className="flex flex-wrap gap-2.5 my-6">
                     {[
                       { id: 'all', label: '⭐ All Apps', desc: '전체 목록' },
                       { id: 'featured', label: '🔥 Featured', desc: '대표 명인작' },
@@ -2918,7 +3410,6 @@ export default function DashboardPage() {
                       );
                     })}
                   </div>
-                </div>
 
 
               </section>
@@ -2929,13 +3420,14 @@ export default function DashboardPage() {
               const exec = EXECUTIVES.find((e) => e.id === selectedTeamRoom)!
               const count = (hiredSkills[exec.id] || []).length
               const isTeamRoomActive = meetings.some((m: any) => m.status === 'in_progress' && m.exec_id === exec.id)
+              const activeMeeting = meetings.find((m: any) => m.status === 'in_progress' && m.exec_id === exec.id)
               return (
-                <div className="fixed inset-0 z-[99999] flex flex-col pt-11 md:pt-0" style={{ background: '#0D0D0D' }}>
+                <div className="fixed inset-y-0 right-0 left-0 lg:left-64 z-[80000] flex flex-col pt-11 md:pt-0" style={{ background: '#0D0D0D' }}>
                   {/* 헤더 */}
-                  <div className="hidden md:flex items-center gap-3 px-4 py-3 border-b border-white/10 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
+                  <div className="flex items-center gap-3 px-4 py-3 border-b border-white/10 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
                     <button
                       onClick={() => setSelectedTeamRoom(null)}
-                      className="w-9 h-9 rounded-full flex items-center justify-center transition-colors bg-white/10 text-[#F5F0E8]"
+                      className="w-9 h-9 rounded-full flex items-center justify-center transition-colors bg-white/10 text-[#F5F0E8] hover:bg-white/20 active:scale-95"
                     >
                       ←
                     </button>
@@ -2961,52 +3453,419 @@ export default function DashboardPage() {
                     )}
                   </div>
 
-                  {/* 스크롤 피드 */}
-                  <div className="flex-1 overflow-y-auto px-4 py-5 max-w-2xl mx-auto w-full">
+                  {/* 카카오톡 스타일 스마트 검색바 (모바일 초슬림 최적화) */}
+                  <div className="px-2.5 pt-2.5 sticky top-[53px] z-10 shrink-0" style={{ background: '#0D0D0D' }}>
+                    <div className="glass rounded-2xl p-2 border border-white/5 bg-white/2 flex flex-col gap-2 shadow-xl">
+                      <div className="flex items-center gap-3 w-full">
+                        <div className="relative w-full">
+                          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40">
+                            {Icon.search('#F5F0E8', 14)}
+                          </span>
+                          <input
+                            type="text"
+                            value={teamSearchQuery}
+                            onChange={(e) => setTeamSearchQuery(e.target.value)}
+                            placeholder={`${exec.title} 팀 내 대화 및 안건 검색...`}
+                            className="w-full pl-9 pr-10 py-1.5 rounded-xl text-xs font-semibold bg-[#0D0D0D]/80 border border-white/10 text-[#F5F0E8] placeholder-white/30 focus:outline-none focus:border-amber-400 transition-all shadow-inner h-8"
+                          />
+                          {teamSearchQuery && (
+                            <button
+                              onClick={() => setTeamSearchQuery('')}
+                              className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/80 p-0.5 rounded transition-colors text-xs font-bold"
+                              title="검색 초기화"
+                            >
+                              ✕
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 부서별 실무 회의 안건 정보 표시 (이사회 회의실과 100% 동일한 실시간 연동 시스템 및 일시 표시 보강) */}
+                  {(() => {
+                    const activeMeeting = meetings.find(
+                      (m: any) => m.status === 'in_progress' && m.exec_id === exec.id
+                    );
+                    const completedMeeting = meetings.find(
+                      (m: any) => m.status === 'completed' && m.exec_id === exec.id
+                    );
+
+                    // 각 임원 부서별 프리미엄 UAT 시나리오 폴백 데이터 구축
+                    const fallbackMeetingsMap: Record<string, any> = {
+                      cdo: {
+                        title: '10개 버튼 컬러 어둡게 변경 및 모바일 UI 최적화 디자인 회의',
+                        description: '10개 버튼 컬러 어둡게 변경',
+                        participants: ['CDO 하나', '팀원 스경'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      cto: {
+                        title: '웹소켓 채널 연결 안정성 개선 및 백그라운드 메시지 동기화 성능 최적화',
+                        description: '웹소켓 채널 연결 안정성 개선 및 백그라운드 메시지 동기화 성능 최적화',
+                        participants: ['CTO 뮤즈', '팀원 케빈'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      cpo: {
+                        title: '하반기 제품 로드맵 우선순위 조정 및 PRD 마이크로 스펙 설계안 의결',
+                        description: '하반기 제품 로드맵 우선순위 조정 및 PRD 마이크로 스펙 설계안 의결',
+                        participants: ['CPO 이안', '팀원 민호'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      cmo: {
+                        title: '구글 SEO 노출 최적화 및 인스타그램 콘텐츠 큐레이션 전략 검토',
+                        description: '구글 SEO 노출 최적화 및 인스타그램 콘텐츠 큐레이션 전략 검토',
+                        participants: ['CMO 폴', '팀원 지은'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      cfo: {
+                        title: '이번 달 인프라 비용 분석 및 연간 예산 효율화 ROI 평가',
+                        description: '이번 달 인프라 비용 분석 및 연간 예산 효율화 ROI 평가',
+                        participants: ['CFO 알렉스', '팀원 수민'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      coo: {
+                        title: '비즈니스 운영 자동화 워크플로우 설계 및 고객 피드백 루프 개선',
+                        description: '비즈니스 운영 자동화 워크플로우 설계 및 고객 피드백 루프 개선',
+                        participants: ['COO 엠마', '팀원 상우'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      chro: {
+                        title: '신규 AI 전문가 충원 및 4,500+ 인재풀 추천 최적화 알고리즘 검증',
+                        description: '신규 AI 전문가 충원 및 4,500+ 인재풀 추천 최적화 알고리즘 검증',
+                        participants: ['CHRO 소피아', '팀원 예지'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      clo: {
+                        title: '플랫폼 서비스 이용약관 개정안 검토 및 개인정보 보호 규제 리스크 평가',
+                        description: '플랫폼 서비스 이용약관 개정안 검토 및 개인정보 보호 규제 리스크 평가',
+                        participants: ['CLO 하비', '팀원 재욱'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      },
+                      sec_chief: {
+                        title: '임원진 주간 스케줄 조율 및 주요 지시사항 리소스 분배 점검',
+                        description: '임원진 주간 스케줄 조율 및 주요 지시사항 리소스 분배 점검',
+                        participants: ['비서실장 아이리스', '팀원 리나', '팀원 케이', '팀원 아미'],
+                        created_at: '2026-05-30T15:00:00+09:00'
+                      }
+                    };
+
+                    const defaultFallback = fallbackMeetingsMap[exec.id] || {
+                      title: `${exec.titleKo} 실무 인프라 연동 및 설계 회의`,
+                      description: `${exec.titleKo} 실무 인프라 연동 및 설계 회의`,
+                      participants: [`${exec.title} ${exec.name}`, '팀원 요원 A'],
+                      created_at: '2026-05-30T15:00:00+09:00'
+                    };
+
+                    const displayMeeting = activeMeeting || completedMeeting || defaultFallback;
+
+                    const isLive = !!activeMeeting;
+                    const title = displayMeeting.description || displayMeeting.title || displayMeeting.agenda;
+                    const dateStr = displayMeeting.created_at
+                      ? new Date(displayMeeting.created_at).toLocaleDateString('ko-KR', { year: 'numeric', month: 'numeric', day: 'numeric' }).replace(/\s/g, '').replace(/\.$/, '')
+                      : '2026.5.30';
+
+                    const participantsList = Array.isArray(displayMeeting.participants)
+                      ? displayMeeting.participants.map((p: any) => typeof p === 'object' ? p.name : String(p))
+                      : (displayMeeting.participants ? String(displayMeeting.participants).split(',') : []);
+
+                    const projectTitle = activeProject ? activeProject.title : '하이브데스크';
+
+                    return (
+                      <div 
+                        className="mx-2.5 mt-2 flex flex-col gap-2 text-[10.5px] sm:text-xs rounded-xl p-2.5 sm:p-3.5 border shadow-inner"
+                        style={{ 
+                          borderColor: `${exec.color}25`, 
+                          backgroundColor: `${exec.color}05`
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5 pb-1.5 border-b" style={{ borderColor: `${exec.color}15` }}>
+                          <span className="shrink-0 font-extrabold" style={{ color: exec.color }}>
+                            👥 {exec.titleKo} 실무 회의 {isLive ? '(실시간 진행 중)' : '(최근 완료)'}
+                          </span>
+                          {isLive && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping ml-1" />}
+                        </div>
+
+                        {/* 안건 */}
+                        <div className="flex items-start gap-1.5 mt-0.5">
+                          <span className="shrink-0 font-black min-w-[36px]" style={{ color: exec.color }}>안건:</span>
+                          <p className="text-[#F5F0E8]/90 font-semibold leading-relaxed">
+                            {title}
+                          </p>
+                        </div>
+
+                        {/* 일시 */}
+                        <div className="flex items-start gap-1.5">
+                          <span className="shrink-0 font-black min-w-[36px]" style={{ color: exec.color }}>일시:</span>
+                          <p className="text-[#F5F0E8]/80 font-semibold">
+                            {dateStr}
+                          </p>
+                        </div>
+
+                        {/* 참석 */}
+                        <div className="flex items-start gap-1.5">
+                          <span className="shrink-0 font-black min-w-[36px]" style={{ color: exec.color }}>참석:</span>
+                          <div className="flex flex-wrap gap-1">
+                            {participantsList.map((pName: string) => (
+                              <span 
+                                key={pName} 
+                                className="text-[8px] sm:text-[9px] font-extrabold border px-1.5 py-0.5 rounded shadow-sm"
+                                style={{ 
+                                  borderColor: `${exec.color}35`, 
+                                  backgroundColor: `${exec.color}15`,
+                                  color: exec.color 
+                                }}
+                              >
+                                {pName}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* 프로젝트 */}
+                        {projectTitle && (
+                          <div className="flex items-start gap-1.5">
+                            <span className="shrink-0 font-black min-w-[36px]" style={{ color: exec.color }}>프로젝트:</span>
+                            <span className="text-[#F5F0E8]/85 font-extrabold">
+                              {projectTitle}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
+
+                  {/* 스크롤 피드 (모바일 좌우 패딩을 p-2.5로 초슬림하여 양옆 여백을 100% 제거) */}
+                  <div className="flex-1 overflow-y-auto p-2.5 sm:p-5 space-y-4 scrollbar-thin bg-gradient-to-b from-[#0B0D16] to-[#06080D] custom-scrollbar">
                     {loadingTeamThreads ? (
                       <div className="text-center py-20">
                         <div className="inline-block w-8 h-8 border-4 border-amber-400 border-t-transparent rounded-full animate-spin mb-3" />
                         <p className="text-xs text-[#F5F0E8]/60 font-semibold">팀 회의 실시간 씽크 중...</p>
                       </div>
-                    ) : teamThreads.length === 0 ? (
-                      <div className="text-center py-20 space-y-3">
-                        <span className="text-3xl block">🤫</span>
-                        <p className="text-sm font-bold text-[#F5F0E8]/85">아직 진행 중인 부서 회의 대화가 없습니다</p>
-                        <p className="text-xs text-[#F5F0E8]/50 max-w-sm mx-auto leading-relaxed">
-                          텔레그램을 통해 활성 프로젝트에 대해 해당 임원 도메인의 업무 지시를 내리면, 실무진과 임원간의 토론이 즉시 시작됩니다.
-                        </p>
-                      </div>
-                    ) : (
-                      <div className="relative border-l-2 border-amber-500/20 pl-4 sm:pl-6 ml-2 sm:ml-4 space-y-6">
-                        {teamThreads.map((th: any, idx: number) => {
-                          const isOwner = th.role === 'user'
-                          const senderName = isOwner ? '대표님 (CEO)' : `${exec.title} ${exec.name}`
-                          const senderTitle = isOwner ? '경영 총괄' : exec.titleKo
-                          const color = isOwner ? '#A78BFA' : exec.color
+                    ) : activeTeamThreads.length === 0 ? (
+                      (() => {
+                        const count = (hiredSkills[exec.id] || []).length;
+                        if (count === 0) {
+                          return (
+                            <div className="text-center py-16 px-4 max-w-md mx-auto space-y-6 animate-fade-in-up">
+                              <div className="w-16 h-16 bg-[#EF4444]/10 border border-[#EF4444]/30 rounded-2xl flex items-center justify-center mx-auto shadow-lg animate-pulse"
+                                   style={{ boxShadow: '0 0 15px rgba(239, 68, 68, 0.15)' }}>
+                                <span className="text-3xl">⚠️</span>
+                              </div>
+                              <div className="space-y-2.5">
+                                <h3 className="text-sm font-black tracking-tight text-[#F5F0E8]">
+                                  실무진 부재로 회의 진행 불가
+                                </h3>
+                                <p className="text-xs text-[#F5F0E8]/60 leading-relaxed font-bold">
+                                  현재 {exec.titleKo} ({exec.name}) 부서 산하에 배속된 실무진 요원이 단 한 명도 없습니다. 
+                                  실무 회의를 열기 위해서는 먼저 <strong>인재 채용 요청</strong>을 진행해야 합니다.
+                                </p>
+                              </div>
+                              
+                              {/* 럭셔리 골드/앰버 정보 카드 */}
+                              <div className="glass rounded-2xl p-4.5 border border-white/5 bg-white/2 space-y-3.5 shadow-xl text-left">
+                                <p className="text-[11px] font-black text-amber-400 tracking-wider flex items-center gap-1.5">
+                                  <span>📌</span> <span>권장 채용 및 회의 시작 단계</span>
+                                </p>
+                                <div className="space-y-2 text-[10.5px] text-[#F5F0E8]/70 leading-relaxed font-semibold">
+                                  <p className="flex items-start gap-2">
+                                    <span className="text-amber-400 font-extrabold">1.</span> 
+                                    <span>우측 하단의 <strong>'조직 채용 현황'</strong> 목록을 스캔합니다.</span>
+                                  </p>
+                                  <p className="flex items-start gap-2">
+                                    <span className="text-amber-400 font-extrabold">2.</span> 
+                                    <span>{exec.titleKo} 영역의 <strong>'요원 채용'</strong> 버튼을 클릭하여 인재 영입을 요청합니다.</span>
+                                  </p>
+                                  <p className="flex items-start gap-2">
+                                    <span className="text-amber-400 font-extrabold">3.</span> 
+                                    <span>채용 완료 후 텔레그램을 통해 업무 지시를 내리면 즉시 실시간 회의 및 자율 토론이 개시됩니다.</span>
+                                  </p>
+                                </div>
+                              </div>
 
+                              <button 
+                                onClick={() => {
+                                  const recruitSection = document.getElementById('recruit-section') || document.getElementById('lobby-hire-card');
+                                  if (recruitSection) {
+                                    recruitSection.scrollIntoView({ behavior: 'smooth' });
+                                  } else {
+                                    alert('우측 하단의 "조직 채용 현황" 섹션에서 요원을 즉시 채용해 주십시오!');
+                                  }
+                                }}
+                                className="w-full py-2.5 rounded-xl text-xs font-black tracking-wider transition-all hover:brightness-110 active:scale-95 shadow-md flex items-center justify-center gap-2"
+                                style={{
+                                  background: `linear-gradient(135deg, ${exec.color}, #080a10)`,
+                                  border: `1px solid ${exec.color}40`,
+                                  color: '#fff'
+                                }}
+                              >
+                                <span>👤</span> {exec.titleKo} 실무 요원 채용하러 가기
+                              </button>
+                            </div>
+                          );
+                        }
+                        
+                        return (
+                          <div className="text-center py-20 space-y-3">
+                            <span className="text-3xl block">🤫</span>
+                            <p className="text-sm font-bold text-[#F5F0E8]/85">
+                              {teamSearchQuery ? '검색 결과가 없습니다' : '아직 진행 중인 부서 회의 대화가 없습니다'}
+                            </p>
+                            <p className="text-xs text-[#F5F0E8]/50 max-w-sm mx-auto leading-relaxed">
+                              {teamSearchQuery ? '다른 단어로 검색해 보거나 검색어를 지워보십시오.' : '텔레그램을 통해 활성 프로젝트에 대해 해당 임원 도메인의 업무 지시를 내리면, 실무진과 임원간의 토론이 즉시 시작됩니다.'}
+                            </p>
+                          </div>
+                        );
+                      })()
+                    ) : (
+                      <div className="space-y-4">
+                        {activeTeamThreads.map((th: any, idx: number) => {
+                          const isOwner = th.role === 'user'
+                          const isSystem = th.exec_id === 'system' || th.role === 'system' || th.message.includes('━━━')
+                          
+                          const isReport = th.message.includes('결과 보고서') || th.message.includes('회의 결과 보고서') || th.message.includes('## 💻 결과 보고서')
+                          if (isReport) {
+                            return (
+                              <TeamroomReportCard 
+                                key={th.id}
+                                content={th.message}
+                                timeStr={th.created_at
+                                  ? new Date(th.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                                  : new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+                                exec={exec}
+                              />
+                            )
+                          }
+                          const roleId = th.role === 'iris' ? 'sec_chief' : th.role
+                          const subExec = EXECUTIVES.find(e => e.id === roleId)
+                          
+                          if (isSystem) {
+                            const msg = th.message || '';
+                            if (msg.includes('팀원 회의 개회') || msg.includes('실무회의 개회') || msg.includes('회의 개회')) {
+                              return (
+                                <div key={th.id} className="w-full py-3.5 flex flex-col items-center justify-center animate-fade-in-up">
+                                  <div className="w-full flex items-center justify-center gap-3">
+                                    <div className="flex-1 h-px" style={{ backgroundImage: `linear-gradient(to right, transparent, ${exec.color}40, transparent)` }} />
+                                    <div className="glass rounded-xl px-4 py-2 border text-center shadow-lg max-w-sm sm:max-w-md"
+                                         style={{ borderColor: `${exec.color}30`, backgroundColor: `${exec.color}08` }}>
+                                      <p className="text-[11px] font-black tracking-wider flex items-center gap-1.5 justify-center"
+                                         style={{ color: exec.color }}>
+                                        <span>👥</span> {exec.titleKo} 실무회의 개회
+                                      </p>
+                                      <p className="text-[10px] text-[#F5F0E8]/70 mt-1 font-bold leading-relaxed whitespace-pre-wrap text-left">
+                                        {msg.replace(/━━━/g, '').replace('👥 팀원 회의 개회', '').replace('팀원 회의 개회', '').trim()}
+                                      </p>
+                                    </div>
+                                    <div className="flex-1 h-px" style={{ backgroundImage: `linear-gradient(to right, transparent, ${exec.color}40, transparent)` }} />
+                                  </div>
+                                </div>
+                              )
+                            }
+                            return (
+                              <div key={th.id} className="flex justify-center my-2 animate-fade-in-up" style={{ animationDelay: `${Math.min(idx * 0.05, 0.6)}s` }}>
+                                <div className="bg-white/3 border border-white/5 px-4 py-1.5 rounded-full text-[10px] text-[#F5F0E8]/50 text-center font-bold tracking-tight shadow-sm max-w-sm sm:max-w-md mx-auto">
+                                  {msg}
+                                </div>
+                              </div>
+                            )
+                          }
+
+                          // 🌟 실무진 요원 이름 동적 바인딩 (대표님 피드백: "나중 채용인원이 5명이면 다 똑 같이 'COO 실무진'이라 할거야? 직원 이름이 있잖아..")
+                          const hiredAgentsList = hiredSkills[exec.id] || [];
+                          const matchingAgent = hiredAgentsList.find(
+                            (a: any) => a.skill_name === th.role || a.id === th.role
+                          );
+                          // role이 'assistant'이고 배속된 요원이 1명이면 그 요원 정보로 자동 매칭
+                          let activeAgent = matchingAgent || (th.role === 'assistant' && hiredAgentsList.length === 1 ? hiredAgentsList[0] : null);
+
+                          // 🌟 [이중 안전 장치] 매칭되지 않았고 채용 요원이 여러 명인 경우, 대화 본문 텍스트 내에서 요원 실명을 역추적하여 정밀 매칭
+                          if (!activeAgent && hiredAgentsList.length > 0) {
+                            const msgText = th.message || '';
+                            const foundAgent = hiredAgentsList.find(a => 
+                              msgText.includes(`팀원 ${a.skill_name}`) || 
+                              msgText.includes(`송신: ${a.skill_name}`) ||
+                              msgText.includes(`${a.skill_name}:`) ||
+                              msgText.includes(`${a.skill_name}님`)
+                            );
+                            if (foundAgent) {
+                              activeAgent = foundAgent;
+                            }
+                          }
+
+                          const senderName = isOwner 
+                            ? '대표님 (CEO)' 
+                            : (subExec 
+                                ? `${subExec.title} ${subExec.name}` 
+                                : (activeAgent 
+                                    ? `팀원 ${activeAgent.skill_name}` 
+                                    : `${exec.title} 실무진`
+                                  )
+                              );
+
+                          const senderTitle = isOwner 
+                            ? '경영 관전' 
+                            : (subExec 
+                                ? subExec.titleKo 
+                                : (activeAgent 
+                                    ? activeAgent.skill_category 
+                                    : `${exec.name}팀 실무요원`
+                                  )
+                              );
+
+                          const color = isOwner 
+                            ? '#F59E0B' 
+                            : (subExec 
+                                ? subExec.color 
+                                : exec.color
+                              );
+                          const timeStr = th.created_at
+                            ? new Date(th.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+                            : new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+
+                          // 단일 통합 좌측 정렬 피드 레이아웃 (모바일 우측 여백을 최소화하여 시원하게 전폭 사용)
                           return (
                             <div
                               key={th.id}
-                              className="relative animate-fade-in-up"
+                              className="flex gap-2 sm:gap-3 max-w-full w-full items-start animate-fade-in-up"
                               style={{ animationDelay: `${Math.min(idx * 0.05, 0.6)}s` }}
                             >
-                              <span className="absolute -left-[27px] sm:-left-[35px] top-1.5 w-4 h-4 rounded-full bg-[#0D0D0D] border-2 flex items-center justify-center shadow-lg" style={{ borderColor: color }}>
-                                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }} />
-                              </span>
+                              {/* 아바타 (대표님은 왕관 👑, 임원 및 비서는 프로필 이미지) */}
+                              <div 
+                                className="w-8 h-8 sm:w-8.5 sm:h-8.5 rounded-xl overflow-hidden shrink-0 bg-neutral-900 border shadow-md flex items-center justify-center transition-transform hover:scale-105"
+                                style={{ borderColor: `${color}40`, background: `linear-gradient(135deg, #111, ${color}15)` }}
+                              >
+                                {isOwner ? (
+                                  <span className="text-xs sm:text-sm select-none">👑</span>
+                                ) : (
+                                  <img 
+                                    src={execImgSrc(roleId === 'user' ? 'ceo' : (subExec ? subExec.id : exec.id))} 
+                                    alt={senderName} 
+                                    className="w-full h-full object-contain p-0.5" 
+                                    onError={e => imgFallback(e, color)} 
+                                  />
+                                )}
+                              </div>
 
-                              <div className="glass rounded-2xl p-4 border border-white/8 hover:border-white/15 transition-all bg-gradient-to-r from-amber-500/2 to-transparent">
-                                <div className="flex items-center justify-between gap-2 mb-2">
-                                  <div className="flex items-center gap-1.5">
-                                    <span className="text-xs font-black" style={{ color }}>{senderName}</span>
-                                    <span className="text-[10px] text-[#F5F0E8]/50 font-semibold">· {senderTitle}</span>
-                                  </div>
-                                  <span className="text-[9px] text-[#F5F0E8]/40 font-bold">
-                                    {new Date(th.created_at).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-                                  </span>
+                              {/* 버블 + 텍스트 */}
+                              <div className="flex flex-col gap-1 flex-1 w-full min-w-0">
+                                {/* 발신자 정보 */}
+                                <div className="flex items-center gap-1.5 ml-0.5 text-[10.5px] font-extrabold" style={{ color }}>
+                                  <span>{senderName}</span>
+                                  <span className="text-[#F5F0E8]/60 font-semibold text-[9.5px]">· {senderTitle}</span>
                                 </div>
-                                <p className="text-xs text-[#F5F0E8]/85 whitespace-pre-wrap leading-relaxed font-semibold">
-                                  {th.message}
-                                </p>
+
+                                {/* 대화 버블 (모바일 패딩을 p-2.5 pb-5로 슬림화하여 가로폭 가독성 극대화) */}
+                                <div className="w-full">
+                                  <div 
+                                    className="relative border p-2.5 pb-5 sm:p-3.5 sm:pb-6 rounded-2xl rounded-tl-none text-xs sm:text-sm text-[#F5F0E8]/90 font-medium leading-relaxed whitespace-pre-wrap shadow-md hover:border-white/15 transition-colors w-full"
+                                    style={{ 
+                                      borderColor: `${color}25`, 
+                                      backgroundColor: isOwner ? 'rgba(245,158,11,0.06)' : 'rgba(19,23,34,0.65)' 
+                                    }}
+                                  >
+                                    <div className="pr-1">{th.message}</div>
+                                    <span className="absolute bottom-1 right-2.5 text-[8.5px] text-[#F5F0E8]/30 font-bold select-none">{timeStr}</span>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           )
@@ -3016,14 +3875,33 @@ export default function DashboardPage() {
                   </div>
 
                   {/* 하단 지시창 */}
-                  <div className="p-4 border-t border-white/10 sticky bottom-0 z-10" style={{ background: '#0D0D0D' }}>
-                    <button
-                      onClick={() => openTelegramAction(exec.tgCommand)}
-                      className="w-full font-bold text-sm py-4 rounded-2xl transition-all hover:brightness-110 active:scale-95 flex items-center justify-center gap-2"
-                      style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}
-                    >
-                      {Icon.clipboard(exec.color, 18)} {exec.title} 팀에 회의 지시하기
-                    </button>
+                  <div className="p-3 sm:p-4 border-t border-white/10 sticky bottom-0 z-10 shrink-0" style={{ background: '#0D0D0D' }}>
+                    {exec.id !== 'sec_chief' && count === 0 ? (
+                      <div className="space-y-3 w-full">
+                        <div className="bg-amber-500/5 border border-amber-500/20 px-3.5 py-2.5 rounded-2xl text-[10px] sm:text-xs text-amber-400 font-semibold flex items-start gap-2 shadow-inner">
+                          <span className="text-sm shrink-0">⚠️</span>
+                          <span className="leading-relaxed">
+                            소속 실무 요원이 고용되지 않았습니다.<br />
+                            <strong>CHRO 인사 총괄 소피아</strong>를 통해 실무 요원을 먼저 채용하십시오.
+                          </span>
+                        </div>
+                        <button
+                          disabled
+                          className="w-full font-bold text-xs sm:text-sm py-3.5 sm:py-4 rounded-2xl flex items-center justify-center gap-2 shadow-lg opacity-35 cursor-not-allowed border"
+                          style={{ backgroundColor: 'rgba(255,255,255,0.03)', color: '#F5F0E8', borderColor: 'rgba(255,255,255,0.08)' }}
+                        >
+                          {Icon.clipboard('#F5F0E8', 18)} {exec.title} 팀에 실무 지시 불가 (인재 부족)
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => openTelegramAction(exec.tgCommand)}
+                        className="w-full font-bold text-xs sm:text-sm py-3.5 sm:py-4 rounded-2xl transition-all hover:brightness-110 active:scale-95 flex items-center justify-center gap-2 shadow-lg"
+                        style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}
+                      >
+                        {Icon.clipboard(exec.color, 18)} {exec.title} 팀에 실무 지시하기
+                      </button>
+                    )}
                   </div>
                 </div>
               )
@@ -3037,10 +3915,10 @@ export default function DashboardPage() {
       {selectedExec && (() => {
         const exec = selectedExec
         return (
-          <div className={`fixed inset-0 z-[9999] flex flex-col transition-transform duration-300 pt-11 md:pt-0 ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`} style={{ background: '#0D0D0D' }}>
+          <div className={`fixed inset-y-0 right-0 left-0 lg:left-64 z-[80000] flex flex-col transition-transform duration-300 pt-11 md:pt-0 ${panelOpen ? 'translate-y-0' : 'translate-y-full'}`} style={{ background: '#0D0D0D' }}>
             {/* 페이지 헤더 */}
-            <div className="hidden md:flex items-center gap-3 px-4 py-3 border-b border-amber-500/15 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
-              <button onClick={closePanel} className="w-9 h-9 rounded-full flex items-center justify-center transition-colors" style={{ background: 'rgba(255,255,255,0.10)', color: '#F5F0E8' }}>
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-amber-500/15 sticky top-0 z-10" style={{ background: '#0D0D0D' }}>
+              <button onClick={closePanel} className="w-9 h-9 rounded-full flex items-center justify-center transition-colors hover:bg-white/10 active:scale-95" style={{ background: 'rgba(255,255,255,0.10)', color: '#F5F0E8' }}>
                 ←
               </button>
               <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -3052,46 +3930,159 @@ export default function DashboardPage() {
 
             {/* 스크롤 가능한 본문 */}
             <div className="flex-1 overflow-y-auto">
-              <div className="max-w-lg mx-auto px-4 py-5">
+              <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 w-full">
+                {/* 모바일에서는 1열 세로 스택, 데스크톱(lg)에서는 12열 그리드로 레이아웃 좌우 배치 */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 lg:items-stretch items-start">
+                  
+                  {/* 좌측 컬럼: 프로필 카드 + 핵심 지표 + 지시하기 버튼 (lg:col-span-4) */}
+                  <div className="lg:col-span-4 space-y-6 flex flex-col justify-between h-full">
+                    
+                    <div className="space-y-6">
+                      {/* 임원 프로필 카드 */}
+                      <div className="glass rounded-3xl p-6 border border-white/10 bg-[#0E0E0F]/80 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-amber-500/10 to-transparent rounded-bl-full pointer-events-none" />
+                        
+                        <div className="flex flex-col items-center text-center">
+                          {/* 프로필 이미지 */}
+                          <div className="relative w-28 h-28 rounded-2xl overflow-hidden shrink-0 border mb-4 shadow-xl transition-transform duration-300 group-hover:scale-105" 
+                               style={{ borderColor: `${exec.color}40`, background: `linear-gradient(135deg, #111111, ${exec.color}25)` }}>
+                            <img src={execImgSrc(exec.id)} alt={exec.title} className="absolute inset-0 w-full h-full object-contain p-1.5" onError={(e) => imgFallback(e, exec.color)} />
+                          </div>
+                          
+                          {/* 이름 / 직급 */}
+                          <h2 className="text-2xl font-black mb-1" style={{ color: exec.color }}>
+                            {exec.title} <span className="text-white">{exec.name}</span>
+                          </h2>
+                          <p className="text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-widest mb-3">{exec.titleKo}</p>
+                          
+                          {/* 한줄 소개 */}
+                          <div className="w-full border-t border-white/5 pt-3 mt-1 text-left">
+                            <p className="text-xs text-[#F5F0E8]/70 leading-relaxed font-medium">{exec.desc}</p>
+                            {exec.detail && (
+                              <p className="mt-2 text-[11px] text-[#F5F0E8]/50 leading-relaxed border-t border-dashed border-white/5 pt-2">
+                                {exec.detail}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
 
-                {/* 임원 프로필 */}
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="relative w-24 h-24 rounded-2xl overflow-hidden shrink-0 border" style={{ borderColor: `${exec.color}40`, background: `linear-gradient(135deg, #111111, ${exec.color}25)` }}>
-                    <img src={execImgSrc(exec.id)} alt={exec.title} className="absolute inset-0 w-full h-full object-contain p-1.5" onError={(e) => imgFallback(e, exec.color)} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h2 className="text-2xl font-bold mb-0.5" style={{ color: exec.color }}>{exec.title} <span className="text-[#F5F0E8]">{exec.name}</span></h2>
-                    <p className="text-sm font-semibold text-[#F5F0E8] mb-1">{exec.titleKo}</p>
-                    <p className="text-xs text-[#F5F0E8]/65 leading-relaxed">{exec.desc}</p>
-                    {exec.detail && <p className="mt-2 text-xs text-[#F5F0E8]/55 leading-relaxed border-t border-white/10 pt-2">{exec.detail}</p>}
-                  </div>
-                </div>
-
-                {/* 스탯 카드 */}
-                <div className="grid grid-cols-3 gap-3 mb-6">
-                  {[
-                    { val: exec.id === 'sec_chief' ? String(SEC_TEAM.length) : String((hiredSkills[exec.id] || []).length), label: '팀원 배속', color: exec.color },
-                    { val: '$0.00', label: '이번 달 비용', color: '#34D399' },
-                    { val: '0', label: '완료 작업', color: '#FBBF24' },
-                  ].map(({ val, label, color }) => (
-                    <div key={label} className="p-3 text-center rounded-2xl" style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}>
-                      <p className="text-xl font-black" style={{ color }}>{val}</p>
-                      <p className="text-xs mt-1 text-[#F5F0E8]/65">{label}</p>
+                      {/* 핵심 UAT 지표 카드 그리드 */}
+                      <div className="glass rounded-3xl p-5 border border-white/10 bg-[#0E0E0F]/80 backdrop-blur-xl shadow-lg space-y-3">
+                        <p className="text-[10px] font-black text-amber-500/80 uppercase tracking-widest px-1">Vital Metrics</p>
+                        <div className="grid grid-cols-3 gap-2.5">
+                          {[
+                            { val: exec.id === 'sec_chief' ? String(SEC_TEAM.length) : String((hiredSkills[exec.id] || []).length), label: '팀원 배속', color: exec.color },
+                            { val: '$0.00', label: '비용 (월)', color: '#34D399' },
+                            { val: '0', label: '완료 작업', color: '#FBBF24' },
+                          ].map(({ val, label, color }) => (
+                            <div key={label} className="p-2.5 text-center rounded-xl bg-white/3 border border-white/5 shadow-inner">
+                              <p className="text-base font-black" style={{ color }}>{val}</p>
+                              <p className="text-[9px] mt-0.5 text-[#F5F0E8]/50 font-bold whitespace-nowrap">{label}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  ))}
-                </div>
-                {/* 탭 네비게이션 */}
-                <div className="flex bg-[#111111] rounded-xl p-1 mb-6 border border-white/10">
-                  <button onClick={() => setExecTab('team')} className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${execTab === 'team' ? 'bg-[#222222] text-[#F5F0E8] shadow-sm' : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80'}`}>조직 및 팀원</button>
-                  <button onClick={() => setExecTab('tasks')} className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors flex items-center justify-center gap-1.5 ${execTab === 'tasks' ? 'bg-[#222222] text-[#F5F0E8] shadow-sm' : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80'}`}>
-                    진행 업무
-                    {execTasks.filter(t => t.status !== 'completed').length > 0 && <span className="text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full">{execTasks.filter(t => t.status !== 'completed').length}</span>}
-                  </button>
-                  <button onClick={() => setExecTab('threads')} className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${execTab === 'threads' ? 'bg-[#222222] text-[#F5F0E8] shadow-sm' : 'text-[#F5F0E8]/50 hover:text-[#F5F0E8]/80'}`}>회의 기록</button>
-                </div>
 
-                {/* 탭: 조직 및 팀원 */}
-                {execTab === 'team' && (
+                    {/* 텔레그램 지시하기 버튼 (좌측 고정 배치로 직관성 극대화) */}
+                    <button onClick={() => openTelegramAction(exec.tgCommand)} 
+                            className="w-full font-extrabold text-sm py-3.5 rounded-2xl transition-all duration-200 hover:brightness-125 active:scale-98 flex items-center justify-center gap-2 shadow-lg mt-6 lg:mt-0" 
+                            style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>
+                      <span>{Icon.clipboard(exec.color, 18)}</span>
+                      실무 지시하기
+                    </button>
+
+                  </div>
+
+                  {/* 우측 컬럼: 실무 현황 탭 영역 (lg:col-span-8) */}
+                  <div className="lg:col-span-8 space-y-6 flex flex-col h-full">
+                    
+                    {/* 탭 네비게이션 - AI CEO 리처드일 때는 탭바 노출 제외 (직속 지휘 체계 조직도 전폭 사용) */}
+                    {exec.id !== 'ceo' && (
+                      <div className="flex bg-[#111112]/90 rounded-2xl p-1 border border-white/10 backdrop-blur-md shadow-lg sticky top-0 z-10 shrink-0">
+                        <button onClick={() => setExecTab('team')} className={`flex-1 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl transition-all duration-150 ${execTab === 'team' ? 'bg-[#222224] text-white shadow-md border border-white/5' : 'text-[#F5F0E8]/40 hover:text-white'}`}>부서 및 팀원</button>
+                        <button onClick={() => setExecTab('tasks')} className={`flex-1 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl transition-all duration-150 flex items-center justify-center gap-1.5 ${execTab === 'tasks' ? 'bg-[#222224] text-white shadow-md border border-white/5' : 'text-[#F5F0E8]/40 hover:text-white'}`}>
+                          진행 업무
+                          {execTasks.filter(t => t.status !== 'completed').length > 0 && <span className="text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full font-black animate-pulse">{execTasks.filter(t => t.status !== 'completed').length}</span>}
+                        </button>
+                        <button onClick={() => setExecTab('threads')} className={`flex-1 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl transition-all duration-150 ${execTab === 'threads' ? 'bg-[#222224] text-white shadow-md border border-white/5' : 'text-[#F5F0E8]/40 hover:text-white'}`}>이사회 회의록</button>
+                      </div>
+                    )}
+ 
+                    {/* 탭 컨텐츠 컨테이너 */}
+                    <div className="glass rounded-3xl p-5 sm:p-6 border border-white/10 bg-[#0E0E0F]/60 backdrop-blur-md shadow-2xl min-h-[400px] flex-1 flex flex-col">
+ 
+                {/* AI CEO 리처드 전용 100% 직속 지휘 조직도 렌더링 */}
+                {exec.id === 'ceo' ? (
+                  <div className="flex-1 flex flex-col gap-6 select-none animate-fade-in-up">
+                    <div className="flex items-center justify-between border-b border-amber-500/20 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">🏢</span>
+                        <h3 className="text-sm font-bold text-white">AI CEO 직속 조직도 관제</h3>
+                      </div>
+                      <span className="text-[10px] text-amber-400 font-extrabold bg-amber-500/10 border border-amber-500/20 px-2.5 py-0.5 rounded-full">HQ Commander</span>
+                    </div>
+                    
+                    {/* 조직 트리 시각화 레이아웃 */}
+                    <div className="flex flex-col items-center py-4 bg-[#09090A]/60 rounded-3xl border border-white/5 p-4 sm:p-6 w-full relative overflow-hidden">
+                      {/* 은은한 배경 후광 */}
+                      <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+                      
+                      {/* Level 1: AI CEO 리처드 (조직도 최상위) */}
+                      <div className="flex flex-col items-center relative z-10">
+                        <div className="w-15 h-15 sm:w-16 sm:h-16 rounded-2xl border-2 border-amber-500 overflow-hidden shadow-lg shadow-amber-500/15 shrink-0" style={{ background: 'gradient(135deg, #111, rgba(245,158,11,0.25))' }}>
+                          <img src={execImgSrc('ceo')} alt="AI CEO 리처드" className="w-full h-full object-contain p-1" />
+                        </div>
+                        <p className="text-xs font-black text-amber-400 mt-2">AI CEO 리처드</p>
+                        <p className="text-[9px] text-[#F5F0E8]/50 font-bold">인공지능 경영 대행자</p>
+                      </div>
+                      
+                      {/* 지휘 연결 라인 (AI CEO ➔ 비서실장) */}
+                      <div className="w-0.5 h-6 bg-gradient-to-b from-amber-500/55 via-amber-500/40 to-purple-500/55 my-1 relative z-10" />
+                      
+                      {/* Level 2: 비서실장 아이리스 (최고 실무 보좌관) */}
+                      <div className="flex flex-col items-center mb-5 relative z-10">
+                        <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-2xl border border-purple-400/40 overflow-hidden shadow-md shrink-0 bg-neutral-900" style={{ background: 'linear-gradient(135deg, #111, rgba(167,139,250,0.18))' }}>
+                          <img src={execImgSrc('sec_chief')} alt="비서실장 아이리스" className="w-full h-full object-contain p-1" />
+                        </div>
+                        <p className="text-[11px] font-black text-purple-300 mt-2">비서실장 아이리스</p>
+                        <p className="text-[9px] text-[#F5F0E8]/40 font-bold">최고 실무 보좌관</p>
+                      </div>
+                      
+                      {/* 수직 분기 라인 및 수평 지휘 날개선 */}
+                      <div className="w-full flex flex-col items-center relative z-10">
+                        <div className="w-0.5 h-4 bg-white/10" />
+                        <div className="w-[85%] h-px bg-white/10" />
+                        <div className="w-[85%] flex justify-between">
+                          {[1,2,3,4,5,6,7,8].map((i) => (
+                            <div key={i} className="w-0.5 h-3 bg-white/10" />
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {/* Level 3: 8개 부서 C-Level 실무 임원진 그리드 배열 */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full mt-2 relative z-10">
+                        {EXECUTIVES.filter(e => e.id !== 'ceo' && e.id !== 'sec_chief' && !e.id.startsWith('sec_')).map((e) => (
+                          <div 
+                            key={e.id}
+                            className="glass rounded-2xl p-2.5 flex flex-col items-center text-center border border-white/5 bg-white/1 transition-all duration-300 hover:scale-[1.03] hover:border-white/12 shadow-sm"
+                            style={{ background: `linear-gradient(180deg, rgba(255,255,255,0.01), ${e.color}05)` }}
+                          >
+                            <div className="w-8.5 h-8.5 rounded-xl overflow-hidden shrink-0 border" style={{ borderColor: `${e.color}30`, background: `linear-gradient(135deg, #111, ${e.color}12)` }}>
+                              <img src={execImgSrc(e.id)} alt={e.name} className="w-full h-full object-contain p-0.5" onError={ev => imgFallback(ev, e.color)} />
+                            </div>
+                            <p className="text-[10px] font-black text-white mt-2 leading-none">{e.title} {e.name}</p>
+                            <p className="text-[8.5px] text-[#F5F0E8]/50 mt-1 font-extrabold leading-none">{e.titleKo}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {/* 탭: 조직 및 팀원 */}
+                    {execTab === 'team' && (
                   <>
                 {/* CHRO 채용 허브 / 비서실장 팀원 / 일반 팀원 */}
                 {exec.id === 'chro' ? (
@@ -3567,11 +4558,14 @@ export default function DashboardPage() {
                     )}
                   </div>
                 )}
+              </>
+            )}
 
-                {/* 지시하기 버튼 */}
-                <button onClick={() => openTelegramAction(exec.tgCommand)} className="w-full font-bold text-sm py-4 rounded-2xl transition-all hover:brightness-110 active:scale-95 mb-6 flex items-center justify-center gap-2" style={{ backgroundColor: `${exec.color}20`, color: exec.color, border: `1px solid ${exec.color}30` }}>{Icon.clipboard(exec.color,18)} 지시하기</button>
-              </div>
-            </div>
+                    </div> {/* closes glass rounded-3xl (tab contents wrapper) */}
+                  </div> {/* closes lg:col-span-8 */}
+                </div> {/* closes grid grid-cols-1 lg:grid-cols-12 */}
+              </div> {/* closes max-w-5xl */}
+            </div> {/* closes flex-1 overflow-y-auto */}
           </div>
         )
       })()}

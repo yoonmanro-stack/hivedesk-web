@@ -207,3 +207,14 @@ body {
   from { transform: translateX(100%); opacity: 0; }
   to   { transform: translateX(0);    opacity: 1; }
 }
+
+/* ════════════════════════════════════════════
+   SCROLLBAR HIDDEN SYSTEM (프리미엄 핏 강화)
+════════════════════════════════════════════ */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}

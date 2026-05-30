@@ -60,6 +60,7 @@ const Icon = {
   briefcase: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>,
   monitor:   (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>,
   helpCircle: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>,
+  gallery: (c='currentColor',sz=18) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={s}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>,
 }
 
 export default function NewProjectPage() {
@@ -353,15 +354,92 @@ export default function NewProjectPage() {
     }
   }
 
-  const maxWidthClass = step === 3 ? 'max-w-6xl' : step === 2 ? 'max-w-3xl' : 'max-w-lg'
+  const maxWidthClass = 'max-w-7xl'
 
   return (
-    <main className="h-screen h-[100dvh] overflow-hidden hero-bg honeycomb-bg flex flex-col">
+    <main className="h-screen h-[100dvh] overflow-hidden hero-bg honeycomb-bg flex flex-col lg:pl-64">
+      {/* 데스크톱 전용 상시 고정 사이드바 */}
+      <aside className="hidden lg:flex lg:flex-col fixed left-0 top-0 bottom-0 w-64 bg-[#0D0D0D]/60 backdrop-blur-xl border-r border-amber-500/12 z-[90000] no-scrollbar">
+        <div className="flex items-center gap-2.5 px-6 py-5 border-b border-amber-500/10">
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 text-left cursor-pointer focus:outline-none select-none tap-fast active:scale-95 transition-transform"
+          >
+            <span className="text-xl bee-float">🐝</span>
+            <div>
+              <p className="text-xs font-bold text-shimmer">HiveDesk</p>
+              <p className="text-[10px] text-[#F5F0E8]/60">내 손안의 AI 1인 기업</p>
+            </div>
+          </Link>
+        </div>
+        <nav className="flex-1 overflow-y-auto py-2 no-scrollbar">
+          {/* 프로젝트 섹션 */}
+          <p className="px-5 pt-3 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">프로젝트</p>
+          <Link href="/projects/new"
+            className="flex items-center gap-3 px-5 py-3 bg-amber-500/10 text-amber-400 border-l-2 border-amber-500 transition-all duration-200">
+            <span className="text-base">{Icon.plus('#F59E0B',16)}</span>
+            <div><p className="text-sm font-semibold text-[#F5F0E8]">새 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">새 프로젝트 등록</p></div>
+          </Link>
+          <Link href="/dashboard?view=projects"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.folder('#F5F0E8',18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">내 프로젝트</p><p className="text-xs text-[#F5F0E8]/60">전체 프로젝트 목록</p></div>
+          </Link>
+
+          <Link href="/dashboard?view=dashboard&sub=project_gallery"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.gallery('#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">프로젝트 갤러리</p><p className="text-xs text-[#F5F0E8]/60">AI Studio 스타일 쇼케이스</p></div>
+          </Link>
+          
+          {/* 운영 섹션 */}
+          <p className="px-5 pt-4 pb-1 text-xs font-bold text-[#F5F0E8]/50 uppercase tracking-wider">운영</p>
+          <Link href="/dashboard?view=company"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.barChart('#F5F0E8',18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 현황</p><p className="text-xs text-[#F5F0E8]/60">전체 조직 운영 현황</p></div>
+          </Link>
+          
+          <Link href="/dashboard?view=dashboard&sub=grid"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.briefcase('#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">회사 조직도</p><p className="text-xs text-[#F5F0E8]/60">9인 AI 임원진 및 부서</p></div>
+          </Link>
+          
+          <Link href="/dashboard?view=dashboard&sub=boardroom"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.msgCircle('#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">이사회 회의실</p><p className="text-xs text-[#F5F0E8]/60">실시간 의사결정 및 세션</p></div>
+          </Link>
+          
+          <Link href="/dashboard?view=dashboard&sub=team_rooms"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.users('#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">팀별 회의실</p><p className="text-xs text-[#F5F0E8]/60">9개 부서별 전용 실무 토론</p></div>
+          </Link>
+          
+          <Link href="/dashboard?view=dashboard&sub=task_logs"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.monitor('#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">작업 실행 로그</p><p className="text-xs text-[#F5F0E8]/60">백엔드 개발 실황 CCTV 채널</p></div>
+          </Link>
+
+          <Link href="/dashboard?view=dashboard&sub=service_guide"
+            className="w-full flex items-center gap-3 px-5 py-3 transition-all duration-200 hover:translate-x-1 hover:bg-white/5 text-[#F5F0E8]">
+            <span className="text-base">{Icon.helpCircle('#F5F0E8', 18)}</span>
+            <div className="text-left"><p className="text-sm font-semibold text-[#F5F0E8]">서비스 가이드</p><p className="text-xs text-[#F5F0E8]/60">텔레그램 핫키 및 사용 설명서</p></div>
+          </Link>
+        </nav>
+        <div className="px-5 py-4 border-t border-amber-500/10">
+          <p className="text-xs text-[#F5F0E8]/40">HiveDesk v4.0</p>
+        </div>
+      </aside>
+
       {/* Header */}
       <header className="border-b border-amber-500/10 backdrop-blur-md bg-[#0D0D0D]/80 sticky top-0 z-[100000] h-11 md:h-16 flex items-center justify-between w-full">
         <div className="w-full px-3 grid grid-cols-3 items-center">
-          {/* 좌: 삼선 메뉴 버튼 고정 */}
-          <div className="flex items-center">
+          {/* 좌: 삼선 메뉴 버튼 고정 (데스크톱에서 숨김) */}
+          <div className="flex items-center lg:hidden">
             <button
               id="btn-nav-menu"
               type="button"
@@ -376,14 +454,14 @@ export default function NewProjectPage() {
             </button>
           </div>
           {/* 중앙: SVG 아이콘 + pure 메뉴명 고정 */}
-          <div className="justify-self-center flex items-center gap-2 max-w-full">
+          <div className="justify-self-center flex items-center gap-2 max-w-full lg:col-start-2">
             <span className="shrink-0">{Icon.plus('#F59E0B', 16)}</span>
             <span className="text-sm md:text-base font-bold text-[#F5F0E8] truncate tracking-wide font-sans">
               새 프로젝트 생성
             </span>
           </div>
           {/* 우: 계정 아바타 고정 */}
-          <div className="flex justify-end">
+          <div className="flex justify-end lg:col-start-3">
             <button
               id="btn-user-menu"
               type="button"
@@ -420,7 +498,7 @@ export default function NewProjectPage() {
       )}
 
       {/* Step Content */}
-      <div className={`flex-1 overflow-y-auto px-5 py-8 ${maxWidthClass} mx-auto w-full`}>
+      <div className={`flex-1 overflow-y-auto px-5 py-4 ${maxWidthClass} mx-auto w-full`}>
         {/* Step Progress Indicator (Unified Placement) */}
         <div className="glass rounded-2xl p-3.5 mb-6 border border-amber-500/10 bg-amber-950/5 flex items-center justify-between shadow-inner">
           <div className="flex items-center gap-2">

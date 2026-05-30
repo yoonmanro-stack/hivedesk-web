@@ -11,7 +11,7 @@ export async function GET(req: Request) {
       .select('*')
       .eq('exec_id', 'boardroom')
       .order('created_at', { ascending: false })
-      .limit(100)
+      .limit(300)
     
     if (error) throw error
 
